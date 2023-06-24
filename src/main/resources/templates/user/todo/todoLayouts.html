@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org">
+	
+		<div th:fragment = "notification-board" id="item-action-notification" class="badge item-action-notification px-4 d-flex justify-content-center fixed-top" th:text="${param.item}"></div>
+		
+		
+		<table th:fragment = "displayItems" class="table table-stripped">
+			<tbody th:object = "${items}">
+				<tr th:each = "item : ${items}">
+					<td>
+						<div style="display: inline;">
+						<span id="itemNumber" class="badge text-bg-warning itemNumber" onclick="test()">0</span>
+						<!--<span th:text = "${item.todoItemId}" class="badge text-bg-warning"></span>-->
+						<span th:text = "${item.title}" th:id="${item.todoItemId}"></span>
+						
+						<span class="badge text-bg-primary mx-2 edit-item-btn" title="Edit Item" th:onClick="editItem(this.id)"  th:id="${item.todoItemId}">edit</span>
+						<script>
+							function editItem(id){
+								
+								document.getElementById(id).contentEditable;
+								
+								 // Get the span element by its ID.
+								  const spanElement = document.getElementById(id);
+								
+								  // Create a new text input element.
+								  const inputElement = document.createElement('input');
+								
+								  // Set the value of the text input element to the text of the span element.
+								  inputElement.value = spanElement.textContent;
+								  inputElement.className = "form-control edit-element-title-input"
+								
+								  // Replace the span element with the text input element.
+								  spanElement.replaceWith(inputElement);
+							}
+						</script>						
+						<br/>
+						<span th:text = "${item.detail}" class="fw-lighter"></span>
+						</div>
+						
+						<div class="item-deletion-controls" style="display: inline;">
+						<span class="float-end delete-item-checkbox item-control-buttons" >						
+						<input type="checkbox" onClick="readyDeleteButton()" name="selectedForRemoval" th:value="${item.todoItemId}" class="form-check-input checkbox-for-deletion" id="checkbox-for-deletion" title="Select item">	
+						</span>
+										
+						<a th:href="@{/todo/delete-item(itemId=${item.todoItemId})}" class="link-white-color float-end">
+						<span class="badge text-bg-danger delete-single-item-btn" title="Delete Item">&times;</span>
+						</a>
+						</div>							
+								
+					</td>
+				</tr>
+			</tbody>			
+		</table>
+		
+		<div class="add-contributers-form" id="add-contributers-form" th:fragment="add-contributers-form">
+			<form>
+				
+			</form>
+		</div>
+		
+		<script th:fragment = "notificationScripts">
+			function showActionNotification(){
+				var notificationBoard = document.getElementById("item-action-notification");
+				if(notificationBoard.innerHTML !== ""){
+					var color = "red";
+				if(notificationBoard.innerHTML === "added"){
+					notificationBoard.innerHTML = "Item added";
+					color = "green";
+				}
+				else if(notificationBoard.innerHTML === "deleted"){
+					notificationBoard.innerHTML = "1 Item deleted";
+				}
+				else if(notificationBoard.innerHTML === "multiple-deleted"){
+					notificationBoard.innerHTML = "Selected Items deleted";
+				}
+				notificationBoard.style="transition: all 1s ease-out;display: flex !important;color: "+color+" !important;";
+				setTimeout(hideNotificationBoard, 1500);
+				}
+
+					
+			}
+			function hideNotificationBoard(){
+				var notificationBoard = document.getElementById("item-action-notification");
+				//notificationBoard.style="display: flex !important;height:300px !important;";
+				notificationBoard.style = "color:yellow;display: none !important;";
+				//notificationBoard.style = "color:yellow;display: flex !important;";
+				
+			}
+			
+		</script>
+</html>

@@ -1,0 +1,329 @@
+html{
+	scroll-behavior: smooth;
+}
+.link-white-color{
+	text-decoration: none;
+	color: aliceblue;
+}
+.item-control-buttons{
+	border-left:1px solid rgb(154, 153, 150); 
+	padding-left:1rem !important; 
+	margin-left: 1rem !important;
+	margin-right: 1.5rem !important;
+}
+.delete-item-checkbox{
+	
+}
+.login-form{
+	overflow: hidden;
+	width: 50px ;
+	height: 50px ;
+	transition-duration: 0.5s;
+	transition-timing-function: ease-in-out;
+	transition-property: width height;
+}
+.login-form:hover{
+	
+	width: auto ;
+	height: auto ;
+	width: 500px ;
+	/*height: 500px ;*/
+	transition-timing-function: ease-in-out;
+}
+.login-form:hover{
+	
+	
+}
+.home-navbar{
+	background-color: transparent !important;
+	overflow: hidden;
+	color: rgb(181, 131, 90) !important;
+	color: rgb(181, 131, 90) !important;
+
+}
+.home-navbar a{
+/*color: rgb(181, 131, 90);
+color: rgb(134, 94, 60) !important;*/
+} 
+.navbar-nav a:hover{
+color: rgb(197, 170, 148);
+color: rgb(118, 187, 118) !important;
+border:none !important;
+} 
+.navbar-nav a:active{
+color: rgb(197, 170, 148);
+color: rgb(118, 187, 118) !important;
+
+} 
+
+.navbar-collapse{
+	z-index: 2000000 !important;
+	position: sticky;
+}
+.navbar-brand{
+	color: rgb(134, 94, 60) !important;
+}
+.navbar-toggler{
+	padding: 0px;
+}
+.navbar-toggler:hover{
+	background-color: rgb(118, 187, 118);
+	}
+.navbar-toggler-icon{
+	color:rgb(134, 94, 60);
+	/*background: none;*/
+	/*border: 1px red solid;*/
+/*	padding: 1em !important;*/
+}
+.navbar-toggler-icon:hover{
+	background-color: rgb(118, 187, 118);
+	border-radius: 5px;
+	}
+.menu-icon{
+	/*padding-bottom:10px;*/
+	transition: 0.1s ease-in-out;
+	padding:0;
+	margin-top: -15px;
+	letter-spacing: 0;
+	line-height: 0;
+}
+.projectory-top-description{
+	font-size: small;
+	font-weight: 300;
+}
+.rotated-nav-decor{
+	background-color: rgb(99, 69, 44) !important;
+	background-color:rgb(218, 165, 32,0.8) !important;
+/*	height: 200px;*/
+	padding: 200px;
+	rotate: -30deg;
+	border-radius: 160px;
+	filter: blur(20px);
+	z-index: 10;
+	transition: 1s ease;
+	height: 100px;
+	width: 100px;
+}
+.btn-primary{
+	background-color: #A9907E !important;
+	border: 1px solid #212529 !important;
+	background-color: #212529 !important;
+	/*color: #A9907E;*/
+}
+.btn-primary:hover{	
+	background-color: #675D50 !important;
+	border: 1px solid rgb(118, 187, 118) !important;
+	background-color: rgb(118, 187, 118) !important;
+	/*rgb(118, 187, 118) =>  rgb(118, 187, 118)*/
+}
+.btn-primary-white{
+	border: 1px solid rgb(119, 118, 123) !important;
+	background-color: rgb(192, 191, 188) !important;
+	color: #212529;
+}
+.btn-primary-white:hover{
+	border: 1px solid rgb(118, 187, 118) !important;
+	background-color: rgb(118, 187, 118) !important;
+}
+.item-action-notification{
+	background-color:  rgba(26, 95, 180,0.5) !important;
+/*	color: ;*/
+color: rgb(237, 51, 59);
+/*	font-size: 12pt;*/
+	border-radius: 0.1em !important;	
+	/*box-shadow: 0 0px 15px rgb(119, 118, 123);*/
+	/*color: rgb(255, 255, 255);		*/
+	/*margin: 0 auto !important;*/
+	
+}
+#item-action-notification{
+	display: none !important;
+	transition: all 1s ease-out;
+	transition-delay: 1s;	
+}
+#login-error-notif{
+	position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  height: 300px;
+}
+#number-of-items-badge{
+	color: black !important;
+}
+.front-poster-container{
+	overflow:hidden;
+	width: 100%;
+	height: 400px;
+	/*border: 3px solid rgb(51, 209, 122);*/
+}
+
+front-poster-container-inner{
+	overflow:hidden;
+	height:100%;
+	/*border: 5px solid  rgb(246, 211, 45);*/
+}
+
+.front-poster-container img{
+	width: 100%;
+	height: inherit;
+	min-height: 400px;
+}
+
+.front-poster-text{	
+	position:absolute;
+	background-color: rgb(0, 0, 0, 0.5);	
+	font-size: 220%;
+	height:78%;
+	z-index: 10;
+	color: rgb(255, 255, 255);	
+/*	border: 3px solid rgb(46, 194, 126);*/
+	
+	width: 100%;
+	height: inherit;
+	min-height: 400px;
+}
+.get-started-btn-container{
+	position: absolute;
+	z-index: 11;
+	margin-top: 7rem!important;
+	/*border: 1px solid red;*/
+}
+.get-started-btn{
+	background-color: rgb(61, 56, 70, 0.7) !important;
+	border:0 !important;
+	/*border:1px solid rgb(61, 56, 70) !important;*/
+	box-shadow: none !important;
+	transition: 0.2s ease-in-out;
+	border-radius: 0.175rem;
+	margin-top: 100%;
+	color:rgb(205, 171, 143);
+	padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+	border-bottom: 1px solid gold !important;
+}
+.get-started-btn:hover{
+	background-color: rgb(36, 31, 49, 0.9) !important;
+	border-bottom: 1px solid rgb(165, 29, 45) !important;
+	box-shadow: none !important;
+}
+.get-started-btn:hover{
+	box-shadow: 10px 10 10px rgb(118, 187, 118);
+}
+
+.front-poster-text p{	
+	
+}
+footer{
+	 border-top: 1px solid rgb(152, 106, 68);
+	 background-color: #675D50 !important;
+	 background-color: #464646 !important;
+	 color: wheat;
+	 /*rotate: -3deg;*/	 	 
+}
+footer ul li{
+	list-style-type: none;
+	font-size: 11pt;
+	/*rotate: 3deg;*/
+	/*transform-box: -3deg;*/
+}
+footer ul li a{
+	text-decoration: none;
+	color: rgb(186, 169, 138);
+	transition: 0.5 ease-in-out;
+}
+footer ul li a:hover{
+	color: rgb(214, 197, 167);
+}
+footer p{
+	display: flex;
+	justify-content: center;
+}
+.containers{
+	padding-bottom:0px !important;
+}
+.itemNumber{
+	color:rgb(255, 255, 255) !important;
+	background-color:rgb(61, 56, 70) !important;
+	font-size: 12pt;
+	border-right:1px solid rgb(205, 171, 143);
+}
+.delete-single-item-btn{
+	font-size: 14pt;
+	padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+}
+
+.login-signup-form-header{
+	color: rgb(186, 169, 138);
+	font-size: 100%;
+}
+
+#login-signup-form{
+	background: rgb(36, 31, 49);
+	border-bottom: 3px solid goldenrod;
+	width: 40%;
+	margin-left: 30% !important;
+	margin-left: 30% !important;	
+	position: absolute;
+	z-index: 14;
+	border-top-right-radius: 0.375rem;
+	border-top-left-radius: 0.375rem;
+	transition: all 0.5s ease-in-out;	
+	opacity: 0;
+	visibility: hidden;
+	overflow: hidden;
+	height: 300px;
+}
+
+.login-signup-form-exit-btn {
+	color:goldenrod;
+	font-size: 25pt;
+	cursor: pointer;
+	z-index: 2000;
+}
+.login-signup-form-exit-btn:hover {
+	text-shadow:0px 0px 4px goldenrod;
+}
+.login-signup-form-exit-btn:active {
+	text-shadow:0px 5px 10px goldenrod;
+}
+.register-here-text{
+	color: darkgrey;
+	font-size: 8pt;
+	display: block;
+}	
+
+.checkbox-for-deletion{
+	
+}
+
+.item-deletion-controls{
+	display: inline;
+	vertical-align: middle;
+	vertical-align: top;
+}
+.edit-item-btn{
+	cursor: pointer;
+}
+.edit-element-title-input{
+	width: 30%;
+	display: inline;
+	padding:.130rem .75rem;
+}
+
+@media (max-width: 900px) {
+/*  #login-signup-form {
+    flex: 100%;
+  }*/
+  #login-signup-form{
+	background: rgb(36, 31, 49);
+	border-bottom: 3px solid goldenrod;
+	width: 70%;
+	margin-left: 15% !important;
+	margin-left: 15% !important;	
+}
+.login-signup-form-header{
+	margin-left: 15% !important;
+	margin-left: 15% !important;
+	}
+	}

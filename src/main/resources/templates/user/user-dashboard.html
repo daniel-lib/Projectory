@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org">
+	<head th:replace = "mainLayouts :: head"></head>
+	
+	<header th:replace = "/user/user-layouts :: nav"></header>
+	<body onLoad="showActionNotification()">
+		<div id="item-action-notification" class="badge item-action-notification px-4 d-flex justify-content-center fixed-top" th:text="${param.indicator}"></div>
+		<div class="containers">
+		
+		<div id="login-signup-form" class="mt-5">
+			<div class="login-signup-form">
+				<span class="login-signup-form-exit-btn mx-3 float-end" onclick="closeSigninForm()">&times;</span>
+				<br/>
+				<span class="d-flex justify-content-	 mt-3">
+				<h3 class="login-signup-form-header">Stress-free life begines here</h3>
+				</span>
+				
+				<hr/>
+				<!--<form class="m-3" action="/login" method="post" th:object="${user}">
+					<input type="text" placeholder="username" th:field="${user.username}" class="form-control mb-3" autofocus>
+					<input type="password" placeholder="password" th:field="${user.password}" class="form-control mb-3">
+					<input type="submit" value="Sign in" class="btn btn-primary mb-3 btn-primary-white">
+					<span class="fw- register-here-text"> Don't have an account? <a href=""> Create an account</a></span>
+				</form>-->
+				<span class="rotated-nav-decor d-flex justify-content"></span>	
+				<span class="rotated-nav-decor d-flex justify-content"></span>
+				<span class="rotated-nav-decor float-end"></span>	
+			</div>	
+		</div>
+		
+		<div class="front-poster-container">
+			<div class="front-poster-container-inner">
+				<div class="front-poster-text d-flex justify-content-center px-3">
+					<p class="mt-5">Visualizing the trajectory of your projects has never been easier!</p><br/><br/>		
+					<div class="get-started-btn-container d-flex justify-content-center mt-5">
+					<button class="btn get-started-btn" onclick="displaySigninForm(); startElementRotation();">Get Started</button>
+				</div>			
+				</div>
+				
+				
+				<img th:src="@{/images/mountainPosterBg.jpg}">
+			</div>	
+				
+		</div>
+		
+		<script>
+			
+			var current = 80;
+			function startElementRotation(){
+				window.setInterval(rotateElement, 1000);
+				}
+			//rotateElement();
+			function rotateElement(){
+				let isUpperLimit;
+				//alert(current);
+				rotationELement = document.getElementsByClassName("rotated-nav-decor");
+				if(isUpperLimit){
+					current = current - 30;
+				}
+				else if(!isUpperLimit){
+					current = current + 30;
+				}
+				
+				if(current>360){
+					isUpperLimit = true;	
+					current = 360;			
+				}
+				else if(current< -360){
+					isUpperLimit = false;
+					current = -360;
+				}
+				
+				rotationELement[0].style.rotate = current+"deg";
+				//alert(current.toString());
+				//windows.setTimeOut(rotateElement, 500);
+				
+			}
+		</script>
+			
+		
+		
+		<div class="d-flex justify-content-around mt-4">
+			<div class="card todo-fact-cards p-2" style="width: 18rem;">
+				<img class="card-img-top" th:src="@{/images/productivity.jpeg}" alt="Card image cap">
+			 		<div class="card-body">
+						<h5 class="card-title">Plan Your Day</h5>
+			    		<p class="card-text">Studies show scheduling and planning your day increases productivity by 100%. 
+							we spend more energy trying to remember what we need to do than actually accomplishing a task.
+						</p>
+			    		<a href="#" class="btn btn-primary btn-sm">Learn More</a>
+				  </div>
+			</div>
+			
+			<div class="card todo-fact-cards p-2" style="width: 18rem;">
+				<img class="card-img-top" th:src="@{/images/manage-stress.jpeg}" alt="Card image cap">
+			 		<div class="card-body">
+						<h5 class="card-title">Manage Stress</h5>
+			    		<p class="card-text">Stress has become prevalent in the current state of the world we live in. We need to protect our mental health
+							with everything we got.	Keeping your life organized can keep you sane. </p>
+			    		<a href="#" class="btn btn-primary btn-sm">Learn More</a>
+				  </div>
+			</div>	
+			<div class="card todo-fact-cards p-2" style="width: 18rem;">
+				<img class="card-img-top" th:src="@{/images/save-time.jpeg}" alt="Card image cap">
+			 		<div class="card-body">
+						<h5 class="card-title">Save time</h5>
+			    		<p class="card-text">It is well know that time is the ultimate currency. We need to salvage as much of it as we can and put it
+							in good use. Just like as foreth fathers used tools to save time when hunting, we need to do the same.						
+						</p>
+			    		<a href="#" class="btn btn-primary btn-sm">Learn More</a>
+				  </div>
+			</div>
+			  		
+		</div>
+	</div>
+	<footer th:replace = "/mainLayouts :: footer"></footer>
+	
+	
+	
+	<script th:replace = "/user/user-layouts::notification-board-script"></script>
+	
+
+
+
+
+
+	
+	<script>
+		function displaySigninForm(){
+			var form = document.getElementById("login-signup-form");	
+			//document.querySelector("#login-signup-form").style.height = "600px";		
+			//form.style.display = "block";
+			//form.style.height = "auto";
+			form.style.visibility = "visible";
+			form.style.opacity = "1";
+						
+		}
+		function closeSigninForm(){
+			var form = document.getElementById("login-signup-form");	
+			form.style.opacity = "0";
+			form.style.visibility = "hidden";
+			//form.style.height = "0px";		
+			//form.style.display = "none";
+		}
+	</script>
+		
+	</body>
+</html>
