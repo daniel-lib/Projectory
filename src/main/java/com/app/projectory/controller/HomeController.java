@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.app.projectory.entity.Users;
 import com.app.projectory.service.UserLoginService;
@@ -24,11 +25,16 @@ public class HomeController {
 		return "/home/landingPage";
 	}
 	@PostMapping("/login")
-	public String validateUser(Model model, Users user) {
+	public String validateUser(Model model, Users user, RedirectAttributes redAttr) {
 		Users checkedUser = userLgServ.authenticateUser(user.getUsername(), user.getPassword());
 		String indicator = "err";
 		if(checkedUser != null) {
-			model.addAttribute("user", checkedUser);
+			//model.addAttribute("user", checkedUser);
+			//redAttr.addAttribute("userd", checkedUser);
+			redAttr.addFlashAttribute("username", checkedUser.getUsername());
+//			redAttr.addAttribute("firstName", checkedUser.getFirstName());
+//			redAttr.addAttribute("lastName", checkedUser.getFirstName());
+			
 			indicator = "pass";
 			return "redirect:/user/dashboard?indicator="+indicator;	
 		}

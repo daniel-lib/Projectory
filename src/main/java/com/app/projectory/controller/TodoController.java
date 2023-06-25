@@ -53,6 +53,12 @@ public class TodoController {
 		
 		return "redirect:/todo?item=deleted";
 	}
+	@GetMapping("/update-item")
+	public String updateTodoItem(@RequestParam long itemId) {
+		todoData.deleteById(itemId);
+		
+		return "redirect:/todo?item=updated";
+	}
 	@PostMapping("/delete-selected")
 	public String deleteSelectedItems(@RequestParam("selectedForRemoval") Long[] selectedValues) {
 		String result = Arrays.toString(selectedValues);

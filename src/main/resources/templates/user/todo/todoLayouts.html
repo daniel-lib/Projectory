@@ -4,35 +4,17 @@
 		<div th:fragment = "notification-board" id="item-action-notification" class="badge item-action-notification px-4 d-flex justify-content-center fixed-top" th:text="${param.item}"></div>
 		
 		
-		<table th:fragment = "displayItems" class="table table-stripped">
+		<table th:fragment = "displayItems" class="table table-striped">
 			<tbody th:object = "${items}">
 				<tr th:each = "item : ${items}">
 					<td>
-						<div style="display: inline;">
+						<div style="display: inline;" th:id="${item.todoItemId}">
 						<span id="itemNumber" class="badge text-bg-warning itemNumber" onclick="test()">0</span>
 						<!--<span th:text = "${item.todoItemId}" class="badge text-bg-warning"></span>-->
-						<span th:text = "${item.title}" th:id="${item.todoItemId}"></span>
+						<span th:text = "${item.title}" id=""></span>
 						
-						<span class="badge text-bg-primary mx-2 edit-item-btn" title="Edit Item" th:onClick="editItem(this.id)"  th:id="${item.todoItemId}">edit</span>
-						<script>
-							function editItem(id){
-								
-								document.getElementById(id).contentEditable;
-								
-								 // Get the span element by its ID.
-								  const spanElement = document.getElementById(id);
-								
-								  // Create a new text input element.
-								  const inputElement = document.createElement('input');
-								
-								  // Set the value of the text input element to the text of the span element.
-								  inputElement.value = spanElement.textContent;
-								  inputElement.className = "form-control edit-element-title-input"
-								
-								  // Replace the span element with the text input element.
-								  spanElement.replaceWith(inputElement);
-							}
-						</script>						
+						<span class="badge mx-2 edit-item-btn" title="Edit Item" th:onClick="editItem(this.id)"  th:id="${item.todoItemId}"> </span>
+												
 						<br/>
 						<span th:text = "${item.detail}" class="fw-lighter"></span>
 						</div>
@@ -57,6 +39,78 @@
 				
 			</form>
 		</div>
+		
+		<script th:fragment = "edit-item-script">
+							function editItem(id){
+								
+								document.getElementById(id).contentEditable;
+								
+								 // Get the container element by its ID.
+								  const listContrainer = document.select(id);
+								  
+								  // Get the span element by its ID.
+								  const spanElement = document.querySelector("#"+id + " span");
+								  //
+								 
+								  
+								  //create form
+								  const form = document.createElement("form");
+								  form.setAttribute("action", "/todo/update-item?itemId="+id);
+								  form.setAttribute("method", "POST");
+								  form.style.display = "inline";
+								
+								  // Create a new text input element.
+								  const inputElement = document.createElement('input');
+							  	  inputElement.setAttribute("type", "text");
+								  inputElement.setAttribute("name", "name");								  						 								
+								  
+								  // Set th value of the text input element to the text of the span element.
+								  inputElement.value = spanElement.textContent;
+								  inputElement.className = "form-control edit-element-title-input"
+								  
+								  //add input element to the form
+								  form.appendChild(inputElement);
+								  							
+								  // Replace the span element with the form element.
+								  spanElement.replaceWith(form);	
+								  //spanElement.replaceWith(inputElement);
+								  //&#10004;
+							}
+						</script>
+						
+		
+		<script th:fragment = "ready-delete-button-script">
+			function readyDeleteButton(){
+				var checkboxes = document.getElementsByClassName("checkbox-for-deletion");
+				var delBtn = document.getElementById("delete-selected-btn");
+				var numberOfItems=document.getElementById("number-of-items-badge");
+				var num = 0;
+				for(var checkbox of checkboxes){
+					if(checkbox.checked === true){
+						num++;
+					}
+				}
+				numberOfItems.innerHTML = num;
+				if(num > 0){
+					delBtn.removeAttribute("disabled");					
+				}
+				else{
+					delBtn.setAttribute("disabled", true);
+				}
+			}			
+		</script>
+		
+		
+		<script th:fragment="display-item-count-script">
+			function displayItemCount(){
+				var items = document.getElementsByClassName("itemNumber");
+				var counter = 0;
+				for(let item of items){ 
+					item.innerHTML = ++counter;
+				}
+			}
+		</script>
+						
 		
 		<script th:fragment = "notificationScripts">
 			function showActionNotification(){

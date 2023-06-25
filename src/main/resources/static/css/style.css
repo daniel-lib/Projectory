@@ -126,7 +126,9 @@ color: rgb(118, 187, 118) !important;
 	background-color: rgb(118, 187, 118) !important;
 }
 .item-action-notification{
-	background-color:  rgba(26, 95, 180,0.5) !important;
+	/*background-color:  rgba(26, 95, 180,0.5) !important;*/
+	color:  rgb(0, 0, 0) !important;
+	
 /*	color: ;*/
 color: rgb(237, 51, 59);
 /*	font-size: 12pt;*/
@@ -304,12 +306,28 @@ footer p{
 }
 .edit-item-btn{
 	cursor: pointer;
+	background-image: url("https://static.xx.fbcdn.net/rsrc.php/v3/yv/r/X-QSDnYG2N5.png") !important; 
+	background-color: none !important;
+	background-position: 0px -649px; 
+	background-size: auto; 
+	width: 23px; 
+	height: 21px; 
+	background-repeat: no-repeat; 
+	display: inline-block;
 }
 .edit-element-title-input{
 	width: 30%;
 	display: inline;
 	padding:.130rem .75rem;
 }
+
+.container-bg-green{
+	background-color: rgb(118, 187, 118);
+}
+.container-bg-green div{
+	transition: 1s ease-in;
+}
+
 
 @media (max-width: 900px) {
 /*  #login-signup-form {

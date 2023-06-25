@@ -14,9 +14,17 @@ public class UserLoginService implements UserLoginServiceInterface{
 	public UserLoginService() {
 		userAccount.put("admin", new Users("admin", "admin123", "aba", "abu"));
 		userAccount.put("user1", new Users("user1", "user123", "userela", "uno"));
+		userAccount.put("user2", new Users("user2", "user123", "duo ", "userella"));
 	}
 	
 	public Users authenticateUser(String username, String password) {
+		if(userAccount.containsKey(username) && userAccount.get(username).getPassword().equals(password)) {
+			return userAccount.get(username);
+		}
+		return null;
+	}
+	
+	public Users getByUsername(String username) {
 		if(userAccount.containsKey(username) && userAccount.get(username).getPassword().equals(password)) {
 			return userAccount.get(username);
 		}

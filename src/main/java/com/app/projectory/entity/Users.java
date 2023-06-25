@@ -22,6 +22,8 @@ public class Users {
 	public Users(String username, String password, String firstName, String lastName) {
 		this.username = username;
 		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
 	}
 	public long getUserId() {
 		return userId;
@@ -42,6 +44,22 @@ public class Users {
 		this.password = password;
 	}
 	
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	@Override
+	public String toString() {
+		return getFirstName() +" "+getLastName();
+	}
 	
 		
 }

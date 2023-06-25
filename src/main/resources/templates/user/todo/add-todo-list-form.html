@@ -5,11 +5,13 @@
 	<body onLoad = "showActionNotification()">
 		<div class="container">
 		<div th:replace = "/user/todo/todoLayouts :: notification-board"></div>
-		<form th:action="@{/user/todo/add-item}" method = "post" th:object = "${todoModel}">
+		<div class="form-container mt-4 p-4" id="form-container">
+			<form th:action="@{/todo/add-item}" method = "post" th:object = "${todoModel}">
 			<input type="text" th:field="${todoModel.title}" class="form-control mt-3" placeholder="Item title" autofocus>
 			<textarea  th:field="${todoModel.detail}" class="form-control mt-3" placeholder="detail description"></textarea>
 			<input type="submit" value = "Add" class="btn btn-primary btn-sm mt-3" placeholder="Item title">
-		</form>
+			</form>
+		</div>			
 		
 		<script th:replace = "/user/todo/todoLayouts :: notificationScripts">
 			

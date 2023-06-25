@@ -1,148 +1,157 @@
 <!DOCTYPE html>
 <html xmlns="https://www.thymeleaf.org">
-	<head th:replace = "mainLayouts :: head"></head>
-	
-	<header th:replace = "/user/user-layouts :: nav"></header>
-	<body onLoad="showActionNotification()">
-		<div id="item-action-notification" class="badge item-action-notification px-4 d-flex justify-content-center fixed-top" th:text="${param.indicator}"></div>
-		<div class="containers">
-		
+
+<head th:replace="mainLayouts :: head"></head>
+
+<header th:replace="/user/user-layouts :: nav"></header>
+
+<body onLoad="showActionNotification(); displayItemCount()">
+	<div id="item-action-notification"
+		class="badge item-action-notification px-4 d-flex justify-content-center fixed-top"
+		th:text="${param.indicator}"></div>
+	<div class="containers">
+
 		<div id="login-signup-form" class="mt-5">
 			<div class="login-signup-form">
 				<span class="login-signup-form-exit-btn mx-3 float-end" onclick="closeSigninForm()">&times;</span>
-				<br/>
+				<br />
 				<span class="d-flex justify-content-	 mt-3">
-				<h3 class="login-signup-form-header">Stress-free life begines here</h3>
+					<h3 class="login-signup-form-header">Stress-free life begines here</h3>
 				</span>
-				
-				<hr/>
+
+				<hr />
 				<!--<form class="m-3" action="/login" method="post" th:object="${user}">
 					<input type="text" placeholder="username" th:field="${user.username}" class="form-control mb-3" autofocus>
 					<input type="password" placeholder="password" th:field="${user.password}" class="form-control mb-3">
 					<input type="submit" value="Sign in" class="btn btn-primary mb-3 btn-primary-white">
 					<span class="fw- register-here-text"> Don't have an account? <a href=""> Create an account</a></span>
 				</form>-->
-				<span class="rotated-nav-decor d-flex justify-content"></span>	
 				<span class="rotated-nav-decor d-flex justify-content"></span>
-				<span class="rotated-nav-decor float-end"></span>	
-			</div>	
+				<span class="rotated-nav-decor d-flex justify-content"></span>
+				<span class="rotated-nav-decor float-end"></span>
+			</div>
 		</div>
-		
-		<div class="front-poster-container">
-			<div class="front-poster-container-inner">
-				<div class="front-poster-text d-flex justify-content-center px-3">
-					<p class="mt-5">Visualizing the trajectory of your projects has never been easier!</p><br/><br/>		
-					<div class="get-started-btn-container d-flex justify-content-center mt-5">
-					<button class="btn get-started-btn" onclick="displaySigninForm(); startElementRotation();">Get Started</button>
-				</div>			
+
+
+		<div class="d-flex justify-content-around flex-wrap mt-4">
+			<div class="card user-dashboard-cards p-2" style="width: 18rem;">
+				<div class="d-flex">
+					<img class="dashboard-card-img-top mx-2" th:src="@{/images/projects.png}" alt="project icon">
+					<h5 class="card-title dashboard-card-title">Project</h5>
 				</div>
-				
-				
-				<img th:src="@{/images/mountainPosterBg.jpg}">
-			</div>	
-				
-		</div>
-		
-		<script>
-			
-			var current = 80;
-			function startElementRotation(){
-				window.setInterval(rotateElement, 1000);
-				}
-			//rotateElement();
-			function rotateElement(){
-				let isUpperLimit;
-				//alert(current);
-				rotationELement = document.getElementsByClassName("rotated-nav-decor");
-				if(isUpperLimit){
-					current = current - 30;
-				}
-				else if(!isUpperLimit){
-					current = current + 30;
-				}
-				
-				if(current>360){
-					isUpperLimit = true;	
-					current = 360;			
-				}
-				else if(current< -360){
-					isUpperLimit = false;
-					current = -360;
-				}
-				
-				rotationELement[0].style.rotate = current+"deg";
-				//alert(current.toString());
-				//windows.setTimeOut(rotateElement, 500);
-				
-			}
-		</script>
-			
-		
-		
-		<div class="d-flex justify-content-around mt-4">
-			<div class="card todo-fact-cards p-2" style="width: 18rem;">
-				<img class="card-img-top" th:src="@{/images/productivity.jpeg}" alt="Card image cap">
-			 		<div class="card-body">
-						<h5 class="card-title">Plan Your Day</h5>
-			    		<p class="card-text">Studies show scheduling and planning your day increases productivity by 100%. 
-							we spend more energy trying to remember what we need to do than actually accomplishing a task.
-						</p>
-			    		<a href="#" class="btn btn-primary btn-sm">Learn More</a>
-				  </div>
+				<div class="card-body">
+					<a href="#" class="btn btn-primary btn-sm">Create Project</a>
+
+					<p class="card-text fw-lighter">There are no projects at the moment.</p><br />
+					
+				</div>
+			</div>
+
+
+			<div class="card user-dashboard-cards p-2" style="width: 18rem;" th:href="@{/todo}">
+				<div class="d-flex">
+					<img class="dashboard-card-img-top mx-2" th:src="@{/images/to-do-list.png}" alt="to-do icon">
+					<h5 class="card-title dashboard-card-title">Todo List</h5>
+				</div>
+				<div class="card-body">
+
+					<p class="card-text fw-lighter mb-0" id="todo-card-item-count" th:text="${itemCount}"></p>
+					
+					<a th:href="@{/todo/add-item-form}" class="btn btn-primary btn-sm">Add Item</a>
+					<table class="table table-striped">
+						<tbody th:object="${items}">
+							<tr th:each="item : ${items}">
+								<td>
+									<div style="display: inline;" th:id="${item.todoItemId}">
+										<span id="itemNumber" class="badge text-bg-warning itemNumber"
+											onclick="test()">0</span>
+										<!--<span th:text = "${item.todoItemId}" class="badge text-bg-warning"></span>-->
+										<span th:text="${item.title}" id=""></span>
+										<br />
+										<span th:text="${item.detail}" class="fw-lighter"></span>
+									</div>
+
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+
+
+
+					<!-- Unexpected/unexplainable error occured when opening the following link:
+							<a href="th:href="@{todo/add-item-form}"">Add Item</a>
+							the alert box displayed the following message:
+							Open xdg-open? http://localhost:8080 wants to open this application.-->
+					
+				</div>
+
+				<script>
+					let itemCount = document.getElementById("todo-card-item-count");
+					//alert(itemCount.textContent);
+					if (itemCount.textContent == 0) {
+						itemCount.textContent = "Todo list is empty at the moment."
+					}
+					else {
+						itemCount.textContent = " ";
+					}
+
+				</script>
+			</div>
+			<div class="card user-dashboard-cards p-2" style="width: 18rem;">
+				<div class="d-flex">
+					<img class="dashboard-card-img-top mx-2" th:src="@{/images/tasks.png}" alt="task icon">
+					<h5 class="card-title dashboard-card-title">Tasks on board</h5>
+				</div>
+				<div class="card-body">
+					<p class="card-text fw-lighter">There are no tasks at the moment.</p><br />
+					<a href="/">Update Task Status</a>
+					</br>
+					<a href="#" class="btn btn-primary btn-sm">View</a>
+				</div>
 			</div>
 			
-			<div class="card todo-fact-cards p-2" style="width: 18rem;">
-				<img class="card-img-top" th:src="@{/images/manage-stress.jpeg}" alt="Card image cap">
-			 		<div class="card-body">
-						<h5 class="card-title">Manage Stress</h5>
-			    		<p class="card-text">Stress has become prevalent in the current state of the world we live in. We need to protect our mental health
-							with everything we got.	Keeping your life organized can keep you sane. </p>
-			    		<a href="#" class="btn btn-primary btn-sm">Learn More</a>
-				  </div>
-			</div>	
-			<div class="card todo-fact-cards p-2" style="width: 18rem;">
-				<img class="card-img-top" th:src="@{/images/save-time.jpeg}" alt="Card image cap">
-			 		<div class="card-body">
-						<h5 class="card-title">Save time</h5>
-			    		<p class="card-text">It is well know that time is the ultimate currency. We need to salvage as much of it as we can and put it
-							in good use. Just like as foreth fathers used tools to save time when hunting, we need to do the same.						
-						</p>
-			    		<a href="#" class="btn btn-primary btn-sm">Learn More</a>
-				  </div>
+			
+			<div class="card user-dashboard-cards p-2" style="width: 18rem;">
+				<div class="d-flex">
+					<img class="dashboard-card-img-top mx-2" th:src="@{/images/tasks.png}" alt="task icon">
+					<h5 class="card-title dashboard-card-title">Activity</h5>
+				</div>
+				<div class="card-body">
+					<p class="card-text fw-lighter">Catch-up with your activities</p><br />
+					<a href="/">Update Task Status</a>
+					</br>
+					<a href="#" class="btn btn-primary btn-sm">View</a>
+				</div>
 			</div>
-			  		
+
 		</div>
 	</div>
-	<footer th:replace = "/mainLayouts :: footer"></footer>
-	
-	
-	
-	<script th:replace = "/user/user-layouts::notification-board-script"></script>
-	
+	<footer th:replace="/mainLayouts :: footer"></footer>
 
 
-
-
-
-	
+	<script th:replace="/user/user-layouts::notification-board-script"></script>
 	<script>
-		function displaySigninForm(){
-			var form = document.getElementById("login-signup-form");	
+		function displaySigninForm() {
+			var form = document.getElementById("login-signup-form");
 			//document.querySelector("#login-signup-form").style.height = "600px";		
 			//form.style.display = "block";
 			//form.style.height = "auto";
 			form.style.visibility = "visible";
 			form.style.opacity = "1";
-						
+
 		}
-		function closeSigninForm(){
-			var form = document.getElementById("login-signup-form");	
+		function closeSigninForm() {
+			var form = document.getElementById("login-signup-form");
 			form.style.opacity = "0";
 			form.style.visibility = "hidden";
 			//form.style.height = "0px";		
 			//form.style.display = "none";
 		}
 	</script>
-		
-	</body>
+
+	<script th:replace="/user/todo/todoLayouts :: display-item-count-script"></script>
+
+</body>
+
 </html>

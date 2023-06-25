@@ -15,42 +15,16 @@
 		<table th:replace = "/user/todo/todoLayouts :: displayItems"></table>
 		</form>
 		
-		<script>
-			function readyDeleteButton(){
-				var checkboxes = document.getElementsByClassName("checkbox-for-deletion");
-				var delBtn = document.getElementById("delete-selected-btn");
-				var numberOfItems=document.getElementById("number-of-items-badge");
-				var num = 0;
-				for(var checkbox of checkboxes){
-					if(checkbox.checked === true){
-						num++;
-					}
-				}
-				numberOfItems.innerHTML = num;
-				if(num > 0){
-					delBtn.removeAttribute("disabled");					
-				}
-				else{
-					delBtn.setAttribute("disabled", true);
-				}
-			}
-			
-			function displayItemCount(){
-				var items = document.getElementsByClassName("itemNumber");
-				var counter = 0;
-				for(let item of items){ 
-					item.innerHTML = ++counter;
-
-				}
-			}
-			
+		<script th:replace = "/user/todo/todoLayouts :: ready-delete-button-script"></script>
+		<script th:replace = "/user/todo/todoLayouts :: display-item-count-script"></script>
+		
+		<script>			
 			function addContributersForm(){
 				
 			}
-				
-				
 		</script>
 		
+		<script th:replace = "/user/todo/todoLayouts :: edit-item-script"></script>
 		<script th:replace = "/user/todo/todoLayouts :: notificationScripts"></script>
 			
 	</div>
