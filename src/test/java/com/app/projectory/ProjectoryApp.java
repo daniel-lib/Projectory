@@ -1,4 +1,4 @@
-package com.app.todoodoo;
+package com.app.projectory;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
