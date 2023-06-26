@@ -25,7 +25,7 @@ public class UserLoginService implements UserLoginServiceInterface{
 	}
 	
 	public Users getByUsername(String username) {
-		if(userAccount.containsKey(username) && userAccount.get(username).getPassword().equals(password)) {
+		if(userAccount.containsKey(username)) {
 			return userAccount.get(username);
 		}
 		return null;

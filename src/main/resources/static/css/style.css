@@ -199,6 +199,7 @@ front-poster-container-inner{
 	box-shadow: none !important;
 	transition: 0.2s ease-in-out;
 	border-radius: 0.175rem;
+	border-radius: 5rem;
 	margin-top: 100%;
 	color:rgb(205, 171, 143);
 	padding: 0.5rem 1.5rem 0.5rem 1.5rem;

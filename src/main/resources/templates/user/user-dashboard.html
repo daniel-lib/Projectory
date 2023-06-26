@@ -11,12 +11,12 @@
 		th:text="${param.indicator}"></div>
 	<div class="containers">
 
-		<div id="login-signup-form" class="mt-5">
-			<div class="login-signup-form">
-				<span class="login-signup-form-exit-btn mx-3 float-end" onclick="closeSigninForm()">&times;</span>
+		<div id="viewing-modal" class="mt">
+			<div class="viewing-modal">
+				<span class="viewing-modal-exit-btn mx-3 float-end" onclick="closeSigninForm()">&times;</span>
 				<br />
 				<span class="d-flex justify-content-	 mt-3">
-					<h3 class="login-signup-form-header">Stress-free life begines here</h3>
+					<h3 class="viewing-modal-header">Stress-free life begines here</h3>
 				</span>
 
 				<hr />
@@ -26,9 +26,10 @@
 					<input type="submit" value="Sign in" class="btn btn-primary mb-3 btn-primary-white">
 					<span class="fw- register-here-text"> Don't have an account? <a href=""> Create an account</a></span>
 				</form>-->
-				<span class="rotated-nav-decor d-flex justify-content"></span>
-				<span class="rotated-nav-decor d-flex justify-content"></span>
-				<span class="rotated-nav-decor float-end"></span>
+				<span class="viewing-modal-decor d-flex justify-content" id="d1"></span>
+				<span class="viewing-modal-decor d-flex justify-content" id="d2"></span>
+				<span class="viewing-modal-decor float-end" id="d3"></span>
+				
 			</div>
 		</div>
 
@@ -43,7 +44,7 @@
 					<a href="#" class="btn btn-primary btn-sm">Create Project</a>
 
 					<p class="card-text fw-lighter">There are no projects at the moment.</p><br />
-					
+
 				</div>
 			</div>
 
@@ -53,10 +54,10 @@
 					<img class="dashboard-card-img-top mx-2" th:src="@{/images/to-do-list.png}" alt="to-do icon">
 					<h5 class="card-title dashboard-card-title">Todo List</h5>
 				</div>
-				<div class="card-body">
+				<div class="card-body" onclick="displayViewingModal()">
 
 					<p class="card-text fw-lighter mb-0" id="todo-card-item-count" th:text="${itemCount}"></p>
-					
+
 					<a th:href="@{/todo/add-item-form}" class="btn btn-primary btn-sm">Add Item</a>
 					<table class="table table-striped">
 						<tbody th:object="${items}">
@@ -75,15 +76,6 @@
 							</tr>
 						</tbody>
 					</table>
-
-
-
-
-					<!-- Unexpected/unexplainable error occured when opening the following link:
-							<a href="th:href="@{todo/add-item-form}"">Add Item</a>
-							the alert box displayed the following message:
-							Open xdg-open? http://localhost:8080 wants to open this application.-->
-					
 				</div>
 
 				<script>
@@ -110,8 +102,8 @@
 					<a href="#" class="btn btn-primary btn-sm">View</a>
 				</div>
 			</div>
-			
-			
+
+
 			<div class="card user-dashboard-cards p-2" style="width: 18rem;">
 				<div class="d-flex">
 					<img class="dashboard-card-img-top mx-2" th:src="@{/images/tasks.png}" alt="task icon">
@@ -132,9 +124,9 @@
 
 	<script th:replace="/user/user-layouts::notification-board-script"></script>
 	<script>
-		function displaySigninForm() {
-			var form = document.getElementById("login-signup-form");
-			//document.querySelector("#login-signup-form").style.height = "600px";		
+		function displayViewingModal() {
+			var form = document.getElementById("viewing-modal");
+			//document.querySelector("#viewing-modal").style.height = "600px";		
 			//form.style.display = "block";
 			//form.style.height = "auto";
 			form.style.visibility = "visible";
@@ -142,7 +134,7 @@
 
 		}
 		function closeSigninForm() {
-			var form = document.getElementById("login-signup-form");
+			var form = document.getElementById("viewing-modal");
 			form.style.opacity = "0";
 			form.style.visibility = "hidden";
 			//form.style.height = "0px";		

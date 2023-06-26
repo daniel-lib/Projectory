@@ -8,7 +8,7 @@
 	overflow: auto;
 }
 .user-dashboard-cards:hover{
-	background: rgb(246, 245, 244);
+	background: rgba(205, 171, 143, 0.2);
 	border-bottom: 3px solid rgb(118, 187, 118);
 }
 
@@ -22,13 +22,91 @@
 
 .account-photo{
 	cursor: pointer;
-	background-image: url("/images/fb-icons.png") !important; 
-	
-	background-color: none !important;
-	background-position: 0px -649px; 
-	background-size: auto; 
-	width: 23px; 
-	height: 21px; 
-	background-repeat: no-repeat; 
-	display: inline-block;
+	/*background-image: url("/images/fb-icons.png") !important; */	
+	/*background-color: none !important;
+	background-position: 0px -0px; 
+	background-size: auto; */
+	width: 20px; 
+	height: 20px; 
+	/*background-repeat: no-repeat; 
+	display: inline-block;*/
 }
+
+
+
+.viewing-modal-header{
+	color: rgb(186, 169, 138);
+	font-size: 100%;
+}
+
+#viewing-modal{
+	background: rgb(36, 31, 49);
+	border-bottom: 3px solid goldenrod;
+	width: 80%;
+	margin-left: 10% !important;
+	margin-left: 10% !important;	
+	position: absolute;
+	z-index: 14;
+	border-top-right-radius: 0.375rem;
+	border-top-left-radius: 0.375rem;
+	transition: all 0.5s ease-in-out;	
+	opacity: 0;
+	visibility: hidden;
+	overflow: hidden;
+	height: 300px;
+}
+
+.viewing-modal-exit-btn {
+	color:goldenrod;
+	font-size: 25pt;
+	cursor: pointer;
+	z-index: 2000;
+}
+.viewing-modal-exit-btn:hover {
+	text-shadow:0px 0px 4px goldenrod;
+}
+.viewing-modal-exit-btn:active {
+	text-shadow:0px 5px 10px goldenrod;
+}
+
+
+.viewing-modal-decor{
+	background-color: rgb(99, 69, 44) !important;
+	background-color:rgb(218, 165, 32,0.8) !important;
+/*	height: 200px;*/
+	padding: 200px;
+	rotate: -30deg;
+	border-radius: 160px;
+	filter: blur(20px);
+	z-index: 10;
+	transition: 1s ease;
+	height: 100px;
+	width: 100px;
+}
+
+#d1{
+	margin-left: 20%;
+	background-color: red !important;
+}
+#d2{
+	margin-left: 20%;
+	background-color: rgb(38, 162, 105) !important;
+}
+
+
+@media (max-width: 900px) {
+/*  #viewing-modal {
+    flex: 100%;
+  }*/
+  #viewing-modal{
+	background: rgb(36, 31, 49);
+	border-bottom: 3px solid goldenrod;
+	width: 98%;
+	margin-left: 1% !important;
+	margin-left: 1% !important;	
+}
+.viewing-modal-header{
+	margin-left: 15% !important;
+	margin-left: 15% !important;
+	}
+	}

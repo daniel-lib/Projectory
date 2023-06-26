@@ -24,16 +24,20 @@ public class UserDashboardController {
 	UserLoginService userLgServ = new UserLoginService();
 	
 	@GetMapping("/dashboard")
-	@ResponseBody
-	public String displayUserDashboard(Model model, Users user) {
+	public String displayUserDashboard(Model model) {
+		
+	
 //		return "/user/user-dashboard?indicator = pass"; 
 		List<Todo> fetchedItems = todoData.findAll();
-		Users LoggedInUser = userLgServ.getByUsername(String username);
+		/* Users LoggedInUser = userLgServ.getByUsername(user.getUsername()); */
 		
 		model.addAttribute("itemCount", todoData.count());	
 		model.addAttribute("items", fetchedItems);
-		model.addAttribute("userL", LoggedInUser);
-		return LoggedInUser.getFirstName(); 
+		model.addAttribute("user", model.getAttribute("userA"));
+		
+		/* model.addAttribute("userL", LoggedInUser); */
+		 return "/user/user-dashboard"; 
+		
 	}
 
 }

@@ -31,10 +31,10 @@ public class HomeController {
 		if(checkedUser != null) {
 			//model.addAttribute("user", checkedUser);
 			//redAttr.addAttribute("userd", checkedUser);
-			redAttr.addFlashAttribute("username", checkedUser.getUsername());
+			/* redAttr.addFlashAttribute("username", checkedUser.getUsername()); */
 //			redAttr.addAttribute("firstName", checkedUser.getFirstName());
 //			redAttr.addAttribute("lastName", checkedUser.getFirstName());
-			
+			redAttr.addFlashAttribute("userA", checkedUser);
 			indicator = "pass";
 			return "redirect:/user/dashboard?indicator="+indicator;	
 		}
