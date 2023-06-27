@@ -52,8 +52,10 @@
 	transition: all 0.5s ease-in-out;	
 	opacity: 0;
 	visibility: hidden;
-	overflow: hidden;
-	height: 300px;
+	/*overflow: hidden;
+	height: 300px;*/
+	height: 600px;
+	overflow: scroll;	
 }
 
 .viewing-modal-exit-btn {
@@ -73,24 +75,37 @@
 .viewing-modal-decor{
 	background-color: rgb(99, 69, 44) !important;
 	background-color:rgb(218, 165, 32,0.8) !important;
+	background-color: rgb(129, 61, 156) !important;
 /*	height: 200px;*/
 	padding: 200px;
 	rotate: -30deg;
-	border-radius: 160px;
+	border-radius: 200px;
 	filter: blur(20px);
-	z-index: 10;
+	
 	transition: 1s ease;
-	height: 100px;
-	width: 100px;
+	opacity: 0.4;
+}
+.viewing-modal-decor-container{
+	position: absolute;
 }
 
+
 #d1{
-	margin-left: 20%;
-	background-color: red !important;
+	/*margin-left: 20%;*/
+	background-color: rgb(53, 132, 228) !important;
+	
 }
 #d2{
-	margin-left: 20%;
+	/*margin-left: 20%;*/
 	background-color: rgb(38, 162, 105) !important;
+	margin-left: -50px;
+}
+#viewing-modal{
+	color: antiquewhite !important;
+}
+
+.item-display-table{
+	color: white !important;
 }
 
 

@@ -4,7 +4,7 @@
 		<div th:fragment = "notification-board" id="item-action-notification" class="badge item-action-notification px-4 d-flex justify-content-center fixed-top" th:text="${param.item}"></div>
 		
 		
-		<table th:fragment = "displayItems" class="table table-striped">
+		<table th:fragment = "displayItems" class="table item-display-table">
 			<tbody th:object = "${items}">
 				<tr th:each = "item : ${items}">
 					<td>

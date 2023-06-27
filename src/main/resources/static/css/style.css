@@ -1,3 +1,6 @@
+/**{
+	border: 1px solid red;
+}*/
 html{
 	scroll-behavior: smooth;
 }
@@ -87,6 +90,9 @@ color: rgb(118, 187, 118) !important;
 	letter-spacing: 0;
 	line-height: 0;
 }
+.login-btn{
+	cursor: pointer;
+}
 .projectory-top-description{
 	font-size: small;
 	font-weight: 300;
@@ -141,7 +147,12 @@ color: rgb(237, 51, 59);
 #item-action-notification{
 	display: none !important;
 	transition: all 1s ease-out;
-	transition-delay: 1s;	
+	transition-delay: 1s;
+	z-index: 1000;	
+	position: absolute;
+	width: 100%;
+/*	border-top-right-radius: 0.375rem !important;
+	border-top-left-radius: 0.375rem !important;*/
 }
 #login-error-notif{
 	position: fixed;
@@ -159,11 +170,14 @@ color: rgb(237, 51, 59);
 	width: 100%;
 	height: 400px;
 	/*border: 3px solid rgb(51, 209, 122);*/
+	
 }
 
 front-poster-container-inner{
 	overflow:hidden;
 	height:100%;
+	width: 100%;
+	
 	/*border: 5px solid  rgb(246, 211, 45);*/
 }
 
@@ -173,6 +187,10 @@ front-poster-container-inner{
 	min-height: 400px;
 }
 
+/*.front-poster-text p{	
+	
+}*/
+
 .front-poster-text{	
 	position:absolute;
 	background-color: rgb(0, 0, 0, 0.5);	
@@ -180,6 +198,8 @@ front-poster-container-inner{
 	height:78%;
 	z-index: 10;
 	color: rgb(255, 255, 255);	
+	/*border: 4px solid rgb(26, 95, 180);*/
+	width: 100%;
 /*	border: 3px solid rgb(46, 194, 126);*/
 	
 	width: 100%;
@@ -214,9 +234,6 @@ front-poster-container-inner{
 	box-shadow: 10px 10 10px rgb(118, 187, 118);
 }
 
-.front-poster-text p{	
-	
-}
 footer{
 	 border-top: 1px solid rgb(152, 106, 68);
 	 background-color: #675D50 !important;
@@ -273,9 +290,9 @@ footer p{
 	border-top-left-radius: 0.375rem;
 	transition: all 0.5s ease-in-out;	
 	opacity: 0;
-	visibility: hidden;
-	overflow: hidden;
-	height: 300px;
+	visibility: collapse;
+	/*overflow: hidden;
+	height: 300px;*/
 }
 
 .login-signup-form-exit-btn {
@@ -295,6 +312,29 @@ footer p{
 	font-size: 8pt;
 	display: block;
 }	
+
+#sign-in-form{
+	/*visibility: collapse;*/
+	transition: all 0.5s ease-in-out;	
+	display: none;
+}
+
+#sign-up-form{
+	/*visibility: collapse;*/
+	transition: all 0.5s ease-in-out;	
+	display: none;
+}
+
+.form-alternative-btn{
+	text-decoration: none;
+	color: rgb(186, 169, 138);
+	transition: 0.5 ease-in-out;
+	cursor: pointer;
+	font-size: 12pt;
+}
+.form-alternative-btn:hover{
+	color: rgb(214, 197, 167);
+}
 
 .checkbox-for-deletion{
 	

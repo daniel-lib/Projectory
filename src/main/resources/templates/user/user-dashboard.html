@@ -11,26 +11,51 @@
 		th:text="${param.indicator}"></div>
 	<div class="containers">
 
-		<div id="viewing-modal" class="mt">
+		<div id="viewing-modal" class="mt px-4">	
+			
 			<div class="viewing-modal">
 				<span class="viewing-modal-exit-btn mx-3 float-end" onclick="closeSigninForm()">&times;</span>
 				<br />
 				<span class="d-flex justify-content-	 mt-3">
-					<h3 class="viewing-modal-header">Stress-free life begines here</h3>
+					<img class="dashboard-card-img-top mx-2" th:src="@{/images/to-do-list.png}" alt="to-do icon">
+					<h5 class="card-title dashboard-card-title">Todo List</h5>
 				</span>
-
 				<hr />
-				<!--<form class="m-3" action="/login" method="post" th:object="${user}">
-					<input type="text" placeholder="username" th:field="${user.username}" class="form-control mb-3" autofocus>
-					<input type="password" placeholder="password" th:field="${user.password}" class="form-control mb-3">
-					<input type="submit" value="Sign in" class="btn btn-primary mb-3 btn-primary-white">
-					<span class="fw- register-here-text"> Don't have an account? <a href=""> Create an account</a></span>
-				</form>-->
+				
+			<!--<div class="d-flex justify-content-around viewing-modal-decor-container">
 				<span class="viewing-modal-decor d-flex justify-content" id="d1"></span>
 				<span class="viewing-modal-decor d-flex justify-content" id="d2"></span>
 				<span class="viewing-modal-decor float-end" id="d3"></span>
+			</div>-->
 				
 			</div>
+			
+			<!--todo display modal start-->			
+			<div th:replace = "/user/todo/todoLayouts :: notification-board"></div>
+		<a th:href="@{todo/add-item-form}" class="btn btn-primary btn-sm mt-3">Add Item</a> 
+		<button class="btn btn-sm btn-primary-white mt-3" onClick="addContributersForm()">Add contributers</button>
+		<form th:action="@{/user/todo/delete-selected}" method="post">
+		<button type="submit" class="btn btn-danger btn-sm mt-3 float-end" value="Delete Selected" id="delete-selected-btn" disabled>
+			Delete Selected <span class="badge text-bg-info" id="number-of-items-badge">0</span>
+		</button>
+		
+		<table th:replace = "/user/todo/todoLayouts :: displayItems"></table>
+		</form>
+		
+		<script th:replace = "/user/todo/todoLayouts :: ready-delete-button-script"></script>
+		<script th:replace = "/user/todo/todoLayouts :: display-item-count-script"></script>
+		
+		<script>			
+			function addContributersForm(){
+				
+			}
+		</script>
+		
+		<script th:replace = "/user/todo/todoLayouts :: edit-item-script"></script>
+		<script th:replace = "/user/todo/todoLayouts :: notificationScripts"></script>
+			
+		<!--todo display modal end-->	
+			
 		</div>
 
 
