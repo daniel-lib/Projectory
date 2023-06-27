@@ -9,7 +9,7 @@
 				<tr th:each = "item : ${items}">
 					<td>
 						<div style="display: inline;" th:id="${item.todoItemId}">
-						<span id="itemNumber" class="badge text-bg-warning itemNumber" onclick="test()">0</span>
+						<span id="itemNumber" class="badge text-bg-warning itemNumber">0</span>
 						<!--<span th:text = "${item.todoItemId}" class="badge text-bg-warning"></span>-->
 						<span th:text = "${item.title}" id=""></span>
 						
@@ -103,10 +103,15 @@
 		
 		<script th:fragment="display-item-count-script">
 			function displayItemCount(){
-				var items = document.getElementsByClassName("itemNumber");
-				var counter = 0;
+				//let items = document.getElementsByClassName("itemNumber");
+				const element1 = document.querySelectorAll(".card-body #itemNumber");
+				const element2 = document.querySelectorAll(".item-display-table #itemNumber");
+				let itemElement = [element1, element2];
+				for(let items of itemElement){
+					var counter = 0;
 				for(let item of items){ 
 					item.innerHTML = ++counter;
+				}
 				}
 			}
 		</script>

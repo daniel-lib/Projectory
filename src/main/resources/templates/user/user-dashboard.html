@@ -10,8 +10,17 @@
 		class="badge item-action-notification px-4 d-flex justify-content-center fixed-top"
 		th:text="${param.indicator}"></div>
 	<div class="containers">
+		<script>
+			const modal = document.getElementById('viewing-modal');
+const windowHeight = window.innerHeight;
+const windowWidth = window.innerWidth;
 
-		<div id="viewing-modal" class="mt px-4">	
+modal.style.top = (windowHeight / 2) - (modal.clientHeight / 2) + 'px';
+modal.style.left = (windowWidth / 2) - (modal.clientWidth / 2) + 'px';
+
+		</script>
+
+		<div id="viewing-modal" class="mt px-4 custom-scrollbar-style-2">	
 			
 			<div class="viewing-modal">
 				<span class="viewing-modal-exit-btn mx-3 float-end" onclick="closeSigninForm()">&times;</span>
@@ -32,7 +41,7 @@
 			
 			<!--todo display modal start-->			
 			<div th:replace = "/user/todo/todoLayouts :: notification-board"></div>
-		<a th:href="@{todo/add-item-form}" class="btn btn-primary btn-sm mt-3">Add Item</a> 
+		<a th:href="@{todo/add-item-form}" class="btn btn-primary-white btn-sm mt-3 mx-3">Add Item</a> 
 		<button class="btn btn-sm btn-primary-white mt-3" onClick="addContributersForm()">Add contributers</button>
 		<form th:action="@{/user/todo/delete-selected}" method="post">
 		<button type="submit" class="btn btn-danger btn-sm mt-3 float-end" value="Delete Selected" id="delete-selected-btn" disabled>
@@ -60,7 +69,7 @@
 
 
 		<div class="d-flex justify-content-around flex-wrap mt-4">
-			<div class="card user-dashboard-cards p-2" style="width: 18rem;">
+			<div class="card user-dashboard-cards custom-scrollbar-style p-2" style="width: 18rem;">
 				<div class="d-flex">
 					<img class="dashboard-card-img-top mx-2" th:src="@{/images/projects.png}" alt="project icon">
 					<h5 class="card-title dashboard-card-title">Project</h5>
@@ -74,7 +83,7 @@
 			</div>
 
 
-			<div class="card user-dashboard-cards p-2" style="width: 18rem;" th:href="@{/todo}">
+			<div class="card user-dashboard-cards custom-scrollbar-style p-2" style="width: 18rem;" th:href="@{/todo}">
 				<div class="d-flex">
 					<img class="dashboard-card-img-top mx-2" th:src="@{/images/to-do-list.png}" alt="to-do icon">
 					<h5 class="card-title dashboard-card-title">Todo List</h5>
@@ -115,7 +124,7 @@
 
 				</script>
 			</div>
-			<div class="card user-dashboard-cards p-2" style="width: 18rem;">
+			<div class="card user-dashboard-cards custom-scrollbar-style p-2" style="width: 18rem;">
 				<div class="d-flex">
 					<img class="dashboard-card-img-top mx-2" th:src="@{/images/tasks.png}" alt="task icon">
 					<h5 class="card-title dashboard-card-title">Tasks on board</h5>
@@ -129,7 +138,7 @@
 			</div>
 
 
-			<div class="card user-dashboard-cards p-2" style="width: 18rem;">
+			<div class="card user-dashboard-cards custom-scrollbar-style p-2" style="width: 18rem;">
 				<div class="d-flex">
 					<img class="dashboard-card-img-top mx-2" th:src="@{/images/tasks.png}" alt="task icon">
 					<h5 class="card-title dashboard-card-title">Activity</h5>

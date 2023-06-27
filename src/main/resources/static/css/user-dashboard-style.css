@@ -3,13 +3,15 @@
 	border-bottom: 3px solid goldenrod;
 	margin: 1.5em 0 1.5em 0;
 	
-	transition: 0.2s ease-in-out;
+	transition: all 0.3s ease-in-out;
 	height: 300px;
-	overflow: auto;
+	overflow: auto;	
 }
 .user-dashboard-cards:hover{
 	background: rgba(205, 171, 143, 0.2);
-	border-bottom: 3px solid rgb(118, 187, 118);
+	border-bottom: 3px solid rgb(118, 187, 118);	
+	box-shadow: 0px 0px 	3px 3px rgb(192, 191, 188);
+	/*box-shadow: inset 40em 0em gold;*/
 }
 
 .dashboard-card-img-top{
@@ -54,8 +56,11 @@
 	visibility: hidden;
 	/*overflow: hidden;
 	height: 300px;*/
-	height: 600px;
-	overflow: scroll;	
+	height: 400px;
+	overflow: auto;	
+	top: 50%;
+	/*transform: translate(-50%, -50%);*/
+	
 }
 
 .viewing-modal-exit-btn {
@@ -107,6 +112,48 @@
 .item-display-table{
 	color: white !important;
 }
+
+
+/*	applied to:	.user-dashboard-cards*/
+.custom-scrollbar-style::-webkit-scrollbar {
+  width: 12px;               /* width of the entire scrollbar */
+}
+.custom-scrollbar-style::-webkit-scrollbar-track {
+  background: rgb(222, 221, 218);        /* color of the tracking area */
+}
+.custom-scrollbar-style::-webkit-scrollbar-thumb {
+  background-color: rgb(118, 187, 118);    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 3px solid rgb(118, 187, 118);  /* creates padding around scroll thumb */
+}
+
+
+/*	applied to:	#viewing-modal*/
+/* thiner line */
+/* future proof method? */
+/* Works on Firefox */
+.custom-scrollbar-style-2 {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(118, 187, 118) rgb(222, 221, 218);
+}
+/* Works on Chrome, Edge, and Safari */
+.custom-scrollbar-style-2::-webkit-scrollbar {
+  width: 12px;
+}
+
+.custom-scrollbar-style-2::-webkit-scrollbar-track {
+  background: rgb(222, 221, 218);;
+}
+
+.custom-scrollbar-style-2::-webkit-scrollbar-thumb {
+  background-color: rgb(118, 187, 118);
+  border-radius: 20px;
+  border: 3px solid rgb(222, 221, 218);
+}
+
+
+
+
 
 
 @media (max-width: 900px) {

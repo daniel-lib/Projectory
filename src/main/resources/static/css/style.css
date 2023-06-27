@@ -125,7 +125,10 @@ color: rgb(118, 187, 118) !important;
 .btn-primary-white{
 	border: 1px solid rgb(119, 118, 123) !important;
 	background-color: rgb(192, 191, 188) !important;
+	background-color: rgb(246, 245, 244) !important;
 	color: #212529;
+	box-shadow: inset 0 -3em 3em rgb(222, 221, 218), 0 0 0 2px rgb(255, 255, 255),
+    0.3em 0.3em 1em rgb(192, 191, 188);
 }
 .btn-primary-white:hover{
 	border: 1px solid rgb(118, 187, 118) !important;
