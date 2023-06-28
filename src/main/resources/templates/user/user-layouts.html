@@ -12,6 +12,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
 		crossorigin="anonymous"></script>
+	<script src="/javascript/todo-list-script.js"></script>
 </head>
 
 <header th:fragment="nav">
@@ -34,12 +35,17 @@
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav " th:object="${user}">
 					<a class="nav-link" th:href="@{/todo}">To-do List</a>
-					<a class="nav-link" th:href="@{/user/dashboard}">Dashboard</a>
-					<a class="nav-link" th:href="@{/user/dashboard}">Scrum Board</a>
-					<a class="nav-link" th:href="@{/user/dashboard}">Messages</a>
+					<a class="nav-link" th:href="@{/user/dashboard}">
+						<span class="nav-icon mt-1 fa-solid fa-table-columns"></span> Dashboard</a>
+					<a class="nav-link" th:href="@{/user/dashboard}">
+						<span class="nav-icon mt-1 fa-solid fa-chalkboard-user"></span> Scrum Board</a>
+					<a class="nav-link" th:href="@{/user/dashboard}">
+						<span class="nav-icon mt-1 fa-solid fa-message"></span> Messages</a>
+						<a class="nav-link" th:href="@{/user/dashboard}">
+						<span class="nav-icon mt-1 fa-solid fa-bell"></span> Notification</a>
 					<!--<a class="nav-link" th:href="@{/user/dashboard}"  th:text="${user.firstName}  + ' '+ ${user.lastName}">-->
 						<a class="nav-link" th:href="@{/user/dashboard}">
-							<img class="account-photo" th:src="@{/images/user.png}"> Account</a>
+							<span class="nav-icon mt-1 fa-solid fa-user"></span> Account</a>
 				</div>
 			</div>
 		</div>
@@ -48,6 +54,7 @@
 </header>
 
 <footer th:fragment="footer" class="mt-5 pt-2">
+	
 	<div class="d-flex justify-content-around mt-2">
 		<div class="products">
 			<ul>

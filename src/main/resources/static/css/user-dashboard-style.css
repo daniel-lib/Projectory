@@ -21,20 +21,9 @@
 .dashboard-card-title{
 	color: rgb(118, 187, 118);
 }
-
-.account-photo{
-	cursor: pointer;
-	/*background-image: url("/images/fb-icons.png") !important; */	
-	/*background-color: none !important;
-	background-position: 0px -0px; 
-	background-size: auto; */
-	width: 20px; 
-	height: 20px; 
-	/*background-repeat: no-repeat; 
-	display: inline-block;*/
+.fa-solid:not(.nav-icon), fa-regular{
+	color: rgb(118, 187, 118);
 }
-
-
 
 .viewing-modal-header{
 	color: rgb(186, 169, 138);
@@ -69,6 +58,9 @@
 	font-size: 25pt;
 	cursor: pointer;
 	z-index: 2000;
+	/*position: fixed;
+	float: right;
+	right: 13%;*/
 }
 .viewing-modal-exit-btn:hover {
 	text-shadow:0px 0px 4px goldenrod;

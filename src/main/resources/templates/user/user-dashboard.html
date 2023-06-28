@@ -36,11 +36,11 @@
 		<div id="viewing-modal" class="mt px-4 custom-scrollbar-style">	
 			
 			<div class="viewing-modal">
-				<span class="viewing-modal-exit-btn mx-3 float-end" onclick="closeSigninForm()">&times;</span>
+				<span class="viewing-modal-exit-btn float-end" onclick="closeSigninForm()">&times;</span>
 				<br />
 				<span class="d-flex justify-content-	 mt-3">
 					<!--<img class="dashboard-card-img-top mx-2" th:src="@{/images/to-do-list.png}" alt="to-do icon">-->
-					<span class="dashboard-card-img-top mx-2 fa-regular fa-user" alt="to-do icon"></span>
+					<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-list" alt="to-do icon"></span>
 					<h5 class="card-title dashboard-card-title">Todo List</h5>
 				</span>
 				<hr />
@@ -65,8 +65,8 @@
 		<table th:replace = "/user/todo/todoLayouts :: displayItems"></table>
 		</form>
 		
-		<script th:replace = "/user/todo/todoLayouts :: ready-delete-button-script"></script>
-		<script th:replace = "/user/todo/todoLayouts :: display-item-count-script"></script>
+		<!--<script th:replace = "/user/todo/todoLayouts :: ready-delete-button-script"></script>
+		<script th:replace = "/user/todo/todoLayouts :: display-item-count-script"></script>-->
 		
 		<script>			
 			function addContributersForm(){
@@ -74,7 +74,7 @@
 			}
 		</script>
 		
-		<script th:replace = "/user/todo/todoLayouts :: edit-item-script"></script>
+		<!--<script th:replace = "/user/todo/todoLayouts :: edit-item-script"></script>-->
 		<script th:replace = "/user/todo/todoLayouts :: notificationScripts"></script>
 			
 		<!--todo display modal end-->	
@@ -85,7 +85,7 @@
 		<div class="d-flex justify-content-around flex-wrap mt-4">
 			<div class="card user-dashboard-cards custom-scrollbar-style p-2" style="width: 18rem;">
 				<div class="d-flex">
-					<img class="dashboard-card-img-top mx-2" th:src="@{/images/projects.png}" alt="project icon">
+					<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-diagram-project" alt="project icon"></span>
 					<h5 class="card-title dashboard-card-title">Project</h5>
 				</div>
 				<div class="card-body">
@@ -99,7 +99,7 @@
 
 			<div class="card user-dashboard-cards todo-list-card custom-scrollbar-style p-2" style="width: 18rem;" th:href="@{/todo}">
 				<div class="d-flex">
-					<img class="dashboard-card-img-top mx-2" th:src="@{/images/to-do-list.png}" alt="to-do icon">
+					<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-list" alt="to-do icon"></span>
 					<h5 class="card-title dashboard-card-title">Todo List</h5>
 				</div>
 				<div class="card-body" onclick="displayViewingModal()">
@@ -140,7 +140,7 @@
 			</div>
 			<div class="card user-dashboard-cards custom-scrollbar-style p-2" style="width: 18rem;">
 				<div class="d-flex">
-					<img class="dashboard-card-img-top mx-2" th:src="@{/images/tasks.png}" alt="task icon">
+					<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-list-check" alt="task icon"></span>
 					<h5 class="card-title dashboard-card-title">Tasks on board</h5>
 				</div>
 				<div class="card-body">
@@ -154,7 +154,7 @@
 
 			<div class="card user-dashboard-cards custom-scrollbar-style p-2" style="width: 18rem;">
 				<div class="d-flex">
-					<img class="dashboard-card-img-top mx-2" th:src="@{/images/tasks.png}" alt="task icon">
+					<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-timeline" alt="task icon"></span>
 					<h5 class="card-title dashboard-card-title">Activity</h5>
 				</div>
 				<div class="card-body">
@@ -190,7 +190,7 @@
 		}
 	</script>
 
-	<script th:replace="/user/todo/todoLayouts :: display-item-count-script"></script>
+	<!--<script th:replace="/user/todo/todoLayouts :: display-item-count-script"></script>-->
 
 </body>
 

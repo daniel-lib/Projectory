@@ -2,3 +2,86 @@
 	border: 1px solid rgb(192, 191, 188) !important;
 	border-radius: 0.2rem !important;
 }
+
+.itemNumber{
+	color:rgb(255, 255, 255) !important;
+	background-color:rgb(61, 56, 70) !important;
+	font-size: 12pt;
+	border-right:1px solid rgb(205, 171, 143);
+}
+.delete-single-item-btn{
+	font-size: 14pt;
+	padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+	transition: all 0.3s ease-in-out;
+}
+.delete-single-item-btn:hover{
+	box-shadow: 0px 0px 5px 3px #dc3545;
+}
+.item-deletion-controls{
+	display: inline;
+	vertical-align: middle;
+	vertical-align: top;
+}
+.edit-item-btn{
+	cursor: pointer;
+	background-image: url("https://static.xx.fbcdn.net/rsrc.php/v3/yv/r/X-QSDnYG2N5.png") !important; 
+	background-color: none !important;
+	background-position: 0px -649px; 
+	background-size: auto; 
+	width: 23px; 
+	height: 21px; 
+	background-repeat: no-repeat; 
+	display: inline-block;
+}
+.edit-element-title-input{
+	width: 30%;
+	display: inline;
+	padding:.130rem .75rem;
+}
+
+.item-control-buttons{
+	border-left:1px solid rgb(154, 153, 150); 
+	padding-left:1rem !important; 
+	margin-left: 1rem !important;
+	margin-right: 1.5rem !important;
+}
+.red-checkbox {
+	-webkit-appearance: none;
+   -moz-appearance:    none;
+   appearance:         none;
+	background-color: #fafafa;
+	border: 3px solid #dc3545;
+	border: 3px solid rgb(192, 191, 188);
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+	padding: 10px;
+	border-radius: 3px;
+	display: inline-block;
+	position: relative;
+	margin-top: 0;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+}
+.red-checkbox:hover{
+	box-shadow: 0px 0px 5px 3px #dc3545;
+}
+
+.red-checkbox:active, .regular-checkbox:checked:active {
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+.red-checkbox:checked {
+	background-color: #dc3545;
+	border: 3px solid #dc3545;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+	color: #99a1a7;
+}
+
+/*.red-checkbox:checked:after {
+	content: '\2714';
+	font-size: 14px;
+	position: absolute;
+	top: 0px;
+	left: 3px;
+	color: #99a1a7;
+}*/
+

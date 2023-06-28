@@ -24,7 +24,7 @@
 						<input type="checkbox" onClick="readyDeleteButton()" name="selectedForRemoval" th:value="${item.todoItemId}" class="form-check-input checkbox-for-deletion red-checkbox" id="checkbox-for-deletion" title="Select item">	
 						</span>
 										
-						<a th:href="@{/todo/delete-item(itemId=${item.todoItemId})}" class="link-white-color float-end">
+						<a th:href="@{/todo/delete-item(itemId=${item.todoItemId})}" class="link-white-color float-end delete-single-item-link">
 						<span class="badge text-bg-danger delete-single-item-btn" title="Delete Item">&times;</span>
 						</a>
 						</div>							
@@ -40,7 +40,7 @@
 			</form>
 		</div>
 		
-		<script th:fragment = "edit-item-script">
+		<!--<script th:fragment = "edit-item-script">
 							function editItem(id){
 								
 								document.getElementById(id).contentEditable;
@@ -81,10 +81,12 @@
 		
 		<script th:fragment = "ready-delete-button-script">
 			function readyDeleteButton(){
-				var checkboxes = document.getElementsByClassName("checkbox-for-deletion");
-				var delBtn = document.getElementById("delete-selected-btn");
-				var numberOfItems=document.getElementById("number-of-items-badge");
-				var num = 0;
+				const checkboxes = document.getElementsByClassName("checkbox-for-deletion");
+				const delBtn = document.getElementById("delete-selected-btn");
+				const numberOfItems=document.getElementById("number-of-items-badge");
+				const deleteSingleItemBtns = document.getElementsByClassName("delete-single-item-btn");
+				const deleteSingleItemLnk = document.getElementsByClassName("delete-single-item-link");
+				let num = 0;
 				for(var checkbox of checkboxes){
 					if(checkbox.checked === true){
 						num++;
@@ -92,10 +94,28 @@
 				}
 				numberOfItems.innerHTML = num;
 				if(num > 0){
-					delBtn.removeAttribute("disabled");					
-				}
-				else{
-					delBtn.setAttribute("disabled", true);
+					delBtn.removeAttribute("disabled");
+					
+					for(let l of deleteSingleItemLnk){	
+						l.style.pointerEvents = "none";
+						
+					}
+					
+					for(let i of deleteSingleItemBtns){	
+						i.style.backgroundColor = "grey";
+						i.setAttribute("class", "badge delete-single-item-btn");
+					}
+				}	
+				else{					
+					delBtn.setAttribute("disabled", true);	
+					for(let l of deleteSingleItemLnk){	
+						//l.style="pointer-events: none !important";
+						l.style.pointerEvents = "auto";
+					}	
+					for(let i of deleteSingleItemBtns){	
+						i.setAttribute("class", "badge text-bg-danger delete-single-item-btn");
+						
+					}
 				}
 			}			
 		</script>
@@ -114,7 +134,7 @@
 				}
 				}
 			}
-		</script>
+		</script>-->
 						
 		
 		<script th:fragment = "notificationScripts">
