@@ -21,7 +21,7 @@
 						
 						<div class="item-deletion-controls" style="display: inline;">
 						<span class="float-end delete-item-checkbox item-control-buttons" >						
-						<input type="checkbox" onClick="readyDeleteButton()" name="selectedForRemoval" th:value="${item.todoItemId}" class="form-check-input checkbox-for-deletion" id="checkbox-for-deletion" title="Select item">	
+						<input type="checkbox" onClick="readyDeleteButton()" name="selectedForRemoval" th:value="${item.todoItemId}" class="form-check-input checkbox-for-deletion red-checkbox" id="checkbox-for-deletion" title="Select item">	
 						</span>
 										
 						<a th:href="@{/todo/delete-item(itemId=${item.todoItemId})}" class="link-white-color float-end">
