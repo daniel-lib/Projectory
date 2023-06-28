@@ -106,39 +106,29 @@
 
 
 		<div class="d-flex justify-content-around mt-4 container-bg-green p-3">
-			<div class="card todo-fact-cards p-2 mb-3" style="width: 18rem;" loading="lazy">
-				<img class="card-img-top" th:src="@{/images/productivity.jpeg}" alt="Card image cap">
-				<div class="card-body">
-					<h5 class="card-title">Plan Your Day</h5>
-					<p class="card-text">Studies show scheduling and planning your day increases productivity by 100%.
-						we spend more energy trying to remember what we need to do than actually accomplishing a task.
-					</p>
-					<a href="#" class="btn btn-primary btn-sm">Learn More</a>
-				</div>
+			<div class="div-top-decor-container d-flex">
+				
 			</div>
+			<script>
+				
+					let divDecorContainer = document.getElementsByClassName("div-top-decor-container");
+					let decor = document.createElement("div");
+					
+					//decor.setAttribute("class", "div-top-decor");					
+					//document.body.appendChild(decor);
+					const parent = divDecorContainer.parentElement();
 
-			<div class="card todo-fact-cards p-2 mb-3" style="width: 18rem;" loading="lazy">
-				<img class="card-img-top" th:src="@{/images/manage-stress.jpeg}" alt="Card image cap">
-				<div class="card-body">
-					<h5 class="card-title">Manage Stress</h5>
-					<p class="card-text">Stress has become prevalent in the current state of the world we live in. We
-						need to protect our mental health
-						with everything we got. Keeping your life organized can keep you sane. </p>
-					<a href="#" class="btn btn-primary btn-sm">Learn More</a>
-				</div>
-			</div>
-			<div class="card todo-fact-cards p-2 mb-3" style="width: 18rem;" loading="lazy">
-				<img class="card-img-top" th:src="@{/images/save-time.jpeg}" alt="Card image cap">
-				<div class="card-body">
-					<h5 class="card-title">Save time</h5>
-					<p class="card-text">It is well know that time is the ultimate currency. We need to salvage as much
-						of it as we can and put it
-						in good use. Just like as foreth fathers used tools to save time when hunting, we need to do the
-						same.
-					</p>
-					<a href="#" class="btn btn-primary btn-sm">Learn More</a>
-				</div>
-			</div>
+					parent.appendChild(decor);
+					alert("here");
+					
+				</script>
+				
+			
+			<p class="fs-1 green-bg-text-headline">Ut enim ad minim veniam, quis <span class="colored-text-inline">nostrud</span> exercitation</p>
+			<p class="green-bg-text-paragraph"> ullamco laboris nisi ut aliquip ex ea commodo 
+				consequat. Duis aute irure dolor in reprehenderit in 
+				voluptate velit esse cillum dolore eu fugiat nulla 
+				pariatur.</p>
 		</div>
 
 

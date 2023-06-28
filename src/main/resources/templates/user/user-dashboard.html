@@ -11,22 +11,36 @@
 		th:text="${param.indicator}"></div>
 	<div class="containers">
 		<script>
+			//const X = window.screenX;
+			//const Y = window.screenY;
+			
 			const modal = document.getElementById('viewing-modal');
-const windowHeight = window.innerHeight;
-const windowWidth = window.innerWidth;
+			const windowHeight = window.innerHeight;
+			const windowWidth = window.innerWidth;
+			const scrollY = window.scrollY;
+			
+			modal.style.top = (windowHeight / 2) - (modal.clientHeight / 2) + scrollY + 'px';
+			modal.style.left = (windowWidth / 2) - (modal.clientWidth / 2) + 'px';
 
-modal.style.top = (windowHeight / 2) - (modal.clientHeight / 2) + 'px';
-modal.style.left = (windowWidth / 2) - (modal.clientWidth / 2) + 'px';
+
+			
+			//const modal = document.getElementById('viewing-modal');
+			//const windowHeight = window.innerHeight;
+			//const windowWidth = window.innerWidth;
+			
+			//modal.style.top = (windowHeight / 2) - (modal.clientHeight / 2) + 'px';
+			//modal.style.left = (windowWidth / 2) - (modal.clientWidth / 2) + 'px';
 
 		</script>
 
-		<div id="viewing-modal" class="mt px-4 custom-scrollbar-style-2">	
+		<div id="viewing-modal" class="mt px-4 custom-scrollbar-style">	
 			
 			<div class="viewing-modal">
 				<span class="viewing-modal-exit-btn mx-3 float-end" onclick="closeSigninForm()">&times;</span>
 				<br />
 				<span class="d-flex justify-content-	 mt-3">
-					<img class="dashboard-card-img-top mx-2" th:src="@{/images/to-do-list.png}" alt="to-do icon">
+					<!--<img class="dashboard-card-img-top mx-2" th:src="@{/images/to-do-list.png}" alt="to-do icon">-->
+					<span class="dashboard-card-img-top mx-2 fa-regular fa-user" alt="to-do icon"></span>
 					<h5 class="card-title dashboard-card-title">Todo List</h5>
 				</span>
 				<hr />
@@ -83,7 +97,7 @@ modal.style.left = (windowWidth / 2) - (modal.clientWidth / 2) + 'px';
 			</div>
 
 
-			<div class="card user-dashboard-cards custom-scrollbar-style p-2" style="width: 18rem;" th:href="@{/todo}">
+			<div class="card user-dashboard-cards todo-list-card custom-scrollbar-style p-2" style="width: 18rem;" th:href="@{/todo}">
 				<div class="d-flex">
 					<img class="dashboard-card-img-top mx-2" th:src="@{/images/to-do-list.png}" alt="to-do icon">
 					<h5 class="card-title dashboard-card-title">Todo List</h5>
