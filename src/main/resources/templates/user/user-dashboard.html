@@ -5,7 +5,7 @@
 
 <header th:replace="/user/user-layouts :: nav"></header>
 
-<body onLoad="showActionNotification(); displayItemCount()">
+<body onLoad="showMainNotification(); displayItemCount()">
 	<div id="item-action-notification"
 		class="badge item-action-notification px-4 d-flex justify-content-center fixed-top"
 		th:text="${param.indicator}"></div>
@@ -66,16 +66,9 @@
 		</form>
 		
 		<!--<script th:replace = "/user/todo/todoLayouts :: ready-delete-button-script"></script>
-		<script th:replace = "/user/todo/todoLayouts :: display-item-count-script"></script>-->
-		
-		<script>			
-			function addContributersForm(){
-				
-			}
-		</script>
-		
+		<script th:replace = "/user/todo/todoLayouts :: display-item-count-script"></script>-->		
 		<!--<script th:replace = "/user/todo/todoLayouts :: edit-item-script"></script>-->
-		<script th:replace = "/user/todo/todoLayouts :: notificationScripts"></script>
+		<!--<script th:replace = "/user/todo/todoLayouts :: notificationScripts"></script>-->
 			
 		<!--todo display modal end-->	
 			
@@ -170,25 +163,8 @@
 	<footer th:replace="/mainLayouts :: footer"></footer>
 
 
-	<script th:replace="/user/user-layouts::notification-board-script"></script>
-	<script>
-		function displayViewingModal() {
-			var form = document.getElementById("viewing-modal");
-			//document.querySelector("#viewing-modal").style.height = "600px";		
-			//form.style.display = "block";
-			//form.style.height = "auto";
-			form.style.visibility = "visible";
-			form.style.opacity = "1";
-
-		}
-		function closeSigninForm() {
-			var form = document.getElementById("viewing-modal");
-			form.style.opacity = "0";
-			form.style.visibility = "hidden";
-			//form.style.height = "0px";		
-			//form.style.display = "none";
-		}
-	</script>
+	<!--<script th:replace="/user/user-layouts::notification-board-script"></script>-->
+	
 
 	<!--<script th:replace="/user/todo/todoLayouts :: display-item-count-script"></script>-->
 

@@ -2,7 +2,7 @@
 <html xmlns="https://www.thymeleaf.org">
 	<head th:replace = "mainLayouts :: head"></head>	
 	<header th:replace = "/user/user-layouts :: nav"></header>
-	<body onLoad = "showActionNotification()">
+	<body onLoad = "showDashboardActionNotification()">
 		<div class="container">
 		<div th:replace = "/user/todo/todoLayouts :: notification-board"></div>
 		<div class="form-container mt-4 p-4" id="form-container">
@@ -13,7 +13,7 @@
 			</form>
 		</div>			
 		
-		<script th:replace = "/user/todo/todoLayouts :: notificationScripts">
+		<!--<script th:replace = "/user/todo/todoLayouts :: notificationScripts">-->
 			
 		</script>
 	</div>

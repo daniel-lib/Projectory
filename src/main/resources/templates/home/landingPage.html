@@ -5,7 +5,7 @@
 
 <header th:replace="mainLayouts :: nav"></header>
 
-<body onLoad="showActionNotification()">
+<body onLoad="showMainNotification()">
 	<div class="containers">
 
 		<div id="login-signup-form" class="mt-5">
@@ -20,7 +20,7 @@
 					</span>
 					<hr />
 					<form class="m-3" action="/login" method="post" th:object="${user}">
-						<input type="text" placeholder="username" th:field="${user.username}" class="form-control mb-3" autofocus>
+						<input type="text" placeholder="username" th:field="${user.username}"id="username-input" class="form-control mb-3">
 						<input type="password" placeholder="password" th:field="${user.password}" class="form-control mb-3">
 						<input type="submit" value="Sign in" class="btn btn-primary mb-3 btn-primary-white">
 						<span class="fw- register-here-text"> Don't have an account? <a class="form-alternative-btn" onClick="displaySigninForm('signup')"> Create an account</a></span>
@@ -137,7 +137,7 @@
 	</div>
 	<footer th:replace="/mainLayouts :: footer"></footer>
 	
-	<script th:replace="/user/user-layouts::notification-board-script"></script>
+	<!--<script th:replace="/user/user-layouts::notification-board-script"></script>-->
 
 	<script>
 			let formContainer = document.getElementById("login-signup-form");
@@ -156,7 +156,8 @@
 				signUpForm.style.display = "none";	
 					
 				signInForm.style.display = "block";
-				signInForm.style.opacity = "1";
+				signInForm.style.opacity = "1";				
+				document.getElementById("username-input").setAttribute("autofocus");
 			}
 			else if (type == "signup") {
 				//signInForm.style.opacity = "0";

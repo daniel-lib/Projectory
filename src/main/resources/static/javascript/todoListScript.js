@@ -61,6 +61,7 @@ function readyDeleteButton() {
 
 		for (let i of deleteSingleItemBtns) {
 			i.style.backgroundColor = "grey";
+			i.style.opacity = "0.1";
 			i.setAttribute("class", "badge delete-single-item-btn");
 		}
 	}
@@ -72,7 +73,7 @@ function readyDeleteButton() {
 		}
 		for (let i of deleteSingleItemBtns) {
 			i.setAttribute("class", "badge text-bg-danger delete-single-item-btn");
-
+			i.style.opacity = "1";
 		}
 	}
 }
@@ -93,3 +94,36 @@ function displayItemCount() {
 	}
 }
 	/*	</script>*/
+	
+	
+	/*<script th:fragment = "notificationScripts">*/
+			/*function showActionNotification(){*/
+			function showDashboardActionNotification(){
+				var notificationBoard = document.getElementById("item-action-notification");
+				if(notificationBoard.innerHTML !== ""){
+					var color = "red";
+				if(notificationBoard.innerHTML === "added"){
+					notificationBoard.innerHTML = "Item added";
+					color = "green";
+				}
+				else if(notificationBoard.innerHTML === "deleted"){
+					notificationBoard.innerHTML = "1 Item deleted";
+				}
+				else if(notificationBoard.innerHTML === "multiple-deleted"){
+					notificationBoard.innerHTML = "Selected Items deleted";
+				}
+				notificationBoard.style="transition: all 1s ease-out;display: flex !important;color: "+color+" !important;";
+				setTimeout(hideNotificationBoard, 1500);
+				}
+
+					
+			}
+			function hideNotificationBoard(){
+				var notificationBoard = document.getElementById("item-action-notification");
+				//notificationBoard.style="display: flex !important;height:300px !important;";
+				notificationBoard.style = "color:yellow;display: none !important;";
+				//notificationBoard.style = "color:yellow;display: flex !important;";
+				
+			}
+			
+		/*</script>*/
