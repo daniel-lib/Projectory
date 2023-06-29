@@ -17,9 +17,10 @@
 	<script src="/javascript/mainScript.js"></script>
 </head>
 
-<header th:fragment="nav">
+<header th:fragment="nav" class="dashboard-nav">
 	<nav class="user-dashboard-nav navbar navbar-expand-lg navbar-dark bg-dark navbar p-1">
-		<div class="container-fluid d-flex justify-inbetween">
+		<!--<div class="container-fluid d-flex justify-inbetween">-->
+		<div class="">
 			<a class="navbar-brand" th:href="@{/}">
 				<img th:src="@{/images/TrajectoryLogo_darkGreen.png}" alt="[logo]" height="25px" width="30px">
 				<span>projectory</span>
@@ -43,11 +44,11 @@
 						<span class="nav-icon mt-1 fa-solid fa-chalkboard-user"></span> Scrum Board</a>
 					<a class="nav-link" th:href="@{/user/dashboard}">
 						<span class="nav-icon mt-1 fa-solid fa-message"></span> Messages</a>
-						<a class="nav-link" th:href="@{/user/dashboard}">
+					<a class="nav-link" th:href="@{/user/dashboard}">
 						<span class="nav-icon mt-1 fa-solid fa-bell"></span> Notification</a>
 					<!--<a class="nav-link" th:href="@{/user/dashboard}"  th:text="${user.firstName}  + ' '+ ${user.lastName}">-->
-						<a class="nav-link" th:href="@{/user/dashboard}">
-							<span class="nav-icon mt-1 fa-solid fa-user"></span> Account</a>
+					<a class="nav-link" th:href="@{/user/dashboard}">
+						<span class="nav-icon mt-1 fa-solid fa-user"></span> Account</a>
 				</div>
 			</div>
 		</div>
@@ -56,7 +57,7 @@
 </header>
 
 <footer th:fragment="footer" class="mt-5 pt-2">
-	
+
 	<div class="d-flex justify-content-around mt-2">
 		<div class="products">
 			<ul>

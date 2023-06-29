@@ -39,4 +39,15 @@
 				
 			</form>
 		</div>	
+		
+		
+		<div th:fragment = "add-todo-item-form" class="form-container mt-4 p-4 add-todo-item-form" id="add-todo-item-form form-container">
+			<form th:action="@{/todo/add-item}" method = "post" th:object = "${todoModel}">
+			<input type="text" th:field="${todoModel.title}" class="form-control mt-3" placeholder="Item title" autofocus>
+			<textarea  th:field="${todoModel.detail}" class="form-control mt-3" placeholder="detail description"></textarea>
+			<input type="submit" value = "Add" class="btn btn-primary btn-sm mt-3" placeholder="Item title">
+			</form>
+		</div>	
+		
+		
 </html>

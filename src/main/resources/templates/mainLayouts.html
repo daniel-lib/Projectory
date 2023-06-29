@@ -24,30 +24,6 @@
 
 <header th:fragment="nav">
 
-
-
-	<!--	<script>
-				function toggleMenuClose(isHovered){
-					btn = document.getElementsByClassName("menu-icon");
-	
-					if(isHovered){
-						btn = document.getElementsByClassName("menu-icon");
-					btn[0].style.rotate = "45deg";
-					btn[1].style.rotate = "-45deg";
-					btn[0].style.marginTop = "5px";
-					btn[1].style.marginTop = "-20px";
-					btn[2].style.color = "red";
-				
-					}
-					else{						
-						btn[0].style.rotate = "0deg";
-						btn[1].style.rotate = "0deg";
-						btn[0].style.marginTop = "0px";
-						btn[1].style.marginTop = "-10px";
-					}
-					
-				}
-			</script>-->
 	<nav class="home-navbar navbar navbar-expand-lg navbar p-1">
 		<div class="container-fluid">
 			<a class="navbar-brand" th:href="@{/}">
@@ -70,19 +46,9 @@
 					<a class="nav-link" href="">Resources</a>
 					<a class="nav-link justify-content-end login-btn" aria-current="page"
 						onClick="displaySigninForm('login')">Log in</a>
-
-
 				</div>
-
 			</div>
-			<!--   <div class="float-end ">
-							
-						</div>-->
-
-
-
 		</div>
-
 	</nav>
 
 	<!--<script>
