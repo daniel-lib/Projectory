@@ -17,94 +17,64 @@
 	<script src="/javascript/mainScript.js"></script>
 </head>
 
-<header th:fragment="nav" class="dashboard-nav">
-	<nav class="user-dashboard-nav navbar navbar-expand-lg navbar-dark bg-dark navbar p-1">
+<header th:fragment="nav" class="dashboard-nav fixed-top">
+	<nav class="user-dashboard-nav p-1 d-flex">
 		<!--<div class="container-fluid d-flex justify-inbetween">-->
-		<div class="">
+		<div class="top-projectory-logo">
 			<a class="navbar-brand" th:href="@{/}">
 				<img th:src="@{/images/TrajectoryLogo_darkGreen.png}" alt="[logo]" height="25px" width="30px">
 				<span>projectory</span>
-				<!--<br/>-->
-				<span class="projectory-top-description d-block">Dashboard</span>
 			</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-				aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon" onmouseover="toggleMenuClose(true)"
-					onmouseout="toggleMenuClose(false)">
-					<span class="menu-icon menu-icon-one"></span>
-
-				</span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-				<div class="navbar-nav " th:object="${user}">
-					<a class="nav-link" th:href="@{/todo}">To-do List</a>
-					<a class="nav-link" th:href="@{/user/dashboard}">
-						<span class="nav-icon mt-1 fa-solid fa-table-columns"></span> Dashboard</a>
-					<a class="nav-link" th:href="@{/user/dashboard}">
-						<span class="nav-icon mt-1 fa-solid fa-chalkboard-user"></span> Scrum Board</a>
-					<a class="nav-link" th:href="@{/user/dashboard}">
-						<span class="nav-icon mt-1 fa-solid fa-message"></span> Messages</a>
-					<a class="nav-link" th:href="@{/user/dashboard}">
-						<span class="nav-icon mt-1 fa-solid fa-bell"></span> Notification</a>
-					<!--<a class="nav-link" th:href="@{/user/dashboard}"  th:text="${user.firstName}  + ' '+ ${user.lastName}">-->
-					<a class="nav-link" th:href="@{/user/dashboard}">
-						<span class="nav-icon mt-1 fa-solid fa-user"></span> Account</a>
-				</div>
+		</div>
+		<div class="navbar-links-container d-flex justify-content-end mx-3">
+			<div class="navbar-nav " th:object="${user}">
+				<a class="nav-link top-nav-links" th:href="@{/user/dashboard}">
+					<span class="nav-icon mt-1 fa-solid fa-message"></span></a>
+				<a class="nav-link top-nav-links" th:href="@{/user/dashboard}">
+					<span class="nav-icon mt-1 fa-solid fa-bell"></span></a>
+				<!--<a class="nav-link" th:href="@{/user/dashboard}"  th:text="${user.firstName}  + ' '+ ${user.lastName}">-->
+				<a class="nav-link top-nav-links" th:href="@{/user/dashboard}">
+					<span class="nav-icon mt-1 fa-solid fa-gear"></span></a>
 			</div>
 		</div>
 	</nav>
 
 </header>
 
-<footer th:fragment="footer" class="mt-5 pt-2">
+<aside th:fragment="side-menu" id="side-menu" class="p-0" ariaLabel = "stretched">
+	<div class="navbar-dark bg-dark p-2  pt-5 side-nav">
+		<div class="navbar-nav " th:object="${user}">
+			<span role="button" class="nav-link mx-0 fa-solid fa-bars" id="side-menu-toggle" onClick="sideMenuToggle()">
+				<span class="fa-solid fa-caret-right" id="side-menu-direction"></span>
+			</span>
+			<a class="nav-link" th:href="@{/todo}"><span class="nav-icon mt-1 fa-solid fa-list"></span> <span
+					class="side-nav-text"> To-do List</span></a>
+			<a class="nav-link" th:href="@{/user/dashboard}">
+				<span class="nav-icon mt-1 fa-solid fa-table-columns"></span> <span
+					class="side-nav-text">Dashboard</span></a>
+			<a class="nav-link" th:href="@{/user/dashboard}">
+				<span class="nav-icon mt-1 fa-solid fa-chalkboard-user"></span> 
+				<span class="side-nav-text"> Scrum Board</span></a>
+			<!--<a class="nav-link" th:href="@{/user/dashboard}"  th:text="${user.firstName}  + ' '+ ${user.lastName}">-->
+			<a class="nav-link" th:href="@{/user/dashboard}">
+				<span class="nav-icon mt-1 fa-solid fa-user"></span> 
+				<span class="side-nav-text"> Account</span></a>
+		</div>
+	</div>
+</aside>
+
+<footer th:fragment="footer" class="mt-5 pt-2 dashboard-footer m-0">
 
 	<div class="d-flex justify-content-around mt-2">
-		<div class="products">
-			<ul>
-				<li>
-					<h6>PRODUCTS</h6>
-				</li>
-				<li><a href="">ERP</a></li>
-				<li><a href="">HRM</a></li>
-				<li><a href="">Intranet Portals</a></li>
-			</ul>
-		</div>
-		<div class="compamy">
 
-			<ul>
-				<li>
-					<h6>COMPANY</h6>
-				</li>
-				<li><a href="">About</a></li>
-				<li><a href="">Work With Us</a></li>
-				<li><a href="">Contact Us</a></li>
-			</ul>
-		</div>
-		<div class="legal">
-
-			<ul>
-				<li>
-					<h6>LEGAL</h6>
-				</li>
-				<li><a href="">Privacy Policy</a></li>
-				<li><a href="">Terms of Service</a></li>
-				<li><a href="">Cookie Settings</a></li>
-				<!--test-->
-				<li class="footer__item">
-					<a href="https://www.alxafrica.com/data-analytics/" target="_blank" rel="noopener noreferrer"
-						class="footer__link-item">
-						Data Analytics<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24"
-							class="iconExternalLink_nPIU">
-							<path fill="currentColor"
-								d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z">
-							</path>
-						</svg></a>
-				</li>
-			</ul>
+		<div class="socials">
 		</div>
 	</div>
 
-	<p>© 2023, Placeholder Tech</p>
+	<div>
+		<p>© 2023, Placeholder Tech</p>
+	</div>
+	<br />
 </footer>
 
 

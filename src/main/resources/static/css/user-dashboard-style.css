@@ -1,64 +1,125 @@
-/*.dashboard-nav{
-	width: 200px;
-	height: 100%;
-}*/
-.user-dashboard-cards{
+.dashboard-nav {
+	/*max-width: 200px;
+	height: 100%;*/
+}
+.user-dashboard-nav{
+	background-color: rgb(33,37,41);
+}
+.navbar-links-container{
+	/*display: flex;*/
+	color: rgba(255, 255, 255, 0.55);
+	/*border: 1px solid red*/;
+	width: 100%;
+}
+.navbar-nav{
+	display: inline !important;	
+}
+.top-nav-links{
+	display: inline !important;
+}
+#side-menu {
+	width: 250px;
+	/*position: fixed !important;
+	display: block;*/
+	padding-right: 5px;
+	min-width: 10px;
+	height: 100% !important;
+	z-index: 100;
+}
+#side-menu-toggle{
+	font-size: 16pt	;
+	letter-spacing: -0.1em;
+	transition: all 0.3s ease-in-out;
+}
+#side-menu-toggle:hover{
+	color:  rgb(118, 187, 118);
+	letter-spacing: 0em;
+}
+#side-menu-toggle:active{
+	text-shadow: 0 0 10px  rgb(118, 187, 118);
+	
+}
+#side-menu-direction{
+	font-size: 9pt	!important;
+}
+
+.side-nav {
+	height: 100% !important;
+	position: fixed;
+	padding-right: 100px !important;
+	transition: all 0.3s ease-in-out;
+	}
+	
+.side-nav-text{
+	transition: 0.3s ease-in-out;
+}
+
+.user-dashboard-cards {
 	cursor: pointer;
 	border-bottom: 3px solid goldenrod;
 	margin: 1.5em 0 1.5em 0;
-	
+
 	transition: all 0.3s ease-in-out;
 	height: 300px;
-	overflow: auto;	
+	overflow: auto;
 }
-.user-dashboard-cards:hover{
+
+.user-dashboard-cards:hover {
 	background: rgba(205, 171, 143, 0.2);
-	border-bottom: 3px solid rgb(118, 187, 118);	
-	box-shadow: 0px 0px 	3px 3px rgb(192, 191, 188);
+	border-bottom: 3px solid rgb(118, 187, 118);
+	box-shadow: 0px 0px 3px 3px rgb(192, 191, 188);
 	/*box-shadow: inset 40em 0em gold;*/
 }
 
-.dashboard-card-img-top{
+.dashboard-card-img-top {
 	height: 25px !important;
 	width: 20px;
 }
-.dashboard-card-title{
-	color: rgb(118, 187, 118);
-}
-.fa-solid:not(.nav-icon), fa-regular{
+
+.dashboard-card-title {
 	color: rgb(118, 187, 118);
 }
 
-.viewing-modal-header{
+.card-header {
+	/*border-bottom: 1px solid rgb(192, 191, 188);*/
+	margin: 0 !important;
+}
+
+.fa-solid:not(.nav-icon, #side-menu-toggle, #side-menu-direction),
+fa-regular {
+	color: rgb(118, 187, 118);
+}
+
+.viewing-modal-header {
 	color: rgb(186, 169, 138);
 	font-size: 100%;
 }
 
-#viewing-modal{
+#viewing-modal {
 	background: rgb(36, 31, 49);
 	border-bottom: 3px solid goldenrod;
 	width: 80%;
 	margin-left: 10% !important;
-	margin-left: 10% !important;	
+	margin-left: 10% !important;
 	position: absolute;
 	position: fixed;
 	z-index: 14;
 	border-top-right-radius: 0.375rem;
 	border-top-left-radius: 0.375rem;
-	transition: all 0.5s ease-in-out;	
+	transition: all 0.5s ease-in-out;
 	opacity: 0;
 	visibility: hidden;
 	/*overflow: hidden;
 	height: 300px;*/
 	height: 400px;
-	overflow: auto;	
+	overflow: auto;
 	/*top: 50%;*/
 	/*transform: translate(-50%, -50%);*/
-	
+
 }
 
 .viewing-modal-exit-btn {
-	color:goldenrod;
+	color: goldenrod;
 	font-size: 25pt;
 	cursor: pointer;
 	z-index: 2000;
@@ -66,65 +127,84 @@
 	float: right;
 	right: 13%;*/
 }
+
 .viewing-modal-exit-btn:hover {
-	text-shadow:0px 0px 4px goldenrod;
+	text-shadow: 0px 0px 4px goldenrod;
 }
+
 .viewing-modal-exit-btn:active {
-	text-shadow:0px 5px 10px goldenrod;
+	text-shadow: 0px 5px 10px goldenrod;
 }
 
 
-.viewing-modal-decor{
+.viewing-modal-decor {
 	background-color: rgb(99, 69, 44) !important;
-	background-color:rgb(218, 165, 32,0.8) !important;
+	background-color: rgb(218, 165, 32, 0.8) !important;
 	background-color: rgb(129, 61, 156) !important;
-/*	height: 200px;*/
+	/*	height: 200px;*/
 	padding: 200px;
 	rotate: -30deg;
 	border-radius: 200px;
 	filter: blur(20px);
-	
+
 	transition: 1s ease;
 	opacity: 0.4;
 }
-.viewing-modal-decor-container{
+
+.viewing-modal-decor-container {
 	position: absolute;
 }
 
 
-#d1{
+#d1 {
 	/*margin-left: 20%;*/
 	background-color: rgb(53, 132, 228) !important;
-	
+
 }
-#d2{
+
+#d2 {
 	/*margin-left: 20%;*/
 	background-color: rgb(38, 162, 105) !important;
 	margin-left: -50px;
 }
-#viewing-modal{
+
+#viewing-modal {
 	color: antiquewhite !important;
 }
 
-.item-display-table{
+.item-display-table {
 	color: white !important;
+}
+
+
+.dashboard-footer{
+	z-index: 1000 !important;
+	bottom: 0;
+	/*position: sticky;*/
 }
 
 
 /*	applied to:	.user-dashboard-cards*/
 .custom-scrollbar-style::-webkit-scrollbar {
-  width: 12px;               /* width of the entire scrollbar */
-  cursor: pointer;
+	width: 12px;
+	/* width of the entire scrollbar */
+	cursor: pointer;
 }
+
 .custom-scrollbar-style::-webkit-scrollbar-track {
-  background: rgb(222, 221, 218);        /* color of the tracking area */
-   /*background-color: rgba(222, 221, 218,0.6);*/
-    background-color: rgb(94, 92, 100);
+	background: rgb(222, 221, 218);
+	/* color of the tracking area */
+	/*background-color: rgba(222, 221, 218,0.6);*/
+	background-color: rgb(94, 92, 100);
 }
+
 .custom-scrollbar-style::-webkit-scrollbar-thumb {
-  background-color: rgb(118, 187, 118);    /* color of the scroll thumb */
-  border-radius: 20px;       /* roundness of the scroll thumb */
-  border: 3px solid rgb(118, 187, 118);  /* creates padding around scroll thumb */
+	background-color: rgb(118, 187, 118);
+	/* color of the scroll thumb */
+	border-radius: 20px;
+	/* roundness of the scroll thumb */
+	border: 3px solid rgb(118, 187, 118);
+	/* creates padding around scroll thumb */
 }
 
 
@@ -133,22 +213,23 @@
 /* future proof method? */
 /* Works on Firefox */
 .custom-scrollbar-style-2 {
-  scrollbar-width: thin;
-  scrollbar-color: rgb(118, 187, 118) rgb(222, 221, 218);
+	scrollbar-width: thin;
+	scrollbar-color: rgb(118, 187, 118) rgb(222, 221, 218);
 }
+
 /* Works on Chrome, Edge, and Safari */
 .custom-scrollbar-style-2::-webkit-scrollbar {
-  width: 12px;
+	width: 12px;
 }
 
 .custom-scrollbar-style-2::-webkit-scrollbar-track {
-  background: rgb(222, 221, 218);
+	background: rgb(222, 221, 218);
 }
 
 .custom-scrollbar-style-2::-webkit-scrollbar-thumb {
-  background-color: rgb(118, 187, 118);
-  border-radius: 20px;
-  border: 3px solid rgb(222, 221, 218);
+	background-color: rgb(118, 187, 118);
+	border-radius: 20px;
+	border: 3px solid rgb(222, 221, 218);
 }
 
 
@@ -157,19 +238,21 @@
 
 
 @media (max-width: 900px) {
-/*  #viewing-modal {
+
+	/*  #viewing-modal {
     flex: 100%;
   }*/
-  #viewing-modal{
-	background: rgb(36, 31, 49);
-	border-bottom: 3px solid goldenrod;
-	width: 98%;
-	margin-left: 1% !important;
-	margin-left: 1% !important;	
-	height: 500px;
+	#viewing-modal {
+		background: rgb(36, 31, 49);
+		border-bottom: 3px solid goldenrod;
+		width: 98%;
+		margin-left: 1% !important;
+		margin-left: 1% !important;
+		height: 500px;
+	}
+
+	.viewing-modal-header {
+		margin-left: 15% !important;
+		margin-left: 15% !important;
+	}
 }
-.viewing-modal-header{
-	margin-left: 15% !important;
-	margin-left: 15% !important;
-	}
-	}

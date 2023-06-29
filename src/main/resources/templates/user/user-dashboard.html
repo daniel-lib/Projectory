@@ -9,9 +9,11 @@
 	<div id="item-action-notification"
 		class="badge item-action-notification px-4 d-flex justify-content-center fixed-top"
 		th:text="${param.indicator}"></div>
+	<header th:replace="/user/user-layouts :: nav"></header>
 	<div class="containers d-flex">
-		<header th:replace="/user/user-layouts :: nav"></header>
-		<section class="dashboard-area">
+		<aside th:replace="/user/user-layouts :: side-menu" )></aside>
+
+		<section class="dashboard-area d-flex">
 			<div id="viewing-modal" class="mt px-4 custom-scrollbar-style">
 
 				<div class="viewing-modal">
@@ -46,8 +48,8 @@
 
 
 			<div class="d-flex justify-content-around flex-wrap mt-4">
-				<div class="card user-dashboard-cards custom-scrollbar-style p-2" style="width: 18rem;">
-					<div class="d-flex">
+				<div class="card user-dashboard-cards custom-scrollbar-style" style="width: 18rem;">
+					<div class="card-header d-flex">
 						<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-diagram-project"
 							alt="project icon"></span>
 						<h5 class="card-title dashboard-card-title">Project</h5>
@@ -61,9 +63,9 @@
 				</div>
 
 
-				<div class="card user-dashboard-cards todo-list-card custom-scrollbar-style p-2" style="width: 18rem;"
+				<div class="card user-dashboard-cards todo-list-card custom-scrollbar-style" style="width: 18rem;"
 					th:href="@{/todo}">
-					<div class="d-flex">
+					<div class="card-header d-flex">
 						<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-list" alt="to-do icon"></span>
 						<h5 class="card-title dashboard-card-title">Todo List</h5>
 					</div>
@@ -103,8 +105,8 @@
 
 					</script>
 				</div>
-				<div class="card user-dashboard-cards custom-scrollbar-style p-2" style="width: 18rem;">
-					<div class="d-flex">
+				<div class="card user-dashboard-cards custom-scrollbar-style" style="width: 18rem;">
+					<div class="card-header d-flex">
 						<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-list-check" alt="task icon"></span>
 						<h5 class="card-title dashboard-card-title">Tasks on board</h5>
 					</div>
@@ -117,8 +119,8 @@
 				</div>
 
 
-				<div class="card user-dashboard-cards custom-scrollbar-style p-2" style="width: 18rem;">
-					<div class="d-flex">
+				<div class="card user-dashboard-cards custom-scrollbar-style" style="width: 18rem;">
+					<div class="card-header d-flex px-0">
 						<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-timeline" alt="task icon"></span>
 						<h5 class="card-title dashboard-card-title">Activity</h5>
 					</div>
@@ -133,7 +135,8 @@
 			</div>
 		</section>
 	</div>
-	<footer th:replace="/mainLayouts :: footer"></footer>
+	<!--<footer th:replace="mainLayouts :: footer"></footer>-->
+	<footer th:replace="/user/user-layouts :: footer"></footer>
 
 
 	<!--<script th:replace="/user/user-layouts::notification-board-script"></script>-->
