@@ -24,7 +24,7 @@
 }
 .edit-item-btn{
 	cursor: pointer;
-	background-image: url("https://static.xx.fbcdn.net/rsrc.php/v3/yv/r/X-QSDnYG2N5.png") !important; 
+	/*background-image: url("https://static.xx.fbcdn.net/rsrc.php/v3/yv/r/X-QSDnYG2N5.png") !important; */
 	background-color: none !important;
 	background-position: 0px -649px; 
 	background-size: auto; 

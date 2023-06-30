@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	
+<!--Project display modal start-->
+<div th:fragment="project-list-modal-content" id="project-list-modal-content">
+	<span class="d-flex justify-content-	 mt-3">
+		<!--<img class="dashboard-card-img-top mx-2" th:src="@{/images/to-do-list.png}" alt="to-do icon">-->
+		<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-list" alt="to-do icon"></span>
+		<h5 class="card-title dashboard-card-title">Project List</h5>
+	</span>
+	<hr />
+	
+	<div th:replace="/user/todo/todoLayouts :: notification-board"></div>
+	<a th:href="@{todo/add-item-form}" class="btn btn-primary-white btn-sm mt-3 mx-3">Create Project</a>
+	<button class="btn btn-sm btn-primary-white mt-3" onClick="addContributersForm()">Add
+		Members</button>
+	<form th:action="@{/user/todo/delete-selected}" method="post">
+		<button type="submit" class="btn btn-danger btn-sm mt-3 float-end" value="Delete Selected"
+			id="delete-selected-btn" disabled>
+			Delete Selected <span class="badge text-bg-info" id="number-of-items-badge">0</span>
+		</button>
+
+		<table th:replace="/user/todo/todoLayouts :: displayItems"></table>
+	</form>
+	
+</div>
+<!--Project display modal end-->	
+	
+<!-- Projects card -->
+<div th:fragment="project-dashboard-card" class="card user-dashboard-cards custom-scrollbar-style"
+	style="width: 18rem;">
+	<div class="card-header d-flex">
+		<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-diagram-project" alt="project icon"></span>
+		<h5 class="card-title dashboard-card-title">Project</h5>
+	</div>
+	<div class="card-body" onclick="displayViewingModal(1)">
+		<a href="#" class="btn btn-primary btn-sm">Create Project</a>
+
+		<p class="card-text fw-lighter">There are no projects at the moment.</p><br />
+
+	</div>
+</div>
+
+
+<!-- Project tasks card-->
+<div th:fragment="project-task-dashboard-card" class="card user-dashboard-cards custom-scrollbar-style"
+	style="width: 18rem;">
+	<div class="card-header d-flex">
+		<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-list-check" alt="task icon"></span>
+		<h5 class="card-title dashboard-card-title">Tasks on board</h5>
+	</div>
+	<div class="card-body">
+		<p class="card-text fw-lighter">There are no tasks at the moment.</p><br />
+		<a href="/">Update Task Status</a>
+		</br>
+		<a href="#" class="btn btn-primary btn-sm">View</a>
+	</div>
+</div>
+
+</html>

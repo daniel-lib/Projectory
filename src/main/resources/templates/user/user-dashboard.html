@@ -18,108 +18,25 @@
 		<section class="dashboard-area d-flex">
 
 			<div id="viewing-modal" class="mt px-4 custom-scrollbar-style">
-
 				<div class="viewing-modal">
 					<span class="viewing-modal-exit-btn float-end" onclick="closeSigninForm()">&times;</span>
 					<br />
-					<span class="d-flex justify-content-	 mt-3">
-						<!--<img class="dashboard-card-img-top mx-2" th:src="@{/images/to-do-list.png}" alt="to-do icon">-->
-						<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-list" alt="to-do icon"></span>
-						<h5 class="card-title dashboard-card-title">Todo List</h5>
-					</span>
-					<hr />
-
+					
+					<div th:replace="/user/todo/todoLayouts :: todo-list-modal-content"></div>
+					<div th:replace="/user/project/project-layouts :: project-list-modal-content"></div>
+					
+					
 				</div>
-
-				<!--todo display modal start-->
-				<div th:replace="/user/todo/todoLayouts :: notification-board"></div>
-				<a th:href="@{todo/add-item-form}" class="btn btn-primary-white btn-sm mt-3 mx-3">Add Item</a>
-				<button class="btn btn-sm btn-primary-white mt-3" onClick="addContributersForm()">Add
-					contributers</button>
-				<form th:action="@{/user/todo/delete-selected}" method="post">
-					<button type="submit" class="btn btn-danger btn-sm mt-3 float-end" value="Delete Selected"
-						id="delete-selected-btn" disabled>
-						Delete Selected <span class="badge text-bg-info" id="number-of-items-badge">0</span>
-					</button>
-
-					<table th:replace="/user/todo/todoLayouts :: displayItems"></table>
-				</form>
-
-				<!--todo display modal end-->
-
 			</div>
 
 			<aside th:replace="/user/user-layouts :: side-menu"></aside>
 			<div class="dashboard-cards-container d-flex justify-content-evenly flex-wrap mt-4">
-				<div class="card user-dashboard-cards custom-scrollbar-style" style="width: 18rem;">
-					<div class="card-header d-flex">
-						<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-diagram-project"
-							alt="project icon"></span>
-						<h5 class="card-title dashboard-card-title">Project</h5>
-					</div>
-					<div class="card-body">
-						<a href="#" class="btn btn-primary btn-sm">Create Project</a>
 
-						<p class="card-text fw-lighter">There are no projects at the moment.</p><br />
-
-					</div>
-				</div>
+				<div th:replace="/user/project/project-layouts :: project-dashboard-card"></div>
+				<div th:replace="/user/todo/todoLayouts :: todo-list-dashboard-card"></div>
+				<div th:replace="/user/project/project-layouts :: project-task-dashboard-card"></div>
 
 
-				<div class="card user-dashboard-cards todo-list-card custom-scrollbar-style" style="width: 18rem;"
-					th:href="@{/todo}">
-					<div class="card-header d-flex">
-						<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-list" alt="to-do icon"></span>
-						<h5 class="card-title dashboard-card-title">Todo List</h5>
-					</div>
-					<div class="card-body" onclick="displayViewingModal()">
-
-						<p class="card-text fw-lighter mb-0" id="todo-card-item-count" th:text="${itemCount}"></p>
-
-						<a th:href="@{/todo/add-item-form}" class="btn btn-primary btn-sm">Add Item</a>
-						<table class="table table-striped">
-							<tbody th:object="${items}">
-								<tr th:each="item : ${items}">
-									<td>
-										<div style="display: inline;" th:id="${item.todoItemId}">
-											<span id="itemNumber" class="badge text-bg-warning itemNumber"
-												onclick="test()">0</span>
-											<!--<span th:text = "${item.todoItemId}" class="badge text-bg-warning"></span>-->
-											<span th:text="${item.title}" id=""></span>
-											<br />
-											<span th:text="${item.detail}" class="fw-lighter"></span>
-										</div>
-
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-
-					<script>
-						let itemCount = document.getElementById("todo-card-item-count");
-						//alert(itemCount.textContent);
-						if (itemCount.textContent == 0) {
-							itemCount.textContent = "Todo list is empty at the moment."
-						}
-						else {
-							itemCount.textContent = " ";
-						}
-
-					</script>
-				</div>
-				<div class="card user-dashboard-cards custom-scrollbar-style" style="width: 18rem;">
-					<div class="card-header d-flex">
-						<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-list-check" alt="task icon"></span>
-						<h5 class="card-title dashboard-card-title">Tasks on board</h5>
-					</div>
-					<div class="card-body">
-						<p class="card-text fw-lighter">There are no tasks at the moment.</p><br />
-						<a href="/">Update Task Status</a>
-						</br>
-						<a href="#" class="btn btn-primary btn-sm">View</a>
-					</div>
-				</div>
 
 
 				<div class="card user-dashboard-cards custom-scrollbar-style" style="width: 18rem;">
@@ -134,7 +51,6 @@
 						<a href="#" class="btn btn-primary btn-sm">View</a>
 					</div>
 				</div>
-
 			</div>
 		</section>
 	</div>
