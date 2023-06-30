@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="https://www.thymeleaf.org">
 
-<head th:replace="mainLayouts :: head"></head>
+<!--<head th:replace="mainLayouts :: head"></head>-->
+
+<head th:replace="/user/user-layouts :: head"></head>
 
 
 
@@ -11,9 +13,10 @@
 		th:text="${param.indicator}"></div>
 	<header th:replace="/user/user-layouts :: nav"></header>
 	<div class="containers d-flex">
-		<aside th:replace="/user/user-layouts :: side-menu" )></aside>
+
 
 		<section class="dashboard-area d-flex">
+
 			<div id="viewing-modal" class="mt px-4 custom-scrollbar-style">
 
 				<div class="viewing-modal">
@@ -46,8 +49,8 @@
 
 			</div>
 
-
-			<div class="d-flex justify-content-around flex-wrap mt-4">
+			<aside th:replace="/user/user-layouts :: side-menu"></aside>
+			<div class="dashboard-cards-container d-flex justify-content-evenly flex-wrap mt-4">
 				<div class="card user-dashboard-cards custom-scrollbar-style" style="width: 18rem;">
 					<div class="card-header d-flex">
 						<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-diagram-project"

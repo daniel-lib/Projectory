@@ -58,10 +58,11 @@ function readyDeleteButton() {
 			l.style.pointerEvents = "none";
 
 		}
-
+alert("hello");
 		for (let i of deleteSingleItemBtns) {
 			i.style.backgroundColor = "grey";
 			i.style.opacity = "0.1";
+			
 			i.setAttribute("class", "badge delete-single-item-btn");
 		}
 	}
