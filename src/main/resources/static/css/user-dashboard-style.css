@@ -31,6 +31,7 @@
 	min-width: 10px;
 	height: 100% !important;
 	z-index: 100;
+	font-size: 13pt;
 }
 
 #side-menu-toggle {
@@ -49,7 +50,7 @@
 }*/
 #side-menu-toggle:hover {
 	color: rgb(118, 187, 118);
-	letter-spacing: 0em;
+	letter-spacing: 0em !important;
 }
 
 #side-menu-toggle:active {
