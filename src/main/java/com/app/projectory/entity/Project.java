@@ -12,15 +12,15 @@ public class Project {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long projectId;
-	private String projectTitle;
-	private String projectDescription;
-	private String projectStatus;
+	private String title;
+	private String description;
+	private String status;
 	
-	public Project(long projectId, String projectTitle, String projectDescription, String projectStatus) {
+	public Project(String title, String description, String status) {
 		super();
-		this.projectTitle = projectTitle;
-		this.projectDescription = projectDescription;
-		this.projectStatus = projectStatus;
+		this.title = title;
+		this.description = description;
+		this.status = status;
 	}
 	public Project() {
 		
@@ -31,23 +31,23 @@ public class Project {
 	public void setProjectId(long projectId) {
 		this.projectId = projectId;
 	}
-	public String getProjectTitle() {
-		return projectTitle;
+	public String getTitle() {
+		return title;
 	}
-	public void setProjectTitle(String projectTitle) {
-		this.projectTitle = projectTitle;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public String getProjectDescription() {
-		return projectDescription;
+	public String getDescription() {
+		return description;
 	}
-	public void setProjectDescription(String projectDescription) {
-		this.projectDescription = projectDescription;
+	public void setDescription(String description) {
+		this.description = description;
 	}
-	public String getProjectStatus() {
-		return projectStatus;
+	public String getStatus() {
+		return status;
 	}
-	public void setProjectStatus(String projectStatus) {
-		this.projectStatus = projectStatus;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	

@@ -1,11 +1,34 @@
 <!DOCTYPE html>
 <html>
+
+<!-- insert into todo(todo_item_id, title, detail) values(1, 'item ttl', 'detaillsss'); -->	
+<!-- insert into project(project_id, title, description, status) values(9, 'projects title','more detail', 'in progress') ;-->
+<!--project list display start-->
+	<table class="table item-display-table project-display-table" th:fragment = "project-list-table">
+			<tbody th:object="${project}">
+				<tr th:each="proj : ${project}">
+					<td>
+						<div style="display: inline;" th:id="${proj.projectId}">
+							<span id="itemNumber" class="badge text-bg-warning itemNumber">0</span>
+							<!--<span th:text = "${item.todoItemId}" class="badge text-bg-warning"></span>-->
+							<span th:text="${proj.title}" id=""></span>
+							<br />
+							<span th:text="${proj.description}" class="fw-lighter"></span>
+							<span>|</span>
+							<span th:text="${proj.status}" class="fw-lighter"></span>
+						</div>
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
 	
 <!--Project display modal start-->
 <div th:fragment="project-list-modal-content" id="project-list-modal-content">
 	<span class="d-flex justify-content-	 mt-3">
 		<!--<img class="dashboard-card-img-top mx-2" th:src="@{/images/to-do-list.png}" alt="to-do icon">-->
-		<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-list" alt="to-do icon"></span>
+		<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-diagram-project" alt="to-do icon"></span>
 		<h5 class="card-title dashboard-card-title">Project List</h5>
 	</span>
 	<hr />
@@ -14,13 +37,14 @@
 	<a th:href="@{todo/add-item-form}" class="btn btn-primary-white btn-sm mt-3 mx-3">Create Project</a>
 	<button class="btn btn-sm btn-primary-white mt-3" onClick="addContributersForm()">Add
 		Members</button>
+		<p class="card-text fw-lighter project-count" th:text = "${projectCount}"></p><br />
 	<form th:action="@{/user/todo/delete-selected}" method="post">
 		<button type="submit" class="btn btn-danger btn-sm mt-3 float-end" value="Delete Selected"
 			id="delete-selected-btn" disabled>
 			Delete Selected <span class="badge text-bg-info" id="number-of-items-badge">0</span>
 		</button>
 
-		<table th:replace="/user/todo/todoLayouts :: displayItems"></table>
+		<table th:replace="/user/project/project-layouts :: project-list-table"></table>
 	</form>
 	
 </div>
@@ -34,10 +58,25 @@
 		<h5 class="card-title dashboard-card-title">Project</h5>
 	</div>
 	<div class="card-body" onclick="displayViewingModal(1)">
-		<a href="#" class="btn btn-primary btn-sm">Create Project</a>
+		<a href="#" class="btn btn-primary btn-sm">Create Project</a>			
+		<p class="card-text fw-lighter project-count" th:text = "${projectCount}"></p>
+		<table class="table table-striped">
+			<tbody th:object="${project}">
+				<tr th:each="proj : ${project}">
+					<td>
+						<div style="display: inline;" th:id="${proj.projectId}">
+							<span id="projectNumber" class="badge text-bg-warning itemNumber">0</span>
+							<!--<span th:text = "${item.todoItemId}" class="badge text-bg-warning"></span>-->
+							<span th:text="${proj.title}" id=""></span>
+							<br />
+							<span th:text="${proj.description}" class="fw-lighter"></span>
+						</div>
 
-		<p class="card-text fw-lighter">There are no projects at the moment.</p><br />
-
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	
 	</div>
 </div>
 

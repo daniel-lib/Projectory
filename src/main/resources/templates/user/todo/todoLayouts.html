@@ -13,11 +13,12 @@
 		<h5 class="card-title dashboard-card-title">Todo List</h5>
 	</span>
 	<hr />
-	
+
 	<div th:replace="/user/todo/todoLayouts :: notification-board"></div>
 	<a th:href="@{todo/add-item-form}" class="btn btn-primary-white btn-sm mt-3 mx-3">Add Item</a>
 	<button class="btn btn-sm btn-primary-white mt-3" onClick="addContributersForm()">Add
 		contributers</button>
+	<p class="card-text fw-lighter mb-0 item-count todo-card-item-count" th:text="${itemCount}"></p>
 	<form th:action="@{/user/todo/delete-selected}" method="post">
 		<button type="submit" class="btn btn-danger btn-sm mt-3 float-end" value="Delete Selected"
 			id="delete-selected-btn" disabled>
@@ -26,11 +27,12 @@
 
 		<table th:replace="/user/todo/todoLayouts :: displayItems"></table>
 	</form>
-	
+
 </div>
 <!--todo display modal end-->
 
 
+<!--todo list card started-->
 <div th:fragment="todo-list-dashboard-card" class="card user-dashboard-cards todo-list-card custom-scrollbar-style"
 	style="width: 18rem;" th:href="@{/todo}">
 	<div class="card-header d-flex">
@@ -39,15 +41,14 @@
 	</div>
 	<div class="card-body" onclick="displayViewingModal(0)">
 
-		<p class="card-text fw-lighter mb-0" id="todo-card-item-count" th:text="${itemCount}"></p>
-
 		<a th:href="@{/todo/add-item-form}" class="btn btn-primary btn-sm">Add Item</a>
+		<p class="card-text fw-lighter mb-0 item-count todo-card-item-count" th:text="${itemCount}"></p>
 		<table class="table table-striped">
 			<tbody th:object="${items}">
 				<tr th:each="item : ${items}">
 					<td>
 						<div style="display: inline;" th:id="${item.todoItemId}">
-							<span id="itemNumber" class="badge text-bg-warning itemNumber" onclick="test()">0</span>
+							<span id="itemNumber" class="badge text-bg-warning itemNumber">0</span>
 							<!--<span th:text = "${item.todoItemId}" class="badge text-bg-warning"></span>-->
 							<span th:text="${item.title}" id=""></span>
 							<br />
@@ -59,21 +60,10 @@
 			</tbody>
 		</table>
 	</div>
-
-	<script>
-		let itemCount = document.getElementById("todo-card-item-count");
-		//alert(itemCount.textContent);
-		if (itemCount.textContent == 0) {
-			itemCount.textContent = "Todo list is empty at the moment."
-		}
-		else {
-			itemCount.textContent = " ";
-		}
-
-	</script>
 </div>
 
 
+<!--list todo items table started-->
 <table th:fragment="displayItems" class="table item-display-table">
 	<tbody th:object="${items}">
 		<tr th:each="item : ${items}">

@@ -1,13 +1,13 @@
-function displayViewingModal(contentType) {	
+function displayViewingModal(contentType) {
 	const modalContainer = document.getElementById("viewing-modal");
 	const contents = [document.getElementById("todo-list-modal-content"), document.getElementById("project-list-modal-content")];
 	modalContainer.style.visibility = "visible";
 	modalContainer.style.opacity = "1";
-	
-	if(contentType >=0 || contentType<=1){
+
+	if (contentType >= 0 || contentType <= 1) {
 		contents[contentType].style.display = "block";
 	}
-	
+
 
 }
 function closeSigninForm() {
@@ -15,8 +15,8 @@ function closeSigninForm() {
 	form.style.opacity = "0";
 	form.style.visibility = "hidden";
 	const contents = [document.getElementById("todo-list-modal-content"), document.getElementById("project-list-modal-content")];
-	
-	for(let c of contents){
+
+	for (let c of contents) {
 		c.style.display = "none";
 	}
 }
@@ -32,23 +32,23 @@ function applyHover(){
 	}
 }*/
 function sideMenuToggle() {
-	
+
 	const sideMenu = document.querySelector("#side-menu");
 	const toggle = document.querySelector("#side-menu-toggle");
 	const sideNav = document.querySelector(".side-nav");
 	const sideNavText = document.getElementsByClassName("side-nav-text");
 	const toggleArrow = document.getElementById("side-nav-arrow");
 	const toggleArrowClass = ["fa-solid fa-caret-left", "fa-solid fa-caret-right"];
-	
-	
+
+
 	if (isCollapsed) {
 		/*const sideNav = document.select*/
 		/*sideNav.style = "padding-right: 100px !important;";*/
 		sideNav.style = "width: 200px;";
 		/*toggle.style.letterSpacing = "-0.1em";*/
 		toggle.style.letterSpacing = "0em";
-		
-		
+
+
 
 		for (let t of sideNavText) {
 			t.style.display = "inline";
@@ -57,10 +57,10 @@ function sideMenuToggle() {
 		isCollapsed = false;
 
 		/*toggle.style.setProperty("letterSpacing", "0em", "hover");*/
-				
+
 		/*//this two lines of code only appy padding. it ignores border change. lookup explanation
 		sideNav.style.border = "3px solid red";
-		sideNav.style = "padding-right: 1px !important";*/		
+		sideNav.style = "padding-right: 1px !important";*/
 	}
 	else {
 		/*sideNav.style = "padding-right: 1px !important;";*/
@@ -79,3 +79,17 @@ function sideMenuToggle() {
 	sideNav.style.border = "3px solid red";*/
 
 }
+
+
+
+//project list item count checker
+const projectCount = document.getElementsByClassName("project-count");
+for (let prcnt of projectCount) {
+	if (prcnt.textContent == "0") {
+		prcnt.innerHTML = "<br/><br/>There are no projects at the moment.";
+	}
+	else {
+		prcnt.textContent = "";
+	}
+}
+

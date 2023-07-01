@@ -86,7 +86,9 @@ function displayItemCount() {
 	//let items = document.getElementsByClassName("itemNumber");
 	const element1 = document.querySelectorAll(".card-body #itemNumber");
 	const element2 = document.querySelectorAll(".item-display-table #itemNumber");
-	let itemElement = [element1, element2];
+	const element3 = document.querySelectorAll(".card-body #projectNumber");
+	const element4 = document.querySelectorAll(".project-display-table #itemNumber");
+	let itemElement = [element1, element2, element3, element4];
 	for (let items of itemElement) {
 		var counter = 0;
 		for (let item of items) {
@@ -94,7 +96,18 @@ function displayItemCount() {
 		}
 	}
 }
-	/*	</script>*/
+
+
+//todo list item count checker
+		let itemCount = document.getElementsByClassName("todo-card-item-count");
+		for(let ic of itemCount){
+			if (ic.textContent == 0) {
+			ic.innerHTML = "<br/><br/>Todo list is empty at the moment."
+		}
+		else {
+			ic.textContent = " ";			
+		}
+		}
 	
 	
 	/*<script th:fragment = "notificationScripts">*/
