@@ -41,6 +41,14 @@ public class TodoController {
 		todoData.save(todo);
 		return "redirect:/todo/add-item-form?item=added";
 	}
+	
+	@GetMapping("add-item-js")
+	public String addTodoUsingJs(Todo todo) {
+		todoData.save(todo);
+		return "addition - success";
+		
+	}
+	
 	@GetMapping("displayTodoList")
 	public String displayTodoList(Model model) {
 		List<Todo> fetchedItems = todoData.findAll();

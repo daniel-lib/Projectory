@@ -18,6 +18,8 @@
 	<a th:href="@{todo/add-item-form}" class="btn btn-primary-white btn-sm mt-3 mx-3">Add Item</a>
 	<button class="btn btn-sm btn-primary-white mt-3" onClick="addContributersForm()">Add
 		contributers</button>
+	<div th:replace="/user/todo/todoLayouts :: add-todo-item-form"></div>
+
 	<p class="card-text fw-lighter mb-0 item-count todo-card-item-count" th:text="${itemCount}"></p>
 	<form th:action="@{/user/todo/delete-selected}" method="post">
 		<button type="submit" class="btn btn-danger btn-sm mt-3 float-end" value="Delete Selected"
@@ -110,9 +112,29 @@
 	<form th:action="@{/todo/add-item}" method="post" th:object="${todoModel}">
 		<input type="text" th:field="${todoModel.title}" class="form-control mt-3" placeholder="Item title" autofocus>
 		<textarea th:field="${todoModel.detail}" class="form-control mt-3" placeholder="detail description"></textarea>
-		<input type="submit" value="Add" class="btn btn-primary btn-sm mt-3" placeholder="Item title">
+		<input onClick="addTodo()" type="submit" value="Add" class="btn btn-primary btn-sm mt-3">
 	</form>
+	<script>
+		function addTodo() {
+			
+			fetch('todo/add-item-js')
+				.then(response => response.json())
+				.then(data => {
+					alert(data);
+				})
+		}
+	</script>
 </div>
+
+
+<!--<div th:fragment="add-todo-item-form" class="form-container mt-4 p-4 add-todo-item-form"
+	id="add-todo-item-form form-container">
+	<form th:action="@{/todo/add-item}" method="post" th:object="${todoModel}">
+		<input type="text" th:field="${todoModel.title}" class="form-control mt-3" placeholder="Item title" autofocus>
+		<textarea th:field="${todoModel.detail}" class="form-control mt-3" placeholder="detail description"></textarea>
+		<input type="submit" value="Add" class="btn btn-primary btn-sm mt-3">
+	</form>
+</div>-->
 
 
 </html>

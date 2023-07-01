@@ -26,7 +26,7 @@ public class UserDashboardController {
 	UserLoginService userLgServ = new UserLoginService();
 	
 	@GetMapping("/dashboard")
-	public String displayUserDashboard(Model model) {
+	public String displayUserDashboard(Model model, Todo todo) {
 		
 	
 //		return "/user/user-dashboard?indicator = pass"; 
@@ -39,6 +39,7 @@ public class UserDashboardController {
 		model.addAttribute("user", model.getAttribute("userA"));
 		model.addAttribute("projectCount", projData.count());
 		model.addAttribute("project", projectsList);
+		model.addAttribute("todoModel", todo);
 		
 		/* model.addAttribute("userL", LoggedInUser); */
 		 return "/user/user-dashboard"; 

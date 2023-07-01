@@ -197,10 +197,53 @@
 	position: absolute;
 }
 
-#todo-list-modal-content, #project-list-modal-content{
+#todo-list-modal-content,
+#project-list-modal-content {
 	display: none;
 }
+.project-modal-boxes-container{
+	width: 100%;
+}
+.add-project-task-button{
+	font-size: 14pt;
+	border: 1px solid rgb(119, 118, 123);
+	border-radius:50%;
+	color: rgb(119, 118, 123);	
+	transition: 0.2s ease-in-out;
+	padding: 0.3rem 0.4rem 0.3rem 0.3rem;
+}
+.add-project-task-button:hover{
+	background-color: rgba(119, 118, 123, 0.6 ) !important;	
+	color: rgb(118, 187, 118) !important;
+}
+.add-project-task-form{
+	/*display: none;*/
+	height: 0;
+	transition: 0.3s ease-in-out;
+	overflow: hidden;
+}
+/*.szz{
+	width: 100%;
+	}
+*/
 
+.item-display-table{
+	
+	}
+	
+.project-modal-boxes {
+	border: 1px solid rgb(119, 118, 123);
+	border-radius: 0.3rem;
+	cursor: pointer;
+}
+
+.project-modal-boxes:hover {
+	background: rgba(46, 139, 87, 0.2);
+}
+
+.modal-project-status {
+	color: rgb(192, 97, 203);
+}
 
 #d1 {
 	/*margin-left: 20%;*/
