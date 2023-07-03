@@ -43,7 +43,10 @@ public class TodoController {
 	}
 	
 	@GetMapping("add-item-js")
-	public String addTodoUsingJs(Todo todo) {
+	public String addTodoUsingJs(@RequestParam String title, @RequestParam String detail) {
+		Todo todo = new Todo();
+		todo.setTitle(title);
+		todo.setDetail(detail);
 		todoData.save(todo);
 		return "addition - success";
 		

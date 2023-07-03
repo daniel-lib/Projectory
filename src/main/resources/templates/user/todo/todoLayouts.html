@@ -109,15 +109,31 @@
 
 <div th:fragment="add-todo-item-form" class="form-container mt-4 p-4 add-todo-item-form"
 	id="add-todo-item-form form-container">
-	<form th:action="@{/todo/add-item}" method="post" th:object="${todoModel}">
-		<input type="text" th:field="${todoModel.title}" class="form-control mt-3" placeholder="Item title" autofocus>
-		<textarea th:field="${todoModel.detail}" class="form-control mt-3" placeholder="detail description"></textarea>
+	<div>
+		<input type="text" class="form-control mt-3" placeholder="Item title" id="title-input" autofocus>
+		<textarea class="form-control mt-3" placeholder="detail description" id="detail-input"></textarea>
 		<input onClick="addTodo()" type="submit" value="Add" class="btn btn-primary btn-sm mt-3">
-	</form>
+	</div>
 	<script>
 		function addTodo() {
-			
-			fetch('todo/add-item-js')
+			const title = document.getElementById("title-input").value;
+			const detail = document.getElementById("detail-input").value;
+			//fetch('/todo/add-item-js?title="title"&detail="detail"')
+			fetch('/todo/add-item-js?title="' + title + '"&detail="' + detail + '"')
+				//fetch('/todo/add-item-js?title="'+"quuu"+'"&detail="'+"qoooo"+'"')
+				.then(response => response.json())
+				.then(data => {
+					alert(data);
+				})
+
+
+
+			const title2 = document.getElementById("title-input").value;
+			const detail2 = document.getElementById("detail-input").value;
+			const jsn = 
+			//fetch('/todo/add-item-js?title="title"&detail="detail"')
+			fetch('/todo/add-item-js?title="' + title + '"&detail="' + detail + '"')
+				//fetch('/todo/add-item-js?title="'+"quuu"+'"&detail="'+"qoooo"+'"')
 				.then(response => response.json())
 				.then(data => {
 					alert(data);
