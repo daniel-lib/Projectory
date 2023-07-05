@@ -1,10 +1,11 @@
 package com.app.projectory.entity;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
 public class Project {
@@ -12,9 +13,15 @@ public class Project {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long projectId;
+	/* private Date startDate; */
 	private String title;
 	private String description;
 	private String status;
+	/* private Date finishDate; */
+	
+	/*
+	 * @OneToMany private List<ProjectTasks> projectTask;
+	 */
 	
 	public Project(String title, String description, String status) {
 		super();

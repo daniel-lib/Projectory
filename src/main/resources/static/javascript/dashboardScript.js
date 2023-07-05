@@ -93,3 +93,29 @@ for (let prcnt of projectCount) {
 	}
 }
 
+//top menu show/hide script
+const topMenuContainer = document.getElementById("top-collapsable-menu-container");
+const specificContentIds = ["notification-menu-content", "message-menu-content", "setting-menu-content"];
+
+function showTopCollapsableMenu(type) {
+	const selectedContent = document.getElementById(specificContentIds[type]);
+
+	for (let specCont = 0; specCont < specificContentIds.length; specCont++) {
+		topMenuContainer.style.padding = "0px";
+		topMenuContainer.style.height = "0px";
+		document.getElementById(specificContentIds[specCont]).style.display = "none";
+	}
+	topMenuContainer.style.padding = "30px";
+	topMenuContainer.style.height = "300px";
+
+	selectedContent.style.display = "block";
+
+}
+
+function collapseTopMenu() {
+
+	topMenuContainer.style.padding = "0px";
+	topMenuContainer.style.height = "0px";
+	document.getElementById(specificContentIds[specCont]).style.display = "none";
+}
+

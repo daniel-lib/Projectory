@@ -12,6 +12,9 @@ public class ProjectTasks {
 	private String taskName;
 	private String taskDescription;
 	private String status;
+	private String deadline;
+	
+	
 	
 		
 	public ProjectTasks() {

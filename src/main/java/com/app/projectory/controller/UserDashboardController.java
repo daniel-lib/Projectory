@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.app.projectory.doa.ProjectRepository;
 import com.app.projectory.doa.TodoListRepository;
@@ -24,6 +26,8 @@ public class UserDashboardController {
 	ProjectRepository projData;
 	
 	UserLoginService userLgServ = new UserLoginService();
+	
+	
 	
 	@GetMapping("/dashboard")
 	public String displayUserDashboard(Model model, Todo todo) {
@@ -43,6 +47,25 @@ public class UserDashboardController {
 		
 		/* model.addAttribute("userL", LoggedInUser); */
 		 return "/user/user-dashboard"; 
+		
+	}
+	
+	
+	@GetMapping("add-project-js")
+	@ResponseBody	
+	public String addTodoUsingJs(@RequestParam String title, @RequestParam String description, @RequestParam String status) {
+		try {
+			Project project = new Project();
+			project.setTitle(title);
+			project.setDescription(description);
+			project.setStatus(status);
+			projData.save(project);
+			
+		}
+		catch(Exception error) {
+			return "project creation - error";
+		}
+		return "project creation - success";
 		
 	}
 

@@ -17,66 +17,81 @@
 					<br />
 					<span th:text="${proj.description}" class="fw-lighter"></span>
 					<span>|</span>
-					<span th:text="${proj.status}" class="fw-lighter modal-project-status"></span>
+					<span th:text="${proj.status}" class="fw-lighter modal-project-status"></span>					
 
-				<!--task display & add-->
-					<h5 class="project-task-title mt-2">Tasks</h5> 
-					<p class="d-block">...list of tasks from db...</p>	
-					<span id="add-project-task-button" class="add-project-task-button fa-solid fa-plus" th:onClick="addProjectTask(this.id)" th:id="${proj.projectId}"></span>
+
+					<!--task display & add-->
+					<h5 class="project-task-title mt-2">Tasks</h5>
+					<p class="d-block">...list of tasks from db...</p>
+					<span id="add-project-task-button" class="add-project-task-button fa-solid fa-plus"
+						th:onClick="addProjectTask(this.id)" th:id="${proj.projectId}"></span>
 					<script>
-						
-						
-						
-						function addProjectTask(id){
-							
+
+
+
+						function addProjectTask(id) {
+
 							//fetch('http://localhost:8080/api?name=daniel')
 							//fetch('https://api.example.com/data')
 							//fetch('/api?name=daniel')
 							fetch('todo/add-item-js')
-							.then(response => response.text())
-							.then(data =>{
-								alert(data);
-							})
-							//alert("hello");
-							
-						/*	axios.get('127.0.0.1:8080/api?name=daniel')
-							.then(reponse => {
-								alert("works here");
-								const data = reponse.data;
-								alert(data);
-							})
-							.catch(error => {
-								alert("error");
-							}) */
-							
-							
+								.then(response => response.text())
+								.then(data => {
+									alert(data);
+								})
+
+
 							//add-project-task-button
-							const addTaskForm = document.getElementById("add-project-task-form"+id);
-							if(addTaskForm.style.height == "0px"){
+							const addTaskForm = document.getElementById("add-project-task-form" + id);
+							if (addTaskForm.style.height == "0px") {
 								addTaskForm.style.height = "120px";
-							}					
-							else{
+							}
+							else {
 								addTaskForm.style.height = "0";
-							}		
-							
-							
+							}
+
 						}
 					</script>
 					<div class="add-project-task-form mt-2" th:id="add-project-task-form+''+${proj.projectId}">
-							<form class="form">
-								<input type="text" placeholder="title" class="form-control mb-1">
-								<input type="text" placeholder="description" class="form-control mb-1">
-								<input type="submit" value="add" class="btn btn-primary">
-							</form>
-
+						<form class="form">
+							<input type="text" placeholder="title" class="form-control mb-1">
+							<input type="text" placeholder="description" class="form-control mb-1">
+							<input type="submit" value="add" class="btn btn-primary">
+						</form>
 					</div>
-
 				</div>
-
-
 			</div>
 		</div>
 	</div>
+</div>
+
+
+<!--add project form-->
+<div th:fragment="add-project-form" class="form-container mt-4 p-4 add-todo-item-form"
+	id="add-todo-item-form form-container">
+	<div>
+		<input type="text" class="form-control mt-3" placeholder="Project title" id="project-title-input" autofocus>
+		<textarea class="form-control mt-3" placeholder="Project description" id="project-description-input"></textarea>
+		<select id="project-status-input" class="form-select mt-3">
+			<option selected disabled>Status</option>
+			<option>Backlog</option>
+			<option>In progress</option>
+			<option>Done</option>
+		</select>
+		<input onClick="addProject()" type="submit" value="Add" class="btn btn-primary btn-sm mt-3">
+	</div>
+	<script>
+		function addProject() {
+			const title = document.getElementById("project-title-input").value;
+			const description = document.getElementById("project-description-input").value;
+			const status = document.getElementById("project-status-input").value;
+			fetch('/user/add-project-js?title="' + title + '"&description="' + description + '"&status="' + status + '"')
+				.then(response => response.json())
+				.then(data => {
+					alert(data);
+				})
+		}
+	</script>
 </div>
 
 
@@ -93,17 +108,20 @@
 	<a th:href="@{todo/add-item-form}" class="btn btn-primary-white btn-sm mt-3 mx-3">Create Project</a>
 	<button class="btn btn-sm btn-primary-white mt-3" onClick="addContributersForm()">Add
 		Members</button>
+		
+		<div th:replace="/user/project/project-layouts :: add-project-form"></div>
+		
 	<p class="card-text fw-lighter project-count" th:text="${projectCount}"></p><br />
 	<div class="d-flex  flex-wrap">
-	<!--<form th:action="@{/user/todo/delete-selected}" method="post">-->
+		<!--<form th:action="@{/user/todo/delete-selected}" method="post">-->
 		<!--<button type="submit" class="btn btn-danger btn-sm mt-3 float-end" value="Delete Selected"
 			id="delete-selected-btn" disabled>
 			Delete Selected <span class="badge text-bg-info" id="number-of-items-badge">0</span>
 		</button>-->
-		
+
 		<div th:replace="/user/project/project-layouts :: project-list-table"></div>
 		<div class="mx-4 p-4 project-modal-boxes"> stat and more info</div>
-	<!--</form>-->
+		<!--</form>-->
 	</div>
 </div>
 <!--Project display modal end-->

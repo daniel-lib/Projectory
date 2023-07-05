@@ -41,53 +41,13 @@
 					<!--<a class="nav-link" th:href="@{/user/dashboard}"  th:text="${user.firstName}  + ' '+ ${user.lastName}">-->
 					<a class="nav-link top-nav-links" href="#" onClick="showTopCollapsableMenu(2)">
 						<span class="nav-icon mt-1 fa-solid fa-gear"></span></a>
-					<div class="top-collapsable-menu-container" id="top-collapsable-menu-container" onmouseleave="test()">
+					<div class="top-collapsable-menu-container" id="top-collapsable-menu-container"
+						onmouseleave="collapseTopMenu()">
 						<p class="top-menu-content" id="notification-menu-content">Notification</p>
 						<p class="top-menu-content" id="message-menu-content">Messages</p>
 						<p class="top-menu-content" id="setting-menu-content">Setting</p>
 					</div>
 				</div>
-				<script>
-					function test(){
-						
-									topMenuContainer.style.padding = "0px";
-									topMenuContainer.style.height = "0px";
-									document.getElementById(specificContentIds[specCont]).style.display = "none";
-					}
-				</script>
-
-				<script>
-					let menuCollapsed = true;
-					const topMenuContainer = document.getElementById("top-collapsable-menu-container");
-					const specificContentIds = ["notification-menu-content", "message-menu-content", "setting-menu-content"];
-
-					function showTopCollapsableMenu(type) {
-						const selectedContent = document.getElementById(specificContentIds[type]);
-
-						if (menuCollapsed) {
-							for (let specCont = 0; specCont < specificContentIds.length; specCont++) {
-								topMenuContainer.style.padding = "0px";
-								topMenuContainer.style.height = "0px";
-								document.getElementById(specificContentIds[specCont]).style.display = "none";
-							}
-							topMenuContainer.style.padding = "30px";
-							topMenuContainer.style.height = "300px";
-								
-							selectedContent.style.display = "block";
-
-							//menuCollapsed = false;
-						}
-						else {
-							for (let specCont of specificContentIds) {
-								let temp = document.querySelector("#top-collapsable-menu #" + specCont);
-								temp.style.display = none;
-							}
-							topMenuContainer.style.display = none;
-
-							//menuCollapsed = true;
-						}
-					}
-				</script>
 			</div>
 		</div>
 	</nav>
@@ -131,7 +91,5 @@
 	</div>
 	<br />
 </footer>
-
-
 
 </html>

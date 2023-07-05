@@ -375,11 +375,14 @@ footer p {
 	color: rgb(214, 197, 167);
 }
 
-.container-bg-green {
+.container-bg-blue {
 	background-color: rgb(153, 193, 241);
+	border-top-right-radius: 100%;
+	border-top-left-radius: 30%;
+	padding-top: 200px !important;
 }
 
-.container-bg-green div {
+.container-bg-blue div {
 	transition: 1s ease-in;
 }
 
