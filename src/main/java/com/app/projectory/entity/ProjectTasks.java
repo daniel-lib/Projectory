@@ -1,38 +1,45 @@
 package com.app.projectory.entity;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+@Entity
 public class ProjectTasks {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private String taskId;
+	private long taskId;
 	private String taskName;
 	private String taskDescription;
 	private String status;
 	private String deadline;
 	
 	
-	
+	@ManyToOne
+	@JoinColumn(name="project_id")
+	private Project theProject;
+
 		
 	public ProjectTasks() {
 		super();
 	}
 
-	public ProjectTasks(String taskId, String taskName, String taskDescription) {
+	public ProjectTasks(String taskName, String taskDescription) {
 		super();
-		this.taskId = taskId;
 		this.taskName = taskName;
 		this.taskDescription = taskDescription;
 	}
 
-	public String getTaskId() {
+	
+	public Long getTaskId() {
 		return taskId;
 	}
 
-	public void setTaskId(String taskId) {
+	public void setTaskId(long taskId) {
 		this.taskId = taskId;
 	}
 

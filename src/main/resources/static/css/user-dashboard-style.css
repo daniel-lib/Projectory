@@ -104,10 +104,11 @@
 }
 
 .side-nav-text {
-	transition: 0.3s ease-in-out;
+	transition: 0.1s ease-in-out;
 	/*display: none;*/
 	display: none;
 	animation: fade-in 0.8s ease-in-out;
+	/*color: rgb(182 182 182 / 55%);*/	
 }
 
 @keyframes fade-in {
