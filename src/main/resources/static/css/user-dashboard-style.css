@@ -43,6 +43,9 @@
 .top-nav-links {
 	display: inline !important;
 }
+.navbar-brand-dashboard{
+	color: rgb(191, 152, 56) !important;
+}
 
 #side-menu {
 	width: 100px;

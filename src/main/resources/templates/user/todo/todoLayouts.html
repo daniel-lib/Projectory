@@ -22,9 +22,9 @@
 
 	<p class="card-text fw-lighter mb-0 item-count todo-card-item-count" th:text="${itemCount}"></p>
 	<form th:action="@{/user/todo/delete-selected}" method="post">
-		<button type="submit" class="btn btn-danger btn-sm mt-3 float-end" value="Delete Selected"
+		<button type="submit" class="btn btn-danger btn-sm mt-3 float-end delete-selected-btn" value="Delete Selected"
 			id="delete-selected-btn" disabled>
-			Delete Selected <span class="badge text-bg-info" id="number-of-items-badge">0</span>
+			Delete Selected Items <span class="badge text-bg-info" id="number-of-items-badge">0</span>
 		</button>
 
 		<table th:replace="/user/todo/todoLayouts :: displayItems"></table>

@@ -17,7 +17,7 @@
 					<br />
 					<span th:text="${proj.description}" class="fw-lighter"></span>
 					<span>|</span>
-					<span th:text="${proj.status}" class="fw-lighter modal-project-status"></span>					
+					<span th:text="${proj.status}" class="fw-lighter modal-project-status"></span>
 
 
 					<!--task display & add-->
@@ -31,9 +31,11 @@
 
 						function addProjectTask(id) {
 
-							//fetch('http://localhost:8080/api?name=daniel')
-							//fetch('https://api.example.com/data')
-							//fetch('/api?name=daniel')
+							const title = document.getElementById("title-input").value;
+							const detail = document.getElementById("detail-input").value;
+							fetch('/project/add-project-task-js?title="' + title + '"&detail="' + detail + '"')
+
+
 							fetch('todo/add-item-js')
 								.then(response => response.text())
 								.then(data => {
@@ -74,7 +76,7 @@
 		<textarea class="form-control mt-3" placeholder="Project description" id="project-description-input"></textarea>
 		<select id="project-status-input" class="form-select mt-3">
 			<option selected disabled>Status</option>
-			<option>Backlog</option>
+			<option>Not Started</option>
 			<option>In progress</option>
 			<option>Done</option>
 		</select>
@@ -85,7 +87,7 @@
 			const title = document.getElementById("project-title-input").value;
 			const description = document.getElementById("project-description-input").value;
 			const status = document.getElementById("project-status-input").value;
-			fetch('/user/add-project-js?title="' + title + '"&description="' + description + '"&status="' + status + '"')
+			fetch('/user/add-project-js?title=' + title + '&description=' + description + '&status=' + status)
 				.then(response => response.json())
 				.then(data => {
 					alert(data);
@@ -108,9 +110,9 @@
 	<a th:href="@{todo/add-item-form}" class="btn btn-primary-white btn-sm mt-3 mx-3">Create Project</a>
 	<button class="btn btn-sm btn-primary-white mt-3" onClick="addContributersForm()">Add
 		Members</button>
-		
-		<div th:replace="/user/project/project-layouts :: add-project-form"></div>
-		
+
+	<div th:replace="/user/project/project-layouts :: add-project-form"></div>
+
 	<p class="card-text fw-lighter project-count" th:text="${projectCount}"></p><br />
 	<div class="d-flex  flex-wrap">
 		<!--<form th:action="@{/user/todo/delete-selected}" method="post">-->

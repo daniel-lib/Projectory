@@ -19,9 +19,11 @@ public class Project {
 	private String description;
 	private String status;
 	/* private Date finishDate; */
+	
+	@OneToMany(mappedBy = "containerProject")
+	private List<ProjectTasks> projectTasks;
 
-	@OneToMany(mappedBy = "theProject")
-	private List<ProjectTasks> projectTasks; 
+
 
 	public Project(String title, String description, String status) {
 		super();

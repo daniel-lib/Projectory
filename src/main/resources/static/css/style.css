@@ -44,7 +44,7 @@ body {
 
 .home-navbar a {
 	/*color: rgb(181, 131, 90);
-color: rgb(134, 94, 60) !important;*/
+color: #ae8319 !important;*/
 }
 
 .navbar-nav a:hover {
@@ -65,7 +65,7 @@ color: rgb(134, 94, 60) !important;*/
 }
 
 .navbar-brand {
-	color: rgb(134, 94, 60) !important;
+	color: #ae8319 !important;
 }
 
 .navbar-toggler {
@@ -77,7 +77,7 @@ color: rgb(134, 94, 60) !important;*/
 }
 
 .navbar-toggler-icon {
-	border: rgb(134, 94, 60) !important;
+	border: #ae8319 !important;
 	/*background: none;*/
 	/*border: 1px red solid;*/
 	/*	padding: 1em !important;*/
@@ -376,7 +376,7 @@ footer p {
 }
 
 .container-bg-blue {
-	background-color: rgb(153, 193, 241);
+	background-color: #709de5;
 	border-top-right-radius: 100%;
 	border-top-left-radius: 30%;
 	padding-top: 200px !important;

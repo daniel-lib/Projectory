@@ -20,8 +20,9 @@ public class ProjectTasks {
 	
 	
 	@ManyToOne
-	@JoinColumn(name="project_id")
-	private Project theProject;
+	@JoinColumn(name = "project_id")
+	private Project containerProject;
+
 
 		
 	public ProjectTasks() {
