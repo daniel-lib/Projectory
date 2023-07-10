@@ -15,7 +15,7 @@
 	<hr />
 
 	<div th:replace="/user/todo/todoLayouts :: notification-board"></div>
-	<a th:href="@{todo/add-item-form}" class="btn btn-primary-white btn-sm mt-3 mx-3">Add Item</a>
+	<input type="button" class="btn btn-primary-white btn-sm mt-3 mx-3 add-todo-item-btn" onClick="showAddTodoItemForm()" value="Add Item">
 	<button class="btn btn-sm btn-primary-white mt-3" onClick="addContributersForm()">Add
 		contributers</button>
 	<div th:replace="/user/todo/todoLayouts :: add-todo-item-form"></div>
@@ -36,14 +36,14 @@
 
 <!--todo list card started-->
 <div th:fragment="todo-list-dashboard-card" class="card user-dashboard-cards todo-list-card custom-scrollbar-style"
-	style="width: 18rem;" th:href="@{/todo}">
+	style="width: 18rem;"  onclick="displayViewingModal(0)">
 	<div class="card-header d-flex">
 		<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-list" alt="to-do icon"></span>
 		<h5 class="card-title dashboard-card-title">Todo List</h5>
 	</div>
-	<div class="card-body" onclick="displayViewingModal(0)">
+	<div class="card-body">
 
-		<a th:href="@{/todo/add-item-form}" class="btn btn-primary btn-sm">Add Item</a>
+		<input type="button" class="btn btn-primary btn-sm add-todo-item-btn" onClick="showAddTodoItemForm('card')" value="Add Item">
 		<p class="card-text fw-lighter mb-0 item-count todo-card-item-count" th:text="${itemCount}"></p>
 		<table class="table table-striped">
 			<tbody th:object="${items}">
@@ -106,13 +106,13 @@
 	</form>
 </div>
 
-
-<div th:fragment="add-todo-item-form" class="form-container mt-4 p-4 add-todo-item-form"
-	id="add-todo-item-form form-container">
+<!--add todo item form-->
+<div th:fragment="add-todo-item-form" class="form-container mt-4 add-todo-item-form overflow-hidden"
+	id="add-todo-item-form" style="height: 0; padding: 0;">
 	<div>
 		<input type="text" class="form-control mt-3" placeholder="Item title" id="title-input" autofocus>
 		<textarea class="form-control mt-3" placeholder="detail description" id="detail-input"></textarea>
-		<input onClick="addTodo()" type="submit" value="Add" class="btn btn-primary btn-sm mt-3">
+		<input onClick="addTodo()" type="submit" value="Add Item" class="btn btn-primary-golden btn-sm mt-3">
 	</div>
 	<script>
 		function addTodo() {

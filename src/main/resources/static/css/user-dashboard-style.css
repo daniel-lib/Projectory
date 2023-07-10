@@ -10,11 +10,12 @@
 
 .top-collapsable-menu-container {
 	border: 1px solid rgb(61, 56, 70);
-	border-top:0;
+	border-top: 0;
 	z-index: 1000;
 	background-color: rgb(47, 50, 54);
 }
-#top-collapsable-menu-container{
+
+#top-collapsable-menu-container {
 	/*display: none;*/
 	height: 0px;
 	transition: 0.3s ease-in-out;
@@ -24,7 +25,8 @@
 	overflow: hidden;
 	/*padding: 4px !important;*/
 }
-.top-menu-content{
+
+.top-menu-content {
 	display: none;
 }
 
@@ -40,10 +42,23 @@
 	display: inline !important;
 }
 
+.nav-link {
+	padding-left: .5rem !important;
+}
+
+.dashboard-link:hover,
+.todo-list-link:hover,
+.scrum-board-link:hover,
+.account-link:hover {
+	background-color: rgba(0, 0, 0, 0.4);
+
+}
+
 .top-nav-links {
 	display: inline !important;
 }
-.navbar-brand-dashboard{
+
+.navbar-brand-dashboard {
 	color: rgb(191, 152, 56) !important;
 }
 
@@ -64,8 +79,16 @@
 	border: 1px solid grey;
 	border-radius: 0.3rem;
 	padding: 0.2rem;
+	margin-left: 0.3rem;
 	color: rgba(255, 255, 255, 0.55);
 	letter-spacing: -0.1em;
+	transition: 0.3s ease-in-out;
+
+	/*-webkit-transition: -webkit-transform 0.3s ease-out;
+	-moz-transition: -moz-transform 0.3s ease-out;
+	-o-transition: -o-transform 0.3s ease-out;
+	-ms-transition: -ms-transform 0.3s ease-out;*/
+
 }
 
 /*#side-menu-toggle:hover{
@@ -75,11 +98,12 @@
 #side-menu-toggle:hover {
 	color: rgb(118, 187, 118);
 	letter-spacing: 0em !important;
+	background-color: rgba(0, 0, 0, 0.5);
 }
 
 #side-menu-toggle:active {
-	text-shadow: 0 0 10px rgb(118, 187, 118);
-
+	/*text-shadow: 0 0 10px rgb(118, 187, 118);*/
+	background-color: rgb(61, 56, 70);
 }
 
 #side-nav-arrow {
@@ -111,7 +135,7 @@
 	/*display: none;*/
 	display: none;
 	animation: fade-in 0.8s ease-in-out;
-	/*color: rgb(182 182 182 / 55%);*/	
+	/*color: rgb(182 182 182 / 55%);*/
 }
 
 @keyframes fade-in {
@@ -154,9 +178,9 @@
 	margin: 0 !important;
 }
 
-.fa-solid:not(.nav-icon, #side-menu-toggle, #side-nav-arrow, fa-regular) {
+/*.fa-solid:not(.nav-icon, #side-menu-toggle, #side-nav-arrow, fa-regular) {
 	color: rgb(118, 187, 118);
-}
+}*/
 
 .viewing-modal-header {
 	color: rgb(186, 169, 138);
@@ -227,35 +251,59 @@
 	display: none;
 }
 
+.overflow-hidden{
+	overflow: hidden;
+}
+
 .project-modal-boxes-container {
 	width: 100%;
 }
 
-.add-project-task-button {
-	font-size: 14pt;
+#add-project-form {
+	/*height: 0;*/
+	transition: 0.2s ease-in-out;
+	overflow: hidden;
+}
+
+#add-todo-item-form {
+	transition: 0.2s ease-in-out;
+}
+
+.minimalist-btn {
+	font-size: 12pt;
 	border: 1px solid rgb(119, 118, 123);
-	border-radius: 50%;
+	border-radius: 0.25rem;
 	color: rgb(119, 118, 123);
 	transition: 0.2s ease-in-out;
 	padding: 0.3rem 0.4rem 0.3rem 0.3rem;
+	margin-right: 0.3rem;
 }
 
-.add-project-task-button:hover {
+.minimalist-btn:hover {
 	background-color: rgba(119, 118, 123, 0.6) !important;
 	color: rgb(118, 187, 118) !important;
 }
 
+.minimalist-btn-left-rounded {
+	border-top-left-radius: 50px;
+	border-bottom-left-radius: 50px;
+}
+
+.minimalist-btn-right-rounded {
+	border-top-right-radius: 50px;
+	border-bottom-right-radius: 50px;
+}
+
+.add-project-task-btn-text {
+	font-size: 12pt;
+}
+
 .add-project-task-form {
 	/*display: none;*/
-	height: 0;
+	/*height: 0px;*/
 	transition: 0.3s ease-in-out;
 	overflow: hidden;
 }
-
-/*.szz{
-	width: 100%;
-	}
-*/
 
 .item-display-table {}
 
@@ -267,6 +315,28 @@
 
 .project-modal-boxes:hover {
 	background: rgba(46, 139, 87, 0.2);
+}
+
+.project-owner-indicator {
+	top: 0;
+	left: 0;
+	/*color: goldenrod;*/
+}
+
+.info-tag-dark {
+	background-color: rgba(154, 153, 150, 0.2) !important;
+	background-color: rgba(255, 255, 255, .05) !important;
+	color: rgb(158, 158, 158);
+	color: rgb(145, 145, 145);
+	padding: 0.2rem;
+	border-radius: 0.2rem;
+	font-size: 10pt;
+}
+
+.info-tag-light {
+	/*container bg should be #f0f4f4*/
+	background-color: rgba(0, 0, 0, .05) !important;
+	color: #4a4a4a;
 }
 
 .modal-project-status {

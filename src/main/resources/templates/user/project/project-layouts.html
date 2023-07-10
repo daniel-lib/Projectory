@@ -7,59 +7,52 @@
 
 <!--project list display start-->
 <div class="item-display-table project-display-table" th:fragment="project-list-table">
+	
 	<div th:object="${project}">
 		<div th:each="proj : ${project}" class="project-modal-boxes-container">
-			<div class="project-modal-boxes p-4 mb-3">
-				<div style="display: block; width: 100%;" th:id="${proj.projectId}">
+			<div class="mb-3 p-1 project-modal-boxes"  th:id="project-modal-box-+''+${proj.projectId}">
+				<div class="">
+					<span class="project-owner-indicator info-tag-dark"><span class="fa-solid fa-user-tie"></span> Project owner: </span>
+					<span class="project-owner-indicator info-tag-dark float-end"><span class="fa-solid fa-users"></span> Members </span>
+				</div>
+				<div class="m-3" style="display: block;" th:id="${proj.projectId}">
 					<span id="itemNumber" class="badge text-bg-warning itemNumber">0</span>
 					<!--<span th:text = "${item.todoItemId}" class="badge text-bg-warning"></span>-->
 					<span th:text="${proj.title}" id=""></span>
-					<br />
-					<span th:text="${proj.description}" class="fw-lighter"></span>
 					<span>|</span>
 					<span th:text="${proj.status}" class="fw-lighter modal-project-status"></span>
+					<br/>
+					<span th:text="${proj.description}" class="fw-lighter"></span>
+					<br/>
 
 
-					<!--task display & add-->
-					<h5 class="project-task-title mt-2">Tasks</h5>
-					<p class="d-block">...list of tasks from db...</p>
-					<span id="add-project-task-button" class="add-project-task-button fa-solid fa-plus"
-						th:onClick="addProjectTask(this.id)" th:id="${proj.projectId}"></span>
-					<script>
-
-
-
-						function addProjectTask(id) {
-
-							const title = document.getElementById("title-input").value;
-							const detail = document.getElementById("detail-input").value;
-							fetch('/project/add-project-task-js?title="' + title + '"&detail="' + detail + '"')
-
-
-							fetch('todo/add-item-js')
-								.then(response => response.text())
-								.then(data => {
-									alert(data);
-								})
-
-
-							//add-project-task-button
-							const addTaskForm = document.getElementById("add-project-task-form" + id);
-							if (addTaskForm.style.height == "0px") {
-								addTaskForm.style.height = "120px";
-							}
-							else {
-								addTaskForm.style.height = "0";
-							}
-
-						}
-					</script>
-					<div class="add-project-task-form mt-2" th:id="add-project-task-form+''+${proj.projectId}">
+					<!-- add task / members buttons-->					
+					<div class="mt-4">
+						<span id="add-project-task-button" class="minimalist-btn minimalist-btn-left-rounded add-project-task-button" th:onClick="showAddProjectTaskForm(this.id)" th:id="${proj.projectId}">
+						<span class="fa-solid fa-notes-medical"></span>
+							<span class="add-project-task-btn-text">Add Task/Story</span>						
+					</span>
+					<span id="add-project-members-button" class="minimalist-btn minimalist-btn-right-rounded add-project-members-button" th:onClick="showAddProjectTaskForm(this.id)" onClick="addContributersForm()" th:id="${proj.projectId}">
+						<span class="fa-solid fa-user-plus"></span>
+							<span class="add-project-task-btn-text">Add Members</span>						
+					</span>
+					</div>
+					
+					<!--add project task form-->
+					<div class="add-project-task-form mt-2" th:id="add-project-task-form+''+${proj.projectId}"
+						style="height: 0px;">
 						<form class="form">
 							<input type="text" placeholder="title" class="form-control mb-1">
 							<input type="text" placeholder="description" class="form-control mb-1">
-							<input type="submit" value="add" class="btn btn-primary">
+							<input type="submit" value="add" class="btn btn-primary-golden btn-sm">
 						</form>
+					</div>
+					<!--display Project tasks-->
+					<div>
+						<hr/>
+						<h5 class="project-task-title mt-2">Top tasks</h5>
+					<p class="d-block">...list of tasks from db...</p>
+					<input type="button" class="btn btn-primary-white btn-sm" value="Expand">
 					</div>
 				</div>
 			</div>
@@ -69,33 +62,19 @@
 
 
 <!--add project form-->
-<div th:fragment="add-project-form" class="form-container mt-4 p-4 add-todo-item-form"
-	id="add-todo-item-form form-container">
+<div th:fragment="add-project-form" class="form-container mt-4 add-todo-item-form" id="add-project-form"
+	style="height: 0px;">
 	<div>
 		<input type="text" class="form-control mt-3" placeholder="Project title" id="project-title-input" autofocus>
 		<textarea class="form-control mt-3" placeholder="Project description" id="project-description-input"></textarea>
 		<select id="project-status-input" class="form-select mt-3">
-			<option selected disabled>Status</option>
-			<option>Not Started</option>
+			<option selected>Not Started</option>
 			<option>In progress</option>
 			<option>Done</option>
 		</select>
-		<input onClick="addProject()" type="submit" value="Add" class="btn btn-primary btn-sm mt-3">
+		<input onClick="addProject()" type="submit" value="Create Project" class="btn btn-primary-golden btn-sm mt-3">
 	</div>
-	<script>
-		function addProject() {
-			const title = document.getElementById("project-title-input").value;
-			const description = document.getElementById("project-description-input").value;
-			const status = document.getElementById("project-status-input").value;
-			fetch('/user/add-project-js?title=' + title + '&description=' + description + '&status=' + status)
-				.then(response => response.json())
-				.then(data => {
-					alert(data);
-				})
-		}
-	</script>
 </div>
-
 
 <!--Project display modal start-->
 <div th:fragment="project-list-modal-content" id="project-list-modal-content">
@@ -107,9 +86,8 @@
 	<hr />
 
 	<div th:replace="/user/todo/todoLayouts :: notification-board"></div>
-	<a th:href="@{todo/add-item-form}" class="btn btn-primary-white btn-sm mt-3 mx-3">Create Project</a>
-	<button class="btn btn-sm btn-primary-white mt-3" onClick="addContributersForm()">Add
-		Members</button>
+	<input type="button" class="btn btn-primary-white btn-sm mt-3 mx-3 create-project-btn"
+		onClick="showAddProjectForm()" value="Create Project">
 
 	<div th:replace="/user/project/project-layouts :: add-project-form"></div>
 
@@ -129,14 +107,15 @@
 <!--Project display modal end-->
 
 <!-- Projects card -->
-<div th:fragment="project-dashboard-card" class="card user-dashboard-cards custom-scrollbar-style"
-	style="width: 18rem;">
+<div th:fragment="project-dashboard-card" class="card user-dashboard-cards custom-scrollbar-style" style="width: 18rem;"
+	onclick="displayViewingModal(1)">
 	<div class="card-header d-flex">
 		<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-diagram-project" alt="project icon"></span>
 		<h5 class="card-title dashboard-card-title">Project</h5>
 	</div>
-	<div class="card-body" onclick="displayViewingModal(1)">
-		<a href="#" class="btn btn-primary btn-sm">Create Project</a>
+	<div class="card-body">
+		<button class="btn btn-primary btn-sm create-project-btn" onClick="showAddProjectForm('card')">Create
+			Project</button>
 		<p class="card-text fw-lighter project-count" th:text="${projectCount}"></p>
 		<table class="table table-striped">
 			<tbody th:object="${project}">

@@ -60,7 +60,7 @@ function readyDeleteButton() {
 
 		for (let i of deleteSingleItemBtns) {
 			i.style.backgroundColor = "grey";
-			i.style.opacity = "0.1";			
+			i.style.opacity = "0.1";
 			i.setAttribute("class", "badge delete-single-item-btn");
 		}
 	}
@@ -97,45 +97,73 @@ function displayItemCount() {
 
 
 //todo list item count checker
-		let itemCount = document.getElementsByClassName("todo-card-item-count");
-		for(let ic of itemCount){
-			if (ic.textContent == 0) {
-			ic.innerHTML = "<br/><br/>Todo list is empty at the moment."
-		}
-		else {
-			ic.textContent = " ";			
-		}
-		}
-	
-	
-	/*<script th:fragment = "notificationScripts">*/
-			/*function showActionNotification(){*/
-			function showDashboardActionNotification(){
-				var notificationBoard = document.getElementById("item-action-notification");
-				if(notificationBoard.innerHTML !== ""){
-					var color = "red";
-				if(notificationBoard.innerHTML === "added"){
-					notificationBoard.innerHTML = "Item added";
-					color = "green";
-				}
-				else if(notificationBoard.innerHTML === "deleted"){
-					notificationBoard.innerHTML = "1 Item deleted";
-				}
-				else if(notificationBoard.innerHTML === "multiple-deleted"){
-					notificationBoard.innerHTML = "Selected Items deleted";
-				}
-				notificationBoard.style="transition: all 1s ease-out;display: flex !important;color: "+color+" !important;";
-				setTimeout(hideNotificationBoard, 1500);
-				}
+let itemCount = document.getElementsByClassName("todo-card-item-count");
+for (let ic of itemCount) {
+	if (ic.textContent == 0) {
+		ic.innerHTML = "<br/><br/>Todo list is empty at the moment."
+	}
+	else {
+		ic.textContent = " ";
+	}
+}
 
-					
-			}
-			function hideNotificationBoard(){
-				var notificationBoard = document.getElementById("item-action-notification");
-				//notificationBoard.style="display: flex !important;height:300px !important;";
-				notificationBoard.style = "color:yellow;display: none !important;";
-				//notificationBoard.style = "color:yellow;display: flex !important;";
-				
-			}
-			
-		/*</script>*/
+
+/*<script th:fragment = "notificationScripts">*/
+/*function showActionNotification(){*/
+function showDashboardActionNotification() {
+	var notificationBoard = document.getElementById("item-action-notification");
+	if (notificationBoard.innerHTML !== "") {
+		var color = "red";
+		if (notificationBoard.innerHTML === "added") {
+			notificationBoard.innerHTML = "Item added";
+			color = "green";
+		}
+		else if (notificationBoard.innerHTML === "deleted") {
+			notificationBoard.innerHTML = "1 Item deleted";
+		}
+		else if (notificationBoard.innerHTML === "multiple-deleted") {
+			notificationBoard.innerHTML = "Selected Items deleted";
+		}
+		notificationBoard.style = "transition: all 1s ease-out;display: flex !important;color: " + color + " !important;";
+		setTimeout(hideNotificationBoard, 1500);
+	}
+
+
+}
+function hideNotificationBoard() {
+	var notificationBoard = document.getElementById("item-action-notification");
+	//notificationBoard.style="display: flex !important;height:300px !important;";
+	notificationBoard.style = "color:yellow;display: none !important;";
+	//notificationBoard.style = "color:yellow;display: flex !important;";
+
+}
+/*</script>*/
+
+
+//show "add todo list item" form
+function showAddTodoItemForm(source) {
+	const addTodoItemForm = document.getElementById("add-todo-item-form");
+	const AddTodoItemBtn = document.getElementsByClassName("add-todo-item-btn");
+	if (source == "card") {//if the click comes from dashboard card instead of modal
+		//createItemButtonToDefault();		
+		//change the state of "Create Project" button to default state
+		addTodoItemForm.style.height = 0;
+		addTodoItemForm.style.padding = "0";
+	}
+
+	if (addTodoItemForm.style.height == "0px") {
+		addTodoItemForm.style.height = "240px";
+		addTodoItemForm.style.padding = "1.5rem";
+		for(let btns of AddTodoItemBtn){
+			btns.value = "Exit Form";
+		}
+	}
+	else {
+		addTodoItemForm.style.height = 0;
+		addTodoItemForm.style.padding = "0";
+		for(let btns of AddTodoItemBtn){
+			btns.value = "Add Item";
+		}
+	}
+}
+

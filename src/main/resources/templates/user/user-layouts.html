@@ -20,6 +20,7 @@
 	<script src="/javascript/todoListScript.js" defer></script>
 	<script src="/javascript/dashboardScript.js" defer></script>
 	<script src="/javascript/mainScript.js" defer></script>
+	<script src="/javascript/project-script.js" defer></script>
 </head>
 
 <header th:fragment="nav" class="dashboard-nav fixed-top">
@@ -55,23 +56,23 @@
 </header>
 
 <aside th:fragment="side-menu" id="side-menu" class="p-0">
-	<div class="navbar-dark bg-dark p-2  pt-5 side-nav">
+	<div class="navbar-dark bg-dark pt-5 side-nav">
 		<div class="navbar-nav " th:object="${user}">
 
-			<span role="button" class="fa-solid fa-bars" id="side-menu-toggle" onClick="sideMenuToggle()">
+			<span role="button" class="fa-solid fa-bars mb-3" id="side-menu-toggle" onClick="sideMenuToggle()">
 				<span class="fa-solid fa-caret-right" id="side-nav-arrow"></span>
 				<!--<span class="fa-solid fa-caret-left side-nav-arrow" id="side-nav-left-arrow"></span>-->
 			</span>
-			<a class="nav-link" th:href="@{/user/dashboard}">
+			<a class="nav-link dashboard-link" th:href="@{/user/dashboard}">
 				<span class="nav-icon mt-1 fa-solid fa-table-columns"></span> <span
 					class="side-nav-text mx-2">Dashboard</span></a>
-			<a class="nav-link" th:href="@{/todo}"><span class="nav-icon mt-1 fa-solid fa-list"></span> <span
+			<a class="nav-link todo-list-link" th:href="@{/todo}"><span class="nav-icon mt-1 fa-solid fa-list"></span> <span
 					class="side-nav-text mx-2">To-do List</span></a>
-			<a class="nav-link" th:href="@{/user/dashboard}">
+			<a class="nav-link scrum-board-link" th:href="@{/user/dashboard}">
 				<span class="nav-icon mt-1 fa-solid fa-chalkboard-user"></span>
 				<span class="side-nav-text mx-2">Scrum Board</span></a>
 			<!--<a class="nav-link" th:href="@{/user/dashboard}"  th:text="${user.firstName}  + ' '+ ${user.lastName}">-->
-			<a class="nav-link" th:href="@{/user/dashboard}">
+			<a class="nav-link account-link" th:href="@{/user/dashboard}">
 				<span class="nav-icon mt-1 fa-solid fa-user"></span>
 				<span class="side-nav-text mx-2">Account</span></a>
 		</div>

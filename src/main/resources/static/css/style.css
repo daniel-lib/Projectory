@@ -148,15 +148,36 @@ color: #ae8319 !important;*/
 	box-shadow: inset 0 -3em 3em rgb(222, 221, 218), 0 0 0 2px rgb(255, 255);
 }
 
-.btn-primary-white:hover {
+.btn-primary-white:hover, .btn-primary-golden:hover{
 	border: 1px solid rgb(118, 187, 118) !important;
 	background-color: rgb(118, 187, 118) !important;
 }
 
-.btn-primary-white:focus {
+.btn-dirty-green {
+	background-color: #babb76;
+	border: 1px solid #babb76;
+	color: rgb(61, 56, 70);
+}
+
+.btn-dirty-green:hover {
+	background-color: rgb(118, 187, 118);
+	border: 1px solid rgb(118, 187, 118) !important;
+	color: rgb(255, 255, 255);
+	box-shadow: inset 0 -3em 3em rgb(245, 194, 17), 0 0 0 2px rgb(255, 255);
+}
+
+.btn-primary-golden {
+	background-color: rgb(191, 152, 56) !important;
+	border: 1px solid  rgb(191, 152, 56) !important;
+	color: rgb(255, 255, 255);
+	box-shadow: inset 0 -3em 3em rgb(222, 221, 218), 0 0 0 2px rgb(255, 255);
+	transition: 0.2s ease-in-out;
+}
+
+/*.btn-primary-white:focus {
 	border: 1px solid rgb(118, 187, 118) !important;
 	background-color: rgb(118, 187, 118) !important;
-}
+}*/
 
 .item-action-notification {
 	/*background-color:  rgba(26, 95, 180,0.5) !important;*/

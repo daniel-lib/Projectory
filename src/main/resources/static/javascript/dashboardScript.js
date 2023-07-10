@@ -1,22 +1,43 @@
 function displayViewingModal(contentType) {
 	const modalContainer = document.getElementById("viewing-modal");
 	const contents = [document.getElementById("todo-list-modal-content"), document.getElementById("project-list-modal-content")];
+
 	modalContainer.style.visibility = "visible";
 	modalContainer.style.opacity = "1";
 
-	if (contentType >= 0 || contentType <= 1) {
+	if (contentType >= 0 || contentType <= (contents.length) - 1) {
 		contents[contentType].style.display = "block";
 	}
 
-
 }
-function closeSigninForm() {
+function closeViewingModal() {
+	
+	//change the state of "Create Project" button to default state
+	//createItemButtonToDefault();
+	const projectForm = document.getElementById("add-project-form");
+	const createProjectBtn = document.getElementsByClassName("create-project-btn");
+	projectForm.style.height = 0;
+	projectForm.style.padding = "0";
+	for(let btn of createProjectBtn){
+		btn.value="Create Project";
+	}
+	
+	//change the state of "Add Item" button to default state
+	const todoItemForm = document.getElementById("add-todo-item-form");
+	const AddTodoItemBtn = document.getElementsByClassName("add-todo-item-btn");
+	todoItemForm.style.height = 0;
+	todoItemForm.style.padding = "0";
+	for(let btn of AddTodoItemBtn){
+		btn.value="Add Item";
+	}
+	
+	
 	var form = document.getElementById("viewing-modal");
 	form.style.opacity = "0";
 	form.style.visibility = "hidden";
-	const contents = [document.getElementById("todo-list-modal-content"), document.getElementById("project-list-modal-content")];
+	const modalContents = [document.getElementById("todo-list-modal-content"), document.getElementById("project-list-modal-content")];
 
-	for (let c of contents) {
+	for (let c of modalContents) {
 		c.style.display = "none";
 	}
 }
@@ -53,7 +74,8 @@ function sideMenuToggle() {
 		for (let t of sideNavText) {
 			t.style.display = "inline";
 		}
-		toggleArrow.setAttribute("class", toggleArrowClass[0]);
+		//toggleArrow.setAttribute("class", toggleArrowClass[0]);
+		toggleArrow.style.rotate = "180deg";
 		isCollapsed = false;
 
 		/*toggle.style.setProperty("letterSpacing", "0em", "hover");*/
@@ -69,7 +91,8 @@ function sideMenuToggle() {
 			t.style.display = "none";
 		}
 		toggle.style.letterSpacing = "-0.1em";
-		toggleArrow.setAttribute("class", toggleArrowClass[1]);
+		//toggleArrow.setAttribute("class", toggleArrowClass[1]);
+		toggleArrow.style.rotate = "0deg";
 		isCollapsed = true;
 	}
 	//sideMenu.ariaLabel = "folded"
