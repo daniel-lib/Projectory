@@ -141,4 +141,82 @@ function collapseTopMenu() {
 	topMenuContainer.style.height = "0px";
 	document.getElementById(specificContentIds[specCont]).style.display = "none";
 }
+	
+
+const containers = document.querySelectorAll(".project-modal-boxes");
+//alert("heeeee");
+const buttons = document.querySelectorAll(".expand-btn");
+
+
+for (let container of containers) {
+  let button = container.querySelector(".expand-btn");
+  container.addEventListener("mouseover", function() {
+	  //alert("heeeee");
+	  button.style.backgroundColor = "rgb(118, 187, 118)";
+	  button.style.color = "white";
+	  button.style.boxShadow = "0 0 10px rgb(118, 187, 118)";
+  });
+  container.addEventListener("click", function() {
+	  alert(this.id);
+  });
+
+
+ container.addEventListener("mouseout", function() {
+    button.style.backgroundColor = "rgb(246, 245, 244)";
+    button.style.color = "black";
+    button.style.boxShadow = "none";
+  });
+}
+
+
+
+
+
+
+
+
+
+/*container.addEventListener("mouseleave", function() {
+  button.style.backgroundColor = "blue";
+});
+*/
+
+
+
+
+/*const modalBoxes= document.getElementsByClassName("project-modal-boxes");
+let count = 0;
+for(let b of modalBoxes){
+	
+	window.localStorage.setItem("hovered", JSON.stringify(b));
+	b.addEventListener("mouseover", modalBoxesHoverEffect);	
+}
+
+function modalBoxesHoverEffect(){
+	//alert("hollering");
+	const h = localStorage.getItem("hovered");
+	alert(h.textContent);
+	h.style.backgroundColor = "red";
+	alert(h);
+	
+}*/
+
+
+
+/*const modalBoxes= document.querySelectorAll(".project-modal-boxes");
+const modalBoxesHoverEffect = (click) => {
+	alert("boommmmmmm");
+};
+for(let b of modalBoxes){
+modalBoxes.addEventListener('click', myFunction.bind(null, "hhh"));
+}
+*/
+
+/*const button = document.getElementById('myButton');
+
+const myFunction = (event) => {
+  console.log('The button was clicked.');
+};
+
+button.addEventListener('click', myFunction.bind(null, 'myParameter'));*/
 

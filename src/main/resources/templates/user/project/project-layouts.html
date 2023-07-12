@@ -7,13 +7,15 @@
 
 <!--project list display start-->
 <div class="item-display-table project-display-table" th:fragment="project-list-table">
-	
+
 	<div th:object="${project}">
-		<div th:each="proj : ${project}" class="project-modal-boxes-container">
-			<div class="mb-3 p-1 project-modal-boxes"  th:id="project-modal-box-+''+${proj.projectId}">
+		<div th:each="proj : ${project}" class="project-modal-boxes-container" id="project-modal-boxes-container">
+			<div class="mb-3 p-1 project-modal-boxes" th:id="project-modal-box-+''+${proj.projectId}">
 				<div class="">
-					<span class="project-owner-indicator info-tag-dark"><span class="fa-solid fa-user-tie"></span> Project owner: </span>
-					<span class="project-owner-indicator info-tag-dark float-end"><span class="fa-solid fa-users"></span> Members </span>
+					<span class="project-owner-indicator info-tag-dark"><span class="fa-solid fa-user-tie"></span>
+						Project owner: </span>
+					<span class="project-owner-indicator info-tag-dark float-end"><span
+							class="fa-solid fa-users"></span> Members </span>
 				</div>
 				<div class="m-3" style="display: block;" th:id="${proj.projectId}">
 					<span id="itemNumber" class="badge text-bg-warning itemNumber">0</span>
@@ -21,23 +23,28 @@
 					<span th:text="${proj.title}" id=""></span>
 					<span>|</span>
 					<span th:text="${proj.status}" class="fw-lighter modal-project-status"></span>
-					<br/>
+					<br />
 					<span th:text="${proj.description}" class="fw-lighter"></span>
-					<br/>
+					<br />
 
 
-					<!-- add task / members buttons-->					
+					<!-- add task / members buttons-->
 					<div class="mt-4">
-						<span id="add-project-task-button" class="minimalist-btn minimalist-btn-left-rounded add-project-task-button" th:onClick="showAddProjectTaskForm(this.id)" th:id="${proj.projectId}">
-						<span class="fa-solid fa-notes-medical"></span>
-							<span class="add-project-task-btn-text">Add Task/Story</span>						
-					</span>
-					<span id="add-project-members-button" class="minimalist-btn minimalist-btn-right-rounded add-project-members-button" th:onClick="showAddProjectTaskForm(this.id)" onClick="addContributersForm()" th:id="${proj.projectId}">
-						<span class="fa-solid fa-user-plus"></span>
-							<span class="add-project-task-btn-text">Add Members</span>						
-					</span>
+						<span id="add-project-task-button"
+							class="minimalist-btn minimalist-btn-left-rounded add-project-task-button"
+							th:onClick="showAddProjectTaskForm(this.id)" th:id="${proj.projectId}">
+							<span class="fa-solid fa-notes-medical"></span>
+							<span class="add-project-task-btn-text">Add Task/Story</span>
+						</span>
+						<span id="add-project-members-button"
+							class="minimalist-btn minimalist-btn-right-rounded add-project-members-button"
+							th:onClick="showAddProjectTaskForm(this.id)" onClick="addContributersForm()"
+							th:id="${proj.projectId}">
+							<span class="fa-solid fa-user-plus"></span>
+							<span class="add-project-task-btn-text">Add Members</span>
+						</span>
 					</div>
-					
+
 					<!--add project task form-->
 					<div class="add-project-task-form mt-2" th:id="add-project-task-form+''+${proj.projectId}"
 						style="height: 0px;">
@@ -49,10 +56,10 @@
 					</div>
 					<!--display Project tasks-->
 					<div>
-						<hr/>
-						<h5 class="project-task-title mt-2">Top tasks</h5>
-					<p class="d-block">...list of tasks from db...</p>
-					<input type="button" class="btn btn-primary-white btn-sm" value="Expand">
+						<hr />
+						<h6 class="project-task-title mt-2">Top tasks</h6>
+						<p class="d-block">...list of tasks from db...</p>
+						<input type="button" class="btn btn-primary-white btn-sm expand-btn" value="Expand" th:id="project-modal-expand-btn-+''+${proj.projectId}">
 					</div>
 				</div>
 			</div>

@@ -251,7 +251,7 @@
 	display: none;
 }
 
-.overflow-hidden{
+.overflow-hidden {
 	overflow: hidden;
 }
 
@@ -311,12 +311,20 @@
 	border: 1px solid rgb(119, 118, 123);
 	border-radius: 0.3rem;
 	cursor: pointer;
+	/*pointer-events: none;*/
+	/*z-index: -10000;*/
 }
 
 .project-modal-boxes:hover {
 	background: rgba(46, 139, 87, 0.2);
+	/*pointer-events: auto;*/
 }
 
+/*.project-modal-boxes:hover + .expand-btn {
+	background-color: aqua;
+	opacity: 0.5;
+}
+*/
 .project-owner-indicator {
 	top: 0;
 	left: 0;

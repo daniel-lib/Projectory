@@ -1,3 +1,5 @@
+
+
 //show "add project" form
 function showAddProjectTaskForm(id) {
 	//add-project-task-button
@@ -27,6 +29,7 @@ function addProjectTask() {
 
 //show "add project" form
 function showAddProjectForm(source) {
+	
 	const projectForm = document.getElementById("add-project-form");
 	const createProjectBtn = document.getElementsByClassName("create-project-btn");
 	if (source == "card") {//if the click comes from dashboard card instead of modal
@@ -69,4 +72,19 @@ function createItemButtonToDefault() {
 }
 
 
+/*try{
+	const modalBoxes= document.getElementsByClassName("project-modal-boxes");
+for(let b of modalBoxes){
+	b.addEventListener("mouseover", modalBoxesHoverEffect);
+}
+
+function modalBoxesHoverEffect(){
+	alert("boooo");
+	
+}
+}
+catch(error){
+	alert(error);
+}
+*/
 

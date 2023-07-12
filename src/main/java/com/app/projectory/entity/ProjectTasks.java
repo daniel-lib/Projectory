@@ -1,6 +1,8 @@
 package com.app.projectory.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +21,8 @@ public class ProjectTasks {
 	private String deadline;
 	
 	
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, 
+			fetch = FetchType.LAZY)
 	@JoinColumn(name = "project_id")
 	private Project containerProject;
 
@@ -36,6 +39,16 @@ public class ProjectTasks {
 	}
 
 	
+	
+
+	public Project getContainerProject() {
+		return containerProject;
+	}
+
+	public void setContainerProject(Project containerProject) {
+		this.containerProject = containerProject;
+	}
+
 	public Long getTaskId() {
 		return taskId;
 	}
@@ -60,7 +73,21 @@ public class ProjectTasks {
 		this.taskDescription = taskDescription;
 	}
 	
-	
-	
+	public String getStatus() {
+		return status;
+	}
 
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getDeadline() {
+		return deadline;
+	}
+
+	public void setDeadline(String deadline) {
+		this.deadline = deadline;
+	}
+	
+	
 }

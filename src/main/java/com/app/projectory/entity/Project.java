@@ -68,4 +68,14 @@ public class Project {
 		this.status = status;
 	}
 
+	public List<ProjectTasks> getProjectTasks() {
+		return projectTasks;
+	}
+
+	public void setProjectTasks(List<ProjectTasks> projectTasks) {
+		this.projectTasks = projectTasks;
+	}
+	
+	
+
 }
