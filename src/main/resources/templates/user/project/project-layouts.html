@@ -9,7 +9,8 @@
 <div class="item-display-table project-display-table" th:fragment="project-list-table">
 
 	<div th:object="${project}">
-		<div th:each="proj : ${project}" class="project-modal-boxes-container" id="project-modal-boxes-container">
+		<div th:each="proj : ${project}" class="project-modal-boxes-container d-flex"
+			id="project-modal-boxes-container">
 			<div class="mb-3 p-1 project-modal-boxes" th:id="project-modal-box-+''+${proj.projectId}">
 				<div class="">
 					<span class="project-owner-indicator info-tag-dark"><span class="fa-solid fa-user-tie"></span>
@@ -30,11 +31,11 @@
 
 					<!-- add task / members buttons-->
 					<div class="mt-4">
-						<span id="add-project-task-button"
+						<span id="add-project-task-button" role="button"
 							class="minimalist-btn minimalist-btn-left-rounded add-project-task-button"
 							th:onClick="showAddProjectTaskForm(this.id)" th:id="${proj.projectId}">
 							<span class="fa-solid fa-notes-medical"></span>
-							<span class="add-project-task-btn-text">Add Task/Story</span>
+							<span class="add-project-task-btn-text">Add Task</span>
 						</span>
 						<span id="add-project-members-button"
 							class="minimalist-btn minimalist-btn-right-rounded add-project-members-button"
@@ -48,20 +49,23 @@
 					<!--add project task form-->
 					<div class="add-project-task-form mt-2" th:id="add-project-task-form+''+${proj.projectId}"
 						style="height: 0px;">
-						<form class="form">
-							<input type="text" placeholder="title" class="form-control mb-1">
-							<input type="text" placeholder="description" class="form-control mb-1">
+						<div class="form form-container p-1">
+							<input type="text" placeholder="task title" class="form-control form-control-sm mb-1" name="task-title">
+							<input type="text" placeholder="task description" class="form-control form-control-sm mb-1">
 							<input type="submit" value="add" class="btn btn-primary-golden btn-sm">
-						</form>
+						</div>
 					</div>
 					<!--display Project tasks-->
 					<div>
 						<hr />
 						<h6 class="project-task-title mt-2">Top tasks</h6>
-						<p class="d-block">...list of tasks from db...</p>
-						<input type="button" class="btn btn-primary-white btn-sm expand-btn" value="Expand" th:id="project-modal-expand-btn-+''+${proj.projectId}">
+						<p class="d-block">...list of tasks from db...</p>						
 					</div>
+					
 				</div>
+				<button class="btn minimalist-btn btn-sm p-1 float-end expand-btn"
+							th:id="project-modal-expand-btn-+''+${proj.projectId}">
+							<span class="fa-solid fa-maximize"></span> <b>Expand</b></button>
 			</div>
 		</div>
 	</div>
@@ -69,7 +73,7 @@
 
 
 <!--add project form-->
-<div th:fragment="add-project-form" class="form-container mt-4 add-todo-item-form" id="add-project-form"
+<div th:fragment="add-project-form" class="form-container mt-2 add-todo-item-form" id="add-project-form"
 	style="height: 0px;">
 	<div>
 		<input type="text" class="form-control mt-3" placeholder="Project title" id="project-title-input" autofocus>
@@ -99,15 +103,15 @@
 	<div th:replace="/user/project/project-layouts :: add-project-form"></div>
 
 	<p class="card-text fw-lighter project-count" th:text="${projectCount}"></p><br />
-	<div class="d-flex  flex-wrap">
+	<div class="d-fle flex-wrap">
 		<!--<form th:action="@{/user/todo/delete-selected}" method="post">-->
 		<!--<button type="submit" class="btn btn-danger btn-sm mt-3 float-end" value="Delete Selected"
 			id="delete-selected-btn" disabled>
 			Delete Selected <span class="badge text-bg-info" id="number-of-items-badge">0</span>
 		</button>-->
-
+		<div class="p-4 project-modal-boxes"> stat and more info</div><br/>
 		<div th:replace="/user/project/project-layouts :: project-list-table"></div>
-		<div class="mx-4 p-4 project-modal-boxes"> stat and more info</div>
+
 		<!--</form>-->
 	</div>
 </div>

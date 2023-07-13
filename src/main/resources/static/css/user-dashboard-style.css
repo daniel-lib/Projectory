@@ -79,22 +79,12 @@
 	border: 1px solid grey;
 	border-radius: 0.3rem;
 	padding: 0.2rem;
-	margin-left: 0.3rem;
+	margin-left: 0.4rem;
 	color: rgba(255, 255, 255, 0.55);
 	letter-spacing: -0.1em;
 	transition: 0.3s ease-in-out;
-
-	/*-webkit-transition: -webkit-transform 0.3s ease-out;
-	-moz-transition: -moz-transform 0.3s ease-out;
-	-o-transition: -o-transform 0.3s ease-out;
-	-ms-transition: -ms-transform 0.3s ease-out;*/
-
 }
 
-/*#side-menu-toggle:hover{
-	color:  rgb(118, 187, 118);
-	letter-spacing: 0em;
-}*/
 #side-menu-toggle:hover {
 	color: rgb(118, 187, 118);
 	letter-spacing: 0em !important;
@@ -108,6 +98,11 @@
 
 #side-nav-arrow {
 	font-size: 9pt !important;
+	/*padding-right: -0.1e*/
+}
+
+#side-nav-arrow:hover {
+	/*padding-right: 0em !important;*/
 }
 
 .fa-caret-right {
@@ -191,8 +186,7 @@
 	background: rgb(36, 31, 49);
 	border-bottom: 3px solid goldenrod;
 	width: 80%;
-	margin-left: 10% !important;
-	margin-left: 10% !important;
+	margin-left: 13% !important;
 	position: fixed;
 	z-index: 14;
 	border-top-right-radius: 0.375rem;
@@ -202,7 +196,7 @@
 	visibility: hidden;
 	/*overflow: hidden;
 	height: 300px;*/
-	height: 500px;
+	height: 520px;
 	overflow: auto;
 	top: 10%;
 	/*transform: translate(-50%, -50%);*/
@@ -246,6 +240,11 @@
 	position: absolute;
 }
 
+.form-container {
+	border: 1px solid rgb(192, 191, 188);
+	border-radius: 0.2rem !important;
+}
+
 #todo-list-modal-content,
 #project-list-modal-content {
 	display: none;
@@ -263,6 +262,7 @@
 	/*height: 0;*/
 	transition: 0.2s ease-in-out;
 	overflow: hidden;
+	border: none;
 }
 
 #add-todo-item-form {
@@ -277,10 +277,11 @@
 	transition: 0.2s ease-in-out;
 	padding: 0.3rem 0.4rem 0.3rem 0.3rem;
 	margin-right: 0.3rem;
+	cursor: pointer;
 }
 
 .minimalist-btn:hover {
-	background-color: rgba(119, 118, 123, 0.6) !important;
+	background-color: rgba(119, 118, 123, 0.6);
 	color: rgb(118, 187, 118) !important;
 }
 
@@ -310,13 +311,15 @@
 .project-modal-boxes {
 	border: 1px solid rgb(119, 118, 123);
 	border-radius: 0.3rem;
-	cursor: pointer;
+	/*cursor: pointer;*/
 	/*pointer-events: none;*/
+
 	/*z-index: -10000;*/
+	transition: 0.1s ease-in-out;
 }
 
 .project-modal-boxes:hover {
-	background: rgba(46, 139, 87, 0.2);
+	background: rgba(0, 0, 0, 0.2);
 	/*pointer-events: auto;*/
 }
 
@@ -447,7 +450,6 @@
 	}*/
 
 	.viewing-modal-header {
-		margin-left: 15% !important;
 		margin-left: 15% !important;
 	}
 }

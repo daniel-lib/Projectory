@@ -74,8 +74,8 @@ function sideMenuToggle() {
 		for (let t of sideNavText) {
 			t.style.display = "inline";
 		}
-		//toggleArrow.setAttribute("class", toggleArrowClass[0]);
-		toggleArrow.style.rotate = "180deg";
+		toggleArrow.setAttribute("class", toggleArrowClass[0]);
+		//toggleArrow.style.rotate = "180deg";
 		isCollapsed = false;
 
 		/*toggle.style.setProperty("letterSpacing", "0em", "hover");*/
@@ -91,8 +91,8 @@ function sideMenuToggle() {
 			t.style.display = "none";
 		}
 		toggle.style.letterSpacing = "-0.1em";
-		//toggleArrow.setAttribute("class", toggleArrowClass[1]);
-		toggleArrow.style.rotate = "0deg";
+		toggleArrow.setAttribute("class", toggleArrowClass[1]);
+		//toggleArrow.style.rotate = "0deg";
 		isCollapsed = true;
 	}
 	//sideMenu.ariaLabel = "folded"
@@ -143,6 +143,10 @@ function collapseTopMenu() {
 }
 	
 
+
+
+
+/*
 const containers = document.querySelectorAll(".project-modal-boxes");
 //alert("heeeee");
 const buttons = document.querySelectorAll(".expand-btn");
@@ -166,7 +170,7 @@ for (let container of containers) {
     button.style.color = "black";
     button.style.boxShadow = "none";
   });
-}
+}*/
 
 
 
