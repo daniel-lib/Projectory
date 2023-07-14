@@ -113,31 +113,7 @@
 		<input type="text" class="form-control mt-3" placeholder="Item title" id="title-input" autofocus>
 		<textarea class="form-control mt-3" placeholder="detail description" id="detail-input"></textarea>
 		<input onClick="addTodo()" type="submit" value="Add Item" class="btn btn-primary-golden btn-sm mt-3">
-	</div>
-	<script>
-		function addTodo() {
-			const title = document.getElementById("title-input").value;
-			const detail = document.getElementById("detail-input").value;
-			//fetch('/todo/add-item-js?title="title"&detail="detail"')
-			fetch('/todo/add-item-js?title="' + title + '"&detail="' + detail + '"')
-				//fetch('/todo/add-item-js?title="'+"quuu"+'"&detail="'+"qoooo"+'"')
-				.then(response => response.json())
-				.then(data => {
-					alert(data);
-				})
-
-			/*const title2 = document.getElementById("title-input").value;
-			const detail2 = document.getElementById("detail-input").value;
-			const jsn = 
-			//fetch('/todo/add-item-js?title="title"&detail="detail"')
-			fetch('/todo/add-item-js?title="' + title + '"&detail="' + detail + '"')
-				//fetch('/todo/add-item-js?title="'+"quuu"+'"&detail="'+"qoooo"+'"')
-				.then(response => response.json())
-				.then(data => {
-					alert(data);
-				})*/
-		}
-	</script>
+	</div>	
 </div>
 
 

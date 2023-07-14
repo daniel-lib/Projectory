@@ -154,16 +154,40 @@ function showAddTodoItemForm(source) {
 	if (addTodoItemForm.style.height == "0px") {
 		addTodoItemForm.style.height = "240px";
 		addTodoItemForm.style.padding = "1.5rem";
-		for(let btns of AddTodoItemBtn){
+		for (let btns of AddTodoItemBtn) {
 			btns.value = "Exit Form";
 		}
 	}
 	else {
 		addTodoItemForm.style.height = 0;
 		addTodoItemForm.style.padding = "0";
-		for(let btns of AddTodoItemBtn){
+		for (let btns of AddTodoItemBtn) {
 			btns.value = "Add Item";
 		}
 	}
+}
+
+//add Todo Item script
+function addTodo() {
+	const title = document.getElementById("title-input").value;
+	const detail = document.getElementById("detail-input").value;
+	//fetch('/todo/add-item-js?title="title"&detail="detail"')
+	fetch('/todo/add-item-js?title="' + title + '"&detail="' + detail + '"')
+		//fetch('/todo/add-item-js?title="'+"quuu"+'"&detail="'+"qoooo"+'"')
+		.then(response => response.json())
+		.then(data => {
+			alert(data);
+		})
+
+	/*const title2 = document.getElementById("title-input").value;
+	const detail2 = document.getElementById("detail-input").value;
+	const jsn = 
+	//fetch('/todo/add-item-js?title="title"&detail="detail"')
+	fetch('/todo/add-item-js?title="' + title + '"&detail="' + detail + '"')
+		//fetch('/todo/add-item-js?title="'+"quuu"+'"&detail="'+"qoooo"+'"')
+		.then(response => response.json())
+		.then(data => {
+			alert(data);
+		})*/
 }
 

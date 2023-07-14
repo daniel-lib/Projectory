@@ -49,23 +49,35 @@
 					<!--add project task form-->
 					<div class="add-project-task-form mt-2" th:id="add-project-task-form+''+${proj.projectId}"
 						style="height: 0px;">
-						<div class="form form-container p-1">
-							<input type="text" placeholder="task title" class="form-control form-control-sm mb-1" name="task-title">
-							<input type="text" placeholder="task description" class="form-control form-control-sm mb-1">
-							<input type="submit" value="add" class="btn btn-primary-golden btn-sm">
+						<div class="form form-container p-1" th:id="addTaskForm+''+${proj.projectId}">
+							<input type="hidden" th:value="${proj.projectId}" id="proj-id">
+							<input type="text" placeholder="task title" class="form-control form-control-sm mb-1 task-title"
+								id="task-title">
+							<input type="text" placeholder="task description" class="form-control form-control-sm mb-1 task-description"
+								id="task-description">
+							<input type="button" value="add" class="btn btn-primary-golden btn-sm"
+								th:onclick="addTaskToProject()">
 						</div>
 					</div>
 					<!--display Project tasks-->
 					<div>
 						<hr />
 						<h6 class="project-task-title mt-2">Top tasks</h6>
-						<p class="d-block">...list of tasks from db...</p>						
+						<div class="d-block">
+							<!--<table class="table table-striped">
+								<tbody th:each = "task : ${projectTasks}">
+									<tr>
+										<td th:text = "task."></td>
+									</tr>
+								</tbody>
+							</table>-->
+						</div>
 					</div>
-					
+
 				</div>
 				<button class="btn minimalist-btn btn-sm p-1 float-end expand-btn"
-							th:id="project-modal-expand-btn-+''+${proj.projectId}">
-							<span class="fa-solid fa-maximize"></span> <b>Expand</b></button>
+					th:id="project-modal-expand-btn-+''+${proj.projectId}">
+					<span class="fa-solid fa-maximize"></span> <b>Expand</b></button>
 			</div>
 		</div>
 	</div>
@@ -109,7 +121,7 @@
 			id="delete-selected-btn" disabled>
 			Delete Selected <span class="badge text-bg-info" id="number-of-items-badge">0</span>
 		</button>-->
-		<div class="p-4 project-modal-boxes"> stat and more info</div><br/>
+		<div class="p-4 project-modal-boxes"> stat and more info</div><br />
 		<div th:replace="/user/project/project-layouts :: project-list-table"></div>
 
 		<!--</form>-->
@@ -157,7 +169,19 @@
 		<h5 class="card-title dashboard-card-title">Tasks on board</h5>
 	</div>
 	<div class="card-body">
-		<p class="card-text fw-lighter">There are no tasks at the moment.</p><br />
+		<!--<p class="card-text fw-lighter">There are no tasks at the moment.</p><br />-->
+
+		<div class="d-block">
+			<table class="table table-striped">
+				<tbody th:each="task : ${projectTasks}">
+					<tr th:id="${task.taskId}">
+						<td th:text="${task.taskName}"></td>
+						<td th:text="${task.taskDescription}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
 		<a href="/">Update Task Status</a>
 		</br>
 		<a href="#" class="btn btn-primary btn-sm">View</a>

@@ -177,6 +177,12 @@
 	color: rgb(118, 187, 118);
 }*/
 
+.project-count,
+.item-count,
+.todo-card-item-count{
+	visibility: hidden;
+}
+
 .viewing-modal-header {
 	color: rgb(186, 169, 138);
 	font-size: 100%;
