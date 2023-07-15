@@ -35,17 +35,23 @@ function addTaskToProject(projId) {
 	//alert("here");
 	/*const title = document.getElementById("task-title"+id).value;
 	const description = document.getElementById("task-description"+id).value;*/
-	alert(projId);
-	const addTaskForm = document.getElementById("addTaskForm"+id).value;
-	
-	const title = addTaskForm.getElementByClassName("task-title").value;
-	const description = addTaskForm.getElementByClassName("task-description").value;
-	alert("title: "+title[0]+" , description: "+description[0]);
-	fetch('/user/add-project-task?title=' + title + '&description=' + description + '&projId='+projId)
+
+	const addTaskForm = document.getElementById("addTaskForm" + projId);
+	const title = addTaskForm.getElementsByClassName("task-title");
+	const description = addTaskForm.getElementsByClassName("task-description");
+
+	//alert(projId);
+	fetch('/user/add-project-task?title=' + title[0].value + '&description=' + description[0].value + '&projId=' + projId)
 		.then(response => response.text())
 		.then(data => {
-			alert(data);
-			
+			let msg;
+			if(data == "1"){
+				msg = "Project Task Added!";
+			}
+			else{
+				msg = "adding project task was unsuccessful.";
+			}
+			alert(msg);
 		})
 }
 

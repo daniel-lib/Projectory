@@ -51,12 +51,15 @@
 						style="height: 0px;">
 						<div class="form form-container p-1" th:id="addTaskForm+''+${proj.projectId}">
 							<input type="hidden" th:value="${proj.projectId}" id="proj-id">
-							<input type="text" placeholder="task title" class="form-control form-control-sm mb-1 task-title"
-								id="task-title">
-							<input type="text" placeholder="task description" class="form-control form-control-sm mb-1 task-description"
-								id="task-description">
+							<input type="text" placeholder="task title"
+								class="form-control form-control-sm mb-1 task-title" id="task-title">
+							<input type="text" placeholder="task description"
+								class="form-control form-control-sm mb-1 task-description" id="task-description">
 							<input type="button" value="add" class="btn btn-primary-golden btn-sm"
-								th:onclick="addTaskToProject()">
+								th:onclick="addTaskToProject([[${proj.projectId}]])">
+							<!--<button th:onclick="myfunction([[${proj.projectId}]])" data-projectId="${proj.projectId}">
+								Click here
+							</button>-->
 						</div>
 					</div>
 					<!--display Project tasks-->
