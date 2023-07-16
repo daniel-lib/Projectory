@@ -103,6 +103,13 @@ function createItemButtonToDefault() {
 }
 
 
+//expand/maximize container
+function expandContainer(containerId){
+	const div = document.getElementById(containerId);
+	div.style.width = "900px";
+	div.style.height = "500px";
+}
+
 /*try{
 	const modalBoxes= document.getElementsByClassName("project-modal-boxes");
 for(let b of modalBoxes){

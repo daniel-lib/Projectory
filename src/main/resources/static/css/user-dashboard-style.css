@@ -179,8 +179,27 @@
 
 .project-count,
 .item-count,
-.todo-card-item-count{
+.todo-card-item-count {
 	visibility: hidden;
+}
+
+.top-dangling-x-btn {
+	margin-bottom: -20px;
+	margin-right: -12px;
+	font-size: 9pt;
+	background-color: rgb(94, 92, 100);
+	padding: 0.5em 0.5em 0.5em 0.5em;
+	border-radius: 50%;
+	z-index: 1000;
+	position:relative;
+	/*position: absolute;*/
+	/*font-weight:bold;*/
+	/*font-stretch: expanded;*/
+}
+
+.top-dangling-x-btn:hover {
+	background-color: rgb(61, 56, 70);
+	color: goldenrod;
 }
 
 .viewing-modal-header {
@@ -261,7 +280,7 @@
 }
 
 .project-modal-boxes-container {
-	width: 100%;
+	/*width: 100%;*/
 }
 
 #add-project-form {
@@ -276,14 +295,18 @@
 }
 
 .minimalist-btn {
-	font-size: 12pt;
+	font-size: 10pt !important;
 	border: 1px solid rgb(119, 118, 123);
 	border-radius: 0.25rem;
 	color: rgb(119, 118, 123);
 	transition: 0.2s ease-in-out;
-	padding: 0.3rem 0.4rem 0.3rem 0.3rem;
+	padding: 0.2rem 0.4rem 0.2rem 0.4rem;
 	margin-right: 0.3rem;
 	cursor: pointer;
+}
+
+.minimalist-btn-blk-bg {
+	background-color: rgb(36, 31, 49)
 }
 
 .minimalist-btn:hover {
@@ -302,7 +325,7 @@
 }
 
 .add-project-task-btn-text {
-	font-size: 12pt;
+	font-size: 10pt;
 }
 
 .add-project-task-form {
@@ -317,16 +340,26 @@
 .project-modal-boxes {
 	border: 1px solid rgb(119, 118, 123);
 	border-radius: 0.3rem;
-	/*cursor: pointer;*/
-	/*pointer-events: none;*/
-
-	/*z-index: -10000;*/
-	transition: 0.1s ease-in-out;
+	transition: 0.2s ease-in-out;
+	overflow: hidden;
+	
 }
 
 .project-modal-boxes:hover {
 	background: rgba(0, 0, 0, 0.2);
 	/*pointer-events: auto;*/
+}
+.project-modal-boxes-inner {
+	border: 1px solid rgb(61, 56, 70);
+	border-radius: 0.3rem;
+	transition: 0.2s ease-in-out;
+	overflow: hidden;
+	
+}
+
+
+.h-300{
+	height: 300px;
 }
 
 /*.project-modal-boxes:hover + .expand-btn {
@@ -338,6 +371,10 @@
 	top: 0;
 	left: 0;
 	/*color: goldenrod;*/
+}
+
+.info-tag-dark-sm{
+	font-size: 8pt !important;
 }
 
 .info-tag-dark {
@@ -358,6 +395,11 @@
 
 .modal-project-status {
 	color: rgb(192, 97, 203);
+}
+
+.expand-btn{
+	position: absolute;
+	z-index: 300;
 }
 
 #d1 {

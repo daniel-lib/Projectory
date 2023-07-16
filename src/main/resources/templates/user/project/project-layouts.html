@@ -8,21 +8,31 @@
 <!--project list display start-->
 <div class="item-display-table project-display-table" th:fragment="project-list-table">
 
-	<div th:object="${project}">
-		<div th:each="proj : ${project}" class="project-modal-boxes-container d-flex"
-			id="project-modal-boxes-container">
-			<div class="mb-3 p-1 project-modal-boxes" th:id="project-modal-box-+''+${proj.projectId}">
+	<div th:object="${project}" class="d-flex justify-content-around flex-wrap">
+		<div th:each="proj : ${project}" class="project-modal-boxes-container" id="project-modal-boxes-container">
+			<!--<span role="button" class="float-end top-dangling-x-btn fa-solid fa-minimize" title="Minimize"></span>-->
+			<!--<div class="mt-1"></div>-->
+			<button class="btn minimalist-btn btn-sm p-1 float-end expand-btn top-dangling-x-btn"
+					th:id="project-modal-expand-btn-+''+${proj.projectId}"
+					th:onclick="expandContainer('project-modal-box-'+[[${proj.projectId}]])" title="Expand">
+					<span class="fa-solid fa-maximize"></span> <b>Expand</b></button>
+				<div class="mb-1"></div>
+				
+			<div class="h-300 pt-3 float-none mb-3 p-1 project-modal-boxes"
+				th:id="project-modal-box-+''+${proj.projectId}">
 				<div class="">
-					<span class="project-owner-indicator info-tag-dark"><span class="fa-solid fa-user-tie"></span>
+					<span class="project-owner-indicator info-tag-dark info-tag-dark-sm float-start"><span
+							class="fa-solid fa-user-tie"></span>
 						Project owner: </span>
-					<span class="project-owner-indicator info-tag-dark float-end"><span
-							class="fa-solid fa-users"></span> Members </span>
+					<span class="project-owner-indicator info-tag-dark info-tag-dark-sm float-end"><span
+							class="fa-solid fa-users"></span> Members: </span>
+					<div></div>
+					<br />
 				</div>
 				<div class="m-3" style="display: block;" th:id="${proj.projectId}">
 					<span id="itemNumber" class="badge text-bg-warning itemNumber">0</span>
 					<!--<span th:text = "${item.todoItemId}" class="badge text-bg-warning"></span>-->
-					<span th:text="${proj.title}" id=""></span>
-					<span>|</span>
+					<span th:text="${proj.title}" id=""></span> <span>|</span>
 					<span th:text="${proj.status}" class="fw-lighter modal-project-status"></span>
 					<br />
 					<span th:text="${proj.description}" class="fw-lighter"></span>
@@ -31,19 +41,19 @@
 
 					<!-- add task / members buttons-->
 					<div class="mt-4">
-						<span id="add-project-task-button" role="button"
-							class="minimalist-btn minimalist-btn-left-rounded add-project-task-button"
+						<button id="add-project-task-button" role="button"
+							class="minimalist-btn minimalist-btn-blk-bg minimalist-btn-left-rounded add-project-task-button"
 							th:onClick="showAddProjectTaskForm(this.id)" th:id="${proj.projectId}">
 							<span class="fa-solid fa-notes-medical"></span>
 							<span class="add-project-task-btn-text">Add Task</span>
-						</span>
-						<span id="add-project-members-button"
-							class="minimalist-btn minimalist-btn-right-rounded add-project-members-button"
+						</button>
+						<button id="add-project-members-button"
+							class="minimalist-btn minimalist-btn-blk-bg minimalist-btn-right-rounded add-project-members-button btn-sm"
 							th:onClick="showAddProjectTaskForm(this.id)" onClick="addContributersForm()"
 							th:id="${proj.projectId}">
 							<span class="fa-solid fa-user-plus"></span>
 							<span class="add-project-task-btn-text">Add Members</span>
-						</span>
+						</button>
 					</div>
 
 					<!--add project task form-->
@@ -76,12 +86,18 @@
 							</table>-->
 						</div>
 					</div>
-
 				</div>
-				<button class="btn minimalist-btn btn-sm p-1 float-end expand-btn"
-					th:id="project-modal-expand-btn-+''+${proj.projectId}">
-					<span class="fa-solid fa-maximize"></span> <b>Expand</b></button>
+				
+				
+
+				<div class="project-modal-boxes-inner p-4">
+					<h3>placeholder</h3>
+				</div>
+
+
 			</div>
+
+
 		</div>
 	</div>
 </div>
