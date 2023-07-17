@@ -104,10 +104,40 @@ function createItemButtonToDefault() {
 
 
 //expand/maximize container
-function expandContainer(containerId){
+function expandContainer(containerId, btnId){
 	const div = document.getElementById(containerId);
-	div.style.width = "900px";
-	div.style.height = "500px";
+	const trigger = document.getElementById(btnId);
+	const allBoxes = document.getElementsByClassName("project-modal-boxes");
+	//const d = document.get
+	
+	if(trigger.title == "Expand"){
+		trigger.setAttribute("title", "Minimize");
+		for(let box of allBoxes){
+			box.style.width = "270px";
+			box.style.height = "300px";
+			box.style.backgroundColor = "rgb(36, 31, 49)";
+		}
+		div.style.width = "100%";
+		div.style.height = "100%";
+		div.style.backgroundColor = "#201D2A";
+		//div.style.marginBottom = "105px";
+		//document.querySelector("#"+containerId >> +".project-modal-inner-content-container").scrollIntoView();
+		div.scrollIntoView();
+		
+		/*div.scrollIntoView({
+            behavior: 'auto',
+            block: 'center',
+            inline: 'center'
+        });*/
+
+	}
+	else{
+		trigger.setAttribute("title", "Expand");
+		div.style.width = "270px";
+		div.style.height = "300px";
+		div.style.backgroundColor = "rgb(36, 31, 49)";
+		
+	}
 }
 
 /*try{
