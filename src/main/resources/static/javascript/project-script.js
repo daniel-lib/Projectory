@@ -108,22 +108,28 @@ function expandContainer(containerId, btnId){
 	const div = document.getElementById(containerId);
 	const trigger = document.getElementById(btnId);
 	const allBoxes = document.getElementsByClassName("project-modal-boxes");
+	const allTriggerBtns = document.getElementsByClassName("top-dangling-x-btn");
 	//const d = document.get
 	
 	if(trigger.title == "Expand"){
 		trigger.setAttribute("title", "Minimize");
+		//minimize all project boxes, change bg color to default
 		for(let box of allBoxes){
 			box.style.width = "270px";
 			box.style.height = "300px";
-			box.style.backgroundColor = "rgb(36, 31, 49)";
+			box.style.backgroundColor = "rgb(36, 31, 49)";			
 		}
+		for(let btns of allTriggerBtns){
+			btns.setAttribute("class", "float-end top-dangling-x-btn fa-solid fa-expand");
+		}
+		
 		div.style.width = "100%";
 		div.style.height = "100%";
 		div.style.backgroundColor = "#201D2A";
-		//div.style.marginBottom = "105px";
-		//document.querySelector("#"+containerId >> +".project-modal-inner-content-container").scrollIntoView();
+		div.style.borderTop = "3px solid rgb(118, 187, 118)";
+		div.style.borderBottom = "3px solid rgb(118, 187, 118)";
 		div.scrollIntoView();
-		
+		trigger.setAttribute("class", "float-end top-dangling-x-btn fa-solid fa-compress");
 		/*div.scrollIntoView({
             behavior: 'auto',
             block: 'center',
@@ -136,6 +142,7 @@ function expandContainer(containerId, btnId){
 		div.style.width = "270px";
 		div.style.height = "300px";
 		div.style.backgroundColor = "rgb(36, 31, 49)";
+		trigger.setAttribute("class", "float-end top-dangling-x-btn fa-solid fa-expand");
 		
 	}
 }

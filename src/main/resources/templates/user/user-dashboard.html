@@ -16,16 +16,16 @@
 
 
 		<section class="dashboard-area d-flex">
-
-			<div id="viewing-modal" class="mt px-4 custom-scrollbar-style">
-				<div class="viewing-modal">
-					<span class="viewing-modal-exit-btn float-end" onclick="closeViewingModal()">&times;</span>
+			<div id="viewing-modal-container" class="modal-backdrop-blur">
+				<div id="viewing-modal" class="mt px-4 custom-scrollbar-style">
+				<span class="viewing-modal-exit-btn float-end" onclick="closeViewingModal()">&times;</span>
 					<br />
+					
+					<div class="viewing-modal">
 
-					<div th:replace="/user/todo/todoLayouts :: todo-list-modal-content"></div>
-					<div th:replace="/user/project/project-layouts :: project-list-modal-content"></div>
-
-
+						<div th:replace="/user/todo/todoLayouts :: todo-list-modal-content"></div>
+						<div th:replace="/user/project/project-layouts :: project-list-modal-content"></div>
+					</div>
 				</div>
 			</div>
 

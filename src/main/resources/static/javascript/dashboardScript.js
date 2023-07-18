@@ -1,5 +1,6 @@
 function displayViewingModal(contentType) {
-	const modalContainer = document.getElementById("viewing-modal");
+	/*const modalContainer = document.getElementById("viewing-modal");*/
+	const modalContainer = document.getElementById("viewing-modal-container");
 	const contents = [document.getElementById("todo-list-modal-content"), document.getElementById("project-list-modal-content")];
 
 	modalContainer.style.visibility = "visible";
@@ -32,15 +33,33 @@ function closeViewingModal() {
 	}
 	
 	
-	var form = document.getElementById("viewing-modal");
-	form.style.opacity = "0";
-	form.style.visibility = "hidden";
+	/*var form = document.getElementById("viewing-modal");*/
+	const modalContainer = document.getElementById("viewing-modal-container");
+	modalContainer.style.opacity = "0";
+	modalContainer.style.visibility = "hidden";
 	const modalContents = [document.getElementById("todo-list-modal-content"), document.getElementById("project-list-modal-content")];
 
 	for (let c of modalContents) {
 		c.style.display = "none";
 	}
 }
+
+//close modal with esc key
+document.onkeydown = function(evt) {
+    evt = evt || window.event;
+    var isEscape = false;
+    if ("key" in evt) {
+        isEscape = (evt.key === "Escape" || evt.key === "Esc");
+    } else {
+        isEscape = (evt.keyCode === 27);
+    }
+    if (isEscape) {
+        closeViewingModal();
+    }
+};
+
+
+
 
 var isCollapsed = true;
 /*const toggleHover = document.querySelector("#side-menu-toggle");

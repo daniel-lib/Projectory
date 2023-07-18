@@ -162,6 +162,7 @@
 .dashboard-card-img-top {
 	height: 25px !important;
 	width: 20px;
+	color: rgb(118, 187, 118);
 }
 
 .dashboard-card-title {
@@ -171,6 +172,7 @@
 .card-header {
 	/*border-bottom: 1px solid rgb(192, 191, 188);*/
 	margin: 0 !important;
+	/*color: rgb(118, 187, 118);*/
 }
 
 /*.fa-solid:not(.nav-icon, #side-menu-toggle, #side-nav-arrow, fa-regular) {
@@ -186,7 +188,7 @@
 .top-dangling-x-btn {
 	margin-bottom: -20px;
 	margin-right: -12px;
-	font-size: 9pt;
+	font-size: 12pt;
 	background-color: rgb(94, 92, 100);
 	padding: 0.5em 0.5em 0.5em 0.5em;
 	border-radius: 50%;
@@ -207,6 +209,29 @@
 	font-size: 100%;
 }
 
+.modal-backdrop-blur {
+	/*background-color: rgba(0, 0, 0, 0.1);*/
+	/*filter: blur(50px);*/
+	/*background-color: lightskyblue;*/
+	/*border: 1px solid rgb(230, 97, 0);*/
+	background: rgba(255, 255, 255, 0.2);
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+	backdrop-filter: blur(2px);
+	-webkit-backdrop-filter: blur(2px);
+	/*border: 1px solid rgba(255, 255, 255, 0.18);*/
+	width: 100%;
+	margin-left: 3% !important;
+	position: fixed;
+	z-index: 13;
+	border-top-right-radius: 0.375rem;
+	border-top-left-radius: 0.375rem;
+	transition: all 0.2s linear;
+	opacity: 0;
+	visibility: hidden;
+	/*overflow: hidden;*/
+	height: 100%;
+}
+
 #viewing-modal {
 	background: rgb(36, 31, 49);
 	border-bottom: 3px solid goldenrod;
@@ -216,12 +241,15 @@
 	z-index: 14;
 	border-top-right-radius: 0.375rem;
 	border-top-left-radius: 0.375rem;
-	transition: all 0.5s ease-in-out;
-	opacity: 0;
+	transition: all 0.2s linear;
+
+	/*opacity: 0;
 	visibility: hidden;
+
 	/*overflow: hidden;
 	height: 300px;*/
-	height: 520px;
+	/*height: 520px;*/
+	height: 80vh;
 	overflow: auto;
 	top: 10%;
 	/*transform: translate(-50%, -50%);*/
@@ -232,14 +260,21 @@
 	color: goldenrod;
 	font-size: 25pt;
 	cursor: pointer;
-	z-index: 2000;
+	
 	/*position: fixed;
 	float: right;
 	right: 13%;*/
+	/*margin-top: -19px;*/
+	margin-top: 0%;	
+	margin-right: 0%;
+	z-index: 15;/*
+	border: 1px solid red;*/
+	font-size: 30pt;
 }
 
 .viewing-modal-exit-btn:hover {
-	text-shadow: 0px 0px 4px goldenrod;
+	color: rgb(222, 178, 67);
+	text-shadow: 0px 0px 6px goldenrod;
 }
 
 .viewing-modal-exit-btn:active {
@@ -346,7 +381,7 @@
 	overflow: hidden;
 }
 
-.project-modal-boxes-extra-info{
+.project-modal-boxes-extra-info {
 	border: 1px solid rgb(94, 92, 100);
 }
 
@@ -362,20 +397,18 @@
 	border-radius: 0.3rem;
 	transition: 0.2s ease-in-out;
 	overflow: hidden;
-	
+
 	border-radius: 0.75rem;
-	box-shadow:  1px 3px 0 rgb(61, 56, 70),0 1px 2px -1px rgb(61, 56, 70);
+	box-shadow: 1px 3px 0 rgb(61, 56, 70), 0 1px 2px -1px rgb(61, 56, 70);
 }
 
-.test{
+.test {
 	border: 1px solid rgb(61, 56, 70);
 	border-radius: 0.75rem;
-	box-shadow:  1px 3px 0 rgb(61, 56, 70),0 1px 2px -1px rgb(61, 56, 70);
+	box-shadow: 1px 3px 0 rgb(61, 56, 70), 0 1px 2px -1px rgb(61, 56, 70);
 }
 
-.project-modal-inner-content-container {
-	
-}
+.project-modal-inner-content-container {}
 
 
 .h-300 {
