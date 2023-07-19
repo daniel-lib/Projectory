@@ -45,13 +45,17 @@ function addTaskToProject(projId) {
 		.then(response => response.text())
 		.then(data => {
 			let msg;
+			let notificationType;
 			if(data == "1"){
 				msg = "Project Task Added!";
+				notificationType = "success";
 			}
 			else{
-				msg = "adding project task was unsuccessful.";
+				msg = "Adding project task was unsuccessful.";
+				notificationType ="error";
 			}
-			alert(msg);
+			/*alert(msg);*/
+			toggleNotification(notificationType, msg);
 		})
 }
 
@@ -117,7 +121,8 @@ function expandContainer(containerId, btnId){
 		for(let box of allBoxes){
 			box.style.width = "270px";
 			box.style.height = "300px";
-			box.style.backgroundColor = "rgb(36, 31, 49)";			
+			box.style.backgroundColor = "rgb(36, 31, 49)";
+			box.style.border = "1px solid rgb(94, 92, 100)";		
 		}
 		for(let btns of allTriggerBtns){
 			btns.setAttribute("class", "float-end top-dangling-x-btn fa-solid fa-expand");
@@ -143,6 +148,7 @@ function expandContainer(containerId, btnId){
 		div.style.height = "300px";
 		div.style.backgroundColor = "rgb(36, 31, 49)";
 		trigger.setAttribute("class", "float-end top-dangling-x-btn fa-solid fa-expand");
+		div.style.border = "1px solid rgb(94, 92, 100)";	
 		
 	}
 }

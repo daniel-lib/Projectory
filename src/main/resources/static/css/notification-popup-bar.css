@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+    --success: #327B32;
+    --error: rgb(192, 28, 40);
+    --text: #F2ECFF;
+    --background: #1F1F1F;
+}
+
+html {
+    font-family: 'Roboto';
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/*body {
+    margin: 0px;
+    background-color: var(--background);
+    display: grid;
+    place-items: center;
+    font-size: 16px;
+    height: 100vh;
+}*/
+
+.trigger-button {
+    background-color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    font-size: 0.8rem;
+    min-height: 40px;
+    max-width: 160px;
+    width: 100%;
+    font-weight: 600;
+    transition: all 0.25s;
+}
+
+.trigger-button:hover {
+    text-decoration: underline; 
+}
+
+.notification {
+    position: absolute;
+    bottom: 16px;
+    padding: 0px 8px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    color: var(--text);
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    animation: fadeInAnimation ease-in-out 0.25s forwards;;
+    box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),
+                0px 6px 10px 0px rgba(0,0,0,0.14),
+                0px 1px 18px 0px rgba(0,0,0,0.12);
+    z-index: 17;
+    margin-left:30%;
+}
+.notification-success{
+    background-color: var(--success);	
+}
+.notification-error{
+    background-color: var(--error);	
+}
+
+.none {
+    display: none;
+}
+
+.hide {
+    visibility: hidden;
+    animation: fadeOutAnimation ease-in-out 0.25s forwards;
+}
+
+.notification__body {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: clamp(0.8rem, 3vw, 1.2rem);
+}
+
+.notification__body__first {
+    display: flex;
+}
+
+.notification__body__first > #notification-icon {
+    height: 24px;
+    width: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    fill: var(--text);  
+}
+
+.notification__body > svg:nth-last-child(1) {
+    cursor: pointer;
+    margin: auto;
+    min-width: 24px;
+    min-height: 24px;
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+        min-height: 40px;
+        visibility: hidden;
+    }
+    100% {
+        opacity: 1;
+        min-height: 60px;
+        visibility: visible;
+    }
+}
+
+@keyframes fadeOutAnimation {
+    0% {
+        opacity: 1;
+        min-height: 60px;
+        visibility: visible;
+    }
+    100% {
+        opacity: 0;
+        min-height: 40px;
+        visibility: hidden;
+    }
+}
+
+@keyframes progress {
+    to {
+        transform: scaleX(1);
+    }
+}

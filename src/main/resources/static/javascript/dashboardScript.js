@@ -160,7 +160,49 @@ function collapseTopMenu() {
 	topMenuContainer.style.height = "0px";
 	document.getElementById(specificContentIds[specCont]).style.display = "none";
 }
+
+
+
+
+//display-item-count-script
+function displayItemCount() {
+	/*alert("oooollll");*/
+	//let items = document.getElementsByClassName("itemNumber");
+	const element1 = document.querySelectorAll(".card-body #itemNumber");
+	const element2 = document.querySelectorAll(".item-display-table #itemNumber");
+	const element3 = document.querySelectorAll(".card-body #projectNumber");
+	const element4 = document.querySelectorAll(".project-display-table #itemNumber");
+	let itemElement = [element1, element2, element3, element4];
+	for (let items of itemElement) {
+		var counter = 0;
+		for (let item of items) {
+			item.innerHTML = ++counter;
+		}
+	}
+}
 	
+
+/*//Notication bar popup(NEW) script
+const notification = document.querySelector('.notification');
+const button = document.querySelector('.trigger-button');
+
+const toggleNotification = () => {
+    notification.classList.remove('none');
+    notification.classList.toggle('hide');
+}
+
+document.addEventListener("click", (event) => {
+    const isClickInsideNotification = notification.contains(event.target);
+    const isButtonClicked = button.contains(event.target);
+
+    if (!isClickInsideNotification && !isButtonClicked) {
+        notification.classList.add('hide');
+    }
+});*/
+
+
+
+
 
 
 

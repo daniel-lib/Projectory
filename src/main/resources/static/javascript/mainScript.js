@@ -44,3 +44,52 @@ function hideNotificationBoard() {
 
 	//notificationBoard.style = "color:yellow;display: flex !important;";				
 }
+
+
+
+
+/*const button = document.querySelector('.trigger-button');*/
+
+function toggleNotification(notificationType, msgToUser) {
+	const notification = document.querySelector('.notification');
+	const content = document.getElementById("notification-bar-content");
+	const icon = document.getElementById("notification-icon");
+	/*alert(msgToUser);*/
+	if (notificationType == undefined)
+		content.textContent = content.textContent;
+	else {
+		content.textContent = msgToUser;
+		if (notificationType === "success") {
+			notification.classList.remove('notification-error');
+			notification.classList.add('notification-success');
+			
+			icon.classList.replace('fa-triangle-exclamation', 'fa-circle-check');
+		}
+		else {
+			notification.classList.remove('notification-success');
+			notification.classList.add('notification-error');	
+					
+			icon.classList.replace('fa-circle-check', 'fa-triangle-exclamation');
+		}
+	}
+
+	notification.classList.remove('none');
+	notification.classList.toggle('hide');
+
+
+
+
+
+}
+
+/*document.addEventListener("click", (event) => {
+	const isClickInsideNotification = notification.contains(event.target);
+	const isButtonClicked = button.contains(event.target);
+
+	if (!isClickInsideNotification && !isButtonClicked) {
+		notification.classList.add('hide');
+	}
+});*/
+
+
+

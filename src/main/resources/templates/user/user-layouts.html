@@ -16,6 +16,7 @@
 	<link href="/css/style.css" rel="stylesheet">
 	<link href="/css/todolist.css" rel="stylesheet">
 	<link href="/css/user-dashboard-style.css" rel="stylesheet">
+	<link href="/css/notification-popup-bar.css" rel="stylesheet">	
 	<script src="https://kit.fontawesome.com/6d882a57d9.js" crossorigin="anonymous"></script>
 	<script src="/javascript/todoListScript.js" defer></script>
 	<script src="/javascript/dashboardScript.js" defer></script>
@@ -92,5 +93,34 @@
 	</div>
 	<br />
 </footer>
+
+ <figure class="notification hide none" th:fragment="notification-bar">
+            <div class="notification__body">
+                <span class="notification__body__first pt-3">
+                    <span class="fa-solid fa-circle-check mt-1" id="notification-icon"> 
+                    </span> 
+                    <!--<p id="notification-bar-content">Your account has been created!</p>-->
+                    <p id="notification-bar-content"></p>
+                </span>
+                
+                <!--close notification button-->
+                <svg
+                    onclick="toggleNotification()"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M18 6l-12 12"></path>
+                    <path d="M6 6l12 12"></path>
+                </svg>
+            </div>
+        </figure>
 
 </html>

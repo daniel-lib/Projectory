@@ -76,24 +76,10 @@ function readyDeleteButton() {
 		}
 	}
 }
-/*</script>
+
 	
 	
-<script th:fragment="display-item-count-script">*/
-function displayItemCount() {
-	//let items = document.getElementsByClassName("itemNumber");
-	const element1 = document.querySelectorAll(".card-body #itemNumber");
-	const element2 = document.querySelectorAll(".item-display-table #itemNumber");
-	const element3 = document.querySelectorAll(".card-body #projectNumber");
-	const element4 = document.querySelectorAll(".project-display-table #itemNumber");
-	let itemElement = [element1, element2, element3, element4];
-	for (let items of itemElement) {
-		var counter = 0;
-		for (let item of items) {
-			item.innerHTML = ++counter;
-		}
-	}
-}
+
 
 
 //todo list item count checker
@@ -172,11 +158,12 @@ function addTodo() {
 	const title = document.getElementById("title-input").value;
 	const detail = document.getElementById("detail-input").value;
 	//fetch('/todo/add-item-js?title="title"&detail="detail"')
-	fetch('/todo/add-item-js?title="' + title + '"&detail="' + detail + '"')
+	fetch('/todo/add-item-js?title=' + title + '&detail=' + detail + '')
 		//fetch('/todo/add-item-js?title="'+"quuu"+'"&detail="'+"qoooo"+'"')
 		.then(response => response.json())
 		.then(data => {
 			alert(data);
+			
 		})
 
 	/*const title2 = document.getElementById("title-input").value;
