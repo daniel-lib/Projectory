@@ -260,14 +260,15 @@
 	color: goldenrod;
 	font-size: 25pt;
 	cursor: pointer;
-	
+
 	/*position: fixed;
 	float: right;
 	right: 13%;*/
 	/*margin-top: -19px;*/
-	margin-top: 0%;	
+	margin-top: 0%;
 	margin-right: 0%;
-	z-index: 15;/*
+	z-index: 15;
+	/*
 	border: 1px solid red;*/
 	font-size: 30pt;
 }
@@ -375,10 +376,24 @@
 .item-display-table {}
 
 .project-modal-boxes {
-	border: 1px solid rgb(94, 92, 100);
 	border-radius: 0.3rem;
 	transition: 0.2s ease-in-out;
 	overflow: hidden;
+}
+
+.project-modal-boxes-default {
+	width: 270px;
+	height: 300px;
+	background-color: rgb(36, 31, 49);
+	border: 1px solid rgb(94, 92, 100);
+}
+
+.project-modal-boxes-expanded {
+	width: 100% !important;
+	height: 100% !important;
+	background-color: rgb(12 12 12) !important;
+	border-top: 3px solid rgb(118, 187, 118)!important;
+	border-bottom: 3px solid rgb(118, 187, 118)!important;
 }
 
 .project-modal-boxes-extra-info {
@@ -411,10 +426,7 @@
 .project-modal-inner-content-container {}
 
 
-.h-300 {
-	width: 270px;
-	height: 300px;
-}
+
 
 /*.project-modal-boxes:hover + .expand-btn {
 	background-color: aqua;

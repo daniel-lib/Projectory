@@ -44,15 +44,14 @@ function addTaskToProject(projId) {
 	fetch('/user/add-project-task?title=' + title[0].value + '&description=' + description[0].value + '&projId=' + projId)
 		.then(response => response.text())
 		.then(data => {
-			let msg;
-			let notificationType;
-			if(data == "1"){
+			let msg, notificationType;
+			if (data == "1") {
 				msg = "Project Task Added!";
 				notificationType = "success";
 			}
-			else{
-				msg = "Adding project task was unsuccessful.";
-				notificationType ="error";
+			else {
+				msg = "Couldn't add project task. It's probably your fault.";
+				notificationType = "error";
 			}
 			/*alert(msg);*/
 			toggleNotification(notificationType, msg);
@@ -108,48 +107,43 @@ function createItemButtonToDefault() {
 
 
 //expand/maximize container
-function expandContainer(containerId, btnId){
+function expandContainer(containerId, btnId) {
 	const div = document.getElementById(containerId);
 	const trigger = document.getElementById(btnId);
 	const allBoxes = document.getElementsByClassName("project-modal-boxes");
 	const allTriggerBtns = document.getElementsByClassName("top-dangling-x-btn");
 	//const d = document.get
-	
-	if(trigger.title == "Expand"){
-		trigger.setAttribute("title", "Minimize");
-		//minimize all project boxes, change bg color to default
-		for(let box of allBoxes){
-			box.style.width = "270px";
-			box.style.height = "300px";
-			box.style.backgroundColor = "rgb(36, 31, 49)";
-			box.style.border = "1px solid rgb(94, 92, 100)";		
-		}
-		for(let btns of allTriggerBtns){
-			btns.setAttribute("class", "float-end top-dangling-x-btn fa-solid fa-expand");
-		}
-		
-		div.style.width = "100%";
-		div.style.height = "100%";
-		div.style.backgroundColor = "#201D2A";
-		div.style.borderTop = "3px solid rgb(118, 187, 118)";
-		div.style.borderBottom = "3px solid rgb(118, 187, 118)";
-		div.scrollIntoView();
-		trigger.setAttribute("class", "float-end top-dangling-x-btn fa-solid fa-compress");
-		/*div.scrollIntoView({
-            behavior: 'auto',
-            block: 'center',
-            inline: 'center'
-        });*/
 
+	if (trigger.title == "Expand") {
+		//minimize all project boxes, change bg color to default
+		for (let box of allBoxes) {
+			box.classList.replace('project-modal-boxes-expanded', 'project-modal-boxes-default');
+		}
+		for (let btns of allTriggerBtns) {
+			/*btns.setAttribute("class", "float-end top-dangling-x-btn fa-solid fa-expand");*/
+			/*btns.classList.replace('fa-compress', 'fa-expand');*/
+			btns.classList.remove('fa-compress');
+			btns.classList.add('fa-expand');
+			btns.setAttribute("title", "Expand");
+		}
+
+		trigger.setAttribute("title", "Minimize");
+		div.classList.remove("project-modal-boxes-default");
+		div.classList.add("project-modal-boxes-expanded");
+		div.scrollIntoView();
+		/*trigger.setAttribute("class", "float-end top-dangling-x-btn fa-solid fa-compress");*/
+		/*trigger.classList.replace('fa-expand', 'fa-compress');*/
+		trigger.classList.remove('fa-expand');
+		trigger.classList.add('fa-compress');
 	}
-	else{
+	else {
 		trigger.setAttribute("title", "Expand");
-		div.style.width = "270px";
-		div.style.height = "300px";
-		div.style.backgroundColor = "rgb(36, 31, 49)";
-		trigger.setAttribute("class", "float-end top-dangling-x-btn fa-solid fa-expand");
-		div.style.border = "1px solid rgb(94, 92, 100)";	
-		
+		div.classList.add("project-modal-boxes-default");
+		div.classList.remove("project-modal-boxes-expanded");
+		/*trigger.setAttribute("class", "float-end top-dangling-x-btn fa-solid fa-expand");*/
+		/*trigger.classList.replace('fa-compress', 'fa-expand');*/
+		trigger.classList.remove('fa-compress');
+		trigger.classList.add('fa-expand');
 	}
 }
 

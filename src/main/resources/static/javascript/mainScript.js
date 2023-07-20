@@ -47,39 +47,40 @@ function hideNotificationBoard() {
 
 
 
-
-/*const button = document.querySelector('.trigger-button');*/
-
+//Notication bar popup(NEW) script
 function toggleNotification(notificationType, msgToUser) {
 	const notification = document.querySelector('.notification');
 	const content = document.getElementById("notification-bar-content");
 	const icon = document.getElementById("notification-icon");
-	/*alert(msgToUser);*/
-	if (notificationType == undefined)
+	if (notificationType == undefined){
 		content.textContent = content.textContent;
+		clearTimeout(timeoutID);
+		}
 	else {
 		content.textContent = msgToUser;
 		if (notificationType === "success") {
 			notification.classList.remove('notification-error');
-			notification.classList.add('notification-success');
-			
+			notification.classList.add('notification-success');			
 			icon.classList.replace('fa-triangle-exclamation', 'fa-circle-check');
 		}
 		else {
 			notification.classList.remove('notification-success');
-			notification.classList.add('notification-error');	
-					
+			notification.classList.add('notification-error');					
 			icon.classList.replace('fa-circle-check', 'fa-triangle-exclamation');
 		}
 	}
 
 	notification.classList.remove('none');
-	notification.classList.toggle('hide');
-
-
-
-
-
+	notification.classList.remove('hide');
+	/*notification.classList.toggle('hide');*/
+	
+	//trigger automatic notification bar exit	
+	timeoutID = window.setTimeout(hideNotificationBar, 2000);
+	
+}
+function hideNotificationBar() {
+	const notification = document.querySelector('.notification');
+    notification.classList.add('hide');
 }
 
 /*document.addEventListener("click", (event) => {

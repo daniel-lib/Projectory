@@ -62,15 +62,6 @@ document.onkeydown = function(evt) {
 
 
 var isCollapsed = true;
-/*const toggleHover = document.querySelector("#side-menu-toggle");
-toggleHover.addEventListener("mouseenter", alert("applied"));
-function applyHover(){
-	
-	if (!isCollapsed){
-		toggleHover.style.backgroundColor = "red";
-		toggleHover.style.letterSpacing = "0em";
-	}
-}*/
 function sideMenuToggle() {
 
 	const sideMenu = document.querySelector("#side-menu");
@@ -82,10 +73,7 @@ function sideMenuToggle() {
 
 
 	if (isCollapsed) {
-		/*const sideNav = document.select*/
-		/*sideNav.style = "padding-right: 100px !important;";*/
 		sideNav.style = "width: 200px;";
-		/*toggle.style.letterSpacing = "-0.1em";*/
 		toggle.style.letterSpacing = "0em";
 
 
@@ -94,31 +82,17 @@ function sideMenuToggle() {
 			t.style.display = "inline";
 		}
 		toggleArrow.setAttribute("class", toggleArrowClass[0]);
-		//toggleArrow.style.rotate = "180deg";
 		isCollapsed = false;
-
-		/*toggle.style.setProperty("letterSpacing", "0em", "hover");*/
-
-		/*//this two lines of code only appy padding. it ignores border change. lookup explanation
-		sideNav.style.border = "3px solid red";
-		sideNav.style = "padding-right: 1px !important";*/
 	}
 	else {
-		/*sideNav.style = "padding-right: 1px !important;";*/
 		sideNav.style = "width: 45px;";
 		for (let t of sideNavText) {
 			t.style.display = "none";
 		}
 		toggle.style.letterSpacing = "-0.1em";
 		toggleArrow.setAttribute("class", toggleArrowClass[1]);
-		//toggleArrow.style.rotate = "0deg";
 		isCollapsed = true;
 	}
-	//sideMenu.ariaLabel = "folded"
-
-
-	/*sideNav.style.width = "50px"
-	sideNav.style.border = "3px solid red";*/
 
 }
 
