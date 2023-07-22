@@ -8,6 +8,7 @@ function displayViewingModal(contentType) {
 
 	if (contentType >= 0 || contentType <= (contents.length) - 1) {
 		contents[contentType].style.display = "block";
+		document.body.classList.add('overflow-hidden');
 	}
 
 }
@@ -42,6 +43,7 @@ function closeViewingModal() {
 	for (let c of modalContents) {
 		c.style.display = "none";
 	}
+	document.body.classList.remove('overflow-hidden');
 }
 
 //close modal with esc key

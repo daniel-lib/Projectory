@@ -9,7 +9,9 @@
 	<div class="containers">
 
 		<div id="login-signup-form" class="mt-5">
-			<div id="item-action-notification" class="badge item-action-notification px-4 d-flex justify-content-center login-error-notif" th:text="${param.indicator}"></div>
+			<div id="item-action-notification"
+				class="badge item-action-notification px-4 d-flex justify-content-center login-error-notif"
+				th:text="${param.indicator}"></div>
 			<!--<div th:fragment = "notification-board" id="item-action-notification" class="badge item-action-notification px-4 d-flex justify-content-center" th:text="${param.indicator}"></div>-->
 			<div class="login-signup-form">
 				<span class="login-signup-form-exit-btn mx-3 float-end" onclick="closeSigninForm()">&times;</span>
@@ -20,29 +22,36 @@
 					</span>
 					<hr />
 					<form class="m-3" action="/login" method="post" th:object="${user}">
-						<input type="text" placeholder="username" th:field="${user.username}"id="username-input" class="form-control mb-3">
-						<input type="password" placeholder="password" th:field="${user.password}" class="form-control mb-3">
+						<input type="text" placeholder="username" th:field="${user.username}" id="username-input"
+							class="form-control mb-3">
+						<input type="password" placeholder="password" th:field="${user.password}"
+							class="form-control mb-3">
 						<input type="submit" value="Sign in" class="btn btn-primary mb-3 btn-primary-white">
-						<span class="fw- register-here-text"> Don't have an account? <a class="form-alternative-btn" onClick="displaySigninForm('signup')"> Create an account</a></span>
+						<span class="fw- register-here-text"> Don't have an account? <a class="form-alternative-btn"
+								onClick="displaySigninForm('signup')"> Create an account</a></span>
 					</form>
 				</div>
-				
+
 				<div id="sign-up-form">
 					<span class="d-flex justify-content-center mt-3">
 						<h3 class="login-signup-form-header">Stress-free life begines here</h3>
 					</span>
 					<hr />
 					<form class="m-3" action="/register" method="post" th:object="${user}">
-						<input type="text" placeholder="First Name" th:field="${user.firstName}" class="form-control mb-3" autofocus>
-						<input type="text" placeholder="Last Name" th:field="${user.username}" class="form-control mb-3">
-						<input type="text" placeholder="Username" th:field="${user.username}" class="form-control mb-3">						
-						<input type="password" placeholder="password" th:field="${user.password}" class="form-control mb-3">
+						<input type="text" placeholder="First Name" th:field="${user.firstName}"
+							class="form-control mb-3" autofocus>
+						<input type="text" placeholder="Last Name" th:field="${user.username}"
+							class="form-control mb-3">
+						<input type="text" placeholder="Username" th:field="${user.username}" class="form-control mb-3">
+						<input type="password" placeholder="password" th:field="${user.password}"
+							class="form-control mb-3">
 						<input type="submit" value="Sign up" class="btn btn-primary mb-3 btn-primary-white">
-						<span class="fw- register-here-text"> Already have an account? <a class="form-alternative-btn" onClick="displaySigninForm('login')"> Login</a></span>
+						<span class="fw- register-here-text"> Already have an account? <a class="form-alternative-btn"
+								onClick="displaySigninForm('login')"> Login</a></span>
 					</form>
 				</div>
-				
-				
+
+
 				<!--<span class="rotated-nav-decor d-flex justify-content"></span>
 				<span class="rotated-nav-decor d-flex justify-content"></span>
 				<span class="rotated-nav-decor float-end"></span>-->
@@ -56,8 +65,10 @@
 				<div class="front-poster-text d-flex justify-content-center px-3">
 					<p class="mt-5">Visualizing the trajectory of your projects has never been easier!</p><br /><br />
 					<div class="get-started-btn-container d-flex justify-content-center mt-5">
-						<button class="btn get-started-btn"
+						<button class="btn get-started-btn d-inline"
 							onClick="displaySigninForm('signup'); startElementRotation();">Get Started</button>
+						<button class="btn get-started-btn d-inline"
+							onClick="displaySigninForm('signup'); startElementRotation();">Login</button>
 					</div>
 				</div>
 
@@ -107,27 +118,28 @@
 
 		<div class="d-flex justify-content-around mt-4 container-bg-blue p-3">
 			<div class="div-top-decor-container d-flex">
-				
+
 			</div>
 			<script>
-				
-					let divDecorContainer = document.getElementsByClassName("div-top-decor-container");
-					let decor = document.createElement("div");
-					
-					//decor.setAttribute("class", "div-top-decor");					
-					//document.body.appendChild(decor);
-					const parent = divDecorContainer.parentElement();
 
-					parent.appendChild(decor);
-					alert("here");
-					
-				</script>
-				
-			
-			<p class="fs-1 green-bg-text-headline">Ut enim ad minim veniam, quis <span class="colored-text-inline">nostrud</span> exercitation</p>
-			<p class="green-bg-text-paragraph"> ullamco laboris nisi ut aliquip ex ea commodo 
-				consequat. Duis aute irure dolor in reprehenderit in 
-				voluptate velit esse cillum dolore eu fugiat nulla 
+				let divDecorContainer = document.getElementsByClassName("div-top-decor-container");
+				let decor = document.createElement("div");
+
+				//decor.setAttribute("class", "div-top-decor");					
+				//document.body.appendChild(decor);
+				const parent = divDecorContainer.parentElement();
+
+				parent.appendChild(decor);
+				alert("here");
+
+			</script>
+
+
+			<p class="fs-1 green-bg-text-headline">Ut enim ad minim veniam, quis <span
+					class="colored-text-inline">nostrud</span> exercitation</p>
+			<p class="green-bg-text-paragraph"> ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in
+				voluptate velit esse cillum dolore eu fugiat nulla
 				pariatur.</p>
 		</div>
 
@@ -136,33 +148,33 @@
 
 	</div>
 	<footer th:replace="/mainLayouts :: footer"></footer>
-	
+
 	<!--<script th:replace="/user/user-layouts::notification-board-script"></script>-->
 
 	<script>
-			let formContainer = document.getElementById("login-signup-form");
-			let signInForm = document.getElementById("sign-in-form");
-			let signUpForm = document.getElementById("sign-up-form");
-		function displaySigninForm(type) {			
-				formContainer.style.visibility = "visible";
-				formContainer.style.opacity = "1";
+		let formContainer = document.getElementById("login-signup-form");
+		let signInForm = document.getElementById("sign-in-form");
+		let signUpForm = document.getElementById("sign-up-form");
+		function displaySigninForm(type) {
+			formContainer.style.visibility = "visible";
+			formContainer.style.opacity = "1";
 			if (type == "login") {
-				
+
 				//document.querySelector("#login-signup-form").style.height = "600px";		
 				//form.style.display = "block";
 				//form.style.height = "auto";	
-				
+
 				//signUpForm.style.opacity = "0";
-				signUpForm.style.display = "none";	
-					
+				signUpForm.style.display = "none";
+
 				signInForm.style.display = "block";
-				signInForm.style.opacity = "1";				
+				signInForm.style.opacity = "1";
 				document.getElementById("username-input").setAttribute("autofocus");
 			}
 			else if (type == "signup") {
 				//signInForm.style.opacity = "0";
 				signInForm.style.display = "none";
-			
+
 				signUpForm.style.display = "block";
 				signUpForm.style.opacity = "1";
 			}
@@ -172,7 +184,7 @@
 		function closeSigninForm() {
 			//var formControl = document.getElementById("login-signup-form");			
 			formContainer.style.opacity = "0";
-			formContainer.style.visibility = "collapse";		
+			formContainer.style.visibility = "collapse";
 			//form.style.height = "0px";		
 			//form.style.display = "none";
 		}

@@ -34,7 +34,8 @@
 				</div>
 
 				<div class="project-modal-inner-content-container d-flex flex-wrap justify-content-around p-2">
-					<div class="project-modal-boxes-inner p-1 my-2 mx-2 align-self-start" style="display: block;" th:id="${proj.projectId}">
+					<div class="project-modal-boxes-inner p-1 my-2 mx-2 align-self-start" style="display: block;"
+						th:id="${proj.projectId}">
 						<span id="itemNumber" class="badge text-bg-warning itemNumber">0</span>
 						<!--<span th:text = "${item.todoItemId}" class="badge text-bg-warning"></span>-->
 						<span th:text="${proj.title}" id=""></span> <span>|</span>
@@ -129,23 +130,45 @@
 
 
 <!--add project form-->
-<div th:fragment="add-project-form" class="form-container mt-2 add-todo-item-form" id="add-project-form"
-	style="height: 0px;">
-	<div>
-		<input type="text" class="form-control mt-3" placeholder="Project title" id="project-title-input" autofocus>
-		<textarea class="form-control mt-3" placeholder="Project description" id="project-description-input"></textarea>
-		<select id="project-status-input" class="form-select mt-3">
-			<option selected>Not Started</option>
-			<option>In progress</option>
-			<option>Done</option>
-		</select>
-		<input onClick="addProject()" type="submit" value="Create Project" class="btn btn-primary-golden btn-sm mt-3">
+<div th:fragment="add-project-form" class="form-container mt-2 row g-3" id="add-project-form">
+	<!--style="height: 0px;"-->
+
+	<div class="row g-3">
+		<div class="col-md-6">
+			<label for="project-title-input" class="form-input-label">Project title</label><span class="required-field-asterisks"> *</span>	
+			<input type="text" class="form-control form-control-sm" placeholder="Let's name your project" id="project-title-input"
+				autofocus required="required">		
+		</div>
+		<div class="col-md-4">
+			<label for="project-status-input" class="form-input-label">Status</label>
+			<select id="project-status-input" class="form-select form-select-sm">
+				<option value="Not Started" selected>Not Started</option>
+				<option value="In progress">In progress</option>
+				<option value="Done	">Done</option>
+			</select>
+		</div>
+
+		<div class="col-md-2">
+			<lable for="project-deadline" class="form-input-label">Deadline</lable>
+			<input type="date" class="form-control form-control-sm" id="project-deadline" placeholder="Deadline">			
+		</div>
+
+		<div class="col-md-12">
+			<label for="project-title-input" class="form-input-label">Description</label>
+			<textarea class="form-control form-control-sm" placeholder="Write short project description"
+				id="project-description-input" rows="3"></textarea>
+		</div>
+
+		<div class="col-md-12 mb-2">
+			<input onClick="addProject()" type="submit" value="Create Project"
+				class="btn btn-primary-golden btn-sm mt-3">
+		</div>
 	</div>
 </div>
 
 <!--Project display modal start-->
 <div th:fragment="project-list-modal-content" id="project-list-modal-content">
-	<span class="d-flex justify-content-	 mt-3">
+	<span class="d-flex mt-3">
 		<!--<img class="dashboard-card-img-top mx-2" th:src="@{/images/to-do-list.png}" alt="to-do icon">-->
 		<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-diagram-project" alt="to-do icon"></span>
 		<h5 class="card-title dashboard-card-title">Project List</h5>

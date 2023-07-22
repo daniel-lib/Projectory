@@ -2,8 +2,10 @@
 
 :root {
 	--success: #327B32;
+	/*--success: #02c476;*/
 	--error: rgb(192, 28, 40);
 	--text: #F2ECFF;
+	/*--text: #e9eae0;*/
 	--background: #1F1F1F;
 }
 
@@ -50,6 +52,7 @@ html {
 	top: 5%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	font-weight: bold;	
 }
 
 .notification-success {

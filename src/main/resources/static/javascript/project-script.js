@@ -66,14 +66,25 @@ function showAddProjectForm(source) {
 	if (source == "card") {//if the click comes from dashboard card instead of modal
 		//createItemButtonToDefault();		
 		//change the state of "Create Project" button to default state
-		projectForm.style.height = 0;
+		/*projectForm.style.height = 0;
 		projectForm.style.padding = "0";
-		projectForm.style.border = "none";
+		projectForm.style.border = "none";*/
+		projectForm.classList.remove('add-project-form-expanded');
 	}
+	projectForm.classList.toggle('add-project-form-expanded');
 
-	if (projectForm.style.height == "0px") {
+	if (projectForm.classList.contains('add-project-form-expanded')) {
+		for (let btns of createProjectBtn) {
+			btns.value = "Exit Form";
+		}
+	} else {
+		for (let btns of createProjectBtn) {
+			btns.value = "Create Project";
+		}	
+	}
+	/*if (projectForm.style.height == "0px") {
 		projectForm.style.height = "270px";
-		projectForm.style.padding = "1.5rem";
+		projectForm.style.padding = "0rem 1.5rem";
 		projectForm.style.border = "1px solid rgb(192, 191, 188)";
 		for (let btns of createProjectBtn) {
 			btns.value = "Exit Form";
@@ -86,7 +97,7 @@ function showAddProjectForm(source) {
 		for (let btns of createProjectBtn) {
 			btns.value = "Create Project";
 		}
-	}
+	}*/
 }
 //add project form submit
 function addProject() {
