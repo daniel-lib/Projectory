@@ -10,7 +10,7 @@ function showAddProjectTaskForm(id) {
 		for (let f of AllAddTaskForms) {
 			f.style.height = "0";
 		}
-		addTaskForm.style.height = "120px";
+		addTaskForm.style.height = "150px";
 		TriggerBtn.style.backgroundColor = "rgba(119, 118, 123, 0.6)";
 		alert("h");
 

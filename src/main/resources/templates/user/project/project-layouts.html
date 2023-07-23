@@ -46,7 +46,7 @@
 
 
 						<!-- add task / members buttons-->
-						<div class="mt-4">
+						<div class="mt-4 d-flex justify-content-evenly">
 							<button id="add-project-task-button" role="button"
 								class="minimalist-btn minimalist-btn-blk-bg minimalist-btn-left-rounded add-project-task-button"
 								th:onClick="showAddProjectTaskForm(this.id)" th:id="${proj.projectId}">
@@ -67,10 +67,23 @@
 							style="height: 0px;">
 							<div class="form form-container p-1" th:id="addTaskForm+''+${proj.projectId}">
 								<input type="hidden" th:value="${proj.projectId}" id="proj-id">
-								<input type="text" placeholder="task title"
+								<input type="text" placeholder="Task title"
 									class="form-control form-control-sm mb-1 task-title" id="task-title">
-								<input type="text" placeholder="task description"
+								<input type="text" placeholder="Task description"
 									class="form-control form-control-sm mb-1 task-description" id="task-description">
+
+								<div class="d-flex">
+									<select class="form-select form-select-sm mb-1 me-1 task-status" id="task-status">
+										<option>Not started</option>
+										<option>Working on it</option>
+										<option>Done</option>
+									</select>
+									<input type="number" placeholder="Duration" title="Days to complete"
+										class="form-control form-control-sm mb-1 task-duration" id="task-duration"
+										min="1">
+								</div>
+
+
 								<input type="button" value="add" class="btn btn-primary-golden btn-sm"
 									th:onclick="addTaskToProject([[${proj.projectId}]])">
 								<!--<button th:onclick="myfunction([[${proj.projectId}]])" data-projectId="${proj.projectId}">
@@ -79,14 +92,15 @@
 							</div>
 						</div>
 						<!--display Project tasks-->
-						<div style="color:rgb(205, 171, 143)">
-							<hr />							
-							<div style="color:rgb(205, 171, 143)" class="modal-project-task-container p-1 custom-scrollbar-style-3">
-								<h6 class="project-task-title mt-2">Tasks</h6>
-								<div th:each = "task : ${proj.projectTasks}">
+						<hr />
+						<div class="modal-project-task-container p-1">
+							<h6 class="project-task-title mt-2">Tasks</h6>
+							<div class="modal-project-task-container-inner custom-scrollbar-style-3">
+								<div th:each="task : ${proj.projectTasks}">
 									<div class="modal-project-task-items p-1 m-1">
-										<span class="modal-project-task-name" th:text = "${task.taskName}"></span>
-										<span class="modal-project-task-description d-block p-1" th:text = "${task.taskDescription}"></span>
+										<span class="modal-project-task-name" th:text="${task.taskName}"></span>
+										<span class="modal-project-task-description d-block p-1"
+											th:text="${task.taskDescription}"></span>
 									</div>
 								</div>
 							</div>
@@ -134,8 +148,8 @@
 
 	<div class="row g-3">
 		<div class="col-md-6">
-			<label for="project-title-input" class="form-input-label">Project title</label><span
-				class="required-field-asterisks"> *</span>
+			<label for="project-title-input" class="form-input-label">Project title</label>
+			<span class="required-field-asterisks"> *</span>
 			<input type="text" class="form-control form-control-sm" placeholder="Let's name your project"
 				id="project-title-input" autofocus required="required">
 		</div>
@@ -235,24 +249,17 @@
 		<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-list-check" alt="task icon"></span>
 		<h5 class="card-title dashboard-card-title">Tasks on board</h5>
 	</div>
-	<div class="card-body">
-		<!--<p class="card-text fw-lighter">There are no tasks at the moment.</p><br />-->
-
-		<div class="d-block">
-			<table class="table table-striped">
-				<tbody th:each="task : ${projectTasks}">
-					<tr th:id="${task.taskId}">
-						<td th:text="${task.taskName}"></td>
-						<td th:text="${task.taskDescription}"></td>
-					</tr>
-				</tbody>
-			</table>
+	<div class="card-body p-1">
+		<div class="dashboard-card-project-task-container-inner custom-scrollbar-style-3">
+			<div th:each="task : ${projectTasks}">
+				<div class="dashboard-card-project-task-items p-1 m-1">
+					<span class="dashboard-card-project-task-name" th:text="${task.taskName}"></span>
+					<span class="dashboard-card-project-task-description d-block p-1" th:text="${task.taskDescription}"></span>
+				</div>
+			</div>
 		</div>
-
-		<a href="/">Update Task Status</a>
-		</br>
-		<a href="#" class="btn btn-primary btn-sm">View</a>
 	</div>
+</div>
 </div>
 
 </html>
