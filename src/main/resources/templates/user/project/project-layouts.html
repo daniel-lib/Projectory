@@ -86,6 +86,7 @@
 								<div th:each = "task : ${proj.projectTasks}">
 									<div class="modal-project-task-items p-1 m-1">
 										<span class="modal-project-task-name" th:text = "${task.taskName}"></span>
+										<span class="modal-project-task-description d-block p-1" th:text = "${task.taskDescription}"></span>
 									</div>
 								</div>
 							</div>

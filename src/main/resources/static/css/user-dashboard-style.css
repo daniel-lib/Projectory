@@ -435,6 +435,11 @@
 	border-radius: 0.5rem;
 }
 
+.modal-project-task-description{
+	font-weight: 100;
+	border-left: 1px dashed rgb(205, 171, 143);
+}
+
 /*.project-modal-boxes:hover + .expand-btn {
 	background-color: aqua;
 	opacity: 0.5;
@@ -524,6 +529,12 @@
 	/* roundness of the scroll thumb */
 	border: 3px solid rgb(118, 187, 118);
 	/* creates padding around scroll thumb */
+	transition: all 0.8s ease-in-out;
+}
+
+.custom-scrollbar-style::-webkit-scrollbar-thumb:hover{
+	background-color: rgba(118, 187, 118, 0.8);
+	border: 3px solid rgba(118, 187, 118, 0.8);
 }
 
 
@@ -551,6 +562,11 @@
 	border: 3px solid rgb(222, 221, 218);
 }
 
+.custom-scrollbar-style-2::-webkit-scrollbar-thumb:hover{
+	background-color: rgba(118, 187, 118, 0.8);
+	border: 3px solid rgba(222, 221, 218, 0.8);
+}
+
 
 .custom-scrollbar-style-3 {
 	scrollbar-width: thin;
@@ -572,6 +588,10 @@
 	border: 3px solid rgb(61, 56, 70);
 }
 
+.custom-scrollbar-style-3::-webkit-scrollbar-thumb:hover{
+	background-color: rgba(118, 187, 118, 0.8);
+	border: 3px solid rgba(61, 56, 70, 0.8);
+}
 
 
 @media (max-width: 900px) {

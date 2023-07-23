@@ -5,17 +5,6 @@ function showAddProjectTaskForm(id) {
 	//add-project-task-button
 	const addTaskForm = document.getElementById("add-project-task-form" + id);
 	const AllAddTaskForms = document.getElementsByClassName("add-project-task-form");
-	/*const a = document.getElementById(id);
-	const b = a.getElementById(id);*/
-	//alert("#"+id +" > .add-project-task-button");
-
-	/*const q = document.querySelector("#1 > .add-project-task-button");*/
-
-	//const q = document.querySelector("#"+id +" > .add-project-task-button");
-	//alert("999");
-	//const TriggerBtn = document.querySelectorAll("#"+id+" > #"+id);
-	/*alert(q.textContent);
-	const TriggerBtn = document.querySelector('#'+id+' > #'+id);*/
 
 	if (addTaskForm.style.height == "0px") {
 		for (let f of AllAddTaskForms) {
@@ -31,6 +20,8 @@ function showAddProjectTaskForm(id) {
 	}
 
 }
+
+//submit project task to server
 function addTaskToProject(projId) {
 	//alert("here");
 	/*const title = document.getElementById("task-title"+id).value;
@@ -41,7 +32,7 @@ function addTaskToProject(projId) {
 	const description = addTaskForm.getElementsByClassName("task-description");
 
 	//alert(projId);
-	fetch('/user/add-project-task?title=' + title[0].value + '&description=' + description[0].value + '&projId=' + projId)
+	fetch('/project/add-project-task?title=' + title[0].value + '&description=' + description[0].value + '&projId=' + projId)
 		.then(response => response.text())
 		.then(data => {
 			let msg, notificationType;
@@ -99,12 +90,13 @@ function showAddProjectForm(source) {
 		}
 	}*/
 }
-//add project form submit
+
+//submit new project to server
 function addProject() {
 	const title = document.getElementById("project-title-input").value;
 	const description = document.getElementById("project-description-input").value;
 	const status = document.getElementById("project-status-input").value;
-	fetch('/user/add-project-js?title=' + title + '&description=' + description + '&status=' + status)
+	fetch('/project/add-project-js?title=' + title + '&description=' + description + '&status=' + status)
 		.then(response => response.json())
 		.then(data => {
 			alert(data);
@@ -131,8 +123,6 @@ function expandContainer(containerId, btnId) {
 			box.classList.replace('project-modal-boxes-expanded', 'project-modal-boxes-default');
 		}
 		for (let btns of allTriggerBtns) {
-			/*btns.setAttribute("class", "float-end top-dangling-x-btn fa-solid fa-expand");*/
-			/*btns.classList.replace('fa-compress', 'fa-expand');*/
 			btns.classList.remove('fa-compress');
 			btns.classList.add('fa-expand');
 			btns.setAttribute("title", "Expand");
@@ -142,8 +132,6 @@ function expandContainer(containerId, btnId) {
 		div.classList.remove("project-modal-boxes-default");
 		div.classList.add("project-modal-boxes-expanded");
 		div.scrollIntoView();
-		/*trigger.setAttribute("class", "float-end top-dangling-x-btn fa-solid fa-compress");*/
-		/*trigger.classList.replace('fa-expand', 'fa-compress');*/
 		trigger.classList.remove('fa-expand');
 		trigger.classList.add('fa-compress');
 	}
@@ -151,26 +139,7 @@ function expandContainer(containerId, btnId) {
 		trigger.setAttribute("title", "Expand");
 		div.classList.add("project-modal-boxes-default");
 		div.classList.remove("project-modal-boxes-expanded");
-		/*trigger.setAttribute("class", "float-end top-dangling-x-btn fa-solid fa-expand");*/
-		/*trigger.classList.replace('fa-compress', 'fa-expand');*/
 		trigger.classList.remove('fa-compress');
 		trigger.classList.add('fa-expand');
 	}
 }
-
-/*try{
-	const modalBoxes= document.getElementsByClassName("project-modal-boxes");
-for(let b of modalBoxes){
-	b.addEventListener("mouseover", modalBoxesHoverEffect);
-}
-
-function modalBoxesHoverEffect(){
-	alert("boooo");
-	
-}
-}
-catch(error){
-	alert(error);
-}
-*/
-
