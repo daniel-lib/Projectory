@@ -79,17 +79,15 @@
 							</div>
 						</div>
 						<!--display Project tasks-->
-						<div>
-							<hr />
-							<h6 class="project-task-title mt-2">Top tasks</h6>
-							<div class="d-block">
-								<!--<table class="table table-striped">
-								<tbody th:each = "task : ${projectTasks}">
-									<tr>
-										<td th:text = "task."></td>
-									</tr>
-								</tbody>
-							</table>-->
+						<div style="color:rgb(205, 171, 143)">
+							<hr />							
+							<div style="color:rgb(205, 171, 143)" class="modal-project-task-container p-1 custom-scrollbar-style-3">
+								<h6 class="project-task-title mt-2">Tasks</h6>
+								<div th:each = "task : ${proj.projectTasks}">
+									<div class="modal-project-task-items p-1 m-1">
+										<span class="modal-project-task-name" th:text = "${task.taskName}"></span>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -135,9 +133,10 @@
 
 	<div class="row g-3">
 		<div class="col-md-6">
-			<label for="project-title-input" class="form-input-label">Project title</label><span class="required-field-asterisks"> *</span>	
-			<input type="text" class="form-control form-control-sm" placeholder="Let's name your project" id="project-title-input"
-				autofocus required="required">		
+			<label for="project-title-input" class="form-input-label">Project title</label><span
+				class="required-field-asterisks"> *</span>
+			<input type="text" class="form-control form-control-sm" placeholder="Let's name your project"
+				id="project-title-input" autofocus required="required">
 		</div>
 		<div class="col-md-4">
 			<label for="project-status-input" class="form-input-label">Status</label>
@@ -150,7 +149,7 @@
 
 		<div class="col-md-2">
 			<lable for="project-deadline" class="form-input-label">Deadline</lable>
-			<input type="date" class="form-control form-control-sm" id="project-deadline" placeholder="Deadline">			
+			<input type="date" class="form-control form-control-sm" id="project-deadline" placeholder="Deadline">
 		</div>
 
 		<div class="col-md-12">
