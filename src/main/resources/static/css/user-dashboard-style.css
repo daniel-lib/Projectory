@@ -182,7 +182,8 @@
 .project-count,
 .item-count,
 .todo-card-item-count {
-	visibility: hidden;
+	/*visibility: hidden;*/
+	display: none;
 }
 
 .top-dangling-x-btn {
@@ -331,7 +332,7 @@
 	transition: 0.2s ease-in-out;
 }
 
-.minimalist-btn {
+.minimalist-btn, .minimalist-btn-lighter{
 	font-size: 9pt !important;
 	border: 1px solid rgb(119, 118, 123);
 	border-radius: 0.25rem;
@@ -349,6 +350,16 @@
 .minimalist-btn:hover {
 	background-color: rgba(119, 118, 123, 0.6);
 	color: rgb(118, 187, 118) !important;
+}
+
+.minimalist-btn-lighter {
+	color: rgb(61, 56, 70);
+}
+
+.minimalist-btn-lighter:hover {
+	color: rgb(0, 0, 0);
+	background-color: rgba(119, 118, 123, 0.6);
+	
 }
 
 .minimalist-btn-left-rounded {
@@ -435,7 +446,8 @@
 }
 
 
-.modal-project-task-container, .dashboard-card-project-task-container {
+.modal-project-task-container,
+.dashboard-card-content-container {
 	/*height: 200px;
 	overflow: auto;*/
 	border: 1px solid rgb(61, 56, 70);
@@ -443,21 +455,25 @@
 	color: rgb(205, 171, 143);
 }
 
-.modal-project-task-container-inner, .dashboard-card-project-task-container-inner {
+.modal-project-task-container-inner,
+.dashboard-card-content-container-inner {
 	overflow: auto;
 	height: 200px;
 }
-.dashboard-card-project-task-container-inner{
+
+.dashboard-card-project-task-container-inner {
 	height: 230px;
 }
 
-.modal-project-task-items, .dashboard-card-project-task-items {
+.modal-project-task-items,
+.dashboard-card-content-items {
 	color: rgb(222, 221, 218);
 	background-color: rgb(61, 56, 70);
 	border-radius: 0.5rem;
 }
 
-.modal-project-task-description, .dashboard-card-project-task-description {
+.modal-project-task-description,
+.dashboard-card-content-description {
 	font-weight: 100;
 	border-left: 1px dashed rgb(205, 171, 143);
 	border-bottom-left-radius: 0.8rem;

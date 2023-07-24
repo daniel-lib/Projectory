@@ -217,26 +217,24 @@
 		<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-diagram-project" alt="project icon"></span>
 		<h5 class="card-title dashboard-card-title">Project</h5>
 	</div>
-	<div class="card-body">
-		<button class="btn btn-primary btn-sm create-project-btn" onClick="showAddProjectForm('card')">Create
-			Project</button>
+	<div class="card-body p-1">
+		
 		<p class="card-text fw-lighter project-count" th:text="${projectCount}"></p>
-		<table class="table table-striped">
-			<tbody th:object="${project}">
-				<tr th:each="proj : ${project}">
-					<td>
-						<div style="display: inline;" th:id="${proj.projectId}">
+		<div class="">
+			<div th:object="${project}" class="dashboard-card-content-container-inner m-0 custom-scrollbar-style-3">
+				<div th:each="proj : ${project}">
+						<div  th:id="${proj.projectId}" class="dashboard-card-content-items m-1 p-1">
 							<span id="projectNumber" class="badge text-bg-warning itemNumber">0</span>
 							<!--<span th:text = "${item.todoItemId}" class="badge text-bg-warning"></span>-->
 							<span th:text="${proj.title}" id=""></span>
 							<br />
-							<span th:text="${proj.description}" class="fw-lighter"></span>
+							<span th:text="${proj.description}" class="fw-lighter dashboard-card-content-description"></span>
 						</div>
-
-					</td>
-				</tr>
-			</tbody>
-		</table>
+				</div>
+			</div>
+		</div>
+		<button class="minimalist-btn-lighter btn-sm create-project-btn ms-2 mt-2" onClick="showAddProjectForm('card')">Create
+			Project</button>
 
 	</div>
 </div>
@@ -250,11 +248,14 @@
 		<h5 class="card-title dashboard-card-title">Tasks on board</h5>
 	</div>
 	<div class="card-body p-1">
-		<div class="dashboard-card-project-task-container-inner custom-scrollbar-style-3">
+		<div class="dashboard-card-content-container-inner custom-scrollbar-style-3">
 			<div th:each="task : ${projectTasks}">
-				<div class="dashboard-card-project-task-items p-1 m-1">
-					<span class="dashboard-card-project-task-name" th:text="${task.taskName}"></span>
-					<span class="dashboard-card-project-task-description d-block p-1" th:text="${task.taskDescription}"></span>
+				<div class="dashboard-card-content-items p-1 m-1">
+					<span class="dashboard-card-content-name" th:text="${task.taskName}"></span>
+					<span style="color: cadetblue;"> | Project: </span>
+					<span style="color: cadetblue;" th:text="${task.containerProject.title}"></span>
+					<span class="dashboard-card-content-description d-block p-1"
+						th:text="${task.taskDescription}"></span>
 				</div>
 			</div>
 		</div>
