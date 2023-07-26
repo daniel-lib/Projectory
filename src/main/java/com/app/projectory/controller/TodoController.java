@@ -3,6 +3,7 @@ package com.app.projectory.controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,9 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.app.projectory.doa.TodoListCollectionRepository;
 import com.app.projectory.doa.TodoListRepository;
 import com.app.projectory.entity.Todo;
+import com.app.projectory.entity.TodoListCollection;
 
 @Controller
 @RequestMapping("todo")
@@ -21,6 +25,8 @@ public class TodoController {
 	//INSERT INTO TODO (TODO_ITEM_ID, TITLE, DETAIL) VALUES (1, 'one','detail of one');
 	@Autowired
 	TodoListRepository todoData;	
+	@Autowired
+	TodoListCollectionRepository collectionDao;
 	
 	@GetMapping
 	public String displayTodoListPage(Model model, Todo todo) {
@@ -43,12 +49,20 @@ public class TodoController {
 	}
 	
 	@GetMapping("add-item-js")
-	public String addTodoUsingJs(@RequestParam String title, @RequestParam String detail) {
-		Todo todo = new Todo();
-		todo.setTitle(title);
-		todo.setDetail(detail);
-		todoData.save(todo);
-		return "addition - success";
+	@ResponseBody
+	public int addTodoUsingJs(@RequestParam String title, @RequestParam long collectionId) {
+		try {
+			Todo todo = new Todo();
+			Optional<TodoListCollection> collection = collectionDao.findById(collectionId);
+			collection.ifPresent(value -> todo.setCollection(value));
+			
+			todo.setTitle(title);
+			todoData.save(todo);
+		}
+		catch(Exception er) {
+			return -1;
+		}
+		return 1;
 		
 	}
 	

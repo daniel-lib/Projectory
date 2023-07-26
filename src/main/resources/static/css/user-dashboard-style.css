@@ -179,10 +179,13 @@
 	color: rgb(118, 187, 118);
 }*/
 
-.project-count,
+/*.project-count,
 .item-count,
 .todo-card-item-count {
-	/*visibility: hidden;*/
+	visibility: hidden;
+	display: none;
+}*/
+.item-count-check{
 	display: none;
 }
 
@@ -362,6 +365,10 @@
 	
 }
 
+.minimalist-btn-rounded {
+	border-radius: 50px;
+}
+
 .minimalist-btn-left-rounded {
 	border-top-left-radius: 50px;
 	border-bottom-left-radius: 50px;
@@ -370,6 +377,32 @@
 .minimalist-btn-right-rounded {
 	border-top-right-radius: 50px;
 	border-bottom-right-radius: 50px;
+}
+
+.todo-collection{
+	border: 2px dashed goldenrod;
+	background-color: rgba(61, 56, 70, 0.5);
+	border-radius: 0.5rem;
+}
+
+.todo-collection-name{
+	font-size: larger;
+	color: antiquewhite;
+	border-bottom: 2px ridge goldenrod;
+	border-radius: 0.5rem;
+}
+
+.list-items{
+	color: rgb(222, 221, 218);
+	background-color: rgba(255, 163, 72, 0.2);
+	border-radius: 0.5rem;
+}
+
+.collection-show-more-btn{
+	background-color:#4a4a4a;
+	text-align: center;
+	text-justify: center;
+	width: 100%;
 }
 
 .add-project-task-btn-text {
@@ -383,7 +416,9 @@
 	overflow: hidden;
 }
 
-.item-display-table {}
+.item-display-table {
+	
+}
 
 .project-modal-boxes {
 	border-radius: 0.3rem;
@@ -402,6 +437,7 @@
 	width: 100% !important;
 	height: 100% !important;
 	background-color: rgb(12 12 12) !important;
+	background-color: rgb(17, 17, 17) !important;
 	border-top: 3px solid rgb(118, 187, 118) !important;
 	border-bottom: 3px solid rgb(118, 187, 118) !important;
 }
@@ -458,11 +494,22 @@
 .modal-project-task-container-inner,
 .dashboard-card-content-container-inner {
 	overflow: auto;
-	height: 200px;
+	max-height: 200px;
 }
 
 .dashboard-card-project-task-container-inner {
 	height: 230px;
+}
+
+.project-task-status{
+	background-color: rgba(154, 153, 150, 0.2) !important;
+	background-color: rgba(255, 255, 255, .05) !important;
+	color: rgb(158, 158, 158);
+	color: rgb(145, 145, 145);
+	padding: 0.2rem;
+	border-radius: 0.5rem;
+	font-size: 10pt;
+	width: auto;
 }
 
 .modal-project-task-items,
@@ -619,6 +666,7 @@
 
 .custom-scrollbar-style-3::-webkit-scrollbar-track {
 	background: rgb(61, 56, 70);
+	border-radius: 100%;
 }
 
 .custom-scrollbar-style-3::-webkit-scrollbar-thumb {

@@ -43,7 +43,7 @@ public class ProjectController {
 	
 	@GetMapping("/add-project-task")
 	@ResponseBody
-	public int addProjectTask(@RequestParam String title, @RequestParam String description, @RequestParam long projId) {
+	public int addProjectTask(@RequestParam String title, @RequestParam String description, @RequestParam long projId, @RequestParam String status) {
 					
 		if(title != "" && description != "" && projId > 0 && projId > 0) {
 			ProjectTasks task = new ProjectTasks();
@@ -52,6 +52,7 @@ public class ProjectController {
 			/* project.orElse(defaultApplicationType); */
 			task.setTaskName(title);
 			task.setTaskDescription(description);
+			task.setStatus(status);
 			projTaskDoa.save(task);
 			return 1;			
 		}

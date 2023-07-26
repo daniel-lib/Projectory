@@ -77,21 +77,7 @@ function readyDeleteButton() {
 	}
 }
 
-	
-	
 
-
-
-//todo list item count checker
-let itemCount = document.getElementsByClassName("todo-card-item-count");
-for (let ic of itemCount) {
-	if (ic.textContent == 0) {
-		ic.innerHTML = "<br/><br/>Todo list is empty at the moment."
-	}
-	else {
-		ic.textContent = " ";
-	}
-}
 
 
 /*<script th:fragment = "notificationScripts">*/
@@ -153,28 +139,50 @@ function showAddTodoItemForm(source) {
 	}
 }
 
-//add Todo Item script
-function addTodo() {
-	const title = document.getElementById("title-input").value;
-	const detail = document.getElementById("detail-input").value;
-	//fetch('/todo/add-item-js?title="title"&detail="detail"')
-	fetch('/todo/add-item-js?title=' + title + '&detail=' + detail + '')
-		//fetch('/todo/add-item-js?title="'+"quuu"+'"&detail="'+"qoooo"+'"')
+
+
+
+//add new collection script
+function addNewCollection() {
+	const title = document.getElementById("collection-name-input").value;
+	fetch('/todo-list-collection/add-collection?title=' + title)
 		.then(response => response.json())
 		.then(data => {
-			alert(data);
+			let msg, notificationType;
+			if (data == "1") {
+				msg = "New Collection Created!";
+				notificationType = "success";
+			}
+			else {
+				msg = "Couldn't Create New Collection. Please try again.";
+				notificationType = "error";
+			}
+			toggleNotification(notificationType, msg);
 			
 		})
+}
 
-	/*const title2 = document.getElementById("title-input").value;
-	const detail2 = document.getElementById("detail-input").value;
-	const jsn = 
-	//fetch('/todo/add-item-js?title="title"&detail="detail"')
-	fetch('/todo/add-item-js?title="' + title + '"&detail="' + detail + '"')
-		//fetch('/todo/add-item-js?title="'+"quuu"+'"&detail="'+"qoooo"+'"')
+
+
+
+//add Todo Item script
+function addTodo(collectionId) {
+	const title = document.getElementById("title-input").value;
+	fetch('/todo/add-item-js?title=' + title + '&collectionId=' + collectionId)
 		.then(response => response.json())
 		.then(data => {
-			alert(data);
-		})*/
+			let msg, notificationType;
+			if (data == "1") {
+				msg = "Todo Item Added!";
+				notificationType = "success";
+			}
+			else {
+				msg = "Couldn't add todo item. Please try again.";
+				notificationType = "error";
+			}
+			/*alert(msg);*/
+			toggleNotification(notificationType, msg);
+			
+		})
 }
 

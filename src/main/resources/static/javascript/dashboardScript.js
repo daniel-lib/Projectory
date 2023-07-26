@@ -27,8 +27,8 @@ function closeViewingModal() {
 	//change the state of "Add Item" button to default state
 	const todoItemForm = document.getElementById("add-todo-item-form");
 	const AddTodoItemBtn = document.getElementsByClassName("add-todo-item-btn");
-	todoItemForm.style.height = 0;
-	todoItemForm.style.padding = "0";
+	/*todoItemForm.style.height = 0;
+	todoItemForm.style.padding = "0";*/
 	for(let btn of AddTodoItemBtn){
 		btn.value="Add Item";
 	}
@@ -100,16 +100,39 @@ function sideMenuToggle() {
 
 
 
-//project list item count checker
-const projectCount = document.getElementsByClassName("project-count");
-for (let prcnt of projectCount) {
-	if (prcnt.textContent == "0") {
-		prcnt.innerHTML = "<br/><br/>There are no projects at the moment.";
+//display message when there is nothing( no project, project task, & todo list) on card & modal 
+function contentEmptyMessage(){
+	
+	const itemCount = document.getElementsByClassName("item-count-check");
+	const msg = ["project", "todo list item", "project task"];
+for (let count of itemCount) {
+	//alert("hello");
+	if (count.textContent == "0") {
+		count.classList.add("mt-2");
+		count.classList.add("d-block");
+		count.innerHTML = "No content to display at the moment.";
 	}
 	else {
-		prcnt.textContent = "";
+		count.textContent = "";
 	}
 }
+}
+
+
+/*//todo list item count checker
+let itemCount = document.getElementsByClassName("todo-card-item-count");
+for (let ic of itemCount) {
+	if (ic.textContent == 0) {
+		ic.innerHTML = "<br/><br/>Todo list is empty at the moment."
+	}
+	else {
+		ic.textContent = " ";
+	}
+}*/
+
+
+
+
 
 //top menu show/hide script
 const topMenuContainer = document.getElementById("top-collapsable-menu-container");

@@ -48,13 +48,13 @@
 						<!-- add task / members buttons-->
 						<div class="mt-4 d-flex justify-content-evenly">
 							<button id="add-project-task-button" role="button"
-								class="minimalist-btn minimalist-btn-blk-bg minimalist-btn-left-rounded add-project-task-button"
+								class="minimalist-btn minimalist-btn-blk-bg minimalist-btn-rounded add-project-task-button"
 								th:onClick="showAddProjectTaskForm(this.id)" th:id="${proj.projectId}">
 								<span class="fa-solid fa-notes-medical"></span>
 								<span class="add-project-task-btn-text">Add Task</span>
 							</button>
 							<button id="add-project-members-button"
-								class="minimalist-btn minimalist-btn-blk-bg minimalist-btn-right-rounded add-project-members-button btn-sm"
+								class="minimalist-btn minimalist-btn-blk-bg minimalist-btn-rounded add-project-members-button btn-sm"
 								th:onClick="showAddProjectTaskForm(this.id)" onClick="addContributersForm()"
 								th:id="${proj.projectId}">
 								<span class="fa-solid fa-user-plus"></span>
@@ -95,6 +95,7 @@
 						<hr />
 						<div class="modal-project-task-container p-1">
 							<h6 class="project-task-title mt-2">Tasks</h6>
+							<p class="card-text fw-lighter item-count-check" th:text="${projectTaskCount}"></p><br />
 							<div class="modal-project-task-container-inner custom-scrollbar-style-3">
 								<div th:each="task : ${proj.projectTasks}">
 									<div class="modal-project-task-items p-1 m-1">
@@ -133,10 +134,7 @@
 					</div>
 
 				</div>
-
 			</div>
-
-
 		</div>
 	</div>
 </div>
@@ -155,7 +153,7 @@
 		</div>
 		<div class="col-md-4">
 			<label for="project-status-input" class="form-input-label">Status</label>
-			<select id="project-status-input" class="form-select form-select-sm">
+			<select id="project-status-input" class="task-status form-select form-select-sm">
 				<option value="Not Started" selected>Not Started</option>
 				<option value="In progress">In progress</option>
 				<option value="Done	">Done</option>
@@ -195,7 +193,7 @@
 
 	<div th:replace="/user/project/project-layouts :: add-project-form"></div>
 
-	<p class="card-text fw-lighter project-count" th:text="${projectCount}"></p><br />
+	<p class="card-text fw-lighter item-count-check" th:text="${projectCount}"></p><br />
 	<div class="d-fle flex-wrap">
 		<!--<form th:action="@{/user/todo/delete-selected}" method="post">-->
 		<!--<button type="submit" class="btn btn-danger btn-sm mt-3 float-end" value="Delete Selected"
@@ -218,22 +216,24 @@
 		<h5 class="card-title dashboard-card-title">Project</h5>
 	</div>
 	<div class="card-body p-1">
-		
-		<p class="card-text fw-lighter project-count" th:text="${projectCount}"></p>
+
+		<p class="card-text fw-lighter item-count-check" th:text="${projectCount}"></p>
 		<div class="">
 			<div th:object="${project}" class="dashboard-card-content-container-inner m-0 custom-scrollbar-style-3">
 				<div th:each="proj : ${project}">
-						<div  th:id="${proj.projectId}" class="dashboard-card-content-items m-1 p-1">
-							<span id="projectNumber" class="badge text-bg-warning itemNumber">0</span>
-							<!--<span th:text = "${item.todoItemId}" class="badge text-bg-warning"></span>-->
-							<span th:text="${proj.title}" id=""></span>
-							<br />
-							<span th:text="${proj.description}" class="fw-lighter dashboard-card-content-description"></span>
-						</div>
+					<div th:id="${proj.projectId}" class="dashboard-card-content-items m-1 p-1">
+						<span id="projectNumber" class="badge text-bg-warning itemNumber">0</span>
+						<!--<span th:text = "${item.todoItemId}" class="badge text-bg-warning"></span>-->
+						<span th:text="${proj.title}" id=""></span>
+						<br />
+						<span th:text="${proj.description}"
+							class="fw-lighter dashboard-card-content-description p-1 ps-2 d-block"></span>
+					</div>
 				</div>
 			</div>
 		</div>
-		<button class="minimalist-btn-lighter btn-sm create-project-btn ms-2 mt-2" onClick="showAddProjectForm('card')">Create
+		<button class="minimalist-btn-lighter btn-sm create-project-btn create-project-btn-card ms-2 mt-2"
+			onClick="showAddProjectForm('card')">Create
 			Project</button>
 
 	</div>
@@ -249,11 +249,13 @@
 	</div>
 	<div class="card-body p-1">
 		<div class="dashboard-card-content-container-inner custom-scrollbar-style-3">
+			<p class="card-text fw-lighter item-count-check" th:text="${projectTaskCount}"></p><br />
 			<div th:each="task : ${projectTasks}">
 				<div class="dashboard-card-content-items p-1 m-1">
 					<span class="dashboard-card-content-name" th:text="${task.taskName}"></span>
 					<span style="color: cadetblue;"> | Project: </span>
 					<span style="color: cadetblue;" th:text="${task.containerProject.title}"></span>
+					<span class="project-task-status d-block info-tag-dark" th:text="${task.status}"></span>
 					<span class="dashboard-card-content-description d-block p-1"
 						th:text="${task.taskDescription}"></span>
 				</div>

@@ -1,9 +1,12 @@
 package com.app.projectory.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Todo {
@@ -12,14 +15,16 @@ public class Todo {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long todoItemId;
 	private String title;
-	private String detail;
+	
+	@ManyToOne(cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+	@JoinColumn(name="collection_id")
+	private TodoListCollection collection;
 	
 	public Todo() {
 		
 	}
-	public Todo(String title, String detail) {
+	public Todo(String title) {
 		this.title = title;
-		this.detail = detail;
 	}
 	public long getTodoItemId() {
 		return todoItemId;
@@ -33,11 +38,12 @@ public class Todo {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getDetail() {
-		return detail;
+	public TodoListCollection getCollection() {
+		return collection;
 	}
-	public void setDetail(String detail) {
-		this.detail = detail;
+	public void setCollection(TodoListCollection collection) {
+		this.collection = collection;
 	}
+	
 	
 }

@@ -30,9 +30,10 @@ function addTaskToProject(projId) {
 	const addTaskForm = document.getElementById("addTaskForm" + projId);
 	const title = addTaskForm.getElementsByClassName("task-title");
 	const description = addTaskForm.getElementsByClassName("task-description");
+	const status = addTaskForm.getElementsByClassName("task-status");
 
 	//alert(projId);
-	fetch('/project/add-project-task?title=' + title[0].value + '&description=' + description[0].value + '&projId=' + projId)
+	fetch('/project/add-project-task?title=' + title[0].value + '&description=' + description[0].value + '&projId=' + projId + '&status=' + status[0].value)
 		.then(response => response.text())
 		.then(data => {
 			let msg, notificationType;
@@ -49,7 +50,7 @@ function addTaskToProject(projId) {
 		})
 }
 
-//show "add project" form
+//show "add project" formz
 function showAddProjectForm(source) {
 
 	const projectForm = document.getElementById("add-project-form");
