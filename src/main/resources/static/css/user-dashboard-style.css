@@ -380,7 +380,8 @@
 }
 
 .todo-collection{
-	border: 2px dashed goldenrod;
+	border: 2px dashed rgb(119, 118, 123);
+	border-bottom: 2px ridge rgb(51, 209, 122);
 	background-color: rgba(61, 56, 70, 0.5);
 	border-radius: 0.5rem;
 }
@@ -403,6 +404,8 @@
 	text-align: center;
 	text-justify: center;
 	width: 100%;
+	border-bottom-left-radius: 0.5rem;
+	border-bottom-right-radius: 0.5rem;
 }
 
 .add-project-task-btn-text {

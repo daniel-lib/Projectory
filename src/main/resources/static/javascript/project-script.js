@@ -94,6 +94,7 @@ function showAddProjectForm(source) {
 
 //submit new project to server
 function addProject() {
+	
 	const title = document.getElementById("project-title-input").value;
 	const description = document.getElementById("project-description-input").value;
 	const status = document.getElementById("project-status-input").value;

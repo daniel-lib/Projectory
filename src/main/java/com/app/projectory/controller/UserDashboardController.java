@@ -30,7 +30,7 @@ public class UserDashboardController {
 	ProjectTaskRepository projTaskDoa;
 	@Autowired
 	TodoListCollectionRepository collectionDao;
-	UserLoginService userLgServ = new UserLoginService();
+//	UserLoginService userLgServ = new UserLoginService();
 	
 	
 	

@@ -1,9 +1,12 @@
 package com.app.projectory.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Users {
@@ -13,17 +16,22 @@ public class Users {
 	private long userId;
 	private String firstName;
 	private String lastName;
+	private String emailAddress;
 	private String username;
 	private String password;
+	
+//	@OneToMany(mappedBy = "user")
+//	List<Connections> connection;
 	
 	public Users() {
 		
 	}
-	public Users(String username, String password, String firstName, String lastName) {
+	public Users(String username, String password, String firstName, String lastName, String emailAddress) {
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.emailAddress = emailAddress;
 	}
 	public long getUserId() {
 		return userId;
@@ -55,7 +63,20 @@ public class Users {
 	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}	
+	
+	public String getEmailAddress() {
+		return emailAddress;
 	}
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+//	public List<Connections> getConnection() {
+//		return connection;
+//	}
+//	public void setConnection(List<Connections> connection) {
+//		this.connection = connection;
+//	}
 	@Override
 	public String toString() {
 		return getFirstName() +" "+getLastName();
