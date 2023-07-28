@@ -25,9 +25,9 @@ public class UserDashboardController {
 	@Autowired
 	TodoListRepository todoData;
 	@Autowired
-	ProjectRepository projDoa;
+	ProjectRepository projDao;
 	@Autowired
-	ProjectTaskRepository projTaskDoa;
+	ProjectTaskRepository projTaskDao;
 	@Autowired
 	TodoListCollectionRepository collectionDao;
 //	UserLoginService userLgServ = new UserLoginService();
@@ -40,20 +40,21 @@ public class UserDashboardController {
 	public String displayUserDashboard(Model model, Todo todo) {
 //		return "/user/user-dashboard?indicator = pass"; 
 		List<Todo> fetchedItems = todoData.findAll();
-		List<Project> projectsList = projDoa.findAll();
-		List<ProjectTasks> projectTasks = projTaskDoa.findAll();
+		List<Project> projectsList = projDao.findAll();
+		List<Project> userProjects = projDao.findAll();
+		List<ProjectTasks> projectTasks = projTaskDao.findAll();
 		List<TodoListCollection> collection = collectionDao.findAll();
 		
 		/* Users LoggedInUser = userLgServ.getByUsername(user.getUsername()); */
 		
-		model.addAttribute("itemCount", todoData.count());	
+		model.addAttribute("itemCount", todoData.count());
 		/* model.addAttribute("items", fetchedItems); */
 		model.addAttribute("user", model.getAttribute("userA"));
-		model.addAttribute("projectCount", projDoa.count());
-		model.addAttribute("projectTaskCount", projTaskDoa.count());
+		model.addAttribute("projectCount", projDao.count());
+		model.addAttribute("projectTaskCount", projTaskDao.count());
 		model.addAttribute("project", projectsList);
 		model.addAttribute("projectTasks", projectTasks);
-		model.addAttribute("todoModel", todo);	
+		model.addAttribute("todoModel", todo);
 		model.addAttribute("TodoCollections", collection);
 		
 		/* model.addAttribute("userL", LoggedInUser); */

@@ -2,10 +2,15 @@ package com.app.projectory.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -23,8 +28,18 @@ public class Users {
 //	@OneToMany(mappedBy = "user")
 //	List<Connections> connection;
 	
+	
+	//for indicating projects owned(created) by the users
+	@OneToMany(mappedBy = "projectOwner")
+	private List<Project> ownedProjects;
+	
+	//for indicating projects the user has joined(is a member of)
+	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+	@JoinTable(name = "project_members", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
+	private List<Project> joinedProjects;
+	
 	public Users() {
-		
+			
 	}
 	public Users(String username, String password, String firstName, String lastName, String emailAddress) {
 		this.username = username;
@@ -70,8 +85,21 @@ public class Users {
 	}
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
+	}	
+	
+	public List<Project> getOwnedProjects() {
+		return ownedProjects;
 	}
-//	public List<Connections> getConnection() {
+	public void setOwnedProjects(List<Project> ownedProjects) {
+		this.ownedProjects = ownedProjects;
+	}
+	public List<Project> getJoinedProjects() {
+		return joinedProjects;
+	}
+	public void setJoinedProjects(List<Project> joinedProjects) {
+		this.joinedProjects = joinedProjects;
+	}
+	//	public List<Connections> getConnection() {
 //		return connection;
 //	}
 //	public void setConnection(List<Connections> connection) {

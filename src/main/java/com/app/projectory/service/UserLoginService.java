@@ -26,13 +26,13 @@ public class UserLoginService implements UserLoginServiceInterface{
 //		populateUserTest("user2", "user123", "duo ", "userella","user2@yahoo.com");
 	}
 	public List<Users> populateUserTest() {
-		List<Users> users = new ArrayList();
-		users.add(new Users("admin", "admin123", "aba", "abu", "admin@gmail.com"));
-		users.add(new Users("user1", "user123", "userela", "uno", "user1@gmail.com"));
-		users.add(new Users("user2", "user123", "duo ", "userella","user2@yahoo.com"));
+		List<Users> listOfUsers = new ArrayList();
+		listOfUsers.add(new Users("admin", "admin123", "aba", "abu", "admin@gmail.com"));
+		listOfUsers.add(new Users("user1", "user123", "userela", "uno", "user1@gmail.com"));
+		listOfUsers.add(new Users("user2", "user123", "duo ", "userella","user2@yahoo.com"));
 
 //		userDao.save(u);
-		return users;
+		return listOfUsers;
 	}
 	
 	public Users authenticateUser(String username, String password, List<Users> allUsers) {
@@ -51,10 +51,25 @@ public class UserLoginService implements UserLoginServiceInterface{
 		return null;
 	}
 	
-	public Users getByUsername(String username) {
-		if(userAccount.containsKey(username)) {
-			return userAccount.get(username);
+	public int doesUserExist(String username, List<Users> allUsers) {
+		for(Users user : allUsers) {
+			if(user.getUsername().equals(username)) {
+				return 1;
+			}
 		}
+		
+		return -1;
+	}
+	
+	
+	
+	public Users getByUsername(String username, List<Users> allUsers) {
+		for(Users user : allUsers) {
+			if(user.getUsername().equals(username)) {
+				return userAccount.get(username);
+			}
+		}
+		
 		return null;
 	}
 }
