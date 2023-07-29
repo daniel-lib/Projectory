@@ -235,7 +235,21 @@
 	background: rgb(36, 31, 49);
 	border-bottom: 3px solid goldenrod;
 	width: 80%;
+	/*margin-left: 9% !important;*/
 	margin-left: 9% !important;
+	position: fixed;
+	z-index: 14;
+	border-top-right-radius: 0.375rem;
+	border-top-left-radius: 0.375rem;
+	transition: all 0.2s linear;
+	height: 86vh;
+	overflow: auto;
+	top: 7%;
+}
+
+/*.modal-inner-content{
+	background: rgb(36, 31, 49);
+	width: 75%;
 	position: fixed;
 	z-index: 14;
 	border-top-right-radius: 0.375rem;
@@ -244,8 +258,11 @@
 	height: 80vh;
 	overflow: auto;
 	top: 10%;
-
 }
+
+.viewing-modal-inner{
+	
+}*/
 
 .viewing-modal-exit-btn {
 	color: goldenrod;

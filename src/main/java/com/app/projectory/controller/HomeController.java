@@ -1,6 +1,7 @@
 package com.app.projectory.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -54,12 +55,18 @@ public class HomeController {
 		  List<Users> allUsers = userDao.findAll();
 		  Users checkedUser = userLgServ.authenticateUser(user.getUsername(), user.getPassword(), allUsers); 
 		  String indicator = "err"; 
-		  if(checkedUser != null) { //
+		  if(checkedUser != null) { //		  
+			 
+			  String indicatorString = UUID.randomUUID().toString();
+			  checkedUser.setLoginIndicator(indicatorString);
 			  model.addAttribute("user", checkedUser); //redAttr.addAttribute("userd", checkedUser);
 			  redAttr.addFlashAttribute("username", checkedUser.getUsername()); //
 			  redAttr.addAttribute("firstName", checkedUser.getFirstName()); //
 			  redAttr.addAttribute("lastName", checkedUser.getFirstName());
 			  redAttr.addFlashAttribute("userA", checkedUser); 
+			  checkedUser.setLoginIndicator(indicatorString);
+			  userDao.save(checkedUser);
+			  redAttr.addFlashAttribute("loginIndicator", indicatorString);
 			  indicator = "pass"; 
 			  return "redirect:/user/dashboard?indicator="+indicator; 
 	  }

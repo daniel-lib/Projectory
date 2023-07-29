@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Users {
 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long userId;
@@ -24,9 +25,10 @@ public class Users {
 	private String emailAddress;
 	private String username;
 	private String password;
+	private String loginIndicator;
 	
-//	@OneToMany(mappedBy = "user")
-//	List<Connections> connection;
+	@OneToMany(mappedBy = "userWithConnection")
+	List<Connections> connection;
 	
 	
 	//for indicating projects owned(created) by the users
@@ -99,13 +101,19 @@ public class Users {
 	public void setJoinedProjects(List<Project> joinedProjects) {
 		this.joinedProjects = joinedProjects;
 	}
-	//	public List<Connections> getConnection() {
-//		return connection;
-//	}
-//	public void setConnection(List<Connections> connection) {
-//		this.connection = connection;
-//	}
 	
+	public String getLoginIndicator() {
+		return loginIndicator;
+	}
+	public void setLoginIndicator(String loginIndicator) {
+		this.loginIndicator = loginIndicator;
+	}
+	public List<Connections> getConnection() {
+		return connection;
+	}
+	public void setConnection(List<Connections> connection) {
+		this.connection = connection;
+	}
 	//convinience method
 	public void addUser() {
 		

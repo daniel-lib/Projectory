@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Connections {
@@ -16,10 +17,15 @@ public class Connections {
 	@GeneratedValue(strategy = GenerationType.AUTO)	
 	private long connectionId;
 	private String connectionDate;
+	private String connectionStatus; //pending, accepted, blocked, 
+	private Long connectedUser;
 	
-//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//	@JoinColumn(name = "user_id")
-//	Users user;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	Users userWithConnection;
+
+	
+	
 
 	public Connections() {
 		super();
@@ -47,6 +53,31 @@ public class Connections {
 	public void setConnectionDate(String connectionDate) {
 		this.connectionDate = connectionDate;
 	}
+
+	public String getConnectionStatus() {
+		return connectionStatus;
+	}
+
+	public void setConnectionStatus(String connectionStatus) {
+		this.connectionStatus = connectionStatus;
+	}
+
+	public Long getConnectedUser() {
+		return connectedUser;
+	}
+
+	public void setConnectedUser(Long connectedUser) {
+		this.connectedUser = connectedUser;
+	}
+
+	public Users getUserWithConnection() {
+		return userWithConnection;
+	}
+
+	public void setUserWithConnection(Users userWithConnection) {
+		this.userWithConnection = userWithConnection;
+	}
+	
 
 //	public Users getUser() {
 //		return user;

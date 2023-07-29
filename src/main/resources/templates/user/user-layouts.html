@@ -22,6 +22,7 @@
 	<script src="/javascript/dashboardScript.js" defer></script>
 	<script src="/javascript/mainScript.js" defer></script>
 	<script src="/javascript/project-script.js" defer></script>
+	<script src="/javascript/loginInfoFetch.js" defer></script>
 </head>
 
 <header th:fragment="nav" class="dashboard-nav fixed-top">
@@ -83,6 +84,8 @@
 </aside>
 
 <footer th:fragment="footer" class="mt-5 pt-2 dashboard-footer m-0">
+	<span th:text = "${loginIndicator}" id="login_indicator" style="margin-left: 20%"></span>
+	<span th:text = "${user.userId}" id="current_user_id" style="margin-left: 20%"></span>
 
 	<div class="d-flex justify-content-around mt-2">
 
