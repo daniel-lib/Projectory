@@ -28,43 +28,45 @@ public class ProjectoryApp {
 	CommandLineRunner runner() {
 		return args -> {
 			
-			Users emp1 = new Users("testuser1", "testuser123", "Test", "User1", "test1@user.com");
-			Users emp2 = new Users("testuser2", "testuser123", "Test", "User2", "test2@user.com");
-			Users emp3 = new Users("testuser3", "testuser123", "Test", "User3", "test3@user.com");
+			Users user1 = new Users("testuser1", "testuser123", "Test", "User1", "test1@user.com");
+			Users user2 = new Users("testuser2", "testuser123", "Test", "User2", "test2@user.com");
+			Users user3 = new Users("testuser3", "testuser123", "Test", "User3", "test3@user.com");
 			
 			
 			Project proj1 = new Project("Project Management System", "implement a web app to manage projects", "Not started");
 			Project proj2 = new Project("File Sharing Web App", "implement a web app to share files", "Not started");
-			Project proj3 = new Project("Human Resource Management System", "implement a web app to manage employees", "Not started");
-			
-			emp1.setJoinedProjects(Arrays.asList(proj3));
-			emp2.setJoinedProjects(Arrays.asList(proj1, proj2));			
-			emp3.setJoinedProjects(Arrays.asList(proj1, proj2, proj3));
+			Project proj3 = new Project("Human Resource Management System", "implement a web app to manage userloyees", "Not started");
 			
 			
-			proj1.setProjectMembers(Arrays.asList(emp2, emp3));
-			proj2.setProjectMembers(Arrays.asList(emp2, emp3));
-			proj3.setProjectMembers(Arrays.asList(emp1, emp3));
+			proj1.setProjectOwner(user1);
+			proj2.setProjectOwner(user1);
+			proj3.setProjectOwner(user2);
+			
+			user1.setJoinedProjects(Arrays.asList(proj3));
+			user2.setJoinedProjects(Arrays.asList(proj1, proj2));			
+			user3.setJoinedProjects(Arrays.asList(proj1, proj2, proj3));
+			
+			
+			proj1.setProjectMembers(Arrays.asList(user2, user3));
+			proj2.setProjectMembers(Arrays.asList(user2, user3));
+			proj3.setProjectMembers(Arrays.asList(user1, user3));
 		
 			
-//			emp1.setOwnedProjects(Arrays.asList(proj1, proj2));
-//			emp2.setOwnedProjects(Arrays.asList(proj3));
-			
-			proj1.setProjectOwner(emp1);
-			proj2.setProjectOwner(emp1);
-			proj3.setProjectOwner(emp2);
-			
-				
-						
+//			user1.setOwnedProjects(Arrays.asList(proj1, proj2));
+//			user2.setOwnedProjects(Arrays.asList(proj3));
 			
 			
-			userRepo.save(emp1);
-			userRepo.save(emp2);
-			userRepo.save(emp3);
+									
+			
+			
+			userRepo.save(user1);
+			userRepo.save(user2);
+			userRepo.save(user3);
 			
 			projectRepo.save(proj1);
 			projectRepo.save(proj2);
 			projectRepo.save(proj3);
+			
 			
 			
 		};

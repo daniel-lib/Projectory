@@ -105,6 +105,12 @@ public class Users {
 //	public void setConnection(List<Connections> connection) {
 //		this.connection = connection;
 //	}
+	
+	//convinience method
+	public void addUser() {
+		
+	}
+	
 	@Override
 	public String toString() {
 		return getFirstName() +" "+getLastName();
