@@ -59,8 +59,7 @@
 	background-color: rgba(0, 0, 0, 0.5);
 }
 
-.side-nav-link-selected,
-.side-nav-link-selected:hover {
+.side-nav-link-selected {
 	color: rgb(118, 187, 118);
 	background-color: rgba(0, 0, 0, 0.5);
 	border-left: 3px solid rgb(191, 152, 56) !important;
@@ -676,7 +675,7 @@
 
 .custom-scrollbar-style-2::-webkit-scrollbar-thumb {
 	background-color: rgb(118, 187, 118);
-	border-radius: 20px;
+	border-radius: 25px;
 	border: 3px solid rgb(222, 221, 218);
 }
 
@@ -698,7 +697,7 @@
 
 .custom-scrollbar-style-3::-webkit-scrollbar-track {
 	background: rgb(61, 56, 70);
-	border-radius: 100%;
+	border-radius: 50px;
 }
 
 .custom-scrollbar-style-3::-webkit-scrollbar-thumb {

@@ -67,20 +67,20 @@
 				<!--<span class="fa-solid fa-caret-left side-nav-arrow" id="side-nav-left-arrow"></span>-->
 			</span>
 			<a class="nav-link dashboard-link side-nav-link-selected" th:href="@{/user/dashboard}"
-			id="side-menu-dashboard-link">
+			id="side-menu-dashboard-link" onClick = "selectedSideMenuToggle(0)">
 				<span class="nav-icon mt-1 fa-solid fa-table-columns"></span> <span
 					class="side-nav-text mx-2">Dashboard</span></a>
-			<a class="nav-link todo-list-link" th:href="@{/todo}"
-			id="side-menu-connection-link">
+			<a role="button" class="nav-link todo-list-link"
+			id="side-menu-connection-link" onClick = "selectedSideMenuToggle(1)">
 			<span class="nav-icon mt-1 fa-solid fa-user-group"></span> <span
 					class="side-nav-text mx-2">Connections</span></a>
-			<a class="nav-link scrum-board-link" th:href="@{/user/dashboard}"
-			id="side-menu-board-link">
+			<a role="button" class="nav-link scrum-board-link"
+			id="side-menu-board-link" onClick = "selectedSideMenuToggle(2)">
 				<span class="nav-icon mt-1 fa-solid fa-chalkboard-user"></span>
 				<span class="side-nav-text mx-2">Scrum Board</span></a>
 			<!--<a class="nav-link" th:href="@{/user/dashboard}"  th:text="${user.firstName}  + ' '+ ${user.lastName}">-->
-			<a class="nav-link account-link" th:href="@{/user/dashboard}"
-			id="side-menu-setting-link">
+			<a role="button" class="nav-link account-link"
+			id="side-menu-setting-link" onClick = "selectedSideMenuToggle(3)">
 				<span class="nav-icon mt-1 fa-solid fa-gear"></span>
 				<span class="side-nav-text mx-2">Setting</span></a>				
 				

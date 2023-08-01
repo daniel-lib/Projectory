@@ -99,6 +99,14 @@ function sideMenuToggle() {
 }
 
 
+function selectedSideMenuToggle(selectedSideMenu){
+	const menuLinks = ["side-menu-dashboard-link","side-menu-connection-link","side-menu-board-link","side-menu-setting-link"];
+	for(let links of menuLinks){
+		document.getElementById(links).classList.remove("side-nav-link-selected");
+	}
+	document.getElementById(menuLinks[selectedSideMenu]).classList.add("side-nav-link-selected");
+}
+
 
 //display message when there is nothing( no project, project task, & todo list) on card & modal 
 function contentEmptyMessage(){

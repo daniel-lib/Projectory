@@ -27,9 +27,12 @@
 	<div th:object="${TodoCollections}">
 		<div class="todo-collection my-3 pt-1" th:each="collection : ${TodoCollections}">
 			<div class="collection-date d-flex flex-wrap justify-content-between">
-				<span class="info-tag-dark align-self-start">Created on: <span th:text="${collection.creationDate}"></span></span>
-				<span class="todo-collection-name align-self-start ps-3 pe-3"><span th:text="${collection.collectionTitle}"></span></span>
-				<span class="info-tag-dark align-self-start">Modified on: <span th:text="${collection.modificationDate}"></span></span>
+				<span class="info-tag-dark align-self-start">Created on: <span
+						th:text="${collection.creationDate}"></span></span>
+				<span class="todo-collection-name align-self-start ps-3 pe-3"><span
+						th:text="${collection.collectionTitle}"></span></span>
+				<span class="info-tag-dark align-self-start">Modified on: <span
+						th:text="${collection.modificationDate}"></span></span>
 			</div>
 
 
@@ -81,9 +84,9 @@
 <div th:fragment="displayItems" class="item-display-table p-2">
 	<div class="d-flex">
 		<input type="button" class="btn btn-primary-white btn-sm mt-3 mx-3 add-todo-item-btn"
-		onClick="showAddTodoItemForm()" value="Add Item">
-	<button class="minimalist-btn minimalist-btn-blk-bg btn-sm mt-3" onClick="addContributersForm()">Add
-		contributers</button>
+			onClick="showAddTodoItemForm()" value="Add Item">
+		<button class="minimalist-btn minimalist-btn-blk-bg btn-sm mt-3" onClick="addContributersForm()">Add
+			contributers</button>
 	</div>
 
 	<div th:replace="/user/todo/todoLayouts :: add-todo-item-form"></div>
@@ -97,32 +100,43 @@
 		<div class="d-block">
 			<div th:each="item : ${collection.todoListItems}">
 
-				<div class="list-items d-flex justify-content-between p-2 mb-1">
-					<div style="display: inline;" th:id="${item.todoItemId}">
-						<span id="itemNumber" class="badge text-bg-warning itemNumber">0</span>
-						<!--<span th:text = "${item.todoItemId}" class="badge text-bg-warning"></span>-->
-						<span th:text="${item.title}" id=""></span>
+				<div class="list-items">
 
-						<span class="badge mx-2 edit-item-btn fa-solid fa-edit" title="Edit Item"
-							th:onClick="editItem(this.id)" th:id="${item.todoItemId}"> </span>
+					<span class="float-start delete-item-checkbox item-control-buttons">
+						<input type="checkbox" onClick="readyDeleteButton()" name="selectedForRemoval"
+							th:value="${item.todoItemId}" class="form-check-input mark-todo-task-done red-checkbox"
+							id="mark-todo-task-done" title="Select item">
+					</span>
 
+					<div class="d-flex justify-content-between p-2 mb-1">
+
+						<div style="display: inline;" th:id="${item.todoItemId}">
+							<span id="itemNumber" class="badge text-bg-warning itemNumber">0</span>
+							<!--<span th:text = "${item.todoItemId}" class="badge text-bg-warning"></span>-->
+							<span th:text="${item.title}" id=""></span>
+
+							<span class="badge mx-2 edit-item-btn fa-solid fa-edit" title="Edit Item"
+								th:onClick="editItem(this.id)" th:id="${item.todoItemId}"> </span>
+
+
+						</div>
+
+						<div class="item-deletion-controls" style="display: inline;">
+							<span class="float-end delete-item-checkbox item-control-buttons">
+								<input type="checkbox" onClick="readyDeleteButton()" name="selectedForRemoval"
+									th:value="${item.todoItemId}"
+									class="form-check-input checkbox-for-deletion red-checkbox"
+									id="checkbox-for-deletion" title="Select item">
+							</span>
+
+							<a th:href="@{/todo/delete-item(itemId=${item.todoItemId})}"
+								class="link-white-color float-end delete-single-item-link">
+								<span class="badge text-bg-danger delete-single-item-btn fa-solid fa-trash-can"
+									title="Delete Item"> </span>
+							</a>
+						</div>
 
 					</div>
-
-					<div class="item-deletion-controls" style="display: inline;">
-						<span class="float-end delete-item-checkbox item-control-buttons">
-							<input type="checkbox" onClick="readyDeleteButton()" name="selectedForRemoval"
-								th:value="${item.todoItemId}"
-								class="form-check-input checkbox-for-deletion red-checkbox" id="checkbox-for-deletion"
-								title="Select item">
-						</span>
-
-						<a th:href="@{/todo/delete-item(itemId=${item.todoItemId})}"
-							class="link-white-color float-end delete-single-item-link">
-							<span class="badge text-bg-danger delete-single-item-btn" title="Delete Item">&times;</span>
-						</a>
-					</div>
-
 				</div>
 			</div>
 		</div>
@@ -154,9 +168,10 @@
 <div th:fragment="add-todo-item-form" class="form-container mt-4 add-todo-item-form overflow-hidden d-flex"
 	id="add-todo-item-form" style="height: 0; padding: 0;">
 	<div>
-		
+
 		<input type="text" class="form-control mt-3" placeholder="Item title" id="title-input" autofocus>
-		<input th:onClick="addTodo([[${collection.todoCollectionId}]])" type="submit" value="Add Item" class="btn btn-primary-golden btn-sm mt-3">
+		<input th:onClick="addTodo([[${collection.todoCollectionId}]])" type="submit" value="Add Item"
+			class="btn btn-primary-golden btn-sm mt-3">
 	</div>
 </div>
 

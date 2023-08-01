@@ -7,12 +7,13 @@
 
 .delete-single-item-btn {
 	font-size: 14pt;
-	padding: 0.2rem 0.5rem 0.2rem 0.5rem;
-	transition: all 0.3s ease-in-out;
+	padding: 0.3rem;
+	transition: all 0.1s ease-in-out;
 }
 
 .delete-single-item-btn:hover {
 	box-shadow: 0px 0px 5px 3px #dc3545;
+	color:rgb(238, 170, 163) !important;
 }
 
 .item-deletion-controls {
@@ -60,7 +61,7 @@
 	position: relative;
 	margin-top: 0;
 	cursor: pointer;
-	transition: all 0.3s ease-in-out;
+	transition: all 0.1s ease-in-out;
 }
 
 .red-checkbox:hover {

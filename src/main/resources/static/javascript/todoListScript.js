@@ -61,7 +61,8 @@ function readyDeleteButton() {
 		for (let i of deleteSingleItemBtns) {
 			i.style.backgroundColor = "grey";
 			i.style.opacity = "0.1";
-			i.setAttribute("class", "badge delete-single-item-btn");
+			//i.setAttribute("class", "badge delete-single-item-btn");
+			i.classList.remove("text-bg-danger");
 		}
 	}
 	else {
@@ -71,7 +72,8 @@ function readyDeleteButton() {
 			l.style.pointerEvents = "auto";
 		}
 		for (let i of deleteSingleItemBtns) {
-			i.setAttribute("class", "badge text-bg-danger delete-single-item-btn");
+			//i.setAttribute("class", "badge text-bg-danger delete-single-item-btn");
+			i.classList.add("text-bg-danger");
 			i.style.opacity = "1";
 		}
 	}

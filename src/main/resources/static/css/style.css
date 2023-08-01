@@ -51,7 +51,8 @@ color: #ae8319 !important;*/
 .navbar-nav a:hover {
 	color: rgb(197, 170, 148);
 	color: rgb(118, 187, 118) !important;
-	border: none !important;
+	/*border: none !important;*/
+	border: none;
 }
 
 .navbar-nav a:active {
