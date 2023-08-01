@@ -33,18 +33,17 @@ public class HomeController {
 	public String displayLandingPage(Model model, Users user) {
 		model.addAttribute("user", user);
 		model.addAttribute("userLevel", "guest");
-		List<Users> listOfHardCodedUsers = userLgServ.populateUserTest();
-		List<Users> allUsers = userDao.findAll();
-		for(Users userToAdd : listOfHardCodedUsers) {		
-			
-			int existence = userLgServ.doesUserExist(userToAdd.getUsername(), allUsers); 
-			if(existence == -1) {
-				userDao.save(userToAdd);
-			}
-			
-//			if(!userToAdd.getUsername().equals(user))
-			
-		}
+		/*
+		 * List<Users> listOfHardCodedUsers = userLgServ.populateUserTest(); List<Users>
+		 * allUsers = userDao.findAll(); for(Users userToAdd : listOfHardCodedUsers) {
+		 * 
+		 * int existence = userLgServ.doesUserExist(userToAdd.getUsername(), allUsers);
+		 * if(existence == -1) { userDao.save(userToAdd); }
+		 * 
+		 * // if(!userToAdd.getUsername().equals(user))
+		 * 
+		 * }
+		 */
 
 		return "/home/landingPage";
 	}

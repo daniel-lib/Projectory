@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 public class TodoListCollection {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long todoCollectionId;
 	private String collectionTitle;
 	private String creationDate;

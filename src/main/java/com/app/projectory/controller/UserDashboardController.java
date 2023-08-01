@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.app.projectory.doa.ProjectRepository;
 import com.app.projectory.doa.ProjectTaskRepository;
@@ -72,15 +72,22 @@ public class UserDashboardController {
 		
 	}
 	
-	@PostMapping("check-login-info")
+	@GetMapping("/check-login-info")
+	@ResponseBody
 	public Users checkLoginInfo(@RequestParam Long userId, @RequestParam String proof) {
-		Users checkedUser = null;
-		Optional<Users> fetchUser = userDao.findById(userId);
 		
-//		fetchUser.ifPresent(value -> checkedUser = value);
-		if(checkedUser.getLoginIndicator().equals(proof)) {
-			
+		Optional<Users> fetchedUser = userDao.findById(userId);
+		if(fetchedUser.isPresent() && fetchedUser.get().getLoginIndicator()!=null) {
+			if(fetchedUser.get().getLoginIndicator().equals(proof)) {
+//				return fetchedUser.get();
+				Users checkedUser = fetchedUser.get();
+				return checkedUser;
+			}
+				
 		}
+//		fetchUser.ifPresent(value -> checkedUser = value);
+		
+//		return null;
 		return null;
 	}
 	

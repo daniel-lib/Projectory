@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 public class ProjectTasks {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long taskId;
 	private String taskName;
 	private String taskDescription;

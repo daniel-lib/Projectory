@@ -1,5 +1,6 @@
 package com.app.projectory.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,10 +16,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Project {
+public class Project implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long projectId;
 	/* private Date startDate; */
 	private String title;
@@ -33,7 +34,7 @@ public class Project {
 	
 	//for indicating owner(creator) of the project
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "project_owner_user_id")
 	private Users projectOwner;
 	
 	//for listing members of the project(people who joined the project)
