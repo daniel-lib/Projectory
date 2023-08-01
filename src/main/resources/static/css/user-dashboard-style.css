@@ -33,8 +33,8 @@
 .navbar-links-container {
 	/*display: flex;*/
 	color: rgba(255, 255, 255, 0.55);
-	/*border: 1px solid red*/
-	;
+	/*border: 1px solid red;*/
+
 	width: 100%;
 }
 
@@ -44,6 +44,7 @@
 
 .nav-link {
 	padding-left: .5rem !important;
+	/*border: 3px solid yellowgreen;*/
 }
 
 .dashboard-link:hover,
@@ -51,7 +52,19 @@
 .scrum-board-link:hover,
 .account-link:hover {
 	background-color: rgba(0, 0, 0, 0.4);
+}
 
+.dashboard-link-selected {
+	color: rgb(118, 187, 118);
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.side-nav-link-selected,
+.side-nav-link-selected:hover {
+	color: rgb(118, 187, 118);
+	background-color: rgba(0, 0, 0, 0.5);
+	border-left: 3px solid rgb(191, 152, 56) !important;
+	transition: 0.1s ease-in-out;
 }
 
 .top-nav-links {
@@ -185,7 +198,7 @@
 	visibility: hidden;
 	display: none;
 }*/
-.item-count-check{
+.item-count-check {
 	display: none;
 }
 
@@ -352,7 +365,8 @@
 	transition: 0.2s ease-in-out;
 }
 
-.minimalist-btn, .minimalist-btn-lighter{
+.minimalist-btn,
+.minimalist-btn-lighter {
 	font-size: 9pt !important;
 	border: 1px solid rgb(119, 118, 123);
 	border-radius: 0.25rem;
@@ -379,7 +393,7 @@
 .minimalist-btn-lighter:hover {
 	color: rgb(0, 0, 0);
 	background-color: rgba(119, 118, 123, 0.6);
-	
+
 }
 
 .minimalist-btn-rounded {
@@ -396,28 +410,28 @@
 	border-bottom-right-radius: 50px;
 }
 
-.todo-collection{
+.todo-collection {
 	border: 2px dashed rgb(119, 118, 123);
 	border-bottom: 2px ridge rgb(51, 209, 122);
 	background-color: rgba(61, 56, 70, 0.5);
 	border-radius: 0.5rem;
 }
 
-.todo-collection-name{
+.todo-collection-name {
 	font-size: larger;
 	color: antiquewhite;
 	border-bottom: 2px ridge goldenrod;
 	border-radius: 0.5rem;
 }
 
-.list-items{
+.list-items {
 	color: rgb(222, 221, 218);
 	background-color: rgba(255, 163, 72, 0.2);
 	border-radius: 0.5rem;
 }
 
-.collection-show-more-btn{
-	background-color:#4a4a4a;
+.collection-show-more-btn {
+	background-color: #4a4a4a;
 	text-align: center;
 	text-justify: center;
 	width: 100%;
@@ -436,9 +450,7 @@
 	overflow: hidden;
 }
 
-.item-display-table {
-	
-}
+.item-display-table {}
 
 .project-modal-boxes {
 	border-radius: 0.3rem;
@@ -521,7 +533,7 @@
 	height: 230px;
 }
 
-.project-task-status{
+.project-task-status {
 	background-color: rgba(154, 153, 150, 0.2) !important;
 	background-color: rgba(255, 255, 255, .05) !important;
 	color: rgb(158, 158, 158);
@@ -718,5 +730,12 @@
 
 	.viewing-modal-header {
 		margin-left: 15% !important;
+	}
+
+}
+
+@media (max-width: 790px) {
+	.project-modal-boxes {
+		width: 100%;
 	}
 }
