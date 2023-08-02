@@ -61,7 +61,7 @@
 		
 
 		<div th:object="${TodoCollections}" class="dashboard-card-content-container-inner m-0 custom-scrollbar-style-3" > <!--displaying collection on card-->
-			<div class="dashboard-card-content-items p-1 m-1" th:each="collection : ${TodoCollections}">
+			<div class="dashboard-card-content-items p-1 m-1 mb-3" th:each="collection : ${TodoCollections}">
 				<div class="collection-date d-flex flex-wrap justify-content-between">
 					<span class="todo-collection-name align-self-start ps-3 pe-3"><span
 							th:text="${collection.collectionTitle}"></span></span>
@@ -82,10 +82,12 @@
 			</div>
 		</div>
 		
-		<input type="button" class="minimalist-btn-lighter btn-sm add-todo-item-btn"
+		<div class="todo-card-btns mt-2">
+			<input type="button" class="minimalist-btn-lighter btn-sm add-todo-item-btn"
 			onClick="showAddTodoItemForm('card')" value="Add Item">
-		<input type="button" class="minimalist-btn-lighter btn-sm add-todo-item-btn"
+		<input type="button" class="minimalist-btn-lighter btn-sm add-todo-collection-btn"
 			onClick="showAddTodoCollectionForm('card')" value="Add New Collection">
+		</div>
 
 	</div>
 </div>

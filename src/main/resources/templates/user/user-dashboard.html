@@ -7,59 +7,29 @@
 
 
 
-<body onLoad="showMainNotification(); displayItemCount();showDashboardActionNotification(); contentEmptyMessage(); getLoginInfo()">
+<body
+	onLoad="showMainNotification(); displayItemCount();showDashboardActionNotification(); contentEmptyMessage(); getLoginInfo()">
 	<div id="item-action-notification"
 		class="badge item-action-notification px-4 d-flex justify-content-center fixed-top"
 		th:text="${param.indicator}"></div>
 	<header th:replace="/user/user-layouts :: nav"></header>
 	<div class="containers d-flex">
 
+		<main class="dashboard-content" th:replace="/user/dashboard-content-layout :: dashboard-content"></main>
 
-		<section class="dashboard-area d-flex">
-			<div id="viewing-modal-container" class="modal-backdrop-blur">
-				<div id="viewing-modal" class="mt px-3 custom-scrollbar-style"> 
-				<span class="viewing-modal-exit-btn float-end" onclick="closeViewingModal()">&times;</span>
-					<br />
-					
-					<div class="viewing-modal">
-
-						<div th:replace="/user/todo/todoLayouts :: todo-list-modal-content"></div>
-						<div th:replace="/user/project/project-layouts :: project-list-modal-content"></div>
-					</div>
-				</div>
-			</div>
-
-			<aside th:replace="/user/user-layouts :: side-menu"></aside>
-			<div class="dashboard-cards-container d-flex justify-content-evenly flex-wrap mt-4">
-
-				<div th:replace="/user/project/project-layouts :: project-dashboard-card"></div>
-				<div th:replace="/user/todo/todoLayouts :: todo-list-dashboard-card"></div>
-				<div th:replace="/user/project/project-layouts :: project-task-dashboard-card"></div>
+		<!--
+		<main class="dashboard-content" th:replace="/user/user-connections-layout :: connections-page"></main>
+		<main class="dashboard-content" th:replace="/user/scrum-kanban-board-layout :: scrum-kanban-board-page"></main>
+		<main class="dashboard-content" th:replace="/user/user-messages-layout :: messages-page"></main>
+		<main class="dashboard-content" th:replace="/user/user-account-layout :: account-page"></main>
+		-->
 
 
-
-
-				<div class="card user-dashboard-cards custom-scrollbar-style" style="width: 18rem;">
-					<div class="card-header d-flex px-0">
-						<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-timeline" alt="task icon"></span>
-						<h5 class="card-title dashboard-card-title">Activity</h5>
-					</div>
-					<div class="card-body">
-						<p class="card-text fw-lighter">Catch-up with your activities</p><br />
-						<input type="date">
-						<a href="/">Update Task Status</a>
-						</br>
-						<a href="#" class="btn btn-primary btn-sm">View</a>
-					</div>
-				</div>
-			</div>
-		</section>
-		
 	</div>
-	
+
 	<figure th:replace="/user/user-layouts :: notification-bar">
-		</figure>
-		
+	</figure>
+
 	<!--<footer th:replace="mainLayouts :: footer"></footer>-->
 	<footer th:replace="/user/user-layouts :: footer"></footer>
 

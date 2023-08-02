@@ -16,7 +16,7 @@
 	<link href="/css/style.css" rel="stylesheet">
 	<link href="/css/todolist.css" rel="stylesheet">
 	<link href="/css/user-dashboard-style.css" rel="stylesheet">
-	<link href="/css/notification-popup-bar.css" rel="stylesheet">	
+	<link href="/css/notification-popup-bar.css" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/6d882a57d9.js" crossorigin="anonymous"></script>
 	<script src="/javascript/todoListScript.js" defer></script>
 	<script src="/javascript/dashboardScript.js" defer></script>
@@ -30,35 +30,58 @@
 		<!--<div class="container-fluid d-flex justify-inbetween">-->
 		<div class="top-projectory-logo">
 			<a class="navbar-brand navbar-brand-dashboard" th:href="@{/}">
-				<img th:src="@{/images/newLogo1.4.2_signColor_goldrodBall(smlBall).png}" alt="[logo]" height="30px" width="23px">
+				<img th:src="@{/images/newLogo1.4.2_signColor_goldrodBall(smlBall).png}" alt="[logo]" height="30px"
+					width="23px">
 				<span>projectory</span>
 			</a>
 		</div>
+
+
+
 		<div class="navbar-links-container d-flex justify-content-end mx-3">
-			<div class="navbar-nav " th:object="${user}">
+			<span class="search-bar me-1 d-flex">
+				<input type="text" class="top-search-text-input d-inline" placeholder="Search keyword"
+					id="search-text-input">
+				<span role="button" class="top-search-btn d-inline fa-solid fa-magnifying-glass"></span>
+			</span>
+
+			<div class="mt-0 pt-0 " th:object="${user}">
 				<div class="top-menu-icons">
-					<a class="nav-link top-nav-links" href="#" onClick="showTopCollapsableMenu(1)">
-						<span class="nav-icon mt-1 fa-solid fa-message"></span></a>
-					<a class="nav-link top-nav-links" href="#" onClick="showTopCollapsableMenu(0)">
-						<span class="nav-icon mt-1 fa-solid fa-bell"></span></a>
-					<!--<a class="nav-link" th:href="@{/user/dashboard}"  th:text="${user.firstName}  + ' '+ ${user.lastName}">-->
-					<a class="nav-link top-nav-links" href="#" onClick="showTopCollapsableMenu(2)">
-						<span class="nav-icon mt-1 fa-solid fa-user"></span></a>
-				
-					<div class="top-collapsable-menu-container" id="top-collapsable-menu-container"
-						onmouseleave="collapseTopMenu()">
-						<p class="top-menu-content" id="notification-menu-content">Notification</p>
-						<p class="top-menu-content" id="message-menu-content">Messages</p>
-						<p class="top-menu-content" id="setting-menu-content">Account<hr><span>Logout</span></p>
+					<div class="top-menu-links d-flex">
+						<a class="nav-link top-nav-links" href="#" onClick="showTopCollapsableMenu(1)">
+							<span class="nav-icon mt-0 pt-0 fa-solid fa-message"></span></a>
+						<a class="nav-link top-nav-links" href="#" onClick="showTopCollapsableMenu(0)">
+							<span class="nav-icon mt-0 pt-0 fa-solid fa-bell"></span></a>
+						<!--<a class="nav-link" th:href="@{/user/dashboard}"  th:text="${user.firstName}  + ' '+ ${user.lastName}">-->
+						<a class="nav-link top-nav-links" href="#" onClick="showTopCollapsableMenu(2)">
+							<span class="nav-icon mt-0 pt-0 fa-solid fa-user"></span></a>
 					</div>
+
+
+
 				</div>
 			</div>
+
 		</div>
 	</nav>
 
 </header>
 
 <aside th:fragment="side-menu" id="side-menu" class="p-0">
+	
+	<!--top-collapsable-menu content outer container-->
+	<div style="" class="top-collapsable-menu-outer-container">
+		<div class="top-collapsable-menu-container" id="top-collapsable-menu-container"
+			onmouseleave="collapseTopMenu()">
+			<div class="top-menu-content" id="notification-menu-content">Notification</div>
+			<div class="top-menu-content" id="message-menu-content">Messages</div>
+			<div class="top-menu-content" id="setting-menu-content">Account
+				<hr><span>Logout</span>
+			</div>
+		</div>
+	</div>
+	
+	
 	<div class="navbar-dark bg-dark pt-5 side-nav">
 		<div class="navbar-nav " th:object="${user}">
 
@@ -67,23 +90,23 @@
 				<!--<span class="fa-solid fa-caret-left side-nav-arrow" id="side-nav-left-arrow"></span>-->
 			</span>
 			<a class="nav-link dashboard-link side-nav-link-selected" th:href="@{/user/dashboard}"
-			id="side-menu-dashboard-link" onClick = "selectedSideMenuToggle(0)">
+				id="side-menu-dashboard-link" onClick="selectedSideMenuToggle(0)">
 				<span class="nav-icon mt-1 fa-solid fa-table-columns"></span> <span
 					class="side-nav-text mx-2">Dashboard</span></a>
-			<a role="button" class="nav-link todo-list-link"
-			id="side-menu-connection-link" onClick = "selectedSideMenuToggle(1)">
-			<span class="nav-icon mt-1 fa-solid fa-user-group"></span> <span
+			<a role="button" class="nav-link todo-list-link" id="side-menu-connection-link"
+				onClick="selectedSideMenuToggle(1)">
+				<span class="nav-icon mt-1 fa-solid fa-user-group"></span> <span
 					class="side-nav-text mx-2">Connections</span></a>
-			<a role="button" class="nav-link scrum-board-link"
-			id="side-menu-board-link" onClick = "selectedSideMenuToggle(2)">
+			<a role="button" class="nav-link scrum-board-link" id="side-menu-board-link"
+				onClick="selectedSideMenuToggle(2)">
 				<span class="nav-icon mt-1 fa-solid fa-chalkboard-user"></span>
 				<span class="side-nav-text mx-2">Scrum Board</span></a>
 			<!--<a class="nav-link" th:href="@{/user/dashboard}"  th:text="${user.firstName}  + ' '+ ${user.lastName}">-->
-			<a role="button" class="nav-link account-link"
-			id="side-menu-setting-link" onClick = "selectedSideMenuToggle(3)">
+			<a role="button" class="nav-link account-link" id="side-menu-setting-link"
+				onClick="selectedSideMenuToggle(3)">
 				<span class="nav-icon mt-1 fa-solid fa-gear"></span>
-				<span class="side-nav-text mx-2">Setting</span></a>				
-				
+				<span class="side-nav-text mx-2">Setting</span></a>
+
 		</div>
 	</div>
 </aside>
@@ -91,9 +114,9 @@
 <footer th:fragment="footer" class="mt-5 pt-2 dashboard-footer m-0">
 	<!--<span th:text = "${loginIndicator}" id="login_indicator" style="margin-left: 20%"></span>
 	<span th:text = "${user.userId}" id="current_user_id" style="margin-left: 20%"></span>-->
-	
-	<span th:text = "${param.proof}" id="login_indicator" style="margin-left: 20%"></span>
-	<span th:text = "${param.user}" id="current_user_id" style="margin-left: 20%"></span>
+
+	<span th:text="${param.proof}" id="login_indicator" style="margin-left: 20%"></span>
+	<span th:text="${param.user}" id="current_user_id" style="margin-left: 20%"></span>
 
 	<div class="d-flex justify-content-around mt-2">
 
@@ -107,33 +130,15 @@
 	<br />
 </footer>
 
- <figure class="notification hide none" th:fragment="notification-bar">
-            <div class="notification__body">
-                <span class="notification__body__first pt-1">
-                    <span class="fa-solid fa-circle-check mt-1" id="notification-icon"> 
-                    </span> 
-                    <!--<p id="notification-bar-content">Your account has been created!</p>-->
-                    <p id="notification-bar-content" class="mb-0"></p>
-                </span>
-                
-                <!--close notification button-->
-               <!-- <svg
-                    onclick="toggleNotification()"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke="currentColor"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                >
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <path d="M18 6l-12 12"></path>
-                    <path d="M6 6l12 12"></path>
-                </svg>-->
-            </div>
-        </figure>
+<figure class="notification hide none" th:fragment="notification-bar">
+	<div class="notification__body">
+		<span class="notification__body__first pt-1">
+			<span class="fa-solid fa-circle-check mt-1" id="notification-icon">
+			</span>
+			<!--<p id="notification-bar-content">Your account has been created!</p>-->
+			<p id="notification-bar-content" class="mb-0"></p>
+		</span>
+	</div>
+</figure>
 
 </html>

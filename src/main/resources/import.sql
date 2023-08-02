@@ -30,8 +30,8 @@ insert into PROJECT_TASKS (TASK_ID, DEADLINE, STATUS, TASK_DESCRIPTION, TASK_NAM
 
 --INSERT Todo collections
 insert into TODO_LIST_COLLECTION (TODO_COLLECTION_ID, COLLECTION_TITLE, CREATION_DATE, MODIFICATION_DATE) values (1, 'Groceries', '01/07/2023', '01/07/2023');
-
 insert into TODO_LIST_COLLECTION (TODO_COLLECTION_ID, COLLECTION_TITLE, CREATION_DATE, MODIFICATION_DATE) values (2, 'today schedule', '01/07/2023', '01/07/2023');
+insert into TODO_LIST_COLLECTION (TODO_COLLECTION_ID, COLLECTION_TITLE, CREATION_DATE, MODIFICATION_DATE) values (3, 'for the hr project', '01/07/2023', '01/07/2023');
 
 --INSERT Todo list
 insert into TODO (todo_item_id, title, COLLECTION_ID) values (1, 'onions', 1);
@@ -42,3 +42,9 @@ insert into TODO (todo_item_id, title, COLLECTION_ID) values (4, '5 cloves of ga
 insert into TODO (todo_item_id, title, COLLECTION_ID) values (5, 'call hr', 2);
 insert into TODO (todo_item_id, title, COLLECTION_ID) values (6, 'talk to dave about chair', 2);
 insert into TODO (todo_item_id, title, COLLECTION_ID) values (7, 'get new mouse from inventory', 2);
+
+insert into TODO (todo_item_id, title, COLLECTION_ID) values (8, 'find form validation react component', 3);
+insert into TODO (todo_item_id, title, COLLECTION_ID) values (9, 'get employee required information for registration from hr', 3);
+insert into TODO (todo_item_id, title, COLLECTION_ID) values (10, 'get employee data policy from hr', 3);
+insert into TODO (todo_item_id, title, COLLECTION_ID) values (11, 'prepare value proposition canvas presentation', 3);
+insert into TODO (todo_item_id, title, COLLECTION_ID) values (12, 'how many employees? ask hr.', 3);

@@ -146,27 +146,34 @@ for (let ic of itemCount) {
 const topMenuContainer = document.getElementById("top-collapsable-menu-container");
 const specificContentIds = ["notification-menu-content", "message-menu-content", "setting-menu-content"];
 
+const blr = document.getElementsByClassName("top-collapsable-menu-outer-container");
+
 function showTopCollapsableMenu(type) {
 	const selectedContent = document.getElementById(specificContentIds[type]);
 
 	for (let specCont = 0; specCont < specificContentIds.length; specCont++) {
-		topMenuContainer.style.padding = "0px";
-		topMenuContainer.style.height = "0px";
+		//topMenuContainer.classList.remove("top-collapsable-menu-container-expanded");
+		/*topMenuContainer.style.padding = "0px";
+		topMenuContainer.style.height = "0px";*/
 		document.getElementById(specificContentIds[specCont]).style.display = "none";
 	}
-	topMenuContainer.style.padding = "30px";
-	topMenuContainer.style.height = "300px";
+	blr[0].classList.add("top-collapsable-menu-outer-container-expanded");
+	document.body.classList.add('overflow-stop');
+	topMenuContainer.classList.add("top-collapsable-menu-container-expanded");
+	/*topMenuContainer.style.padding = "30px";
+	topMenuContainer.style.height = "300px";*/
 
 	selectedContent.style.display = "block";
 
 }
 
-function collapseTopMenu() {
+/*function collapseTopMenu() {
 
 	topMenuContainer.style.padding = "0px";
 	topMenuContainer.style.height = "0px";
+	topMenuContainer.classList.remove("top-collapsable-menu-container-expanded");
 	document.getElementById(specificContentIds[specCont]).style.display = "none";
-}
+}*/
 
 
 
