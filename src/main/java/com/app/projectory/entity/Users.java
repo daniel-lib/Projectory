@@ -14,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Users implements Serializable{
 
@@ -28,15 +30,18 @@ public class Users implements Serializable{
 	private String password;
 	private String loginIndicator;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "userWithConnection")
 	List<Connections> connection;
 	
 	
 	//for indicating projects owned(created) by the users
+	@JsonIgnore
 	@OneToMany(mappedBy = "projectOwner")
 	private List<Project> ownedProjects;
 	
 	//for indicating projects the user has joined(is a member of)
+	@JsonIgnore
 	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
 	@JoinTable(name = "project_members", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
 	private List<Project> joinedProjects;

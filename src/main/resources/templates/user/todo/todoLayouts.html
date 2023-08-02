@@ -94,7 +94,7 @@
 	<form th:action="@{/user/todo/delete-selected}" method="post">
 		<button type="submit" class="btn btn-danger btn-sm mt-3 float-end delete-selected-btn" value="Delete Selected"
 			id="delete-selected-btn" disabled>
-			Delete Selected Items <span class="badge text-bg-info" id="number-of-items-badge">0</span>
+			Delete <span class="badge text-bg-info" id="number-of-items-badge">0</span> Items 
 		</button>
 		<br /><br />
 		<div class="d-block">
@@ -102,38 +102,40 @@
 
 				<div class="list-items">
 
-					<span class="float-start delete-item-checkbox item-control-buttons">
+					<span class="float-start delete-item-checkbox item-control-buttons item-control-right-border mt-2">
 						<input type="checkbox" onClick="readyDeleteButton()" name="selectedForRemoval"
-							th:value="${item.todoItemId}" class="form-check-input mark-todo-task-done red-checkbox"
-							id="mark-todo-task-done" title="Select item">
+							th:value="${item.todoItemId}" class="form-check-input mark-todo-task-done red-checkbox green-checkbox"
+							id="mark-todo-task-done" title="Mark as done">
 					</span>
 
 					<div class="d-flex justify-content-between p-2 mb-1">
 
 						<div style="display: inline;" th:id="${item.todoItemId}">
-							<span id="itemNumber" class="badge text-bg-warning itemNumber">0</span>
+							<!--<span id="itemNumber" class="badge text-bg-warning itemNumber">0</span>-->
 							<!--<span th:text = "${item.todoItemId}" class="badge text-bg-warning"></span>-->
 							<span th:text="${item.title}" id=""></span>
 
-							<span class="badge mx-2 edit-item-btn fa-solid fa-edit" title="Edit Item"
+							<span class="badge me-2 edit-item-btn fa-solid fa-edit" title="Edit Item"
 								th:onClick="editItem(this.id)" th:id="${item.todoItemId}"> </span>
 
 
 						</div>
 
-						<div class="item-deletion-controls" style="display: inline;">
-							<span class="float-end delete-item-checkbox item-control-buttons">
+						<div class="item-deletion-controls d-flex" style="display: inline;">
+							<a th:href="@{/todo/delete-item(itemId=${item.todoItemId})}"
+								class="link-white-color float-end delete-single-item-link">
+								<span class="badge text-bg-danger delete-single-item-btn fa-solid fa-trash-can"
+									title="Delete Item"> </span>
+							</a>
+							
+							<span class="delete-item-checkbox item-control-buttons item-control-left-border">
 								<input type="checkbox" onClick="readyDeleteButton()" name="selectedForRemoval"
 									th:value="${item.todoItemId}"
 									class="form-check-input checkbox-for-deletion red-checkbox"
 									id="checkbox-for-deletion" title="Select item">
 							</span>
 
-							<a th:href="@{/todo/delete-item(itemId=${item.todoItemId})}"
-								class="link-white-color float-end delete-single-item-link">
-								<span class="badge text-bg-danger delete-single-item-btn fa-solid fa-trash-can"
-									title="Delete Item"> </span>
-							</a>
+							
 						</div>
 
 					</div>

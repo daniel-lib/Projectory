@@ -67,7 +67,7 @@ public class HomeController {
 			  userDao.save(checkedUser);
 			  redAttr.addFlashAttribute("loginIndicator", indicatorString);
 			  indicator = "pass"; 
-			  return "redirect:/user/dashboard?indicator="+indicator; 
+			  return "redirect:/user/dashboard?indicator="+indicator+"&user="+checkedUser.getUserId()+"&proof="+indicatorString; 
 	  }
 	  
 	  return "redirect:/?indicator="+indicator; 

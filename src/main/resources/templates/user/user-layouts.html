@@ -89,8 +89,11 @@
 </aside>
 
 <footer th:fragment="footer" class="mt-5 pt-2 dashboard-footer m-0">
-	<span th:text = "${loginIndicator}" id="login_indicator" style="margin-left: 20%"></span>
-	<span th:text = "${user.userId}" id="current_user_id" style="margin-left: 20%"></span>
+	<!--<span th:text = "${loginIndicator}" id="login_indicator" style="margin-left: 20%"></span>
+	<span th:text = "${user.userId}" id="current_user_id" style="margin-left: 20%"></span>-->
+	
+	<span th:text = "${param.proof}" id="login_indicator" style="margin-left: 20%"></span>
+	<span th:text = "${param.user}" id="current_user_id" style="margin-left: 20%"></span>
 
 	<div class="d-flex justify-content-around mt-2">
 

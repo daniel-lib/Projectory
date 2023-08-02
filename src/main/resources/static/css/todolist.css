@@ -6,14 +6,14 @@
 }
 
 .delete-single-item-btn {
-	font-size: 14pt;
+	font-size: 11pt;
 	padding: 0.3rem;
 	transition: all 0.1s ease-in-out;
 }
 
 .delete-single-item-btn:hover {
 	box-shadow: 0px 0px 5px 3px #dc3545;
-	color:rgb(238, 170, 163) !important;
+	color: rgb(238, 170, 163) !important;
 }
 
 .item-deletion-controls {
@@ -41,10 +41,19 @@
 }
 
 .item-control-buttons {
+}
+
+.item-control-left-border {	
+	padding-left: 0.5rem !important;
+	margin-left: 0.5rem !important;
+	/*margin-right: 1.5rem !important;*/
 	border-left: 1px solid rgb(154, 153, 150);
-	padding-left: 1rem !important;
-	margin-left: 1rem !important;
-	margin-right: 1.5rem !important;
+}
+
+.item-control-right-border {
+	padding-right: 0.5rem !important;
+	padding-left: 0.5rem !important;
+	border-right: 1px dashed rgb(154, 153, 150);
 }
 
 .red-checkbox {
@@ -55,7 +64,7 @@
 	border: 3px solid #dc3545;
 	border: 3px solid rgb(192, 191, 188);
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
-	padding: 10px;
+	padding: 8px;
 	border-radius: 3px;
 	display: inline-block;
 	position: relative;
@@ -68,17 +77,34 @@
 	box-shadow: 0px 0px 5px 3px #dc3545;
 }
 
-.red-checkbox:active,
-.regular-checkbox:checked:active {
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px 1px 3px rgba(0, 0, 0, 0.1);
-}
-
 .red-checkbox:checked {
 	background-color: #dc3545;
 	border: 3px solid #dc3545;
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05), inset 15px 10px -12px rgba(255, 255, 255, 0.1);
 	color: #99a1a7;
 }
+
+.green-checkbox:hover {
+	box-shadow: 0px 0px 5px 3px rgb(38, 162, 105);
+}
+
+.green-checkbox {
+	border: 3px solid rgb(38, 162, 105);
+}
+
+.green-checkbox:checked {
+	background-color: rgb(46, 194, 126);
+	border: 3px solid rgb(46, 194, 126);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05), inset 15px 10px -12px rgba(255, 255, 255, 0.1);
+	color: #99a1a7;
+}
+
+
+.red-checkbox:active,
+.regular-checkbox:checked:active {
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
 
 /*.red-checkbox:checked:after {
 	content: '\2714';
