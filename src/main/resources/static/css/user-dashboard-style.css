@@ -460,8 +460,17 @@
 .project-modal-boxes-default {
 	width: 270px;
 	height: 350px;
-	background-color: rgb(36, 31, 49);
-	border: 3px solid rgb(94, 92, 100);
+	/*background-color: rgb(36, 31, 49);
+	border: 3px solid rgb(94, 92, 100);*/
+	
+	border: 2px dashed rgb(119, 118, 123);
+	/*border-bottom: 2px ridge rgb(51, 209, 122);*/
+	background-color: rgba(61, 56, 70, 0.5);
+	border-radius: 0.5rem;
+}
+
+.todo-collection {
+	
 }
 
 .project-modal-boxes-expanded {
