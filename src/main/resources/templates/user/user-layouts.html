@@ -48,12 +48,12 @@
 			<div class="mt-0 pt-0 " th:object="${user}">
 				<div class="top-menu-icons">
 					<div class="top-menu-links d-flex">
-						<a class="nav-link top-nav-links" href="#" onClick="showTopCollapsableMenu(1, this.id)" id="top-message-nav-link" aria-label="not-selected">
+						<a class="nav-link top-nav-links" onClick="showTopCollapsableMenu(1, this.id)" id="top-message-nav-link" aria-label="not-selected">
 							<span class="nav-icon mt-0 pt-0 fa-solid fa-message"></span></a>
-						<a class="nav-link top-nav-links" href="#" onClick="showTopCollapsableMenu(0, this.id)" id="top-notification-nav-link" aria-label="not-selected">
+						<a class="nav-link top-nav-links" onClick="showTopCollapsableMenu(0, this.id)" id="top-notification-nav-link" aria-label="not-selected">
 							<span class="nav-icon mt-0 pt-0 fa-solid fa-bell"></span></a>
 						<!--<a class="nav-link" th:href="@{/user/dashboard}"  th:text="${user.firstName}  + ' '+ ${user.lastName}">-->
-						<a class="nav-link top-nav-links" href="#" onClick="showTopCollapsableMenu(2, this.id)" id="top-user-nav-link" aria-label="not-selected">
+						<a class="nav-link top-nav-links" onClick="showTopCollapsableMenu(2, this.id)" id="top-user-nav-link" aria-label="not-selected">
 							<span class="nav-icon mt-0 pt-0 fa-solid fa-user"></span></a>
 					</div>
 
@@ -65,7 +65,7 @@
 							<div class="top-menu-content" id="setting-menu-content">Account
 								<hr><span>Logout</span>
 							</div>
-						</div>
+						</div>						
 
 				</div>
 			</div>
@@ -108,6 +108,7 @@
 </aside>
 
 <footer th:fragment="footer" class="mt-5 pt-2 dashboard-footer m-0">
+	<a href="#" class="go-to-top-btn"><span role="button" class="fa-solid fa-caret-up"></span></a>
 	<!--<span th:text = "${loginIndicator}" id="login_indicator" style="margin-left: 20%"></span>
 	<span th:text = "${user.userId}" id="current_user_id" style="margin-left: 20%"></span>-->
 

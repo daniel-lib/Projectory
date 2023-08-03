@@ -1,3 +1,18 @@
+//display go to the top button
+		toggleGoTo();
+	// Listen for click events on body
+	window.addEventListener('scroll', function(event) {
+		toggleGoTo();
+	});	
+	function toggleGoTo(){
+		const goToTopBtn = document.getElementsByClassName("go-to-top-btn");
+		if(window.pageYOffset>500)		
+		goToTopBtn[0].classList.add("go-to-top-btn-show");
+		else
+		goToTopBtn[0].classList.remove("go-to-top-btn-show");
+	}
+
+
 const signin = document.getElementById("signin-btn");
 signin.addEventListener("click", showLoginForm);
 

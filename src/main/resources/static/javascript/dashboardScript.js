@@ -46,7 +46,7 @@ function closeViewingModal() {
 	document.body.classList.remove('overflow-hidden');
 }
 
-//close modal with esc key
+//close viewing modal with esc key
 document.onkeydown = function(evt) {
 	evt = evt || window.event;
 	var isEscape = false;
@@ -59,6 +59,10 @@ document.onkeydown = function(evt) {
 		closeViewingModal();
 	}
 };
+//close viewing modal when when viewing modal container clicked
+document.getElementById("viewing-modal-container").addEventListener('click', function(event) {
+		closeViewingModal();
+	});
 
 
 
@@ -137,6 +141,10 @@ for (let ic of itemCount) {
 		ic.textContent = " ";
 	}
 }*/
+
+
+
+
 
 
 
