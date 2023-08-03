@@ -13,27 +13,27 @@ function displayViewingModal(contentType) {
 
 }
 function closeViewingModal() {
-	
+
 	//change the state of "Create Project" button to default state
 	//createItemButtonToDefault();
 	const projectForm = document.getElementById("add-project-form");
 	const createProjectBtn = document.getElementsByClassName("create-project-btn");
 	projectForm.style.height = 0;
 	projectForm.style.padding = "0";
-	for(let btn of createProjectBtn){
-		btn.value="Create Project";
+	for (let btn of createProjectBtn) {
+		btn.value = "Create Project";
 	}
-	
+
 	//change the state of "Add Item" button to default state
 	const todoItemForm = document.getElementById("add-todo-item-form");
 	const AddTodoItemBtn = document.getElementsByClassName("add-todo-item-btn");
 	/*todoItemForm.style.height = 0;
 	todoItemForm.style.padding = "0";*/
-	for(let btn of AddTodoItemBtn){
-		btn.value="Add Item";
+	for (let btn of AddTodoItemBtn) {
+		btn.value = "Add Item";
 	}
-	
-	
+
+
 	/*var form = document.getElementById("viewing-modal");*/
 	const modalContainer = document.getElementById("viewing-modal-container");
 	modalContainer.style.opacity = "0";
@@ -48,16 +48,16 @@ function closeViewingModal() {
 
 //close modal with esc key
 document.onkeydown = function(evt) {
-    evt = evt || window.event;
-    var isEscape = false;
-    if ("key" in evt) {
-        isEscape = (evt.key === "Escape" || evt.key === "Esc");
-    } else {
-        isEscape = (evt.keyCode === 27);
-    }
-    if (isEscape) {
-        closeViewingModal();
-    }
+	evt = evt || window.event;
+	var isEscape = false;
+	if ("key" in evt) {
+		isEscape = (evt.key === "Escape" || evt.key === "Esc");
+	} else {
+		isEscape = (evt.keyCode === 27);
+	}
+	if (isEscape) {
+		closeViewingModal();
+	}
 };
 
 
@@ -99,9 +99,9 @@ function sideMenuToggle() {
 }
 
 
-function selectedSideMenuToggle(selectedSideMenu){
-	const menuLinks = ["side-menu-dashboard-link","side-menu-connection-link","side-menu-board-link","side-menu-setting-link"];
-	for(let links of menuLinks){
+function selectedSideMenuToggle(selectedSideMenu) {
+	const menuLinks = ["side-menu-dashboard-link", "side-menu-connection-link", "side-menu-board-link", "side-menu-setting-link"];
+	for (let links of menuLinks) {
 		document.getElementById(links).classList.remove("side-nav-link-selected");
 	}
 	document.getElementById(menuLinks[selectedSideMenu]).classList.add("side-nav-link-selected");
@@ -109,21 +109,21 @@ function selectedSideMenuToggle(selectedSideMenu){
 
 
 //display message when there is nothing( no project, project task, & todo list) on card & modal 
-function contentEmptyMessage(){
-	
+function contentEmptyMessage() {
+
 	const itemCount = document.getElementsByClassName("item-count-check");
 	const msg = ["project", "todo list item", "project task"];
-for (let count of itemCount) {
-	//alert("hello");
-	if (count.textContent == "0") {
-		count.classList.add("mt-2");
-		count.classList.add("d-block");
-		count.innerHTML = "No content to display at the moment.";
+	for (let count of itemCount) {
+		//alert("hello");
+		if (count.textContent == "0") {
+			count.classList.add("mt-2");
+			count.classList.add("d-block");
+			count.innerHTML = "No content to display at the moment.";
+		}
+		else {
+			count.textContent = "";
+		}
 	}
-	else {
-		count.textContent = "";
-	}
-}
 }
 
 
@@ -145,35 +145,57 @@ for (let ic of itemCount) {
 //top menu show/hide script
 const topMenuContainer = document.getElementById("top-collapsable-menu-container");
 const specificContentIds = ["notification-menu-content", "message-menu-content", "setting-menu-content"];
-
-const blr = document.getElementsByClassName("top-collapsable-menu-outer-container");
-
-function showTopCollapsableMenu(type) {
-	const selectedContent = document.getElementById(specificContentIds[type]);
+function showTopCollapsableMenu(index, clickOrigin) {
+	
+	const selectedContent = document.getElementById(specificContentIds[index]);
 
 	for (let specCont = 0; specCont < specificContentIds.length; specCont++) {
-		//topMenuContainer.classList.remove("top-collapsable-menu-container-expanded");
-		/*topMenuContainer.style.padding = "0px";
-		topMenuContainer.style.height = "0px";*/
 		document.getElementById(specificContentIds[specCont]).style.display = "none";
 	}
-	blr[0].classList.add("top-collapsable-menu-outer-container-expanded");
-	document.body.classList.add('overflow-stop');
-	topMenuContainer.classList.add("top-collapsable-menu-container-expanded");
-	/*topMenuContainer.style.padding = "30px";
-	topMenuContainer.style.height = "300px";*/
-
 	selectedContent.style.display = "block";
 
+
+	const clickedIcon = document.getElementById(clickOrigin);
+	if (topMenuContainer.classList.contains("top-collapsable-menu-container-expanded") && clickedIcon.ariaLabel == "selected") {
+		collapseTopMenu();
+	} else {
+		//set clicked top menu icon to default
+		const topNavIcons = document.getElementsByClassName("top-nav-links");
+		for (let icon of topNavIcons) {
+			icon.ariaLabel = "not-selected";
+		}
+		topMenuContainer.classList.add("top-collapsable-menu-container-expanded");
+	}
+
+
+
+	clickedIcon.ariaLabel = "selected";
+
+	// Get arbitrary element with id "my-element"
+	const menuIcons = document.getElementsByClassName('top-menu-icons');
+
+	// Listen for click events on body
+	document.body.addEventListener('click', function(event) {
+		if (topMenuContainer.contains(event.target) || menuIcons[0].contains(event.target)) {
+			//clicked inside of top menu
+		} else {
+			//clicked outside of top menu
+			collapseTopMenu();
+		}
+
+	});
 }
 
-/*function collapseTopMenu() {
-
-	topMenuContainer.style.padding = "0px";
-	topMenuContainer.style.height = "0px";
+function collapseTopMenu() {
 	topMenuContainer.classList.remove("top-collapsable-menu-container-expanded");
 	document.getElementById(specificContentIds[specCont]).style.display = "none";
-}*/
+
+	//set clicked top menu icon to default
+	const topNavIcons = document.getElementsByClassName("top-nav-links");
+	for (let icon of topNavIcons) {
+		icon.ariaLabel = "not-selected";
+	}
+}
 
 
 
@@ -194,24 +216,24 @@ function displayItemCount() {
 		}
 	}
 }
-	
+
 
 /*//Notication bar popup(NEW) script
 const notification = document.querySelector('.notification');
 const button = document.querySelector('.trigger-button');
 
 const toggleNotification = () => {
-    notification.classList.remove('none');
-    notification.classList.toggle('hide');
+	notification.classList.remove('none');
+	notification.classList.toggle('hide');
 }
 
 document.addEventListener("click", (event) => {
-    const isClickInsideNotification = notification.contains(event.target);
-    const isButtonClicked = button.contains(event.target);
+	const isClickInsideNotification = notification.contains(event.target);
+	const isButtonClicked = button.contains(event.target);
 
-    if (!isClickInsideNotification && !isButtonClicked) {
-        notification.classList.add('hide');
-    }
+	if (!isClickInsideNotification && !isButtonClicked) {
+		notification.classList.add('hide');
+	}
 });*/
 
 
@@ -241,9 +263,9 @@ for (let container of containers) {
 
 
  container.addEventListener("mouseout", function() {
-    button.style.backgroundColor = "rgb(246, 245, 244)";
-    button.style.color = "black";
-    button.style.boxShadow = "none";
+	button.style.backgroundColor = "rgb(246, 245, 244)";
+	button.style.color = "black";
+	button.style.boxShadow = "none";
   });
 }*/
 
