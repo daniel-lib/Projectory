@@ -171,11 +171,24 @@ function showTopCollapsableMenu(index, clickOrigin) {
 
 
 	const clickedIcon = document.getElementById(clickOrigin);
+
+	const topNavIcons = document.getElementsByClassName("top-nav-links");
+
+	if (clickedIcon.classList.contains("selected"))
+		clickedIcon.classList.remove("selected");
+	else {
+		for (let icon of topNavIcons) {
+			icon.classList.remove("selected");
+		}
+		clickedIcon.classList.add("selected");
+
+		//clickedIcon.classList.add("selected");
+	}
+
 	if (topMenuContainer.classList.contains("top-collapsable-menu-container-expanded") && clickedIcon.ariaLabel == "selected") {
 		collapseTopMenu();
 	} else {
-		//set clicked top menu icon to default
-		const topNavIcons = document.getElementsByClassName("top-nav-links");
+		//set clicked top menu icon to default		
 		for (let icon of topNavIcons) {
 			icon.ariaLabel = "not-selected";
 		}
@@ -203,12 +216,13 @@ function showTopCollapsableMenu(index, clickOrigin) {
 
 function collapseTopMenu() {
 	topMenuContainer.classList.remove("top-collapsable-menu-container-expanded");
-	document.getElementById(specificContentIds[specCont]).style.display = "none";
+	//document.getElementById(specificContentIds[specCont]).style.display = "none";
 
 	//set clicked top menu icon to default
 	const topNavIcons = document.getElementsByClassName("top-nav-links");
 	for (let icon of topNavIcons) {
 		icon.ariaLabel = "not-selected";
+		icon.classList.remove("selected");
 	}
 }
 

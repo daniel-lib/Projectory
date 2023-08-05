@@ -46,6 +46,10 @@ public class Users implements Serializable{
 	@JoinTable(name = "project_members", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
 	private List<Project> joinedProjects;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy = "creator")
+	private List<TodoListCollection> createdCollection;
+	
 	public Users() {
 			
 	}
@@ -111,15 +115,27 @@ public class Users implements Serializable{
 	public String getLoginIndicator() {
 		return loginIndicator;
 	}
+	
 	public void setLoginIndicator(String loginIndicator) {
 		this.loginIndicator = loginIndicator;
 	}
+	
 	public List<Connections> getConnection() {
 		return connection;
 	}
+	
 	public void setConnection(List<Connections> connection) {
 		this.connection = connection;
 	}
+	
+	public List<TodoListCollection> getCreatedCollection() {
+		return createdCollection;
+	}
+	
+	public void setCreatedCollection(List<TodoListCollection> createdCollection) {
+		this.createdCollection = createdCollection;
+	}
+	
 	//convinience method
 	public void addUser() {
 		

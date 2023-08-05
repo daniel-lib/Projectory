@@ -50,13 +50,14 @@
 			<div class="mt-0 pt-0 " th:object="${user}">
 				<div class="top-menu-icons">
 					<div class="top-menu-links d-flex">
-						<a class="nav-link top-nav-links" onClick="showTopCollapsableMenu(1, this.id)" id="top-message-nav-link" aria-label="not-selected">
+						<a class="top-nav-links" onClick="showTopCollapsableMenu(1, this.id)" id="top-message-nav-link" aria-label="not-selected">
 							<span class="nav-icon mt-0 pt-0 fa-solid fa-message"></span></a>
-						<a class="nav-link top-nav-links" onClick="showTopCollapsableMenu(0, this.id)" id="top-notification-nav-link" aria-label="not-selected">
+						<a class="top-nav-links" onClick="showTopCollapsableMenu(0, this.id)" id="top-notification-nav-link" aria-label="not-selected">
 							<span class="nav-icon mt-0 pt-0 fa-solid fa-bell"></span></a>
 						<!--<a class="nav-link" th:href="@{/user/dashboard}"  th:text="${user.firstName}  + ' '+ ${user.lastName}">-->
-						<a class="nav-link top-nav-links" onClick="showTopCollapsableMenu(2, this.id)" id="top-user-nav-link" aria-label="not-selected">
-							<span class="nav-icon mt-0 pt-0 fa-solid fa-user"></span></a>
+						<a class="top-nav-links" onClick="showTopCollapsableMenu(2, this.id)" id="top-user-nav-link" aria-label="not-selected">
+							<span class="nav-icon mt-0 pt-0 fa-solid fa-user"></span>
+							<!--<img src="/images/newLogo1.4.2_signColor_goldrodBall(smlBall).png" height="20px" width="20px">--></a>
 					</div>
 
 					<!--top-collapsable-menu content outer container-->
