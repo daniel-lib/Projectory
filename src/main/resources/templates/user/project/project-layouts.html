@@ -144,8 +144,8 @@
 <div th:fragment="add-project-form" class="form-container mt-2 row g-3" id="add-project-form">
 	<!--style="height: 0px;"-->
 
-	<div class="row g-3">
-		<div class="col-md-6">
+	<div class="row">
+		<div class="col-md-5">
 			<label for="project-title-input" class="form-input-label">Project title</label>
 			<span class="required-field-asterisks"> *</span>
 			<input type="text" class="form-control form-control-sm" placeholder="Let's name your project"
@@ -159,22 +159,32 @@
 				<option value="Done	">Done</option>
 			</select>
 		</div>
+		
+		<!--<div class="col-md-2">
+			<label for="project-status-input" class="form-input-label">Access</label>
+			<select id="project-status-input" class="task-status form-select form-select-sm">
+				<option value="Open to all" selected>Open to all</option>
+				<option value="Need approval">Need approval</option>
+				<option value="Private	">Private</option>
+			</select>
+		</div>-->
 
-		<div class="col-md-2">
+		
+
+		<div class="col-md-3">
 			<lable for="project-deadline" class="form-input-label">Deadline</lable>
 			<input type="date" class="form-control form-control-sm" id="project-deadline" placeholder="Deadline">
 		</div>
+	</div>
 
-		<div class="col-md-12">
-			<label for="project-title-input" class="form-input-label">Description</label>
-			<textarea class="form-control form-control-sm" placeholder="Write short project description"
-				id="project-description-input" rows="3"></textarea>
-		</div>
+	<div class="col-md-12">
+		<label for="project-title-input" class="form-input-label">Description</label>
+		<textarea class="form-control form-control-sm" placeholder="Write short project description"
+			id="project-description-input" rows="3"></textarea>
+	</div>
 
-		<div class="col-md-12 mb-2">
-			<input onClick="addProject()" type="submit" value="Create Project"
-				class="btn btn-primary-golden btn-sm mt-3">
-		</div>
+	<div class="col-md-12 mb-2">
+		<input onClick="addProject()" type="submit" value="Create Project" class="btn btn-primary-golden btn-sm mt-3">
 	</div>
 </div>
 

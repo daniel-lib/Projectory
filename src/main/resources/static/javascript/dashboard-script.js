@@ -9,7 +9,28 @@ function displayViewingModal(contentType) {
 	if (contentType >= 0 || contentType <= (contents.length) - 1) {
 		contents[contentType].style.display = "block";
 		document.body.classList.add('overflow-hidden');
+
+		const nav = document.getElementsByTagName("nav");
+		nav[0].classList.add("modal-open");
+
+		modalContainer.classList.add('overflow-ver-scroll');
 	}
+
+
+
+	//close modal with esc key
+	document.onkeydown = function(evt) {
+		evt = evt || window.event;
+		var isEscape = false;
+		if ("key" in evt) {
+			isEscape = (evt.key === "Escape" || evt.key === "Esc");
+		} else {
+			isEscape = (evt.keyCode === 27);
+		}
+		if (isEscape) {
+			closeViewingModal();
+		}
+	};
 
 }
 function closeViewingModal() {
@@ -44,21 +65,11 @@ function closeViewingModal() {
 		c.style.display = "none";
 	}
 	document.body.classList.remove('overflow-hidden');
+	const nav = document.getElementsByTagName("nav");
+	nav[0].classList.remove("modal-open");
 }
 
-//close modal with esc key
-document.onkeydown = function(evt) {
-	evt = evt || window.event;
-	var isEscape = false;
-	if ("key" in evt) {
-		isEscape = (evt.key === "Escape" || evt.key === "Esc");
-	} else {
-		isEscape = (evt.keyCode === 27);
-	}
-	if (isEscape) {
-		closeViewingModal();
-	}
-};
+
 
 
 
@@ -150,7 +161,7 @@ for (let ic of itemCount) {
 const topMenuContainer = document.getElementById("top-collapsable-menu-container");
 const specificContentIds = ["notification-menu-content", "message-menu-content", "setting-menu-content"];
 function showTopCollapsableMenu(index, clickOrigin) {
-	
+
 	const selectedContent = document.getElementById(specificContentIds[index]);
 
 	for (let specCont = 0; specCont < specificContentIds.length; specCont++) {

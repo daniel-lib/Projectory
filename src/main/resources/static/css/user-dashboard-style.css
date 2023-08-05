@@ -6,6 +6,11 @@
 .user-dashboard-nav {
 	background-color: rgb(33, 37, 41);
 	height: 35px;
+	padding: 0.25rem;
+}
+
+.modal-open{
+		padding: 0.25rem 1.19rem 0.25rem 0.25rem!important;
 }
 
 .search-bar {
@@ -355,25 +360,28 @@
 	margin-right: 0%;
 	z-index: 15;
 	font-size: 30pt;
-	background-color: rgb(38, 162, 105);
+	background-color: rgba(38, 162, 105, 0.8);
+	background-color: rgb(165, 29, 45);
 	border-bottom-left-radius: 100px;
 	border-bottom-right-radius: 100px;
-	box-shadow: 0px 2px 3px rgb(0, 0, 0);
+	box-shadow: 0px 4px 3px rgb(0, 0, 0);
 	transition: 0.2s ease-in-out;
 }
 
 .viewing-modal-exit-btn:hover {
-	color: rgb(187, 156, 79);
-	color: rgb(154, 153, 150);
+	background-color: rgba(46, 194, 126, 0.8);
+	background-color: rgb(192, 28, 40);
 	color: rgb(246, 245, 244);
-	box-shadow: 0px 4px 8px rgb(0, 0, 0);
+	box-shadow: 0px 8px 4px rgb(0, 0, 0);
 	/*text-shadow: 0px 0px 6px goldenrod;*/
 }
 
 .viewing-modal-exit-btn:active {
 	/*text-shadow: 0px 5px 10px goldenrod;*/
-	box-shadow: 0px 0px 0px rgb(0, 0, 0);
-	background-color: rgb(27, 137, 86);
+	box-shadow: 0px 2px 0px rgb(0, 0, 0);
+	color: rgb(154, 153, 150);
+	background-color: rgb(29, 108, 72);
+	background-color: rgba(165, 29, 45,0.6);
 }
 
 
@@ -408,6 +416,15 @@
 .overflow-hidden {
 	overflow: hidden;
 }
+
+.overflow-ver-scroll {
+	overflow-y: scroll !important;
+}
+
+.overflow-ver-auto {
+	overflow-y: auto !important;
+}
+
 
 /*.project-modal-boxes-container {
 	width: 100%;
@@ -590,10 +607,10 @@
 
 .project-modal-inner-content-container {}
 
-.task-status {
+/*.task-status {
 	width: 57%;
 	font-size: 10pt;
-}
+}*/
 
 .task-duration {
 	width: 41%;
