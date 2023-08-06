@@ -1,5 +1,4 @@
-# Projectory
-### Project Management Tool
+# Projectory  -  #### Project Management Tool
 
 
 ## Introduction
