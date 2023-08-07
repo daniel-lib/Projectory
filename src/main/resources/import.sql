@@ -2,13 +2,27 @@
 insert into USERS (user_id, username, password, first_name, last_name, email_address) values (1, 'testuser1', 'testuser123', 'Test', 'User1', 'test1@user.com');
 insert into USERS (user_id, username, password, first_name, last_name, email_address) values (2, 'testuser2', 'testuser123', 'gebru', 'User2', 'gebru@user.com');
 insert into USERS (user_id, username, password, first_name, last_name, email_address) values (3, 'testuser3', 'testuser123', 'semhal', 'User3', 'semhal@user.com');
+insert into USERS (user_id, username, password, first_name, last_name, email_address) values (4, 'hena', '123456', 'henok', 'sertse', 'hena_s@user.com');
+insert into USERS (user_id, username, password, first_name, last_name, email_address) values (5, 'hawa2', 'pasw1', 'hewan', 'john', 'hewi2@user.com');
+insert into USERS (user_id, username, password, first_name, last_name, email_address) values (6, 'markos55', 'inthe24', 'mark', 'os', 'mark_os2@user.com');
 
+-- INSERT CONNECTIONS
+insert into CONNECTIONS (CONNECTION_ID, REQUEST_RECEIVER_USER, CONNECTION_DATE, CONNECTION_STATUS, REQUEST_SENDER_USER) values (1, 2, '01/07/2023', 'approved', 1);
+insert into CONNECTIONS (CONNECTION_ID, REQUEST_RECEIVER_USER, CONNECTION_DATE, CONNECTION_STATUS, REQUEST_SENDER_USER) values (2, 3, '01/07/2023', 'approved', 1);
+insert into CONNECTIONS (CONNECTION_ID, REQUEST_RECEIVER_USER, CONNECTION_DATE, CONNECTION_STATUS, REQUEST_SENDER_USER) values (3, 4, '01/07/2023', 'approved', 1);
+insert into CONNECTIONS (CONNECTION_ID, REQUEST_RECEIVER_USER, CONNECTION_DATE, CONNECTION_STATUS, REQUEST_SENDER_USER) values (4, 5, '01/07/2023', 'approved', 1);
+insert into CONNECTIONS (CONNECTION_ID, REQUEST_RECEIVER_USER, CONNECTION_DATE, CONNECTION_STATUS, REQUEST_SENDER_USER) values (5, 6, '01/07/2023', 'pending', 1);
 	
-insert into project (project_id, title, description, status, PROJECT_OWNER_USER_ID) values (1000, 'Project Management System', 'implement a web app to manage projects', 'Not started', 1);
-insert into project (project_id, title, description, status, PROJECT_OWNER_USER_ID) values (1001, 'File Sharing Web App', 'implement a web app to share files', 'Not started', 1);
-insert into project (project_id, title, description, status, PROJECT_OWNER_USER_ID) values (1002, 'Human Resource Management System', 'implement a web app to manage userloyees', 'Not started', 2);
+-- INSERT PROJECTS	
+insert into project (project_id, title, description, status, PROJECT_OWNER_USER_ID) values (1000, 'Project Management System', 'implement a web app to manage projects', 'In Progress', 1);
+insert into project (project_id, title, description, status, PROJECT_OWNER_USER_ID) values (1001, 'File Sharing Web App', 'implement a web app to share files', 'In Progress', 1);
+insert into project (project_id, title, description, status, PROJECT_OWNER_USER_ID) values (1002, 'Human Resource Management System', 'implement a web app to manage employees', 'Not started', 2);
+insert into project (project_id, title, description, status, PROJECT_OWNER_USER_ID) values (1003, 'Test Project 4', 'implement Test project 4', 'In Progress', 1);
+insert into project (project_id, title, description, status, PROJECT_OWNER_USER_ID) values (1004, 'Project for Testomg 5', 'implement an API gateway', 'On Hold', 1);
+insert into project (project_id, title, description, status, PROJECT_OWNER_USER_ID) values (1005, 'Seeded Project for Testing 6', 'implement a business software', 'Not started', 2);
+insert into project (project_id, title, description, status, PROJECT_OWNER_USER_ID) values (1006, 'Yet Another Test Project', 'implement a web app', 'Completed', 1);
 
--- INSERT PROJECTS
+-- INSERT PROJECTS MEMBERS
 insert into PROJECT_MEMBERS (user_id, project_id) values (1,1002);
 insert into PROJECT_MEMBERS (user_id, project_id) values (2,1000);
 insert into PROJECT_MEMBERS (user_id, project_id) values (2,1001);

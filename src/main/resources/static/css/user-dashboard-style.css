@@ -286,6 +286,28 @@
 	/*color: rgb(118, 187, 118);*/
 }
 
+.project-status-label{
+	color: rgb(255, 255, 255);
+	padding: 0.15rem;
+}
+.project-status-label-card{	
+	font-size: 10pt;
+	border-bottom-left-radius: 0.25rem;
+	}
+
+.project-status-label.In.Progress{
+	background-color: rgba(63, 185, 124,0.3);	
+}
+.project-status-label.On.Hold{
+	background-color: rgba(245, 169, 0,0.3);	
+}
+.project-status-label.Not.started{
+	background-color: rgba(242, 100, 0,0.3);	
+}
+.project-status-label.Completed{
+	background-color: rgba(52, 135, 237,0.3);	
+}
+
 /*.fa-solid:not(.nav-icon, #side-menu-toggle, #side-nav-arrow, fa-regular) {
 	color: rgb(118, 187, 118);
 }*/
@@ -547,8 +569,8 @@
 
 .list-items {
 	color: rgb(222, 221, 218);
-	background-color: rgba(255, 163, 72, 0.2);
-	border-radius: 0.5rem;
+	background-color: rgba(181, 131, 90, 0.2);
+	border-radius: 0.25rem;
 }
 
 .collection-show-more-btn {

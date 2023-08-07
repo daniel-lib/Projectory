@@ -19,10 +19,10 @@ public class Connections implements Serializable {
 	private long connectionId;
 	private String connectionDate;
 	private String connectionStatus; //pending, accepted, blocked, 
-	private Long connectedUser;
+	private Long requestReceiverUser;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "request_sender_user")
 	Users userWithConnection;
 
 	
@@ -64,11 +64,11 @@ public class Connections implements Serializable {
 	}
 
 	public Long getConnectedUser() {
-		return connectedUser;
+		return requestReceiverUser;
 	}
 
-	public void setConnectedUser(Long connectedUser) {
-		this.connectedUser = connectedUser;
+	public void setConnectedUser(Long requestReceiverUser) {
+		this.requestReceiverUser = requestReceiverUser;
 	}
 
 	public Users getUserWithConnection() {

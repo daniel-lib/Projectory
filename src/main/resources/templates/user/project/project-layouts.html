@@ -42,6 +42,7 @@
 						<span th:text="${proj.status}" class="fw-lighter modal-project-status"></span>
 						<br />
 						<span th:text="${proj.description}" class="fw-lighter"></span>
+						<span th:class="d-block +' '+project-status-label +' '+${proj.status}" th:text="${proj.status}"></span>
 						<br />
 
 
@@ -159,7 +160,7 @@
 				<option value="Done	">Done</option>
 			</select>
 		</div>
-		
+
 		<!--<div class="col-md-2">
 			<label for="project-status-input" class="form-input-label">Access</label>
 			<select id="project-status-input" class="task-status form-select form-select-sm">
@@ -169,7 +170,7 @@
 			</select>
 		</div>-->
 
-		
+
 
 		<div class="col-md-3">
 			<lable for="project-deadline" class="form-input-label">Deadline</lable>
@@ -238,6 +239,7 @@
 						<br />
 						<span th:text="${proj.description}"
 							class="fw-lighter dashboard-card-content-description p-1 ps-2 d-block"></span>
+						<span th:class="project-status-label-card+' '+project-status-label +' '+${proj.status}" th:text="${proj.status}"></span>
 					</div>
 				</div>
 			</div>
