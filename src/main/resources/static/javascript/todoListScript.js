@@ -1,4 +1,17 @@
-/*<script th:fragment = "edit-item-script">*/
+function scrollToSpecificCollection(collectionId){
+	
+	//document.getElementById(collectionId).scrollIntoView();
+	
+	window.setTimeout(test, 100);
+	
+	function test(){
+		const collection = document.getElementById(collectionId);
+	collection.scrollIntoView();
+	//alert(collectionId);
+	}
+	
+}
+
 function editItem(id) {
 
 	document.getElementById(id).contentEditable;

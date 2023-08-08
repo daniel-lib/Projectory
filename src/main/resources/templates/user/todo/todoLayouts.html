@@ -25,7 +25,7 @@
 
 
 	<div th:object="${TodoCollections}">
-		<div class="todo-collection my-3 pt-1" th:each="collection : ${TodoCollections}">
+		<div class="todo-collection my-3 pt-1" th:each="collection : ${TodoCollections}"  th:id="todo-collection-box-+''+${collection.todoCollectionId}">
 			<div class="collection-date d-flex flex-wrap justify-content-between">
 				<span class="info-tag-dark align-self-start">Created on: <span
 						th:text="${collection.creationDate}"></span></span>
@@ -63,23 +63,25 @@
 
 		<div th:object="${TodoCollections}" class="dashboard-card-content-container-inner m-0 custom-scrollbar-style-3">
 			<!--displaying collection on card-->
-			<div class="dashboard-card-content-items p-1 m-1 mb-3" th:each="collection : ${TodoCollections}">
-				<div class="collection-date d-flex flex-wrap justify-content-between">
-					<span class="todo-collection-name align-self-start ps-3 pe-3"><span
-							th:text="${collection.collectionTitle}"></span></span>
-					<span class="info-tag-dark align-self-start">Last modified: <span
-							th:text="${collection.modificationDate}"></span></span>
-				</div>
-
-
-				<div th:each="item : ${collection.todoListItems}">
-					<div class="list-items mb-1 p-1">
-						<span th:text="${item.title}" class=""></span>
+			<div class="dashboard-card-content-items dashboard-card-collection-items p-1 m-1 mb-3"
+				th:each="collection : ${TodoCollections}">
+				<div class="dashboard-card-content-items-inner">
+					<div class="collection-date d-flex flex-wrap justify-content-between">
+						<span class="todo-collection-name align-self-start ps-3 pe-3"><span
+								th:text="${collection.collectionTitle}"></span></span>
+						<span class="info-tag-dark align-self-start">Last modified: <span
+								th:text="${collection.modificationDate}"></span></span>
+					</div>
+					
+					<div th:each="item : ${collection.todoListItems}">
+						<div class="list-items mb-1 p-1">
+							<span th:text="${item.title}" class=""></span>
+						</div>
 					</div>
 				</div>
 
-				<div role="button" class="collection-show-more-btn">
-					<span role="button">open collection</span>
+				<div role="button" class="collection-show-more-btn" style=" z-index: 2000;">
+					<span role="button" th:onclick="scrollToSpecificCollection('todo-collection-box-[[${collection.todoCollectionId}]]')">open collection</span>
 				</div>
 			</div>
 		</div>
@@ -108,7 +110,7 @@
 			Delete <span class="badge text-bg-info" id="number-of-items-badge">0</span> Items
 		</button>
 		<br /><br />
-		<div class="d-block">
+		<div class="d-block todo-list-display-box custom-scrollbar-style-3">
 			<div th:each="item : ${collection.todoListItems}">
 
 				<div class="list-items">
@@ -184,11 +186,12 @@
 	<div class="p-2">
 
 		<span class="search-bar d-flex">
-			<input type="text" class="subtle-form-input p-2" placeholder="What would you like to add?"
-				id="title-input" autofocus>
-				<span role="button" th:onClick="addTodo([[${collection.todoCollectionId}]])" class="subtle-form-btn d-inline p-2">
-					<span class="fa-solid fa-circle-plus"></span>
-					 Add Item</span>
+			<input type="text" class="subtle-form-input p-2" placeholder="What would you like to add?" id="title-input"
+				autofocus>
+			<span role="button" th:onClick="addTodo([[${collection.todoCollectionId}]])"
+				class="subtle-form-btn d-inline p-2">
+				<span class="fa-solid fa-circle-plus"></span>
+				Add Item</span>
 		</span>
 
 	</div>

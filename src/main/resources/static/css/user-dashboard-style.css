@@ -579,345 +579,360 @@
 
 .todo-collection:hover {
 	background-color: rgba(47, 79, 79, 0.2);
+}
+
+.todo-collection-name {
+	font-size: larger;
+	color: antiquewhite;
+	border-bottom: 2px ridge goldenrod;
+	border-radius: 0.5rem;
+}
+
+.todo-list-display-box {
+	max-height: 200px;
+	overflow-y: scroll;
+}
+
+.list-items {
+	color: rgb(222, 221, 218);
+	background-color: rgba(181, 131, 90, 0.2);
+	border-radius: 0.25rem;
+}
+
+.collection-show-more-btn {
+	background-color: rgb(36, 31, 49);
+	text-align: center;
+	text-justify: center;
+	width: 100%;
+	border-bottom-left-radius: 0.5rem;
+	border-bottom-right-radius: 0.5rem;
+	transition: 0.2s ease-in-out
+}
+
+.collection-show-more-btn:hover {
+	background-color: rgb(15, 12, 22);
 	}
 
-	.todo-collection-name {
-		font-size: larger;
-		color: antiquewhite;
-		border-bottom: 2px ridge goldenrod;
-		border-radius: 0.5rem;
-	}
+.add-project-task-btn-text {
+	font-size: 10pt;
+}
 
-	.list-items {
-		color: rgb(222, 221, 218);
-		background-color: rgba(181, 131, 90, 0.2);
-		border-radius: 0.25rem;
-	}
+.add-project-task-form {
+	/*display: none;*/
+	/*height: 0px;*/
+	transition: 0.3s ease-in-out;
+	overflow: hidden;
+}
 
-	.collection-show-more-btn {
-		background-color: #4a4a4a;
-		text-align: center;
-		text-justify: center;
-		width: 100%;
-		border-bottom-left-radius: 0.5rem;
-		border-bottom-right-radius: 0.5rem;
-	}
+.item-display-table {}
 
-	.add-project-task-btn-text {
-		font-size: 10pt;
-	}
+.project-modal-boxes {
+	border-radius: 0.3rem;
+	transition: 0.2s ease-in-out;
+	overflow: hidden;
+}
 
-	.add-project-task-form {
-		/*display: none;*/
-		/*height: 0px;*/
-		transition: 0.3s ease-in-out;
-		overflow: hidden;
-	}
-
-	.item-display-table {}
-
-	.project-modal-boxes {
-		border-radius: 0.3rem;
-		transition: 0.2s ease-in-out;
-		overflow: hidden;
-	}
-
-	.project-modal-boxes-default {
-		width: 270px;
-		height: 350px;
-		/*background-color: rgb(36, 31, 49);
+.project-modal-boxes-default {
+	width: 270px;
+	height: 350px;
+	/*background-color: rgb(36, 31, 49);
 	border: 3px solid rgb(94, 92, 100);*/
 
-		border: 2px dashed rgb(119, 118, 123);
-		/*border-bottom: 2px ridge rgb(51, 209, 122);*/
-		background-color: rgba(61, 56, 70, 0.5);
-		border-radius: 0.5rem;
-	}
+	border: 2px dashed rgb(119, 118, 123);
+	/*border-bottom: 2px ridge rgb(51, 209, 122);*/
+	background-color: rgba(61, 56, 70, 0.5);
+	border-radius: 0.5rem;
+}
 
-	.todo-collection {}
+.todo-collection {}
 
-	.project-modal-boxes-expanded {
-		width: 100% !important;
-		height: 100% !important;
-		background-color: rgb(12 12 12) !important;
-		background-color: rgb(17, 17, 17) !important;
-		border-top: 3px solid rgb(118, 187, 118) !important;
-		border-bottom: 3px solid rgb(118, 187, 118) !important;
-	}
+.project-modal-boxes-expanded {
+	width: 100% !important;
+	height: 100% !important;
+	background-color: rgb(12 12 12) !important;
+	background-color: rgb(17, 17, 17) !important;
+	border-top: 3px solid rgb(118, 187, 118) !important;
+	border-bottom: 3px solid rgb(118, 187, 118) !important;
+}
 
-	.project-modal-boxes-extra-info {
-		border: 1px solid rgb(94, 92, 100);
-	}
+.project-modal-boxes-extra-info {
+	border: 1px solid rgb(94, 92, 100);
+}
 
-	/*.project-modal-boxes:hover {
+/*.project-modal-boxes:hover {
 	background: rgba(0, 0, 0, 0.2);
 	pointer-events: auto;
 }*/
 
-	.project-modal-boxes-inner {
-		border: 1px solid rgb(61, 56, 70);
-		/*background-color: rgb(32, 27, 45);*/
-		/*box-shadow: 0px 0px 15px 1px rgba(61, 56, 70,0.5);*/
-		border-radius: 0.3rem;
-		transition: 0.2s ease-in-out;
-		overflow: hidden;
+.project-modal-boxes-inner {
+	border: 1px solid rgb(61, 56, 70);
+	/*background-color: rgb(32, 27, 45);*/
+	/*box-shadow: 0px 0px 15px 1px rgba(61, 56, 70,0.5);*/
+	border-radius: 0.3rem;
+	transition: 0.2s ease-in-out;
+	overflow: hidden;
 
-		border-radius: 0.75rem;
-		box-shadow: 1px 3px 0 rgb(61, 56, 70), 0 1px 2px -1px rgb(61, 56, 70);
-	}
+	border-radius: 0.75rem;
+	box-shadow: 1px 3px 0 rgb(61, 56, 70), 0 1px 2px -1px rgb(61, 56, 70);
+}
 
-	.test {
-		border: 1px solid rgb(61, 56, 70);
-		border-radius: 0.75rem;
-		box-shadow: 1px 3px 0 rgb(61, 56, 70), 0 1px 2px -1px rgb(61, 56, 70);
-	}
+.test {
+	border: 1px solid rgb(61, 56, 70);
+	border-radius: 0.75rem;
+	box-shadow: 1px 3px 0 rgb(61, 56, 70), 0 1px 2px -1px rgb(61, 56, 70);
+}
 
-	.project-modal-inner-content-container {}
+.project-modal-inner-content-container {}
 
-	/*.task-status {
+/*.task-status {
 	width: 57%;
 	font-size: 10pt;
 }*/
 
-	.task-duration {
-		width: 41%;
-		font-size: 10pt;
-	}
+.task-duration {
+	width: 41%;
+	font-size: 10pt;
+}
 
 
-	.modal-project-task-container,
-	.dashboard-card-content-container {
-		/*height: 200px;
+.modal-project-task-container,
+.dashboard-card-content-container {
+	/*height: 200px;
 	overflow: auto;*/
-		border: 1px solid rgb(61, 56, 70);
-		border-radius: 0.5rem;
-		color: rgb(205, 171, 143);
-	}
+	border: 1px solid rgb(61, 56, 70);
+	border-radius: 0.5rem;
+	color: rgb(205, 171, 143);
+}
 
-	.modal-project-task-container-inner,
-	.dashboard-card-content-container-inner {
-		overflow: auto;
-		max-height: 200px;
-	}
+.modal-project-task-container-inner,
+.dashboard-card-content-container-inner {
+	overflow: auto;
+	max-height: 200px;
+}
 
-	.dashboard-card-project-task-container-inner {
-		height: 230px;
-	}
+.dashboard-card-project-task-container-inner {
+	height: 230px;
+}
 
-	.project-task-status {
-		background-color: rgba(154, 153, 150, 0.2) !important;
-		background-color: rgba(255, 255, 255, .05) !important;
-		color: rgb(158, 158, 158);
-		color: rgb(145, 145, 145);
-		padding: 0.2rem;
-		border-radius: 0.5rem;
-		font-size: 10pt;
-		width: auto;
-	}
+.project-task-status {
+	background-color: rgba(154, 153, 150, 0.2) !important;
+	background-color: rgba(255, 255, 255, .05) !important;
+	color: rgb(158, 158, 158);
+	color: rgb(145, 145, 145);
+	padding: 0.2rem;
+	border-radius: 0.5rem;
+	font-size: 10pt;
+	width: auto;
+}
 
-	.modal-project-task-items,
-	.dashboard-card-content-items {
-		color: rgb(222, 221, 218);
-		background-color: rgb(61, 56, 70);
-		border-radius: 0.5rem;
-	}
+.modal-project-task-items,
+.dashboard-card-content-items {
+	color: rgb(222, 221, 218);
+	background-color: rgb(61, 56, 70);
+	border-radius: 0.5rem;
+}
 
-	.modal-project-task-description,
-	.dashboard-card-content-description {
-		font-weight: 100;
-		border-left: 1px dashed rgb(205, 171, 143);
-		border-bottom-left-radius: 0.8rem;
-	}
+.dashboard-card-content-items-inner {
+	overflow: hidden;
+	max-height: 150px;
+}
 
-	/*.project-modal-boxes:hover + .expand-btn {
+.modal-project-task-description,
+.dashboard-card-content-description {
+	font-weight: 100;
+	border-left: 1px dashed rgb(205, 171, 143);
+	border-bottom-left-radius: 0.8rem;
+}
+
+/*.project-modal-boxes:hover + .expand-btn {
 	background-color: aqua;
 	opacity: 0.5;
 }
 */
-	.project-owner-indicator {
-		top: 0;
-		left: 0;
-		/*color: goldenrod;*/
-	}
+.project-owner-indicator {
+	top: 0;
+	left: 0;
+	/*color: goldenrod;*/
+}
 
-	.info-tag-dark-sm {
-		font-size: 8pt !important;
-	}
+.info-tag-dark-sm {
+	font-size: 8pt !important;
+}
 
-	.info-tag-dark {
-		background-color: rgba(154, 153, 150, 0.2) !important;
-		background-color: rgba(255, 255, 255, .05) !important;
-		color: rgb(158, 158, 158);
-		color: rgb(145, 145, 145);
-		padding: 0.2rem;
-		border-radius: 0.2rem;
-		font-size: 10pt;
-	}
+.info-tag-dark {
+	background-color: rgba(154, 153, 150, 0.2) !important;
+	background-color: rgba(255, 255, 255, .05) !important;
+	color: rgb(158, 158, 158);
+	color: rgb(145, 145, 145);
+	padding: 0.2rem;
+	border-radius: 0.2rem;
+	font-size: 10pt;
+}
 
-	.info-tag-light {
-		/*container bg should be #f0f4f4*/
-		background-color: rgba(0, 0, 0, .05) !important;
-		color: #4a4a4a;
-	}
+.info-tag-light {
+	/*container bg should be #f0f4f4*/
+	background-color: rgba(0, 0, 0, .05) !important;
+	color: #4a4a4a;
+}
 
-	.modal-project-status {
-		color: rgb(192, 97, 203);
-	}
+.modal-project-status {
+	color: rgb(192, 97, 203);
+}
 
-	.expand-btn {
-		position: absolute;
-		z-index: 300;
-	}
+.expand-btn {
+	position: absolute;
+	z-index: 300;
+}
 
-	#d1 {
-		/*margin-left: 20%;*/
-		background-color: rgb(53, 132, 228) !important;
+#d1 {
+	/*margin-left: 20%;*/
+	background-color: rgb(53, 132, 228) !important;
 
-	}
+}
 
-	#d2 {
-		/*margin-left: 20%;*/
-		background-color: rgb(38, 162, 105) !important;
-		margin-left: -50px;
-	}
+#d2 {
+	/*margin-left: 20%;*/
+	background-color: rgb(38, 162, 105) !important;
+	margin-left: -50px;
+}
 
-	#viewing-modal {
-		color: antiquewhite !important;
-	}
+#viewing-modal {
+	color: antiquewhite !important;
+}
 
-	.item-display-table {
-		color: white !important;
-	}
+.item-display-table {
+	color: white !important;
+}
 
-	.metrics-and-report {
-		/*margin-left: 50px;*/
-		padding-left: 50px;
-		width: 100%;
+.metrics-and-report {
+	/*margin-left: 50px;*/
+	padding-left: 50px;
+	width: 100%;
 
-		margin-top: 20px;
-		background-color: rgba(222, 221, 218, 0.5);
-		/*border: 1px solid rgba(0, 0, 0, 0.175);
+	margin-top: 20px;
+	background-color: rgba(222, 221, 218, 0.5);
+	/*border: 1px solid rgba(0, 0, 0, 0.175);
 	border-width: 1px 0;*/
-		/*border-radius: calc(0.375rem - 1px);*/
+	/*border-radius: calc(0.375rem - 1px);*/
+}
+
+.charts {
+	margin: 1.5em 1.5em 1.5em 0;
+}
+
+.project-status-chart {
+	/*height: 600px;*/
+	weight: 600px;
+	margin-bottom: 40px;
+}
+
+.dashboard-footer {
+	z-index: 1000 !important;
+	bottom: 0;
+	/*position: sticky;*/
+}
+
+
+/*	applied to:	.user-dashboard-cards*/
+.custom-scrollbar-style::-webkit-scrollbar {
+	width: 12px;
+	/* width of the entire scrollbar */
+	cursor: pointer;
+}
+
+.custom-scrollbar-style::-webkit-scrollbar-track {
+	background: rgb(222, 221, 218);
+	/* color of the tracking area */
+	/*background-color: rgba(222, 221, 218,0.6);*/
+	background-color: rgb(94, 92, 100);
+}
+
+.custom-scrollbar-style::-webkit-scrollbar-thumb {
+	background-color: rgb(118, 187, 118);
+	/* color of the scroll thumb */
+	border-radius: 20px;
+	/* roundness of the scroll thumb */
+	border: 3px solid rgb(118, 187, 118);
+	/* creates padding around scroll thumb */
+	transition: all 0.8s ease-in-out;
+	box-shadow: 0px 6px 6px rgb(19, 14, 34);
+}
+
+.custom-scrollbar-style::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(118, 187, 118, 0.8);
+	border: 3px solid rgba(118, 187, 118, 0.8);
+}
+
+
+/*	applied to:	#viewing-modal*/
+/* thiner line */
+/* future proof method? */
+/* Works on Firefox */
+.custom-scrollbar-style-2 {
+	scrollbar-width: thin;
+	scrollbar-color: rgb(118, 187, 118) rgb(222, 221, 218);
+}
+
+/* Works on Chrome, Edge, and Safari */
+.custom-scrollbar-style-2::-webkit-scrollbar {
+	width: 12px;
+}
+
+.custom-scrollbar-style-2::-webkit-scrollbar-track {
+	background: rgb(222, 221, 218);
+}
+
+.custom-scrollbar-style-2::-webkit-scrollbar-thumb {
+	background-color: rgb(118, 187, 118);
+	border-radius: 25px;
+	border: 3px solid rgb(222, 221, 218);
+}
+
+.custom-scrollbar-style-2::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(118, 187, 118, 0.8);
+	border: 3px solid rgba(222, 221, 218, 0.8);
+}
+
+
+.custom-scrollbar-style-3 {
+	scrollbar-width: thin;
+	scrollbar-color: rgb(118, 187, 118) rgb(222, 221, 218);
+}
+
+/* Works on Chrome, Edge, and Safari */
+.custom-scrollbar-style-3::-webkit-scrollbar {
+	width: 12px;
+}
+
+.custom-scrollbar-style-3::-webkit-scrollbar-track {
+	background: rgb(61, 56, 70);
+	border-radius: 50px;
+}
+
+.custom-scrollbar-style-3::-webkit-scrollbar-thumb {
+	background-color: rgb(118, 187, 118);
+	border-radius: 20px;
+	border: 3px solid rgb(61, 56, 70);
+	box-shadow: 0px 2px 4px rgb(154, 153, 150);
+	box-shadow: 0px 4px 4px rgb(19, 14, 34);
+
+}
+
+.custom-scrollbar-style-3::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(118, 187, 118, 0.8);
+	border: 3px solid rgba(61, 56, 70, 0.8);
+}
+
+
+@media (max-width: 900px) {
+	.viewing-modal-header {
+		margin-left: 15% !important;
 	}
 
-	.charts {
-		margin:1.5em 1.5em 1.5em 0;
+}
+
+@media (max-width: 790px) {
+	.project-modal-boxes {
+		width: 100%;
 	}
-
-	.project-status-chart {
-		/*height: 600px;*/
-		weight: 600px;
-		margin-bottom: 40px;
-	}
-
-	.dashboard-footer {
-		z-index: 1000 !important;
-		bottom: 0;
-		/*position: sticky;*/
-	}
-
-
-	/*	applied to:	.user-dashboard-cards*/
-	.custom-scrollbar-style::-webkit-scrollbar {
-		width: 12px;
-		/* width of the entire scrollbar */
-		cursor: pointer;
-	}
-
-	.custom-scrollbar-style::-webkit-scrollbar-track {
-		background: rgb(222, 221, 218);
-		/* color of the tracking area */
-		/*background-color: rgba(222, 221, 218,0.6);*/
-		background-color: rgb(94, 92, 100);
-	}
-
-	.custom-scrollbar-style::-webkit-scrollbar-thumb {
-		background-color: rgb(118, 187, 118);
-		/* color of the scroll thumb */
-		border-radius: 20px;
-		/* roundness of the scroll thumb */
-		border: 3px solid rgb(118, 187, 118);
-		/* creates padding around scroll thumb */
-		transition: all 0.8s ease-in-out;
-		box-shadow: 0px 6px 6px rgb(19, 14, 34);
-	}
-
-	.custom-scrollbar-style::-webkit-scrollbar-thumb:hover {
-		background-color: rgba(118, 187, 118, 0.8);
-		border: 3px solid rgba(118, 187, 118, 0.8);
-	}
-
-
-	/*	applied to:	#viewing-modal*/
-	/* thiner line */
-	/* future proof method? */
-	/* Works on Firefox */
-	.custom-scrollbar-style-2 {
-		scrollbar-width: thin;
-		scrollbar-color: rgb(118, 187, 118) rgb(222, 221, 218);
-	}
-
-	/* Works on Chrome, Edge, and Safari */
-	.custom-scrollbar-style-2::-webkit-scrollbar {
-		width: 12px;
-	}
-
-	.custom-scrollbar-style-2::-webkit-scrollbar-track {
-		background: rgb(222, 221, 218);
-	}
-
-	.custom-scrollbar-style-2::-webkit-scrollbar-thumb {
-		background-color: rgb(118, 187, 118);
-		border-radius: 25px;
-		border: 3px solid rgb(222, 221, 218);
-	}
-
-	.custom-scrollbar-style-2::-webkit-scrollbar-thumb:hover {
-		background-color: rgba(118, 187, 118, 0.8);
-		border: 3px solid rgba(222, 221, 218, 0.8);
-	}
-
-
-	.custom-scrollbar-style-3 {
-		scrollbar-width: thin;
-		scrollbar-color: rgb(118, 187, 118) rgb(222, 221, 218);
-	}
-
-	/* Works on Chrome, Edge, and Safari */
-	.custom-scrollbar-style-3::-webkit-scrollbar {
-		width: 12px;
-	}
-
-	.custom-scrollbar-style-3::-webkit-scrollbar-track {
-		background: rgb(61, 56, 70);
-		border-radius: 50px;
-	}
-
-	.custom-scrollbar-style-3::-webkit-scrollbar-thumb {
-		background-color: rgb(118, 187, 118);
-		border-radius: 20px;
-		border: 3px solid rgb(61, 56, 70);
-		box-shadow: 0px 2px 4px rgb(154, 153, 150);
-		box-shadow: 0px 4px 4px rgb(19, 14, 34);
-
-	}
-
-	.custom-scrollbar-style-3::-webkit-scrollbar-thumb:hover {
-		background-color: rgba(118, 187, 118, 0.8);
-		border: 3px solid rgba(61, 56, 70, 0.8);
-	}
-
-
-	@media (max-width: 900px) {
-		.viewing-modal-header {
-			margin-left: 15% !important;
-		}
-
-	}
-
-	@media (max-width: 790px) {
-		.project-modal-boxes {
-			width: 100%;
-		}
-	}
+}
