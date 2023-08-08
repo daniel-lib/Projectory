@@ -8,8 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.app.projectory.doa.ProjectRepository;
-import com.app.projectory.doa.UsersRepository;
+import com.app.projectory.dao.ProjectRepository;
+import com.app.projectory.dao.UsersRepository;
 import com.app.projectory.entity.Project;
 import com.app.projectory.entity.Users;
 

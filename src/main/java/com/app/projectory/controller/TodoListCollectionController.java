@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.app.projectory.doa.TodoListCollectionRepository;
+import com.app.projectory.dao.TodoListCollectionRepository;
 import com.app.projectory.entity.TodoListCollection;
 
 @Controller

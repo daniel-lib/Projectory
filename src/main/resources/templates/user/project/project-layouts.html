@@ -47,7 +47,7 @@
 
 
 						<!-- add task / members buttons-->
-						<div class="mt-4 d-flex justify-content-evenly">
+						<div class="mt-1 d-flex justify-content-evenly">
 							<button id="add-project-task-button" role="button"
 								class="minimalist-btn minimalist-btn-blk-bg minimalist-btn-rounded add-project-task-button"
 								th:onClick="showAddProjectTaskForm(this.id)" th:id="${proj.projectId}">
@@ -95,8 +95,8 @@
 						<!--display Project tasks-->
 						<hr />
 						<div class="modal-project-task-container p-1">
-							<h6 class="project-task-title mt-2">Tasks</h6>
-							<p class="card-text fw-lighter item-count-check" th:text="${projectTaskCount}"></p><br />
+							<h6 class="project-task-title mt-2 ms-2">Tasks</h6>
+							<p class="card-text fw-lighter item-count-check" th:text="${projectTaskCount}"></p>
 							<div class="modal-project-task-container-inner custom-scrollbar-style-3">
 								<div th:each="task : ${proj.projectTasks}">
 									<div class="modal-project-task-items p-1 m-1">

@@ -1,4 +1,4 @@
-package com.app.projectory.doa;
+package com.app.projectory.dao;
 
 import java.util.List;
 

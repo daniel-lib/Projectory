@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.app.projectory.doa.UsersRepository;
+import com.app.projectory.dao.UsersRepository;
 import com.app.projectory.entity.Users;
 import com.app.projectory.service.UserLoginService;
 

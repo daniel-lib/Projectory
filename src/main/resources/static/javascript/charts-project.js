@@ -1,3 +1,7 @@
+var structuredData = toHtml(ProjectStatusCount);
+var jsonArray = JSON.parse(structuredData);
+alert(jsonArray[0]);
+
  const projectsChart = document.getElementById('projects-chart');
  new Chart(projectsChart, {	  
     type: 'pie',
@@ -18,3 +22,8 @@
       }
     }
   });
+  function toHtml(data){
+	  var txt = document.createElement("textarea");
+	  txt.innerHTML = txt;
+	  return txt.value;
+  }

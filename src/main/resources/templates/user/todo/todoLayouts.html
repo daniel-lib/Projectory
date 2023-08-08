@@ -49,8 +49,9 @@
 
 
 <!--todo list card started-->
-<div th:fragment="todo-list-dashboard-card" class="card user-dashboard-cards todo-list-card card user-dashboard-cards custom-scrollbar-style"
-	 style="width: 18rem;" onclick="displayViewingModal(0)">
+<div th:fragment="todo-list-dashboard-card"
+	class="card user-dashboard-cards todo-list-card card user-dashboard-cards custom-scrollbar-style"
+	style="width: 18rem;" onclick="displayViewingModal(0)">
 	<div class="card-header d-flex">
 		<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-list" alt="to-do icon"></span>
 		<h5 class="card-title dashboard-card-title">Todo List</h5>
@@ -58,9 +59,10 @@
 	<div class="card-body p-1">
 
 		<p class="card-text fw-lighter mb-0 item-count item-count-check" th:text="${itemCount}"></p>
-		
 
-		<div th:object="${TodoCollections}" class="dashboard-card-content-container-inner m-0 custom-scrollbar-style-3" > <!--displaying collection on card-->
+
+		<div th:object="${TodoCollections}" class="dashboard-card-content-container-inner m-0 custom-scrollbar-style-3">
+			<!--displaying collection on card-->
 			<div class="dashboard-card-content-items p-1 m-1 mb-3" th:each="collection : ${TodoCollections}">
 				<div class="collection-date d-flex flex-wrap justify-content-between">
 					<span class="todo-collection-name align-self-start ps-3 pe-3"><span
@@ -71,8 +73,8 @@
 
 
 				<div th:each="item : ${collection.todoListItems}">
-					<div class="list-items mb-1 p-1">														
-							<span th:text="${item.title}" class=""></span>
+					<div class="list-items mb-1 p-1">
+						<span th:text="${item.title}" class=""></span>
 					</div>
 				</div>
 
@@ -81,12 +83,10 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="todo-card-btns mt-2">
-			<input type="button" class="minimalist-btn-lighter btn-sm add-todo-item-btn"
-			onClick="showAddTodoItemForm('card')" value="Add Item">
-		<input type="button" class="minimalist-btn-lighter btn-sm add-todo-collection-btn"
-			onClick="showAddTodoCollectionForm('card')" value="Add New Collection">
+			<input type="button" class="minimalist-btn-lighter btn-sm add-todo-collection-btn"
+				onClick="showAddTodoCollectionForm('card')" value="Add New Collection">
 		</div>
 
 	</div>
@@ -96,8 +96,6 @@
 <!--display todo list items started-->
 <div th:fragment="displayItems" class="item-display-table p-2">
 	<div class="d-flex">
-		<input type="button" class="btn btn-primary-white btn-sm mt-3 mx-3 add-todo-item-btn"
-			onClick="showAddTodoItemForm()" value="Add Item">
 		<button class="minimalist-btn minimalist-btn-blk-bg btn-sm mt-3" onClick="addContributersForm()">Add
 			contributers</button>
 	</div>
@@ -181,13 +179,18 @@
 
 
 <!--add todo item form-->
-<div th:fragment="add-todo-item-form" class="form-container mt-4 add-todo-item-form overflow-hidden d-flex"
-	id="add-todo-item-form" style="height: 0; padding: 0;">
-	<div>
+<div th:fragment="add-todo-item-form" class="form-container-subtle mt-4 add-todo-item-form overflow-hidden d-flex"
+	id="add-todo-item-form">
+	<div class="p-2">
 
-		<input type="text" class="form-control mt-3" placeholder="Item title" id="title-input" autofocus>
-		<input th:onClick="addTodo([[${collection.todoCollectionId}]])" type="submit" value="Add Item"
-			class="btn btn-primary-golden btn-sm mt-3">
+		<span class="search-bar d-flex">
+			<input type="text" class="subtle-form-input p-2" placeholder="What would you like to add?"
+				id="title-input" autofocus>
+				<span role="button" th:onClick="addTodo([[${collection.todoCollectionId}]])" class="subtle-form-btn d-inline p-2">
+					<span class="fa-solid fa-circle-plus"></span>
+					 Add Item</span>
+		</span>
+
 	</div>
 </div>
 

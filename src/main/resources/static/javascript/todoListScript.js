@@ -114,34 +114,6 @@ function hideNotificationBoard() {
 /*</script>*/
 
 
-//show "add todo list item" form
-function showAddTodoItemForm(source) {
-	const addTodoItemForm = document.getElementById("add-todo-item-form");
-	const AddTodoItemBtn = document.getElementsByClassName("add-todo-item-btn");
-	if (source == "card") {//if the click comes from dashboard card instead of modal
-		//createItemButtonToDefault();		
-		//change the state of "Create Project" button to default state
-		addTodoItemForm.style.height = 0;
-		addTodoItemForm.style.padding = "0";
-	}
-
-	if (addTodoItemForm.style.height == "0px") {
-		addTodoItemForm.style.height = "240px";
-		addTodoItemForm.style.padding = "1.5rem";
-		for (let btns of AddTodoItemBtn) {
-			btns.value = "Exit Form";
-		}
-	}
-	else {
-		addTodoItemForm.style.height = 0;
-		addTodoItemForm.style.padding = "0";
-		for (let btns of AddTodoItemBtn) {
-			btns.value = "Add Item";
-		}
-	}
-}
-
-
 
 
 //add new collection script

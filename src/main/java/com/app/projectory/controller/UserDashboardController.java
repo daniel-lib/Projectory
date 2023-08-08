@@ -1,6 +1,8 @@
 package com.app.projectory.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +13,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.app.projectory.doa.ProjectRepository;
-import com.app.projectory.doa.ProjectTaskRepository;
-import com.app.projectory.doa.TodoListCollectionRepository;
-import com.app.projectory.doa.TodoListRepository;
-import com.app.projectory.doa.UsersRepository;
+import com.app.projectory.dao.ProjectRepository;
+import com.app.projectory.dao.ProjectTaskRepository;
+import com.app.projectory.dao.TodoListCollectionRepository;
+import com.app.projectory.dao.TodoListRepository;
+import com.app.projectory.dao.UsersRepository;
+import com.app.projectory.dto.ProjectStatusCount;
 import com.app.projectory.entity.Project;
 import com.app.projectory.entity.ProjectTasks;
 import com.app.projectory.entity.Todo;
 import com.app.projectory.entity.TodoListCollection;
 import com.app.projectory.entity.Users;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping("/user")
@@ -43,7 +48,7 @@ public class UserDashboardController {
 	
 	
 	@GetMapping("/dashboard")
-	public String displayUserDashboard(Model model, Todo todo) {
+	public String displayUserDashboard(Model model, Todo todo) throws JsonProcessingException {
 //		return "/user/user-dashboard?indicator = pass"; 
 		List<Todo> fetchedItems = todoData.findAll();
 		List<Project> projectsList = projDao.findAll();
@@ -51,7 +56,13 @@ public class UserDashboardController {
 		List<ProjectTasks> projectTasks = projTaskDao.findAll();
 		List<TodoListCollection> collection = collectionDao.findAll();
 		
-		/* Users LoggedInUser = userLgServ.getByUsername(user.getUsername()); */
+		List<ProjectStatusCount> StatusCount = projDao.countProjectStatus();
+		Map<String, ProjectStatusCount> StatusCntMap = new HashMap<>();
+		ObjectMapper objectMapper = new ObjectMapper();
+		for(ProjectStatusCount obj : StatusCount)
+		StatusCntMap.put(obj.getStatusLabel() , obj);		
+		String jsonString = objectMapper.writeValueAsString(StatusCntMap);
+		model.addAttribute("ProjectStatusCount",jsonString);
 		
 		model.addAttribute("itemCount", todoData.count());
 		/* model.addAttribute("items", fetchedItems); */
