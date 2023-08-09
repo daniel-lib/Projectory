@@ -1,5 +1,6 @@
 package com.app.projectory.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,11 +14,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class TodoListCollection {
+public class TodoListCollection implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long todoCollectionId;
+	private long todoCollectionId;
 	private String collectionTitle;
 	private String creationDate;
 	private String modificationDate;

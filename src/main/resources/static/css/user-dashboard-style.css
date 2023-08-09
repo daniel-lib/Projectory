@@ -470,6 +470,11 @@
 	border-radius: 0.2rem !important;
 }
 
+.form-container-subtle {
+	border: 1px dotted rgb(154, 153, 150);
+	border-radius: 0.2rem !important;
+}
+
 #todo-list-modal-content,
 #project-list-modal-content {
 	display: none;
@@ -599,8 +604,8 @@
 	border-radius: 0.25rem;
 }
 
-.collection-show-more-btn {
-	background-color: rgb(36, 31, 49);
+.collection-bottom-btns {
+	background-color: rgb(192, 191, 188);
 	text-align: center;
 	text-justify: center;
 	width: 100%;
@@ -609,9 +614,26 @@
 	transition: 0.2s ease-in-out
 }
 
-.collection-show-more-btn:hover {
+.collection-show-more-btn{
+	
+}
+
+.card-open-collection-btn{
+	text-align: center;
+	background-color: rgb(94, 92, 100);
+	border: 1px solid rgb(36, 31, 49);
+	transition: 0.2s ease-in-out;
+	border-bottom-left-radius: 0.25rem;
+	border-bottom-right-radius: 0.25rem;
+	border-radius: 1rem;
+}
+.card-open-collection-btn:hover{
+	background-color: rgb(36, 31, 49);
+}
+
+/*.collection-bottom-btns:hover {
 	background-color: rgb(15, 12, 22);
-	}
+	}*/
 
 .add-project-task-btn-text {
 	font-size: 10pt;

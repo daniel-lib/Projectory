@@ -38,8 +38,9 @@
 
 			<div th:replace="/user/todo/todoLayouts :: displayItems"></div>
 
-			<div role="button" class="collection-show-more-btn">
-				<span>show more</span>
+			<div class="collection-bottom-btns">
+				<span role="button" class="minimalist-btn-lighter btn-sm"><span class="fa-solid fa-pen"></span> Edit Collection</span>
+				<span role="button" class="minimalist-btn-lighter btn-sm"><span class="fa-solid fa-calendar-xmark"></span> Delete Collection</span>
 			</div>
 		</div>
 	</div>
@@ -80,8 +81,8 @@
 					</div>
 				</div>
 
-				<div role="button" class="collection-show-more-btn" style=" z-index: 2000;">
-					<span role="button" th:onclick="scrollToSpecificCollection('todo-collection-box-[[${collection.todoCollectionId}]]')">open collection</span>
+				<div role="button" class="card-open-collection-btn" th:onclick="scrollToSpecificCollection('todo-collection-box-[[${collection.todoCollectionId}]]')">
+					<span role="button">open collection</span>
 				</div>
 			</div>
 		</div>
@@ -106,8 +107,8 @@
 	<p class="card-text fw-lighter mb-0 item-count item-count-check" th:text="${itemCount}"></p>
 	<form th:action="@{/user/todo/delete-selected}" method="post">
 		<button type="submit" class="btn btn-danger btn-sm mt-3 float-end delete-selected-btn" value="Delete Selected"
-			id="delete-selected-btn" disabled>
-			Delete <span class="badge text-bg-info" id="number-of-items-badge">0</span> Items
+			th:id="delete-selected-btn-+''+${collection.todoCollectionId}" disabled>
+			Delete <span class="badge text-bg-info" th:id="number-of-items-badge-+''+${collection.todoCollectionId}" disabled>0</span> Items
 		</button>
 		<br /><br />
 		<div class="d-block todo-list-display-box custom-scrollbar-style-3">
@@ -143,7 +144,7 @@
 							</a>
 
 							<span class="delete-item-checkbox item-control-buttons item-control-left-border">
-								<input type="checkbox" onClick="readyDeleteButton()" name="selectedForRemoval"
+								<input type="checkbox" th:onClick="readyDeleteButton([[${collection.todoCollectionId}]])" name="selectedForRemoval"
 									th:value="${item.todoItemId}"
 									class="form-check-input checkbox-for-deletion red-checkbox"
 									id="checkbox-for-deletion" title="Select item">
@@ -169,13 +170,15 @@
 
 
 <!--add new collection form-->
-<div th:fragment="add-new-collection-form" class="form-container mt-2 add-todo-item-form overflow-hidden"
+<div th:fragment="add-new-collection-form" class="form-container-subtle mt-2 overflow-hidden"
 	id="add-new-collection-form">
 	<div class="p-4">
 		<h6>Add New Collection</h6>
-		<input type="text" class="form-control mt-3" placeholder="What should we call your collection"
-			id="collection-name-input" autofocus maxlength="40">
-		<button onClick="addNewCollection()" class="btn btn-primary-golden btn-sm mt-3">Add Collection</button>
+		<div class="d-flex">
+			<input type="text" class="form-control mt-3 col-md-10" placeholder="What should we call your collection"
+			id="collection-name-input" autofocus maxlength="40" style="width: 70%;">
+		<button onClick="addNewCollection()" class="btn btn-primary-golden btn-sm mt-3 ms-2">Add Collection</button>
+		</div>
 	</div>
 </div>
 
@@ -186,7 +189,7 @@
 	<div class="p-2">
 
 		<span class="search-bar d-flex">
-			<input type="text" class="subtle-form-input p-2" placeholder="What would you like to add?" id="title-input"
+			<input type="text" class="subtle-form-input p-2" placeholder="What would you like to add?" th:id="col-+''+${collection.todoCollectionId}+''+-todo-title-input"
 				autofocus>
 			<span role="button" th:onClick="addTodo([[${collection.todoCollectionId}]])"
 				class="subtle-form-btn d-inline p-2">

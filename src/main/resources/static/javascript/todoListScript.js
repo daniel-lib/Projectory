@@ -2,7 +2,7 @@ function scrollToSpecificCollection(collectionId){
 	
 	//document.getElementById(collectionId).scrollIntoView();
 	
-	window.setTimeout(test, 100);
+	window.setTimeout(test, 300);
 	
 	function test(){
 		const collection = document.getElementById(collectionId);
@@ -51,10 +51,10 @@ function editItem(id) {
 						
 		
 		<script th:fragment = "ready-delete-button-script">*/
-function readyDeleteButton() {
+function readyDeleteButton(specificCollectionId) {
 	const checkboxes = document.getElementsByClassName("checkbox-for-deletion");
-	const delBtn = document.getElementById("delete-selected-btn");
-	const numberOfItems = document.getElementById("number-of-items-badge");
+	const delBtn = document.getElementById("delete-selected-btn-"+specificCollectionId);
+	const numberOfItems = document.getElementById("number-of-items-badge-"+specificCollectionId);
 	const deleteSingleItemBtns = document.getElementsByClassName("delete-single-item-btn");
 	const deleteSingleItemLnk = document.getElementsByClassName("delete-single-item-link");
 	let num = 0;
@@ -154,7 +154,7 @@ function addNewCollection() {
 
 //add Todo Item script
 function addTodo(collectionId) {
-	const title = document.getElementById("title-input").value;
+	const title = document.getElementById("col-"+collectionId+"-todo-title-input").value;
 	fetch('/todo/add-item-js?title=' + title + '&collectionId=' + collectionId)
 		.then(response => response.json())
 		.then(data => {

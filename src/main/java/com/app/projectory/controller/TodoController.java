@@ -20,9 +20,8 @@ import com.app.projectory.entity.Todo;
 import com.app.projectory.entity.TodoListCollection;
 
 @Controller
-@RequestMapping("todo")
+@RequestMapping("/todo")
 public class TodoController {
-	//INSERT INTO TODO (TODO_ITEM_ID, TITLE, DETAIL) VALUES (1, 'one','detail of one');
 	@Autowired
 	TodoListRepository todoData;	
 	@Autowired
@@ -42,7 +41,7 @@ public class TodoController {
 		todoModel.addAttribute("todoModel", todo);
 		return "/user/todo/add-todo-list-form";
 	}
-	@PostMapping("add-item")
+	@PostMapping("/add-item")
 	public String addTodoItem(Todo todo) {
 		todoData.save(todo);
 		return "redirect:/todo/add-item-form?item=added";
@@ -50,9 +49,10 @@ public class TodoController {
 	
 	@GetMapping("add-item-js")
 	@ResponseBody
-	public int addTodoUsingJs(@RequestParam String title, @RequestParam long collectionId) {
+	public String addTodoUsingJs(@RequestParam String title, @RequestParam long collectionId) {
+		Todo todo = new Todo();
 		try {
-			Todo todo = new Todo();
+			
 			Optional<TodoListCollection> collection = collectionDao.findById(collectionId);
 			collection.ifPresent(value -> todo.setCollection(value));
 			
@@ -60,9 +60,9 @@ public class TodoController {
 			todoData.save(todo);
 		}
 		catch(Exception er) {
-			return -1;
+			return er.toString();
 		}
-		return 1;
+		return todo.getTodoItemId()+""+todo.getTitle() + "" + todo.getCollection().getCollectionTitle();
 		
 	}
 	
