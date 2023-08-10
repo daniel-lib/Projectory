@@ -1,5 +1,6 @@
-# Projectory   
-#### Project Management Tool
+
+![Projectory Logo](/src/main/resources/static/images/projectory-logo-full.png)
+### Project Management Tool
 
 
 ## Introduction
@@ -21,4 +22,3 @@ This is a project management web application built using Spring framework. The a
 ## Screenshots
 
 ...to be added
-

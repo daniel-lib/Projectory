@@ -102,7 +102,15 @@
 }
 
 .nav-link {
-	padding-left: .5rem !important;
+	padding-left: .5rem !important;	
+}
+
+.nav-icon::before{
+	text-align: center;
+}
+.nav-icon.fa-solid.fa-sliders::before{
+	font-weight:900;
+	font-size: 15pt;
 }
 
 .dashboard-link:hover,
