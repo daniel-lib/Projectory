@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Project implements Serializable {
+public class Project {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

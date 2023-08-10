@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Connections implements Serializable {
+public class Connections {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	

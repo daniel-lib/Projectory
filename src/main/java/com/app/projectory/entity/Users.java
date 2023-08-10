@@ -17,7 +17,7 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Users implements Serializable{
+public class Users {
 
 	
 	@Id

@@ -1,7 +1,5 @@
 package com.app.projectory.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Todo implements Serializable {
+public class Todo {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
