@@ -34,19 +34,17 @@ public class TodoListCollection {
 		// TODO Auto-generated constructor stub
 	}
 
-	public TodoListCollection(String collectionTitle, String creationDate, String modificationDate,
-			List<Todo> todoListItems) {
+	public TodoListCollection(String collectionTitle, String creationDate, String modificationDate) {
 		this.collectionTitle = collectionTitle;
 		this.creationDate = creationDate;
 		this.modificationDate = modificationDate;
-		this.todoListItems = todoListItems;
 	}
 
-	public Long getTodoCollectionId() {
+	public long getTodoCollectionId() {
 		return todoCollectionId;
 	}
 
-	public void setTodoCollectionId(Long todoCollectionId) {
+	public void setTodoCollectionId(long todoCollectionId) {
 		this.todoCollectionId = todoCollectionId;
 	}
 
@@ -89,6 +87,8 @@ public class TodoListCollection {
 	public void setCreator(Users creator) {
 		this.creator = creator;
 	}
+
+	
 	
 	
 	

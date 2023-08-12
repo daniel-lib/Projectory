@@ -49,7 +49,7 @@ public class TodoController {
 	
 	@GetMapping("add-item-js")
 	@ResponseBody
-	public String addTodoUsingJs(@RequestParam String title, @RequestParam long collectionId) {
+	public int addTodoUsingJs(@RequestParam String title, @RequestParam long collectionId) {
 		Todo todo = new Todo();
 		try {
 			
@@ -60,9 +60,9 @@ public class TodoController {
 			todoData.save(todo);
 		}
 		catch(Exception er) {
-			return er.toString();
+			return -1;
 		}
-		return todo.getTodoItemId()+""+todo.getTitle() + "" + todo.getCollection().getCollectionTitle();
+		return 1;
 		
 	}
 	

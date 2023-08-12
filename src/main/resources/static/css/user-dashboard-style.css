@@ -102,14 +102,15 @@
 }
 
 .nav-link {
-	padding-left: .5rem !important;	
+	padding-left: .5rem !important;
 }
 
-.nav-icon::before{
+.nav-icon::before {
 	text-align: center;
 }
-.nav-icon.fa-solid.fa-sliders::before{
-	font-weight:900;
+
+.nav-icon.fa-solid.fa-sliders::before {
+	font-weight: 900;
 	font-size: 15pt;
 }
 
@@ -149,6 +150,7 @@
 
 .navbar-brand-dashboard {
 	color: rgb(191, 152, 56) !important;
+	/*color: #daa520 !important;*/
 }
 
 #side-menu {
@@ -758,6 +760,7 @@
 	/* creates padding around scroll thumb */
 	transition: all 0.8s ease-in-out;
 	box-shadow: 0px 6px 6px rgb(19, 14, 34);
+	min-height: 30px;
 }
 
 .custom-scrollbar-style::-webkit-scrollbar-thumb:hover {
@@ -773,6 +776,7 @@
 .custom-scrollbar-style-2 {
 	scrollbar-width: thin;
 	scrollbar-color: rgb(118, 187, 118) rgb(222, 221, 218);
+	min-height: 30px;
 }
 
 /* Works on Chrome, Edge, and Safari */
@@ -788,6 +792,7 @@
 	background-color: rgb(118, 187, 118);
 	border-radius: 25px;
 	border: 3px solid rgb(222, 221, 218);
+	min-height: 30px;
 }
 
 .custom-scrollbar-style-2::-webkit-scrollbar-thumb:hover {
@@ -799,6 +804,7 @@
 .custom-scrollbar-style-3 {
 	scrollbar-width: thin;
 	scrollbar-color: rgb(118, 187, 118) rgb(222, 221, 218);
+	min-height: 30px;
 }
 
 /* Works on Chrome, Edge, and Safari */
@@ -817,7 +823,7 @@
 	border: 3px solid rgb(61, 56, 70);
 	box-shadow: 0px 2px 4px rgb(154, 153, 150);
 	box-shadow: 0px 4px 4px rgb(19, 14, 34);
-
+	min-height: 30px;
 }
 
 .custom-scrollbar-style-3::-webkit-scrollbar-thumb:hover {
@@ -825,6 +831,9 @@
 	border: 3px solid rgba(61, 56, 70, 0.8);
 }
 
+.custom-scrollbar-style-3.orangeScroller::-webkit-scrollbar-thumb {
+	background-color: rgb(230, 97, 0);
+}
 
 @media (max-width: 900px) {
 	.viewing-modal-header {

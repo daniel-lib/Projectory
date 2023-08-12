@@ -36,12 +36,22 @@ body {
 .login-form:hover {}
 
 .home-navbar {
-	background-color: transparent !important;
+	/*position:static;*/
+	position: absolute;
+	z-index: 1990;
+	/*margin-bottom:61.266px;*/
+	padding-bottom: 61.266px;
+	padding-bottom: 63px;
+	margin-bottom: 83px;
+	width: 100%;
+	/*background-color: transparent !important;*/
+	background-color: rgba(119, 118, 123, 0.2);
+	backdrop-filter: blur(10px);
 	overflow: hidden;
 	color: rgb(181, 131, 90) !important;
-	color: rgb(181, 131, 90) !important;
-
 }
+
+.navbar-toggler.collapsed+.home-navbar {}
 
 .home-navbar a {
 	/*color: rgb(181, 131, 90);
@@ -50,7 +60,8 @@ color: #ae8319 !important;*/
 
 .navbar-nav a:hover {
 	color: rgb(197, 170, 148);
-	color: rgb(118, 187, 118) !important;
+	/*color: rgb(118, 187, 118) !important;*/
+	color: rgb(255, 255, 255) !important;
 	/*border: none !important;*/
 	border: none;
 }
@@ -61,13 +72,25 @@ color: #ae8319 !important;*/
 
 }
 
-.navbar-collapse {
+/*.navbar-collapse {
 	z-index: 2000000 !important;
 	position: sticky;
-}
+}*/
 
 .navbar-brand {
 	color: #ae8319 !important;
+	color: #daa520 !important;
+	color: rgb(245, 214, 136) !important;
+	font-weight: 450;
+	/*text-shadow: 0px 0px 1px rgb(36, 31, 49);*/
+}
+
+.navbar-nav {
+	margin-left: 10%;
+}
+.projectory-top-description {
+	font-size: small;
+	font-weight: 400;
 }
 
 .navbar-toggler {
@@ -109,11 +132,6 @@ color: #ae8319 !important;*/
 	cursor: pointer;
 }
 
-.projectory-top-description {
-	font-size: small;
-	font-weight: 300;
-}
-
 .rotated-nav-decor {
 	background-color: rgb(99, 69, 44) !important;
 	background-color: rgb(218, 165, 32, 0.8) !important;
@@ -127,6 +145,7 @@ color: #ae8319 !important;*/
 	height: 100px;
 	width: 100px;
 }
+
 
 .btn-primary {
 	background-color: #A9907E !important;
@@ -280,28 +299,42 @@ front-poster-container-inner {
 	/*border: 1px solid red;*/
 }
 
-.get-started-btn {
-	background-color: rgb(61, 56, 70, 0.7) !important;
-	border: 0 !important;
-	/*border:1px solid rgb(61, 56, 70) !important;*/
-	box-shadow: none !important;
+.landing-page-btn {
 	transition: 0.2s ease-in-out;
 	border-radius: 0.175rem;
 	border-radius: 5rem;
 	margin-top: 100%;
-	color: rgb(205, 171, 143);
 	padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+	border: 0 !important;
 	border-bottom: 1px solid gold !important;
+	cursor: pointer;
+	box-shadow: none !important;
+}
+
+.landing-page-btn:hover {
+	border-bottom: 1px solid rgb(165, 29, 45) !important;
+	/*box-shadow: 10px 10 10px rgb(99, 69, 44);*/
+}
+
+.get-started-btn {
+	background-color: rgb(61, 56, 70, 0.7) !important;
+	color: rgb(205, 171, 143);
+
 }
 
 .get-started-btn:hover {
 	background-color: rgb(36, 31, 49, 0.9) !important;
-	border-bottom: 1px solid rgb(165, 29, 45) !important;
-	box-shadow: none !important;
 }
 
-.get-started-btn:hover {
-	box-shadow: 10px 10 10px rgb(118, 187, 118);
+.login-btn {
+	/*border-color:  rgb(15, 12, 22);*/
+	background-color: rgba(194, 199, 185, 0.3);
+	color: rgb(255, 255, 255);
+}
+
+.login-btn:hover {
+	background-color: rgba(194, 199, 185, 0.6);
+	color: rgb(61, 56, 70);
 }
 
 footer {
@@ -362,7 +395,11 @@ footer p {
 	visibility: collapse;
 	/*overflow: hidden;
 	height: 300px;*/
+	margin-top: 100px;
 }
+/*.login-signup-form{
+	margin
+}*/
 
 .login-signup-form-exit-btn {
 	color: goldenrod;
@@ -495,7 +532,7 @@ footer p {
 	background-color: rgb(33, 37, 41);
 }
 
-.feature-img{
+.feature-img {
 	width: 30%;
 }
 
