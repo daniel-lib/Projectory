@@ -146,7 +146,7 @@
 							<span class="delete-item-checkbox item-control-buttons item-control-left-border">
 								<input type="checkbox" th:onClick="readyDeleteButton([[${collection.todoCollectionId}]])" name="selectedForRemoval"
 									th:value="${item.todoItemId}" 
-									class="form-check-input checkbox-for-deletion-+''+${collection.todoCollectionId}+''+ red-checkbox"
+									th:class="form-check-input checkbox-for-deletion-+''+${collection.todoCollectionId}+''+ red-checkbox"
 									id="checkbox-for-deletion" title="Select item">
 							</span>
 
