@@ -83,11 +83,10 @@
 
 
 	<div class="navbar-dark bg-dark pt-5 side-nav">
-		<div class="navbar-nav " th:object="${user}">
+		<div class="navbar-nav ms-0" th:object="${user}">
 
 			<span role="button" class="fa-solid fa-bars mb-3" id="side-menu-toggle" onClick="sideMenuToggle()">
 				<span class="fa-solid fa-caret-right" id="side-nav-arrow"></span>
-				<!--<span class="fa-solid fa-caret-left side-nav-arrow" id="side-nav-left-arrow"></span>-->
 			</span>
 			<a class="nav-link dashboard-link side-nav-link-selected" th:href="@{/user/dashboard}"
 				id="side-menu-dashboard-link" onClick="selectedSideMenuToggle(0)">

@@ -38,8 +38,9 @@
 						th:id="${proj.projectId}">
 						<span id="itemNumber" class="badge text-bg-warning itemNumber">0</span>
 						<!--<span th:text = "${item.todoItemId}" class="badge text-bg-warning"></span>-->
-						<span th:text="${proj.title}" id=""></span> <span>|</span>
-						<span th:text="${proj.status}" class="fw-lighter modal-project-status"></span>
+						<span th:text="${proj.title}" id=""></span> 
+						<!--<span>|</span>-->
+						<!--<span th:text="${proj.status}" class="fw-lighter modal-project-status"></span>-->
 						<br />
 						<span th:text="${proj.description}" class="fw-lighter"></span>
 						<span th:class="d-block +' '+project-status-label +' '+${proj.status}" th:text="${proj.status}"></span>
