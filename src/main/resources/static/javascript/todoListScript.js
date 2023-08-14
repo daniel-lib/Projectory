@@ -52,11 +52,11 @@ function editItem(id) {
 		
 		<script th:fragment = "ready-delete-button-script">*/
 function readyDeleteButton(specificCollectionId) {
-	const checkboxes = document.getElementsByClassName("checkbox-for-deletion");
+	const checkboxes = document.getElementsByClassName("checkbox-for-deletion-"+specificCollectionId);
 	const delBtn = document.getElementById("delete-selected-btn-"+specificCollectionId);
 	const numberOfItems = document.getElementById("number-of-items-badge-"+specificCollectionId);
-	const deleteSingleItemBtns = document.getElementsByClassName("delete-single-item-btn");
-	const deleteSingleItemLnk = document.getElementsByClassName("delete-single-item-link");
+	const deleteSingleItemBtns = document.getElementsByClassName("delete-single-item-btn-"+specificCollectionId);
+	const deleteSingleItemLnk = document.getElementsByClassName("delete-single-item-link-"+specificCollectionId);
 	let num = 0;
 	for (var checkbox of checkboxes) {
 		if (checkbox.checked === true) {

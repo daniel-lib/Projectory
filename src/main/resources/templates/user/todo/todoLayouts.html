@@ -138,15 +138,15 @@
 
 						<div class="item-deletion-controls d-flex" style="display: inline;">
 							<a th:href="@{/todo/delete-item(itemId=${item.todoItemId})}"
-								class="link-white-color float-end delete-single-item-link">
-								<span class="badge text-bg-danger delete-single-item-btn fa-solid fa-trash-can"
+								th:class="link-white-color+' '+float-end+' '+delete-single-item-link-+''+${collection.todoCollectionId}">
+								<span th:class="badge+' '+text-bg-danger+' '+delete-single-item-btn-+''+${collection.todoCollectionId}+' '+ fa-solid+' '+ fa-trash-can"
 									title="Delete Item"> </span>
 							</a>
 
 							<span class="delete-item-checkbox item-control-buttons item-control-left-border">
 								<input type="checkbox" th:onClick="readyDeleteButton([[${collection.todoCollectionId}]])" name="selectedForRemoval"
 									th:value="${item.todoItemId}" 
-									th:class="form-check-input checkbox-for-deletion-+''+${collection.todoCollectionId}+''+ red-checkbox"
+									th:class="form-check-input  +' '+checkbox-for-deletion-+''+${collection.todoCollectionId}+' '+ red-checkbox"
 									id="checkbox-for-deletion" title="Select item">
 							</span>
 
