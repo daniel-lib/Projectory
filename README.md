@@ -19,6 +19,6 @@ This is a project management web application built using Spring framework. The a
 - The ability to create todo list & organized them in a collection
 - Kanban board: a way to manage tasks and projects in an organized and visual manner 
 
-## Screenshots
+## Disclaimer
 
-...to be added
+This app is still under development. It's not ready for release yet.
