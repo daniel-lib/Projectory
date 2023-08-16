@@ -45,7 +45,7 @@ body {
 	margin-bottom: 83px;
 	width: 100%;
 	/*background-color: transparent !important;*/
-	background-color: rgba(119, 118, 123, 0.2);
+	background-color: rgba(119, 118, 123, 0.6);
 	backdrop-filter: blur(10px);
 	overflow: hidden;
 	color: rgb(181, 131, 90) !important;
@@ -56,6 +56,10 @@ body {
 .home-navbar a {
 	/*color: rgb(181, 131, 90);
 color: #ae8319 !important;*/
+    color: #daa520 !important;
+    color: rgb(245, 214, 26) !important;
+    color: white  !important;
+   /* font-weight: heavier;*/
 }
 
 .navbar-nav a:hover {
@@ -64,6 +68,7 @@ color: #ae8319 !important;*/
 	color: rgb(255, 255, 255) !important;
 	/*border: none !important;*/
 	border: none;
+	color: rgb(245, 214, 26) !important;
 }
 
 .navbar-nav a:active {
@@ -317,13 +322,13 @@ front-poster-container-inner {
 }
 
 .get-started-btn {
-	background-color: rgb(61, 56, 70, 0.7) !important;
+	background-color: rgb(36, 31, 49, 0.9) !important;
 	color: rgb(205, 171, 143);
 
 }
 
-.get-started-btn:hover {
-	background-color: rgb(36, 31, 49, 0.9) !important;
+.get-started-btn:hover {	
+	background-color: rgb(61, 56, 70, 0.7) !important;
 }
 
 .login-btn {
@@ -453,12 +458,17 @@ footer p {
 	padding-top: 200px !important;
 }
 
+/*.container-bg-blue * {
+	border: 1px solid red;
+}*/
+
 .container-bg-blue div {
 	transition: 1s ease-in;
 }
 
 .green-bg-text-headline {
 	color: antiquewhite;
+	width: 70%;
 }
 
 .green-bg-text-paragraph {

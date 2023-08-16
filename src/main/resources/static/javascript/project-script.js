@@ -134,6 +134,7 @@ function expandContainer(containerId, btnId) {
 		div.classList.remove("project-modal-boxes-default");
 		div.classList.add("project-modal-boxes-expanded");
 		div.scrollIntoView();
+		
 		trigger.classList.remove('fa-expand');
 		trigger.classList.add('fa-compress');
 	}

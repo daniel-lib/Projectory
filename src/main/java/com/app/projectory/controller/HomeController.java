@@ -54,6 +54,7 @@ public class HomeController {
 		  List<Users> allUsers = userDao.findAll();
 		  Users checkedUser = userLgServ.authenticateUser(user.getUsername(), user.getPassword(), allUsers); 
 		  String indicator = "err"; 
+		  
 		  if(checkedUser != null) { //		  
 			 
 			  String indicatorString = UUID.randomUUID().toString();
@@ -69,8 +70,10 @@ public class HomeController {
 			  indicator = "pass"; 
 			  return "redirect:/user/dashboard?indicator="+indicator+"&user="+checkedUser.getUserId()+"&proof="+indicatorString; 
 	  }
-	  
-	  return "redirect:/?indicator="+indicator; 
+		  
+		  redAttr.addFlashAttribute("loginStatus", indicator);
+	  return "redirect:/"; 
+		/* return "redirect:/?indicator="+indicator; */
 //	  return "redirect: /user/dashboard?indicator=\""+indicator+"\""; 
 	  }
 	 

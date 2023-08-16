@@ -46,7 +46,9 @@
 			<div class="projects-report d-flex justify-content-evenly flex-wrap">
 				<div class="project-status-chart">
 					<h5>Project Status</h5>
-					<canvas id="projects-chart" class="chart pie-chart" th:fragment = "project-status"></canvas>
+					<!--<canvas id="projects-chart" class="chart pie-chart" th:fragment = "project-status"></canvas>-->
+					<canvas id="projects-chart" class="chart pie-chart"></canvas>
+					
 					<script>
 						var ProjectStatusCount = "[[${ProjectStatusCount}]]";
 					</script>
@@ -65,4 +67,8 @@
 		</main>
 
 	</section>
+	
+	<script>
+		var TodoCollections = [[${TodoCollections}]];
+	</script>
 </main>

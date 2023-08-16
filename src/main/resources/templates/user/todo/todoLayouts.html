@@ -108,7 +108,7 @@
 	<form th:action="@{/user/todo/delete-selected}" method="post">
 		<button type="submit" class="btn btn-danger btn-sm mt-3 float-end delete-selected-btn" value="Delete Selected"
 			th:id="delete-selected-btn-+''+${collection.todoCollectionId}" disabled>
-			Delete <span class="badge text-bg-info" th:id="number-of-items-badge-+''+${collection.todoCollectionId}" disabled>0</span> Items
+			Delete <span class="badge text-bg-warning number-of-items-badge" th:id="number-of-items-badge-+''+${collection.todoCollectionId}" disabled>0</span> Items
 		</button>
 		<br /><br />
 		<div class="d-block todo-list-display-box custom-scrollbar-style-3">
@@ -139,7 +139,7 @@
 						<div class="item-deletion-controls d-flex" style="display: inline;">
 							<a th:href="@{/todo/delete-item(itemId=${item.todoItemId})}"
 								th:class="link-white-color+' '+float-end+' '+delete-single-item-link-+''+${collection.todoCollectionId}">
-								<span th:class="badge+' '+text-bg-danger+' '+delete-single-item-btn-+''+${collection.todoCollectionId}+' '+ fa-solid+' '+ fa-trash-can"
+								<span th:class="badge+' '+text-bg-danger+' '+delete-single-item-btn+' '+delete-single-item-btn-+''+${collection.todoCollectionId}+' '+ fa-solid+' '+ fa-trash-can"
 									title="Delete Item"> </span>
 							</a>
 

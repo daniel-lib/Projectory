@@ -15,6 +15,7 @@
 		crossorigin="anonymous"></script>
 	<link href="/css/style.css" rel="stylesheet">
 	<link href="/css/todolist.css" rel="stylesheet">
+	<link href="/css/notification-popup-bar.css" rel="stylesheet">
 	<!--<link href="/css/user-dashboard-style.css" rel="stylesheet">-->
 	<script src="https://kit.fontawesome.com/6d882a57d9.js" crossorigin="anonymous"></script>
 	<script src="/javascript/todoListScript.js" defer></script>
@@ -24,11 +25,20 @@
 
 <header th:fragment="nav">
 
+	<figure class="notification hide none" th:fragment="notification-bar">
+		<div class="notification__body">
+			<span class="notification__body__first pt-1">
+				<span class="fa-solid fa-circle-check mt-1" id="notification-icon">
+				</span>
+				<p id="notification-bar-content" class="mb-0"></p>
+			</span>
+		</div>
+	</figure>
+	
 	<nav class="home-navbar navbar navbar-expand-lg navbar p-1">
 		<div class="container-fluid">
 			<a class="navbar-brand" th:href="@{/}">
-				<img th:src="@{/images/projectory-logo.png}" alt="[logo]" height="30px"
-					width="23px">
+				<img th:src="@{/images/projectory-logo.png}" alt="[logo]" height="30px" width="23px">
 				<span>projectory</span>
 				<!--<br/>-->
 				<span class="projectory-top-description d-block">Project Management Swiss Knife</span>
@@ -42,12 +52,12 @@
 				</span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-				<div class="navbar-nav ">
+				<div class="navbar-nav home-nav-container">
 					<a class="nav-link" aria-current="page" th:href="@{/}">Home</a>
 					<a class="nav-link" aria-current="page" th:href="@{/}">Features</a>
 					<a class="nav-link" href="">Resources</a>
-					<a class="nav-link justify-content-end" aria-current="page"
-						onClick="displaySigninForm('login')" role="button">Log in</a>
+					<a class="nav-link justify-content-end" aria-current="page" onClick="displaySigninForm('login')"
+						role="button">Log in</a>
 				</div>
 			</div>
 		</div>

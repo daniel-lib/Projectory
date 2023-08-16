@@ -42,7 +42,7 @@
 							class="form-control mb-3" autofocus>
 						<input type="text" placeholder="Last Name" th:field="${user.username}"
 							class="form-control mb-3">
-						<input type="text" placeholder="Username" th:field="${user.username}" class="form-control mb-3">											
+						<input type="text" placeholder="Username" th:field="${user.username}" class="form-control mb-3">
 						<input type="password" placeholder="password" th:field="${user.password}"
 							class="form-control mb-3">
 						<input type="submit" value="Sign up" class="btn btn-primary-golden mb-3">
@@ -115,13 +115,10 @@
 				</div>
 			</div>
 		</div>
-		
 
 
-		<div class="d-flex justify-content-around mt-4 container-bg-blue p-3">
-			<div class="div-top-decor-container d-flex">
 
-			</div>
+		<div class="div-top-decor-container d-flex">
 			<script>
 
 				let divDecorContainer = document.getElementsByClassName("div-top-decor-container");
@@ -135,14 +132,16 @@
 				alert("here");
 
 			</script>
+		</div>
 
 
-			<p class="fs-1 green-bg-text-headline">Ut enim ad minim veniam, quis <span
-					class="colored-text-inline">nostrud</span> exercitation</p>
-			<p class="green-bg-text-paragraph"> ullamco laboris nisi ut aliquip ex ea commodo
-				consequat. Duis aute irure dolor in reprehenderit in
-				voluptate velit esse cillum dolore eu fugiat nulla
-				pariatur.</p>
+		<div class="d-flex justify-content-around mt-4 container-bg-blue p-3">			
+					
+			<p class="fs-1 green-bg-text-headline">Projectory can help you take the lead and be the <span
+					class="colored-text-inline align-self-center">pro</span>
+				in your <span class="colored-text-inline">pro</span>jects.</p>				
+			<p class="green-bg-text-paragraph align-self-start"> <img src="images/pro-ject-manager.png" width="200px" height="200px"
+					class="d-inline"></p>
 		</div>
 
 
@@ -192,40 +191,10 @@
 		}
 	</script>
 
-
-	<!--<script>
-
-		var current = 80;
-		function startElementRotation() {
-			window.setInterval(rotateElement, 1000);
-		}
-		//rotateElement();
-		function rotateElement() {
-			let isUpperLimit;
-			//alert(current);
-			rotationELement = document.getElementsByClassName("rotated-nav-decor");
-			if (isUpperLimit) {
-				current = current - 30;
-			}
-			else if (!isUpperLimit) {
-				current = current + 30;
-			}
-
-			if (current > 360) {
-				isUpperLimit = true;
-				current = 360;
-			}
-			else if (current < -360) {
-				isUpperLimit = false;
-				current = -360;
-			}
-
-			rotationELement[0].style.rotate = current + "deg";
-			//alert(current.toString());
-			//windows.setTimeOut(rotateElement, 500);
-
-		}
-	</script>-->
+	<script>
+		var loginStatus = "[[${loginStatus}]]";
+	//alert(loginStatus.);
+	</script>
 
 </body>
 
