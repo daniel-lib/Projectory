@@ -152,44 +152,7 @@
 
 	<!--<script th:replace="/user/user-layouts::notification-board-script"></script>-->
 
-	<script>
-		let formContainer = document.getElementById("login-signup-form");
-		let signInForm = document.getElementById("sign-in-form");
-		let signUpForm = document.getElementById("sign-up-form");
-		function displaySigninForm(type) {
-			formContainer.style.visibility = "visible";
-			formContainer.style.opacity = "1";
-			if (type == "login") {
 
-				//document.querySelector("#login-signup-form").style.height = "600px";		
-				//form.style.display = "block";
-				//form.style.height = "auto";	
-
-				//signUpForm.style.opacity = "0";
-				signUpForm.style.display = "none";
-
-				signInForm.style.display = "block";
-				signInForm.style.opacity = "1";
-				document.getElementById("username-input").setAttribute("autofocus");
-			}
-			else if (type == "signup") {
-				//signInForm.style.opacity = "0";
-				signInForm.style.display = "none";
-
-				signUpForm.style.display = "block";
-				signUpForm.style.opacity = "1";
-			}
-
-
-		}
-		function closeSigninForm() {
-			//var formControl = document.getElementById("login-signup-form");			
-			formContainer.style.opacity = "0";
-			formContainer.style.visibility = "collapse";
-			//form.style.height = "0px";		
-			//form.style.display = "none";
-		}
-	</script>
 
 	<script>
 		var loginStatus = "[[${loginStatus}]]";

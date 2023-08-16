@@ -1,16 +1,16 @@
 //display go to the top button
-		toggleGoTo();
-	// Listen for click events on body
-	window.addEventListener('scroll', function(event) {
-		toggleGoTo();
-	});	
-	function toggleGoTo(){
-		const goToTopBtn = document.getElementsByClassName("go-to-top-btn");
-		if(window.pageYOffset>500)		
+toggleGoTo();
+// Listen for click events on body
+window.addEventListener('scroll', function(event) {
+	toggleGoTo();
+});
+function toggleGoTo() {
+	const goToTopBtn = document.getElementsByClassName("go-to-top-btn");
+	if (window.pageYOffset > 500)
 		goToTopBtn[0].classList.add("go-to-top-btn-show");
-		else
+	else
 		goToTopBtn[0].classList.remove("go-to-top-btn-show");
-	}
+}
 
 
 const signin = document.getElementById("signin-btn");
@@ -20,6 +20,46 @@ function showLoginForm() {
 	document.getElementById("login-form").style = "height: 500px";
 }
 
+
+
+/*function toggleAuthForm() {*/
+
+function displaySigninForm(type) {
+	const formContainer = document.getElementById("login-signup-form");
+	const signInForm = document.getElementById("sign-in-form");
+	const signUpForm = document.getElementById("sign-up-form");
+	formContainer.style.visibility = "visible";
+	formContainer.style.opacity = "1";
+	if (type == "login") {
+
+		//document.querySelector("#login-signup-form").style.height = "600px";		
+		//form.style.display = "block";
+		//form.style.height = "auto";	
+
+		//signUpForm.style.opacity = "0";
+		signUpForm.style.display = "none";
+
+		signInForm.style.display = "block";
+		signInForm.style.opacity = "1";
+		document.getElementById("username-input").setAttribute("autofocus");
+	}
+	else if (type == "signup") {
+		//signInForm.style.opacity = "0";
+		signInForm.style.display = "none";
+
+		signUpForm.style.display = "block";
+		signUpForm.style.opacity = "1";
+	}
+
+
+}
+function closeSigninForm() {
+	const formContainer = document.getElementById("login-signup-form");
+	const signInForm = document.getElementById("sign-in-form");
+	const signUpForm = document.getElementById("sign-up-form");		
+	formContainer.style.opacity = "0";
+	formContainer.style.visibility = "collapse";
+}
 
 
 
@@ -67,20 +107,20 @@ function toggleNotification(notificationType, msgToUser) {
 	const notification = document.querySelector('.notification');
 	const content = document.getElementById("notification-bar-content");
 	const icon = document.getElementById("notification-icon");
-	if (notificationType == undefined){
+	if (notificationType == undefined) {
 		content.textContent = content.textContent;
 		clearTimeout(timeoutID);
-		}
+	}
 	else {
 		content.textContent = msgToUser;
 		if (notificationType === "success") {
 			notification.classList.remove('notification-error');
-			notification.classList.add('notification-success');			
+			notification.classList.add('notification-success');
 			icon.classList.replace('fa-triangle-exclamation', 'fa-circle-check');
 		}
 		else {
 			notification.classList.remove('notification-success');
-			notification.classList.add('notification-error');					
+			notification.classList.add('notification-error');
 			icon.classList.replace('fa-circle-check', 'fa-triangle-exclamation');
 		}
 	}
@@ -88,14 +128,14 @@ function toggleNotification(notificationType, msgToUser) {
 	notification.classList.remove('none');
 	notification.classList.remove('hide');
 	/*notification.classList.toggle('hide');*/
-	
+
 	//trigger automatic notification bar exit	
 	timeoutID = window.setTimeout(hideNotificationBar, 2000);
-	
+
 }
 function hideNotificationBar() {
 	const notification = document.querySelector('.notification');
-    notification.classList.add('hide');
+	notification.classList.add('hide');
 }
 
 /*document.addEventListener("click", (event) => {
