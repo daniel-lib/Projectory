@@ -65,10 +65,9 @@ color: #ae8319 !important;*/
 .navbar-nav a:hover {
 	color: rgb(197, 170, 148);
 	/*color: rgb(118, 187, 118) !important;*/
-	color: rgb(255, 255, 255) !important;
+	 color: rgb(245, 214, 26) !important;
 	/*border: none !important;*/
 	border: none;
-	color: rgb(245, 214, 26) !important;
 }
 
 .navbar-nav a:active {
@@ -360,20 +359,21 @@ footer ul li {
 	/*transform-box: -3deg;*/
 }
 
-footer ul li a {
+footer ul li a, .footer-link-default {
 	text-decoration: none;
 	color: rgb(186, 169, 138);
 	transition: 0.5 ease-in-out;
 }
 
-footer ul li a:hover {
+footer ul li a:hover, .footer-link-default:hover {
 	color: rgb(214, 197, 167);
+	color: rgb(222, 221, 218);
 }
 
-footer p {
-	display: flex;
-	justify-content: center;
+.copyright-info{
+	text-align: center;
 }
+
 
 .containers {
 	padding-bottom: 0px !important;
@@ -455,7 +455,7 @@ footer p {
 	background-color: #709de5;
 	border-top-right-radius: 100%;
 	border-top-left-radius: 30%;
-	padding-top: 200px !important;
+	padding-top: 100px !important;
 }
 
 /*.container-bg-blue * {
@@ -466,12 +466,12 @@ footer p {
 	transition: 1s ease-in;
 }
 
-.green-bg-text-headline {
-	color: antiquewhite;
+.blue-bg-text-headline {
+	color: rgb(255, 255, 255);
 	width: 70%;
 }
 
-.green-bg-text-paragraph {
+.blue-bg-text-paragraph {
 	text-align: center;
 	margin-top: 5%;
 }

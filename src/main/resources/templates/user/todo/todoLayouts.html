@@ -172,12 +172,12 @@
 <!--add new collection form-->
 <div th:fragment="add-new-collection-form" class="form-container-subtle mt-2 overflow-hidden"
 	id="add-new-collection-form">
-	<div class="p-4">
+	<div class="p-3">
 		<h6>Add New Collection</h6>
 		<div class="d-flex">
-			<input type="text" class="form-control mt-3 col-md-10" placeholder="What should we call your collection"
+			<input type="text" class="form-control add-todo-collection-input mt-3 col-md-10" placeholder="What should we call your collection"
 			id="collection-name-input" autofocus maxlength="40" style="width: 70%;">
-		<button onClick="addNewCollection()" class="btn btn-primary-golden btn-sm mt-3 ms-2">Add Collection</button>
+		<button onClick="addNewCollection()" class="btn btn-primary-golden btn-sm add-todo-collection-btn mt-3 ms-2">Add Collection</button>
 		</div>
 	</div>
 </div>
@@ -188,7 +188,7 @@
 	id="add-todo-item-form">
 	<div class="p-2">
 
-		<span class="search-bar d-flex">
+		<span class="subtle-form-input-container d-flex">
 			<input type="text" class="subtle-form-input p-2" placeholder="What would you like to add?" th:id="col-+''+${collection.todoCollectionId}+''+-todo-title-input"
 				autofocus>
 			<span role="button" th:onClick="addTodo([[${collection.todoCollectionId}]])"

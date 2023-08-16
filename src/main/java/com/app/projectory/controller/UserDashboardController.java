@@ -56,12 +56,13 @@ public class UserDashboardController {
 		List<ProjectTasks> projectTasks = projTaskDao.findAll();
 		List<TodoListCollection> collection = collectionDao.findAll();
 		
-		List<ProjectStatusCount> StatusCount = projDao.countProjectStatus();
+		List<ProjectStatusCount> StatusCountList = projDao.countProjectStatus();
 		Map<String, ProjectStatusCount> StatusCntMap = new HashMap<>();
 		ObjectMapper objectMapper = new ObjectMapper();
-		for(ProjectStatusCount obj : StatusCount)
-		StatusCntMap.put(obj.getStatusLabel() , obj);		
-		String jsonString = objectMapper.writeValueAsString(StatusCntMap);
+		for(ProjectStatusCount obj : StatusCountList)
+		StatusCntMap.put(obj.getStatusLabel() , obj);
+		
+		String jsonString = objectMapper.writeValueAsString(StatusCountList);
 		model.addAttribute("ProjectStatusCount",jsonString);
 		
 		model.addAttribute("itemCount", todoData.count());

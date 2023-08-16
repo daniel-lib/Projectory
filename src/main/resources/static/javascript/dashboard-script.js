@@ -11,7 +11,15 @@ function displayViewingModal(contentType) {
 		document.body.classList.add('overflow-hidden');
 
 		const nav = document.getElementsByTagName("nav");
-		nav[0].classList.add("modal-open");
+
+
+		const mediaQuery = window.matchMedia("(max-width: 790px)");
+		const isMobile = mediaQuery.matches;
+		/*if (!isMobile)
+			nav[0].classList.add("modal-open");*/
+			
+			nav[0].classList.add("modal-open");
+document.body.classList.add('modal-open-body');
 
 		modalContainer.classList.add('overflow-ver-scroll');
 	}
@@ -67,6 +75,7 @@ function closeViewingModal() {
 	document.body.classList.remove('overflow-hidden');
 	const nav = document.getElementsByTagName("nav");
 	nav[0].classList.remove("modal-open");
+	document.body.classList.remove('modal-open-body');
 }
 
 

@@ -9,8 +9,9 @@
 .modal-open {
 	padding: 0.25rem 1.19rem 0.25rem 0.25rem !important;
 }
-
-.search-bar {}
+.modal-open-body{
+	padding-right: 0.9rem;
+}
 
 .top-search-text-input,
 .subtle-form-input {
@@ -844,7 +845,45 @@
 }
 
 @media (max-width: 790px) {
+	.navbar-links-container {
+		width: 80%;
+	}
+
+	.search-bar {}
+
+	.top-search-text-input {
+		width: 100%;
+	}
+
 	.project-modal-boxes {
 		width: 100%;
+	}
+
+	.top-dangling-x-btn {
+		margin-right: 0;
+	}
+
+	#viewing-modal {
+		padding: 0 0.2rem 0 0.2rem !important;
+		overflow-x: hidden;
+		width: 87%;
+	}
+
+	.add-todo-collection-input {
+		font-size: 9pt;
+		padding: 0.2rem;
+	}
+
+	.add-todo-collection-btn {
+		font-size: 9pt;
+		padding: 0.2rem;
+	}
+
+	.subtle-form-input {
+		font-size: 8pt;
+	}
+
+	.subtle-form-btn {
+		font-size: 8pt;
 	}
 }

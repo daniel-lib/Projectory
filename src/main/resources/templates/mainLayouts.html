@@ -34,7 +34,7 @@
 			</span>
 		</div>
 	</figure>
-	
+
 	<nav class="home-navbar navbar navbar-expand-lg navbar p-1">
 		<div class="container-fluid">
 			<a class="navbar-brand" th:href="@{/}">
@@ -119,7 +119,13 @@
 			</ul>
 		</div>
 	</div>
-	<p class="m-0">© 2023, Placeholder Tech</p>
+	<div th:replace="/mainLayouts::copyright-info"></div>
+
 </footer>
+<div class="d-block copyright-info" th:fragment="copyright-info">
+	<span>&copy; 2023, &nbsp;</span>
+	<a class="footer-link-default" href="https://github.com/daniel-lib" target="_blank">
+		<span>Daniel T. Al.</span></a>
+</div>
 
 </html>
