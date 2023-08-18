@@ -38,12 +38,13 @@
 						th:id="${proj.projectId}">
 						<span id="itemNumber" class="badge text-bg-warning itemNumber">0</span>
 						<!--<span th:text = "${item.todoItemId}" class="badge text-bg-warning"></span>-->
-						<span th:text="${proj.title}" id=""></span> 
+						<span th:text="${proj.title}" id=""></span>
 						<!--<span>|</span>-->
 						<!--<span th:text="${proj.status}" class="fw-lighter modal-project-status"></span>-->
 						<br />
 						<span th:text="${proj.description}" class="fw-lighter"></span>
-						<span th:class="d-block +' '+project-status-label +' '+${proj.status}" th:text="${proj.status}"></span>
+						<span th:class="d-block +' '+project-status-label +' '+${proj.status}"
+							th:text="${proj.status}"></span>
 						<br />
 
 
@@ -143,7 +144,7 @@
 
 
 <!--add project form-->
-<div th:fragment="add-project-form" class="form-container mt-2 row g-3" id="add-project-form">
+<div th:fragment="add-project-form" class="form-container mt-2 mx-1 row g-3" id="add-project-form">
 	<!--style="height: 0px;"-->
 
 	<div class="row">
@@ -177,13 +178,15 @@
 			<lable for="project-deadline" class="form-input-label">Deadline</lable>
 			<input type="date" class="form-control form-control-sm" id="project-deadline" placeholder="Deadline">
 		</div>
+
+		<div class="col-md-12">
+			<label for="project-title-input" class="form-input-label">Description</label>
+			<textarea class="form-control form-control-sm" placeholder="Write short project description"
+				id="project-description-input" rows="3"></textarea>
+		</div>
 	</div>
 
-	<div class="col-md-12">
-		<label for="project-title-input" class="form-input-label">Description</label>
-		<textarea class="form-control form-control-sm" placeholder="Write short project description"
-			id="project-description-input" rows="3"></textarea>
-	</div>
+
 
 	<div class="col-md-12 mb-2">
 		<input onClick="addProject()" type="submit" value="Create Project" class="btn btn-primary-golden btn-sm mt-3">
@@ -240,7 +243,8 @@
 						<br />
 						<span th:text="${proj.description}"
 							class="fw-lighter dashboard-card-content-description p-1 ps-2 d-block"></span>
-						<span th:class="project-status-label-card+' '+project-status-label +' '+${proj.status}" th:text="${proj.status}"></span>
+						<span th:class="project-status-label-card+' '+project-status-label +' '+${proj.status}"
+							th:text="${proj.status}"></span>
 					</div>
 				</div>
 			</div>

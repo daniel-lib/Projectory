@@ -16,16 +16,13 @@
 
 	<div th:replace="/user/todo/todoLayouts :: notification-board"></div>
 
-	<!--<input type="button" class="btn btn-primary-white btn-sm mt-3 mx-3  add-todo-collection-btn"
-		onClick="showAddTodoCollectionForm('card')" value="Add New Collection">-->
-
-
 	<div th:replace="/user/todo/todoLayouts :: add-new-collection-form"></div>
 
 
 
 	<div th:object="${TodoCollections}">
-		<div class="todo-collection my-3 pt-1" th:each="collection : ${TodoCollections}"  th:id="todo-collection-box-+''+${collection.todoCollectionId}">
+		<div class="todo-collection my-3 pt-1" th:each="collection : ${TodoCollections}"
+			th:id="todo-collection-box-+''+${collection.todoCollectionId}">
 			<div class="collection-date d-flex flex-wrap justify-content-between">
 				<span class="info-tag-dark align-self-start">Created on: <span
 						th:text="${collection.creationDate}"></span></span>
@@ -39,8 +36,10 @@
 			<div th:replace="/user/todo/todoLayouts :: displayItems"></div>
 
 			<div class="collection-bottom-btns">
-				<span role="button" class="minimalist-btn-lighter btn-sm"><span class="fa-solid fa-pen"></span> Edit Collection</span>
-				<span role="button" class="minimalist-btn-lighter btn-sm"><span class="fa-solid fa-calendar-xmark"></span> Delete Collection</span>
+				<span role="button" class="minimalist-btn-lighter btn-sm"><span class="fa-solid fa-pen"></span> Edit
+					Collection</span>
+				<span role="button" class="minimalist-btn-lighter btn-sm"><span
+						class="fa-solid fa-calendar-xmark"></span> Delete Collection</span>
 			</div>
 		</div>
 	</div>
@@ -73,7 +72,7 @@
 						<span class="info-tag-dark align-self-start">Last modified: <span
 								th:text="${collection.modificationDate}"></span></span>
 					</div>
-					
+
 					<div th:each="item : ${collection.todoListItems}">
 						<div class="list-items mb-1 p-1">
 							<span th:text="${item.title}" class=""></span>
@@ -81,7 +80,8 @@
 					</div>
 				</div>
 
-				<div role="button" class="card-open-collection-btn" th:onclick="scrollToSpecificCollection('todo-collection-box-[[${collection.todoCollectionId}]]')">
+				<div role="button" class="card-open-collection-btn"
+					th:onclick="scrollToSpecificCollection('todo-collection-box-[[${collection.todoCollectionId}]]')">
 					<span role="button">open collection</span>
 				</div>
 			</div>
@@ -108,7 +108,8 @@
 	<form th:action="@{/user/todo/delete-selected}" method="post">
 		<button type="submit" class="btn btn-danger btn-sm mt-3 float-end delete-selected-btn" value="Delete Selected"
 			th:id="delete-selected-btn-+''+${collection.todoCollectionId}" disabled>
-			Delete <span class="badge text-bg-warning number-of-items-badge" th:id="number-of-items-badge-+''+${collection.todoCollectionId}" disabled>0</span> Items
+			Delete <span class="badge text-bg-warning number-of-items-badge"
+				th:id="number-of-items-badge-+''+${collection.todoCollectionId}" disabled>0</span> Items
 		</button>
 		<br /><br />
 		<div class="d-block todo-list-display-box custom-scrollbar-style-3">
@@ -126,8 +127,6 @@
 					<div class="d-flex justify-content-between p-2 mb-1">
 
 						<div style="display: inline;" th:id="${item.todoItemId}">
-							<!--<span id="itemNumber" class="badge text-bg-warning itemNumber">0</span>-->
-							<!--<span th:text = "${item.todoItemId}" class="badge text-bg-warning"></span>-->
 							<span th:text="${item.title}" id=""></span>
 
 							<span class="badge me-2 edit-item-btn fa-solid fa-edit" title="Edit Item"
@@ -139,13 +138,15 @@
 						<div class="item-deletion-controls d-flex" style="display: inline;">
 							<a th:href="@{/todo/delete-item(itemId=${item.todoItemId})}"
 								th:class="link-white-color+' '+float-end+' '+delete-single-item-link-+''+${collection.todoCollectionId}">
-								<span th:class="badge+' '+text-bg-danger+' '+delete-single-item-btn+' '+delete-single-item-btn-+''+${collection.todoCollectionId}+' '+ fa-solid+' '+ fa-trash-can"
+								<span
+									th:class="badge+' '+text-bg-danger+' '+delete-single-item-btn+' '+delete-single-item-btn-+''+${collection.todoCollectionId}+' '+ fa-solid+' '+ fa-trash-can"
 									title="Delete Item"> </span>
 							</a>
 
 							<span class="delete-item-checkbox item-control-buttons item-control-left-border">
-								<input type="checkbox" th:onClick="readyDeleteButton([[${collection.todoCollectionId}]])" name="selectedForRemoval"
-									th:value="${item.todoItemId}" 
+								<input type="checkbox"
+									th:onClick="readyDeleteButton([[${collection.todoCollectionId}]])"
+									name="selectedForRemoval" th:value="${item.todoItemId}"
 									th:class="form-check-input  +' '+checkbox-for-deletion-+''+${collection.todoCollectionId}+' '+ red-checkbox"
 									id="checkbox-for-deletion" title="Select item">
 							</span>
@@ -175,9 +176,11 @@
 	<div class="p-3">
 		<h6>Add New Collection</h6>
 		<div class="d-flex">
-			<input type="text" class="form-control add-todo-collection-input mt-3 col-md-10" placeholder="What should we call your collection"
-			id="collection-name-input" autofocus maxlength="40" style="width: 70%;">
-		<button onClick="addNewCollection()" class="btn btn-primary-golden btn-sm add-todo-collection-btn mt-3 ms-2">Add Collection</button>
+			<input type="text" class="form-control add-todo-collection-input mt-3 col-md-10"
+				placeholder="What should we call your collection" id="collection-name-input" autofocus maxlength="40"
+				style="width: 70%;">
+			<button onClick="addNewCollection()"
+				class="btn btn-primary-golden btn-sm add-todo-collection-btn mt-3 ms-2">Add Collection</button>
 		</div>
 	</div>
 </div>
@@ -189,8 +192,8 @@
 	<div class="p-2">
 
 		<span class="subtle-form-input-container d-flex">
-			<input type="text" class="subtle-form-input p-2" placeholder="What would you like to add?" th:id="col-+''+${collection.todoCollectionId}+''+-todo-title-input"
-				autofocus>
+			<input type="text" class="subtle-form-input p-2" placeholder="What would you like to add?"
+				th:id="col-+''+${collection.todoCollectionId}+''+-todo-title-input" autofocus>
 			<span role="button" th:onClick="addTodo([[${collection.todoCollectionId}]])"
 				class="subtle-form-btn d-inline p-2">
 				<span class="fa-solid fa-circle-plus"></span>

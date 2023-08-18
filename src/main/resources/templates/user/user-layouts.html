@@ -29,11 +29,10 @@
 </head>
 
 <header th:fragment="nav" class="dashboard-nav fixed-top">
-	
+
 	<figure th:replace="/mainLayouts :: notification-bar"></figure>
-	
+
 	<nav class="user-dashboard-nav d-flex">
-		<!--<div class="container-fluid d-flex justify-inbetween">-->
 		<div class="top-projectory-logo">
 			<a class="navbar-brand navbar-brand-dashboard" th:href="@{/}">
 				<img th:src="@{/images/projectory-logo.png}" alt="[logo]" height="30px" width="23px">
@@ -69,10 +68,24 @@
 					<!--top-collapsable-menu content outer container-->
 					<div class="top-collapsable-menu-container" id="top-collapsable-menu-container">
 						<!--onmouseleave="collapseTopMenu()">-->
-						<div class="top-menu-content" id="notification-menu-content">Notification</div>
-						<div class="top-menu-content" id="message-menu-content">Messages</div>
-						<div class="top-menu-content" id="setting-menu-content">Account
-							<hr><span>Logout</span>
+						<div class="top-menu-content" id="notification-menu-content">
+							<span class="top-menu-header">Notification</span>
+						</div>
+
+						<div class="top-menu-content" id="message-menu-content">
+							<span class="top-menu-header">Messages</span>
+						</div>
+
+						<div class="top-menu-content" id="setting-menu-content">
+							<span class="top-menu-header">Account</span>
+							
+							<div><span></span></div>
+
+							<table>
+								<tr><span role="button" class="top-menu-link">
+										<span class="fa-solid fa-right-from-bracket">
+										</span> Sign out</span></tr>
+							</table>
 						</div>
 					</div>
 
@@ -118,8 +131,6 @@
 
 <footer th:fragment="footer" class="mt-5 pt-2 dashboard-footer m-0">
 	<a href="#" class="go-to-top-btn"><span role="button" class="fa-solid fa-caret-up"></span></a>
-	<!--<span th:text = "${loginIndicator}" id="login_indicator" style="margin-left: 20%"></span>
-	<span th:text = "${user.userId}" id="current_user_id" style="margin-left: 20%"></span>-->
 
 	<span th:text="${param.proof}" id="login_indicator" style="margin-left: 20%"></span>
 	<span th:text="${param.user}" id="current_user_id" style="margin-left: 20%"></span>

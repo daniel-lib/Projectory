@@ -1,10 +1,10 @@
 <main class="dashboard-content" th:fragment="dashboard-content">
 	<section class="dashboard-area d-flex">
 		<div id="viewing-modal-container" class="modal-backdrop-blur">
-			<div id="viewing-modal" class="mt px-3 custom-scrollbar-style">
+			<div id="viewing-modal" class="mt custom-scrollbar-style">
 				<span class="viewing-modal-exit-btn fa-solid fa-xmark p-1" onclick="closeViewingModal()"></span>
-				
-				
+
+
 
 				<div class="viewing-modal">
 
@@ -49,7 +49,7 @@
 					<h5>Project Status</h5>
 					<!--<canvas id="projects-chart" class="chart pie-chart" th:fragment = "project-status"></canvas>-->
 					<canvas id="projects-chart" class="chart pie-chart"></canvas>
-					
+
 					<script>
 						var ProjectStatusCount = "[[${ProjectStatusCount}]]";
 					</script>
@@ -68,7 +68,7 @@
 		</main>
 
 	</section>
-	
+
 	<!--<script>
 		var TodoCollections = "[[${ProjectStatusCount}]]";
 	</script>-->

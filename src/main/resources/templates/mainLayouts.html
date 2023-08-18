@@ -16,7 +16,6 @@
 	<link href="/css/style.css" rel="stylesheet">
 	<link href="/css/todolist.css" rel="stylesheet">
 	<link href="/css/notification-popup-bar.css" rel="stylesheet">
-	<!--<link href="/css/user-dashboard-style.css" rel="stylesheet">-->
 	<script src="https://kit.fontawesome.com/6d882a57d9.js" crossorigin="anonymous"></script>
 	<script src="/javascript/todoListScript.js" defer></script>
 	<script src="/javascript/dashboard-script.js" defer></script>
@@ -40,7 +39,6 @@
 			<a class="navbar-brand" th:href="@{/}">
 				<img th:src="@{/images/projectory-logo.png}" alt="[logo]" height="30px" width="23px">
 				<span>projectory</span>
-				<!--<br/>-->
 				<span class="projectory-top-description d-block">Project Management Swiss Knife</span>
 			</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -56,20 +54,11 @@
 					<a class="nav-link" aria-current="page" th:href="@{/}">Home</a>
 					<a class="nav-link" aria-current="page" th:href="@{/}">Features</a>
 					<a class="nav-link" href="">Resources</a>
-					<a class="nav-link justify-content-end" aria-current="page" onClick="displaySigninForm('login')"
-						role="button">Log in</a>
+					<a class="nav-link" href="">About</a>
 				</div>
 			</div>
 		</div>
 	</nav>
-
-	<!--<script>
-				function showLoginForm(){
-					document.getElementById("login-form").style="height: 500px" ;
-				}
-				const signin = document.getElementById("signin-btn");
-				signin.addEventListener("click", showLoginForm);
-			</script>-->
 </header>
 
 <footer th:fragment="footer" class="pt-2 mb-0">
@@ -78,11 +67,11 @@
 		<div class="products">
 			<ul>
 				<li>
-					<h6>PRODUCTS</h6>
+					<h6>FEATURES</h6>
 				</li>
-				<li><a href="">ERP</a></li>
-				<li><a href="">HRM</a></li>
-				<li><a href="">Intranet Portals</a></li>
+				<li><a href="">Project Management</a></li>
+				<li><a href="">To-do list tool</a></li>
+				<li><a href="">Kanban Board</a></li>
 			</ul>
 		</div>
 		<div class="compamy">
@@ -105,7 +94,6 @@
 				<li><a href="">Privacy Policy</a></li>
 				<li><a href="">Terms of Service</a></li>
 				<li><a href="">Cookie Settings</a></li>
-				<!--test-->
 				<li class="footer__item">
 				</li>
 			</ul>
@@ -118,11 +106,11 @@
 	<span>&copy; 2023, &nbsp;</span>
 	<a class="footer-link-default" href="https://github.com/daniel-lib" target="_blank">
 		<span>Daniel T. Al. <svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 28"
-							class="iconExternalLink_nPIU">
-							<path fill="currentColor"
-								d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z">
-							</path>
-						</svg></span></a>
+				class="iconExternalLink_nPIU">
+				<path fill="currentColor"
+					d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z">
+				</path>
+			</svg></span></a>
 </div>
 
 </html>
