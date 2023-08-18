@@ -465,14 +465,6 @@
 	opacity: 1 !important;
 }
 
-.form-floating>label {
-	color: #4a4a4a !important;
-}
-
-.form-input-label {
-	font-size: 10pt;
-}
-
 #add-todo-item-form {
 	transition: 0.2s ease-in-out;
 }

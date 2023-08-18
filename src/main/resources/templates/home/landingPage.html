@@ -22,39 +22,88 @@
 					</span>
 					<hr />
 					<form class="m-3" action="/login" method="post" th:object="${user}">
+						<div class="row">
+							<div class="col-md-12">
+								<label for="username-input"
+									class="form-input-label form-input-label-dark-bg">Username</label>
 						<input type="text" placeholder="username" th:field="${user.username}" id="username-input"
-							class="form-control mb-3">
-						<input type="password" placeholder="password" th:field="${user.password}"
-							class="form-control mb-3">
-						<input type="submit" value="Sign in" class="btn btn-primary-golden mb-3">
-						<span class="fw- register-here-text"> New to the platform? <a class="form-alternative-btn"
-								onClick="displaySigninForm('signup')"> Create an account</a></span>
+							class="form-control form-control-sm mb-3">
+							</div>
+							<div class="col-md-12">
+								<label for="signin-password-input"
+									class="form-input-label form-input-label-dark-bg">Password</label>
+						<input type="password" placeholder="*************" th:field="${user.password}"
+							class="form-control form-control-sm mb-3" id="signin-password-input">
+							</div>											
+						</div>
+						<input type="submit" value="Sign in" class="btn btn-sm btn-primary-golden mb-3">
+						<span class="fw- auth-form-small-text"> New to the platform? <a class="form-alternative-btn"
+								onClick="displaySigninForm('signup')"> Create an account</a></span>			
 					</form>
 				</div>
 
 				<div id="sign-up-form">
 					<span class="d-flex justify-content-center mt-3">
-						<h3 class="login-signup-form-header">Stress-free life begines here</h3>
+						<h3 class="login-signup-form-header">Stress-free life begins here</h3>
 					</span>
 					<hr />
 					<form class="m-3" action="/register" method="post" th:object="${user}">
-						<input type="text" placeholder="First Name" th:field="${user.firstName}"
-							class="form-control mb-3" autofocus>
-						<input type="text" placeholder="Last Name" th:field="${user.username}"
-							class="form-control mb-3">
-						<input type="text" placeholder="Username" th:field="${user.username}" class="form-control mb-3">
-						<input type="password" placeholder="password" th:field="${user.password}"
-							class="form-control mb-3">
-						<input type="submit" value="Sign up" class="btn btn-primary-golden mb-3">
-						<span class="fw- register-here-text"> Already have an account? <a class="form-alternative-btn"
+
+						<div class="row">
+							<div class="col-md-4">
+								<label for="signup-username-input"
+									class="form-input-label form-input-label-dark-bg">First name</label>
+								<span class="required-field-asterisks"> *</span>
+								<input type="text" placeholder="First Name" th:field="${user.firstName}"
+									class="form-control form-control-sm mb-3" id="signup-username-input"  required autofocus>
+							</div>
+
+							<div class="col-md-4">
+								<label for="project-title-input" class="form-input-label form-input-label-dark-bg">Last
+									name</label>
+								<span class="required-field-asterisks"> *</span>
+								<input type="text" placeholder="Last Name" th:field="${user.lastName}"
+									class="form-control form-control-sm mb-3" id="signup-username-input" required>
+							</div>
+
+							<div class="col-md-4">
+
+								<label for="signup-email-input"
+									class="form-input-label form-input-label-dark-bg">Email</label>
+								<span class="required-field-asterisks"> *</span>
+								<input type="email" placeholder="example@example.com" th:field="${user.emailAddress}"
+									class="form-control form-control-sm mb-3" id="signup-email-input" required>
+							</div>
+
+							<div class="col-md-6">
+								<label for="signup-username-input"
+									class="form-input-label form-input-label-dark-bg">Username</label>
+								<span class="required-field-asterisks"> *</span>
+								<input type="text" placeholder="username" th:field="${user.username}"
+									class="form-control form-control-sm mb-3" id="signup-username-input" required>
+							</div>
+
+							<div class="col-md-6">
+								<label for="signup-password-input"
+									class="form-input-label form-input-label-dark-bg">Password</label>
+								<span class="required-field-asterisks"> *</span>
+								<input type="password" placeholder="************" th:field="${user.password}"
+									class="form-control form-control-sm mb-3" id="signup-password-input" required>
+							</div>
+
+						</div>
+						
+						<div class="terms-services-agreement mb-2 ">
+							<input type="checkbox" value="agree-to-terms" class="d-inline mt-1" required>  
+						<span class="auth-form-small-text auth-form-medium-size d-inline"> I accept terms &amp; conditions. </span>
+						</div>
+						
+						<input type="submit" value="Sign up" class="btn btn-sm btn-primary-golden mb-3">
+						<span class="fw- auth-form-small-text"> Already have an account? <a class="form-alternative-btn"
 								onClick="displaySigninForm('login')"> Login</a></span>
+
 					</form>
 				</div>
-
-
-				<!--<span class="rotated-nav-decor d-flex justify-content"></span>
-				<span class="rotated-nav-decor d-flex justify-content"></span>
-				<span class="rotated-nav-decor float-end"></span>-->
 
 			</div>
 
@@ -135,13 +184,13 @@
 		</div>
 
 
-		<div class="d-flex justify-content-around mt-4 container-bg-blue p-3">			
-					
+		<div class="d-flex justify-content-around mt-4 container-bg-blue p-3">
+
 			<p class="fs-1 blue-bg-text-headline pt-5">Projectory can help you take the lead and be the <span
 					class="colored-text-inline align-self-center">pro</span>
-				in your <span class="colored-text-inline">pro</span>jects.</p>				
-			<p class="blue-bg-text-paragraph align-self-start"> <img src="images/pro-ject-manager.png" width="200px" height="200px"
-					class="d-inline"></p>
+				in your <span class="colored-text-inline">pro</span>jects.</p>
+			<p class="blue-bg-text-paragraph align-self-start"> <img src="images/pro-ject-manager.png" width="200px"
+					height="200px" class="d-inline"></p>
 		</div>
 
 

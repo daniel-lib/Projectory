@@ -15,6 +15,18 @@ body {
 	color: aliceblue;
 }
 
+.form-floating>label {
+	color: #4a4a4a !important;
+}
+
+.form-input-label {
+	font-size: 10pt;
+}
+
+.form-input-label-dark-bg{
+	color:rgb(222, 221, 218);
+}
+
 .login-form {
 	overflow: hidden;
 	width: 50px;
@@ -53,24 +65,18 @@ body {
 
 .navbar-toggler.collapsed+.home-navbar {}
 
-.home-navbar a {
-	/*color: rgb(181, 131, 90);
-color: #ae8319 !important;*/
-    color: #daa520 !important;
-    color: rgb(245, 214, 26) !important;
+.home-nav-container a {
     color: white  !important;
-   /* font-weight: heavier;*/
+    transition: 0.1s ease-in-out;
 }
 
-.home-navbar a:hover {
-	color: rgb(197, 170, 148);
-	/*color: rgb(118, 187, 118) !important;*/
-	 color: rgb(245, 214, 26) !important;
-	/*border: none !important;*/
+.home-nav-container a:hover {
 	border: none;
+	color: rgb(192, 191, 188) !important;
+	text-shadow: 0px 3px 3px rgb(94, 92, 100);
 }
 
-.navbar-nav a:active {
+.home-nav-container a:active {
 	color: rgb(197, 170, 148);
 	color: rgb(118, 187, 118) !important;
 
@@ -89,9 +95,14 @@ color: #ae8319 !important;*/
 	/*text-shadow: 0px 0px 1px rgb(36, 31, 49);*/
 }
 
-.navbar-nav {
+/*.navbar-nav {
 	margin-left: 10%;
 }
+*/
+.home-nav-container .nav-link{
+	padding-left: 10%;
+}
+
 .projectory-top-description {
 	font-size: small;
 	font-weight: 400;
@@ -99,10 +110,6 @@ color: #ae8319 !important;*/
 
 .navbar-toggler {
 	padding: 0px;
-}
-
-.navbar-toggler:hover {
-	background-color: rgb(118, 187, 118);
 }
 
 .navbar-toggler-icon {
@@ -113,7 +120,8 @@ color: #ae8319 !important;*/
 }
 
 .navbar-toggler-icon:hover {
-	background-color: rgb(118, 187, 118);
+	/*background-color: rgb(118, 187, 118);*/
+	background-color: rgba(245, 214, 136,0.2);
 	border-radius: 5px;
 }
 
@@ -130,10 +138,6 @@ color: #ae8319 !important;*/
 	cursor: pointer;
 	width: 20px;
 	height: 20px;
-}
-
-.login-btn {
-	cursor: pointer;
 }
 
 .rotated-nav-decor {
@@ -299,7 +303,7 @@ front-poster-container-inner {
 	position: absolute;
 	z-index: 11;
 	/*margin-top: 7rem !important;*/
-	margin-top: 0rem !important;
+	margin-top: 0rem;
 	/*border: 1px solid red;*/
 }
 
@@ -421,10 +425,13 @@ footer ul li a:hover, .footer-link-default:hover {
 	text-shadow: 0px 5px 10px goldenrod;
 }
 
-.register-here-text {
+.auth-form-small-text {
 	color: darkgrey;
 	font-size: 8pt;
 	display: block;
+}
+.auth-form-medium-size{
+	font-size: 10pt;
 }
 
 #sign-in-form {
@@ -547,8 +554,8 @@ footer ul li a:hover, .footer-link-default:hover {
 }
 
 @media (max-width: 450px) {
-	.get-started-btn {
-		margin-top: 150%;
+	.get-started-btn-container {
+		margin-top: 13%;
 		/*border: 1px solid red !important;*/
 	}
 

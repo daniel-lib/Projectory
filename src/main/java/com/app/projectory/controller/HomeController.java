@@ -15,12 +15,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.app.projectory.dao.UsersRepository;
 import com.app.projectory.entity.Users;
 import com.app.projectory.service.UserLoginService;
+import com.app.projectory.service.userAccountService;
 
 @Controller
 @RequestMapping("")
 public class HomeController {
 
 	UserLoginService userLgServ = new UserLoginService();
+	
+	@Autowired
+	userAccountService accServ;
 	@Autowired
 	UsersRepository userDao;
 
@@ -90,21 +94,12 @@ public class HomeController {
 			  String indicatorString = UUID.randomUUID().toString();
 			  checkedUser.setLoginIndicator(indicatorString);
 			  model.addAttribute("user", checkedUser); //redAttr.addAttribute("userd", checkedUser);
-			  redAttr.addFlashAttribute("username", checkedUser.getUsername()); //
-			  redAttr.addAttribute("firstName", checkedUser.getFirstName()); //
-			  redAttr.addAttribute("lastName", checkedUser.getFirstName());
-			  redAttr.addFlashAttribute("userA", checkedUser); 
-			  checkedUser.setLoginIndicator(indicatorString);
-			  userDao.save(checkedUser);
-			  redAttr.addFlashAttribute("loginIndicator", indicatorString);
-			  indicator = "pass"; 
+			  redAttr.addFlashAttribute("username", checkedUser.getUsername()); 
 			  return "redirect:/user/dashboard?indicator="+indicator+"&user="+checkedUser.getUserId()+"&proof="+indicatorString; 
 	  }
 		  
 		  redAttr.addFlashAttribute("loginStatus", indicator);
 	  return "redirect:/"; 
-		/* return "redirect:/?indicator="+indicator; */
-//	  return "redirect: /user/dashboard?indicator=\""+indicator+"\""; 
 	  }
 
 }
