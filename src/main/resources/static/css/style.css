@@ -37,7 +37,6 @@ body {
 }
 
 .login-form:hover {
-
 	width: auto;
 	height: auto;
 	width: 500px;
@@ -48,15 +47,12 @@ body {
 .login-form:hover {}
 
 .home-navbar {
-	/*position:static;*/
 	position: absolute;
 	z-index: 1990;
-	/*margin-bottom:61.266px;*/
 	padding-bottom: 61.266px;
 	padding-bottom: 63px;
 	margin-bottom: 83px;
 	width: 100%;
-	/*background-color: transparent !important;*/
 	background-color: rgba(119, 118, 123, 0.6);
 	backdrop-filter: blur(10px);
 	overflow: hidden;
@@ -65,17 +61,8 @@ body {
 
 .navbar-toggler.collapsed+.home-navbar {}
 
-.home-nav-container{
-	
+.home-nav-container{	
 	padding-left: 8%;
-}
-
-/*.home-nav-container * {
-    border: 1px #709de5 solid;
-}*/
-
-.home-nav-container .nav-link{
-	/*padding-left: 8%;*/
 }
 
 .home-nav-container a {
@@ -87,22 +74,25 @@ body {
 
 .home-nav-container a:hover {
 	border: none;
-	color: rgb(192, 191, 188) !important;
-	text-shadow: 0px 3px 3px rgb(94, 92, 100);
+	/*color: rgb(192, 191, 188) !important;
+	text-shadow: 0px 1px 3px rgb(61, 56, 70);*/
+	color: rgb(245, 214, 136) !important;
 }
 
 .home-nav-container a::after {
 content: "";
 padding: 0.1rem 0;
 width: 0%;
-background-color: rgba(245, 214, 136, 0.4);
+background-color: rgba(245, 214, 136, 0.6);
 display: block;
-transition: 0.2s ease-in-out;
+transition: 0.3s ease-in-out;
+margin-left: auto;
 }
 
 .home-nav-container a:hover::after {
 width: 100%;
 padding: 0.1rem;
+
 }
 
 .home-nav-container a:active {
@@ -141,13 +131,9 @@ padding: 0.1rem;
 
 .navbar-toggler-icon {
 	border: #ae8319 !important;
-	/*background: none;*/
-	/*border: 1px red solid;*/
-	/*	padding: 1em !important;*/
 }
 
 .navbar-toggler-icon:hover {
-	/*background-color: rgb(118, 187, 118);*/
 	background-color: rgba(245, 214, 136,0.2);
 	border-radius: 5px;
 }
@@ -332,13 +318,20 @@ front-poster-container-inner {
 	/*margin-top: 7rem !important;*/
 	margin-top: 0rem;
 	/*border: 1px solid red;*/
+	/*margin-top: auto;*/
+}
+.get-started-btn-container-inner:hover {
+/*filter: blur(10px);*/
+}
+.get-started-btn-container-inner{
+	margin-top: 100%;
 }
 
 .landing-page-btn {
 	transition: 0.2s ease-in-out;
 	border-radius: 0.175rem;
 	border-radius: 5rem;
-	margin-top: 100%;
+	
 	padding: 0.5rem 1.5rem 0.5rem 1.5rem;
 	border: 0 !important;
 	border-bottom: 1px solid gold !important;
@@ -348,7 +341,7 @@ front-poster-container-inner {
 
 .landing-page-btn:hover {
 	border-bottom: 1px solid rgb(165, 29, 45) !important;
-	/*box-shadow: 10px 10 10px rgb(99, 69, 44);*/
+	/*box-shadow: 10px 10 10px rgb(99, 69, 44);*/		
 }
 
 .get-started-btn {

@@ -26,19 +26,19 @@
 							<div class="col-md-12">
 								<label for="username-input"
 									class="form-input-label form-input-label-dark-bg">Username</label>
-						<input type="text" placeholder="username" th:field="${user.username}" id="username-input"
-							class="form-control form-control-sm mb-3">
+								<input type="text" placeholder="username" th:field="${user.username}"
+									id="username-input" class="form-control form-control-sm mb-3">
 							</div>
 							<div class="col-md-12">
 								<label for="signin-password-input"
 									class="form-input-label form-input-label-dark-bg">Password</label>
-						<input type="password" placeholder="*************" th:field="${user.password}"
-							class="form-control form-control-sm mb-3" id="signin-password-input">
-							</div>											
+								<input type="password" placeholder="*************" th:field="${user.password}"
+									class="form-control form-control-sm mb-3" id="signin-password-input">
+							</div>
 						</div>
 						<input type="submit" value="Sign in" class="btn btn-sm btn-primary-golden mb-3">
 						<span class="fw- auth-form-small-text"> New to the platform? <a class="form-alternative-btn"
-								onClick="displaySigninForm('signup')"> Create an account</a></span>			
+								onClick="displaySigninForm('signup')"> Create an account</a></span>
 					</form>
 				</div>
 
@@ -55,7 +55,8 @@
 									class="form-input-label form-input-label-dark-bg">First name</label>
 								<span class="required-field-asterisks"> *</span>
 								<input type="text" placeholder="First Name" th:field="${user.firstName}"
-									class="form-control form-control-sm mb-3" id="signup-username-input"  required autofocus>
+									class="form-control form-control-sm mb-3" id="signup-username-input" required
+									autofocus>
 							</div>
 
 							<div class="col-md-4">
@@ -92,12 +93,13 @@
 							</div>
 
 						</div>
-						
+
 						<div class="terms-services-agreement mb-2 ">
-							<input type="checkbox" value="agree-to-terms" class="d-inline mt-1" required>  
-						<span class="auth-form-small-text auth-form-medium-size d-inline"> I accept terms &amp; conditions. </span>
+							<input type="checkbox" value="agree-to-terms" class="d-inline mt-1" required>
+							<span class="auth-form-small-text auth-form-medium-size d-inline"> I accept terms &amp;
+								conditions. </span>
 						</div>
-						
+
 						<input type="submit" value="Sign up" class="btn btn-sm btn-primary-golden mb-3">
 						<span class="fw- auth-form-small-text"> Already have an account? <a class="form-alternative-btn"
 								onClick="displaySigninForm('login')"> Login</a></span>
@@ -114,11 +116,13 @@
 				<div class="front-poster-text d-flex justify-content-center px-3 pt-5">
 					<p class="mt-5">Visualizing the trajectory of your projects has never been easier!</p><br /><br />
 					<div class="get-started-btn-container d-flex justify-content-center">
-						<button class="btn landing-page-btn get-started-btn d-inline"
-							onClick="displaySigninForm('signup'); startElementRotation();">Get Started</button>
-						<span class="px-2"></span>
-						<button class="btn landing-page-btn login-btn d-inline"
-							onClick="displaySigninForm('login'); startElementRotation();">Login</button>
+						<div class="get-started-btn-container-inner">
+							<button class="btn landing-page-btn get-started-btn d-inline"
+								onClick="displaySigninForm('signup'); startElementRotation();">Get Started</button>
+							<span class="px-2"></span>
+							<button class="btn landing-page-btn login-btn d-inline"
+								onClick="displaySigninForm('login'); startElementRotation();">Login</button>
+						</div>
 					</div>
 				</div>
 

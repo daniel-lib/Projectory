@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.app.projectory.Car.Car;
 import com.app.projectory.dao.UsersRepository;
 import com.app.projectory.entity.Users;
 import com.app.projectory.service.UserLoginService;
@@ -22,6 +23,9 @@ import com.app.projectory.service.userAccountService;
 public class HomeController {
 
 	UserLoginService userLgServ = new UserLoginService();
+	
+	@Autowired
+	Car c;
 	
 	@Autowired
 	userAccountService accServ;
