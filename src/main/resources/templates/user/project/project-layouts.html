@@ -270,8 +270,8 @@
 			<div th:each="task : ${projectTasks}">
 				<div class="dashboard-card-content-items p-1 m-1">
 					<span class="dashboard-card-content-name" th:text="${task.taskName}"></span>
-					<span style="color: cadetblue;"> | Project: </span>
-					<span style="color: cadetblue;" th:text="${task.containerProject.title}"></span>
+					<span class="cadetblue-light"> | Project: </span>
+					<span class="cadetblue" th:text="${task.containerProject.title}"></span>
 					<span class="project-task-status d-block info-tag-dark" th:text="${task.status}"></span>
 					<span class="dashboard-card-content-description d-block p-1"
 						th:text="${task.taskDescription}"></span>

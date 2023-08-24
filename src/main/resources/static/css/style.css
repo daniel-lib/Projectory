@@ -276,12 +276,13 @@ body {
 
 }
 
-front-poster-container-inner {
-	overflow: hidden;
+.front-poster-container-inner {
+	/*overflow: hidden;
 	height: 100%;
 	width: 100%;
-
+*/
 	/*border: 5px solid  rgb(246, 211, 45);*/
+	
 }
 
 .front-poster-container img {
@@ -290,9 +291,18 @@ front-poster-container-inner {
 	min-height: 400px;
 }
 
-/*.front-poster-text p{	
-	
-}*/
+.front-poster-text>p {
+	background-clip: text;
+	-webkit-background-clip: text;
+	color: transparent;
+	background-image: url('../images/Mirror image of wonderpuss larvae transparent-4-.png');
+	background-size: 10%;
+
+	background-repeat: repeat;
+	/*-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;*/
+}
+
 
 .front-poster-text {
 	position: absolute;
@@ -581,6 +591,10 @@ footer ul li a:hover,
 	display: none;
 	text-decoration: none;
 	color: rgb(246, 245, 244) !important;
+	outline: 1px hidden rgb(33, 37, 41);
+	outline-offset: 3px;
+	transition: outline 0.3s linear;
+	transition: outline-offset 0.3s linear;
 }
 
 .go-to-top-btn-show {
@@ -589,6 +603,12 @@ footer ul li a:hover,
 
 .go-to-top-btn:hover {
 	background-color: rgb(33, 37, 41);
+}
+
+.go-to-top-btn:focus:active {
+	background-color: rgb(33, 37, 41);
+	outline: 2px dotted rgb(33, 37, 41);
+	outline-offset: 0px;
 }
 
 .feature-img {
