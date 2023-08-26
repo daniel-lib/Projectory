@@ -131,11 +131,24 @@ body {
 
 .navbar-toggler-icon {
 	border: #ae8319 !important;
+	color: rgb(245, 214, 136);
+	background-image: none !important;
+	font-size: 18pt;
+	width: 1.2em !important;
+	height: 1.2em !important;
+	/*padding: 0.5rem;*/
+	align-self: center;
+	padding-top: 0.1rem;
 }
 
 .navbar-toggler-icon:hover {
 	background-color: rgba(245, 214, 136, 0.2);
 	border-radius: 5px;
+}
+
+.navbar-toggler-icon:active:focus {
+	border-style: none !important;
+	outline-style: none !important;
 }
 
 .menu-icon {
@@ -282,7 +295,7 @@ body {
 	width: 100%;
 */
 	/*border: 5px solid  rgb(246, 211, 45);*/
-	
+
 }
 
 .front-poster-container img {
