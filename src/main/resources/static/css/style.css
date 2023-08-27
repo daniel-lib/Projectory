@@ -151,6 +151,15 @@ body {
 	outline-style: none !important;
 }
 
+.navbar-toggler:not(.navbar-toggler.collapsed) > .navbar-toggler-icon{	
+	background-color: rgba(245, 214, 136, 0.2);
+	border-radius: 5px;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none!important;
+}
+
 .menu-icon {
 	/*padding-bottom:10px;*/
 	transition: 0.1s ease-in-out;
