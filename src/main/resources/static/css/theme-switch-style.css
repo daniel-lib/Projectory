@@ -229,7 +229,7 @@
    	--form-input-bg: #FFF;
    	--form-input-color: #212529;
    	--input-color-scheme: dark;
-   	--date-icon-filter: invert(71%) sepia(31%) saturate(495%) hue-rotate(71deg) brightness(89%) contrast(91%);;
+   	--date-icon-filter: invert(71%) sepia(81%) saturate(495%) hue-rotate(71deg) brightness(49%) contrast(91%);;
     
   }
   .dark-mode {    

@@ -25,7 +25,8 @@
 
 <label for="theme" class="theme" th:fragment="theme-switch" title="switch theme">
 	<span class="theme__toggle-wrap">
-		<input id="theme" class="theme__toggle" type="checkbox" role="switch" name="theme" value="dark" onclick="switchTheme()">
+		<input id="theme" class="theme__toggle" type="checkbox" role="switch" name="theme" value="dark"
+			onclick="switchTheme()">
 		<span class="theme__icon">
 			<span class="theme__icon-part"></span>
 			<span class="theme__icon-part"></span>
@@ -59,8 +60,9 @@
 				<span>projectory</span>
 				<span class="projectory-top-description d-block">Project Management Swiss Knife</span>
 			</a>
-			<button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-				aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+			<button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+				aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon fa-solid fa-bars" onmouseover="toggleMenuClose(true)"
 					onmouseout="toggleMenuClose(false)">
 					<span class="menu-icon menu-icon-one"></span>
@@ -77,8 +79,9 @@
 			</div>
 		</div>
 	</nav>
-	<span class="guest-theme-switch theme-switch-container"><label th:replace="mainLayouts::theme-switch"></label></span>
-				
+	<span class="guest-theme-switch theme-switch-container"><label
+			th:replace="mainLayouts::theme-switch"></label></span>
+
 </header>
 
 <footer th:fragment="footer" class="pt-2 mb-0">
@@ -131,6 +134,18 @@
 					d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z">
 				</path>
 			</svg></span></a>
+</div>
+
+<div class="cookie-notice p-2" id="cookie-notice" th:fragment = "cookie-notice">
+	<span>
+		<span class="fa-solid fa-cookie-bite"></span>
+		<b>Notice.</b> Projectory uses cookies to provide necessary website functionality, improve your experience and analyze
+		our traffic.
+		By using our website/service, you agree to the collection and use of information in accordance with the best
+		Privacy Policy out there.
+		Meaning, we don't sell, rent or misuse your personal information.
+		<span role="button" class="minimalist-btn-lighter btn-sm form-input-label-dark-bg cookie-accept-btn ms-2" id="cookie-accept-btn">I understand!</span>
+	</span>
 </div>
 
 </html>

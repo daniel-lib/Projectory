@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="https://www.thymeleaf.org">
+<html xmlns="https://www.thymeleaf.org" class="dark-mode">
 
 <head th:replace="mainLayouts :: head"></head>
 
@@ -211,7 +211,7 @@
 		var loginStatus = "[[${loginStatus}]]";
 	//alert(loginStatus.);
 	</script>
-
+<div th:replace="/mainLayouts::cookie-notice"></div>
 </body>
 
 </html>

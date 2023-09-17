@@ -14,13 +14,18 @@ function toggleGoTo() {
 }
 
 
-const signin = document.getElementById("signin-btn");
+
+
+
+
+///error
+/*const signin = document.getElementById("signin-btn");
 signin.addEventListener("click", showLoginForm);
 
 function showLoginForm() {
 	document.getElementById("login-form").style = "height: 500px";
 }
-
+*/
 
 
 /*function toggleAuthForm() {*/
@@ -138,6 +143,23 @@ function hideNotificationBar() {
 	const notification = document.querySelector('.notification');
 	notification.classList.add('hide');
 }
+
+
+//coockie privacy notice
+(function() {
+	const cookieNoticeBoard = document.getElementById("cookie-notice");
+	const closeNoticeButton = document.getElementById("cookie-accept-btn");
+	
+	if (localStorage.getItem('cookie-status') === null) {
+		cookieNoticeBoard.classList.add("show");
+		closeNoticeButton.addEventListener("click", ()=>{
+		cookieNoticeBoard.classList.remove("show");
+		localStorage.setItem('cookie-status', "policy-accepted");
+	});
+	} 
+})();
+
+
 
 /*document.addEventListener("click", (event) => {
 	const isClickInsideNotification = notification.contains(event.target);

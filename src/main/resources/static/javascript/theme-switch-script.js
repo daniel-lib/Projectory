@@ -19,13 +19,6 @@ function switchTheme() {
 	}
 }
 
-           /* if (localStorage.getItem('theme') === 'dark-mode') {
-                setTheme('light-mode');
-            } else {
-                setTheme('dark-mode');
-            }*/
-        //}
-
 // Immediately invoked function to set the theme on initial load
 (function() {
 	const toggle = document.getElementById("theme");

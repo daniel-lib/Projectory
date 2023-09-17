@@ -18,25 +18,26 @@ body.dark-mode {
 	background-color: #252525 !important;
 	color: #EEF3F9 !important;
 }
+
 div.dark-mode {
 	background-color: #121212 !important;
 	color: #EEF3F9 !important;
 }
 
-.card{
+.card {
 	background-color: var(--primary-card-bg) !important;
 	border: var(--primary-card-border) !important;
 }
 
 .form-control,
-.form-select{
-	background-color: var(--form-input-bg) !important;	
-	color: var(--form-input-color) !important;	
+.form-select {
+	background-color: var(--form-input-bg) !important;
+	color: var(--form-input-color) !important;
 	color-scheme: var(--input-color-scheme) !important;
 }
 
 ::-webkit-calendar-picker-indicator {
-    filter: var(--date-icon-filter);
+	filter: var(--date-icon-filter);
 }
 
 
@@ -182,13 +183,13 @@ div.dark-mode {
 	outline-style: none !important;
 }
 
-.navbar-toggler:not(.navbar-toggler.collapsed) > .navbar-toggler-icon{	
+.navbar-toggler:not(.navbar-toggler.collapsed)>.navbar-toggler-icon {
 	background-color: rgba(245, 214, 136, 0.2);
 	border-radius: 5px;
 }
 
 .navbar-toggler:focus {
-  box-shadow: none!important;
+	box-shadow: none !important;
 }
 
 .menu-icon {
@@ -470,6 +471,32 @@ footer ul li a:hover,
 	text-align: center;
 }
 
+.cookie-notice {
+	bottom: 0;
+	position: fixed;
+	background-color: #252525;
+	color: antiquewhite;
+	left: 5%;
+	right: 5%;
+	margin: auto;
+	font-size: 10pt;
+	user-select: none;
+	border-top: 3px solid #675D50;
+	display: none;	
+}
+.cookie-notice.show {
+	display: block;
+	}
+
+.cookie-accept-btn {
+	color: #FFF !important;
+	transition: 0.3s linear;
+}
+
+.cookie-accept-btn:active {
+	box-shadow: 0px 0px 6px rgb(222, 221, 218);
+	background-color: rgba(0, 0, 0, 0.6);
+}
 
 .containers {
 	padding-bottom: 0px !important;
@@ -502,6 +529,51 @@ footer ul li a:hover,
 /*.login-signup-form{
 	margin
 }*/
+.minimalist-btn,
+.minimalist-btn-lighter {
+	font-size: 9pt !important;
+	border: 1px solid rgb(119, 118, 123);
+	border-radius: 0.25rem;
+	color: rgb(119, 118, 123);
+	transition: 0.2s ease-in-out;
+	padding: 0.2rem 0.4rem 0.2rem 0.4rem;
+	margin-right: 0.3rem;
+	cursor: pointer;
+}
+
+.minimalist-btn-blk-bg {
+	background-color: rgb(36, 31, 49)
+}
+
+.minimalist-btn:hover {
+	background-color: rgba(119, 118, 123, 0.6);
+	color: rgb(118, 187, 118) !important;
+}
+
+.minimalist-btn-lighter {
+	color: rgb(61, 56, 70);
+}
+
+.minimalist-btn-lighter:hover {
+	color: rgb(0, 0, 0);
+	background-color: rgba(119, 118, 123, 0.6);
+
+}
+
+.minimalist-btn-rounded {
+	border-radius: 50px;
+}
+
+.minimalist-btn-left-rounded {
+	border-top-left-radius: 50px;
+	border-bottom-left-radius: 50px;
+}
+
+.minimalist-btn-right-rounded {
+	border-top-right-radius: 50px;
+	border-bottom-right-radius: 50px;
+}
+
 
 .login-signup-form-exit-btn {
 	color: goldenrod;

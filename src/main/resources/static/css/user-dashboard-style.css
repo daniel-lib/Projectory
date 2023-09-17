@@ -450,51 +450,6 @@
 	transition: 0.2s ease-in-out;
 }
 
-.minimalist-btn,
-.minimalist-btn-lighter {
-	font-size: 9pt !important;
-	border: 1px solid rgb(119, 118, 123);
-	border-radius: 0.25rem;
-	color: rgb(119, 118, 123);
-	transition: 0.2s ease-in-out;
-	padding: 0.2rem 0.4rem 0.2rem 0.4rem;
-	margin-right: 0.3rem;
-	cursor: pointer;
-}
-
-.minimalist-btn-blk-bg {
-	background-color: rgb(36, 31, 49)
-}
-
-.minimalist-btn:hover {
-	background-color: rgba(119, 118, 123, 0.6);
-	color: rgb(118, 187, 118) !important;
-}
-
-.minimalist-btn-lighter {
-	color: rgb(61, 56, 70);
-}
-
-.minimalist-btn-lighter:hover {
-	color: rgb(0, 0, 0);
-	background-color: rgba(119, 118, 123, 0.6);
-
-}
-
-.minimalist-btn-rounded {
-	border-radius: 50px;
-}
-
-.minimalist-btn-left-rounded {
-	border-top-left-radius: 50px;
-	border-bottom-left-radius: 50px;
-}
-
-.minimalist-btn-right-rounded {
-	border-top-right-radius: 50px;
-	border-bottom-right-radius: 50px;
-}
-
 .todo-collection {
 	border: 2px dashed rgb(119, 118, 123);
 	border-bottom: 2px ridge rgb(51, 209, 122);
