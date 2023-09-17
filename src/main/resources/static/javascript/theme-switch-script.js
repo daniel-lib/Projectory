@@ -22,6 +22,7 @@ function switchTheme() {
 // Immediately invoked function to set the theme on initial load
 (function() {
 	const toggle = document.getElementById("theme");
+	const all_theme_toggle = document.getElementsByClassName("theme__toggle");
 	
 	if (localStorage.getItem('theme') === 'dark-mode') {
 		toggle.checked = true;

@@ -1,12 +1,12 @@
 <main class="dashboard-content" th:fragment="dashboard-content">
 	<section class="dashboard-area d-flex">
 		<div id="viewing-modal-container" class="modal-backdrop-blur">
-			<div id="viewing-modal" class="mt custom-scrollbar-style">
+			<div id="viewing-modal" class="mt">
 				<span class="viewing-modal-exit-btn fa-solid fa-xmark p-1" onclick="closeViewingModal()"></span>
 
 
 
-				<div class="viewing-modal">
+				<div class="viewing-modal custom-scrollbar-style">
 
 					<div th:replace="/user/todo/todoLayouts :: todo-list-modal-content"></div>
 					<div th:replace="/user/project/project-layouts :: project-list-modal-content"></div>
