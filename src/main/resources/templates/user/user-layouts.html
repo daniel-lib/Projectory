@@ -25,6 +25,7 @@
 	<script src="/javascript/login-info-fetch.js" defer></script>
 	<script src="/javascript/charts-project.js" defer></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="/javascript/theme-switch-script.js" defer></script>
 
 </head>
 
@@ -124,8 +125,11 @@
 				onClick="selectedSideMenuToggle(3)">
 				<span class="nav-icon mt-1 fa-solid fa-sliders"></span>
 				<span class="side-nav-text mx-2">Setting</span></a>
+				
+				<span class="logged-theme-switch theme-switch-container"><label th:replace="mainLayouts::theme-switch"></label></span>
 
 		</div>
+		
 	</div>
 </aside>
 

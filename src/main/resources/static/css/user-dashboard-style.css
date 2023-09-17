@@ -10,6 +10,12 @@
 /*.modal-open {
 	padding: 0.25rem 1.19rem 0.25rem 0.25rem !important;
 }*/
+
+.dashboard-content{
+	background-color: var(--secondary-bg);
+	color: var(--primary-bg);
+}
+
 .modal-open-body {
 	/*padding-right: 0.9rem;*/
 }
@@ -260,7 +266,7 @@
 .user-dashboard-cards:hover {
 	background: rgba(205, 171, 143, 0.2);
 	border-bottom: 3px solid rgb(118, 187, 118);
-	box-shadow: 0px 0px 3px 3px rgb(192, 191, 188);
+	box-shadow: var(--card-hover-shadow);
 }
 
 .dashboard-card-img-top {
@@ -707,7 +713,8 @@
 	width: 100%;
 
 	margin-top: 20px;
-	background-color: rgba(222, 221, 218, 0.5);
+	background-color: var(--secondary-bg-gray);
+	color: var(--primary-color);
 }
 
 .charts {

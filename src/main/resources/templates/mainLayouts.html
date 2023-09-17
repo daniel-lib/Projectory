@@ -20,11 +20,29 @@
 	<script src="/javascript/todoListScript.js" defer></script>
 	<script src="/javascript/dashboard-script.js" defer></script>
 	<script src="/javascript/mainScript.js" defer></script>
+	<script src="/javascript/theme-switch-script.js" defer></script>
 </head>
+
+<label for="theme" class="theme" th:fragment="theme-switch" title="switch theme">
+	<span class="theme__toggle-wrap">
+		<input id="theme" class="theme__toggle" type="checkbox" role="switch" name="theme" value="dark" onclick="switchTheme()">
+		<span class="theme__icon">
+			<span class="theme__icon-part"></span>
+			<span class="theme__icon-part"></span>
+			<span class="theme__icon-part"></span>
+			<span class="theme__icon-part"></span>
+			<span class="theme__icon-part"></span>
+			<span class="theme__icon-part"></span>
+			<span class="theme__icon-part"></span>
+			<span class="theme__icon-part"></span>
+			<span class="theme__icon-part"></span>
+		</span>
+	</span>
+</label>
 
 <header th:fragment="nav">
 
-	<figure class="notification hide none" th:fragment="notification-bar">
+	<figure class="notification hide none float-end" th:fragment="notification-bar">
 		<div class="notification__body">
 			<span class="notification__body__first pt-1">
 				<span class="fa-solid fa-circle-check mt-1" id="notification-icon">
@@ -59,6 +77,8 @@
 			</div>
 		</div>
 	</nav>
+	<span class="guest-theme-switch theme-switch-container"><label th:replace="mainLayouts::theme-switch"></label></span>
+				
 </header>
 
 <footer th:fragment="footer" class="pt-2 mb-0">
