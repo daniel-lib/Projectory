@@ -29,6 +29,7 @@ public class Users {
 	private String username;
 	private String password;
 	private String loginIndicator;
+	private boolean enabled;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "userWithConnection")
