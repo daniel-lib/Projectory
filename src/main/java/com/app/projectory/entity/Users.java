@@ -29,6 +29,7 @@ public class Users {
 	private String username;
 	private String password;
 	private String loginIndicator;
+	private String role;
 	private boolean enabled;
 	
 	@JsonIgnore
@@ -54,13 +55,23 @@ public class Users {
 	public Users() {
 			
 	}
-	public Users(String username, String password, String firstName, String lastName, String emailAddress) {
-		this.username = username;
-		this.password = password;
+	
+	
+	
+	public Users(long userId, String firstName, String lastName, String emailAddress, String username, String password,
+			String loginIndicator, String role, boolean enabled) {
+		super();
+		this.userId = userId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.emailAddress = emailAddress;
+		this.username = username;
+		this.password = password;
+		this.loginIndicator = loginIndicator;
+		this.role = role;
+		this.enabled = enabled;
 	}
+
 	public long getUserId() {
 		return userId;
 	}
@@ -119,6 +130,19 @@ public class Users {
 	
 	public void setLoginIndicator(String loginIndicator) {
 		this.loginIndicator = loginIndicator;
+	}
+		
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public boolean isEnabled() {
+		return enabled;
+	}
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 	
 	public List<Connections> getConnection() {

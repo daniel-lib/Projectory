@@ -17,9 +17,9 @@ public class UserAuthService implements UserLoginServiceInterface{
 	}
 	public List<Users> populateUserTest() {
 		List<Users> listOfUsers = new ArrayList();
-		listOfUsers.add(new Users("admin", "admin123", "aba", "abu", "admin@gmail.com"));
-		listOfUsers.add(new Users("user1", "user123", "userela", "uno", "user1@gmail.com"));
-		listOfUsers.add(new Users("user2", "user123", "duo ", "userella","user2@yahoo.com"));
+//		listOfUsers.add(new Users("admin", "admin123", "aba", "abu", "admin@gmail.com"));
+//		listOfUsers.add(new Users("user1", "user123", "userela", "uno", "user1@gmail.com"));
+//		listOfUsers.add(new Users("user2", "user123", "duo ", "userella","user2@yahoo.com"));
 
 //		userDao.save(u);
 		return listOfUsers;

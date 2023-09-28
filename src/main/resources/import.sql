@@ -2,12 +2,12 @@
 
 
 -- INSERT USERS
-insert into USERS (username, password, first_name, last_name, email_address, enabled) values ('testuser1', 'testuser123', 'Test', 'User1', 'test1@user.com', true);
-insert into USERS (username, password, first_name, last_name, email_address, enabled) values ('testuser2', 'testuser123', 'gebru', 'User2', 'gebru@user.com', true);
-insert into USERS (username, password, first_name, last_name, email_address, enabled) values ('testuser3', 'testuser123', 'semhal', 'User3', 'semhal@user.com', true);
-insert into USERS (username, password, first_name, last_name, email_address, enabled) values ('hena', '123456', 'henok', 'sertse', 'hena_s@user.com', true);
-insert into USERS (username, password, first_name, last_name, email_address, enabled) values ('hawa2', 'pasw1', 'hewan', 'john', 'hewi2@user.com', true);
-insert into USERS (username, password, first_name, last_name, email_address, enabled) values ('markos55', 'inthe24', 'mark', 'os', 'mark_os2@user.com', true);
+insert into USERS (username, password, first_name, last_name, email_address, enabled, role) values ('testuser1', 'testuser123', 'Test', 'User1', 'test1@user.com', true, 'ROLE.USER');
+insert into USERS (username, password, first_name, last_name, email_address, enabled, role) values ('testuser2', 'testuser123', 'gebru', 'User2', 'gebru@user.com', true, 'ROLE.USER');
+insert into USERS (username, password, first_name, last_name, email_address, enabled, role) values ('testuser3', 'testuser123', 'semhal', 'User3', 'semhal@user.com', true, 'ROLE.USER');
+insert into USERS (username, password, first_name, last_name, email_address, enabled, role) values ('hena', '123456', 'henok', 'sertse', 'hena_s@user.com', true, 'ROLE.USER');
+insert into USERS (username, password, first_name, last_name, email_address, enabled, role) values ('hawa2', 'pasw1', 'hewan', 'john', 'hewi2@user.com', true, 'ROLE.USER');
+insert into USERS (username, password, first_name, last_name, email_address, enabled, role) values ('markos55', 'inthe24', 'mark', 'os', 'mark_os2@user.com', true, 'ROLE.USER');
 
 -- INSERT CONNECTIONS
 insert into CONNECTIONS (REQUEST_RECEIVER_USER, CONNECTION_DATE, CONNECTION_STATUS, REQUEST_SENDER_USER) values (2, '01/07/2023', 'approved', 1);

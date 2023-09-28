@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -20,29 +21,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	DataSource dataSource;
+	@Autowired
+	BCryptPasswordEncoder encoder;
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth)throws Exception{
 		auth.jdbcAuthentication().dataSource(dataSource)
-			.usersByUsernameQuery("SELECT username, password, enabled FROM users where username = ?");
-		
+			.usersByUsernameQuery("SELECT username, password, enabled FROM users where username = ?")
+			.authoritiesByUsernameQuery("SELECT username, role FROM users where username = ?")
+			.passwordEncoder(encoder);	
 	}
 	
-	@Bean
-	public PasswordEncoder getPasswordEncoder() {
-		return NoOpPasswordEncoder.getInstance();
-	}
+	
+	
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 			http.authorizeRequests()
+			//.antMatchers("/register-user").permitAll()
+				.antMatchers("/user","/user/**").authenticated()
 				.antMatchers("/user").hasRole("USER")
+				//.antMatchers("/user/**").authenticated()
 				.antMatchers("/user/**").hasRole("USER")
-				.antMatchers("/db/**").permitAll()
-				.antMatchers("/").authenticated().and().formLogin();
+//				.antMatchers("/db/**").permitAll()
+				.antMatchers("/", "/**").permitAll()
+//				.antMatchers("/").authenticated()
+				.and().formLogin();
 			
+			//to get the h2 console working
 			http.csrf().disable();
-			http.headers().frameOptions().disable();
+//			http.headers().frameOptions().disable();
 				
 	}
 	/*

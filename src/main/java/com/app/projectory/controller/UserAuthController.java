@@ -26,8 +26,8 @@ public class UserAuthController {
 	userAccountService accServ;
 	@Autowired
 	UsersRepository userDao;
-	
-	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	@Autowired
+	BCryptPasswordEncoder encoder;
 	
 	  @PostMapping("/register-user") 
 	  @ResponseBody
@@ -39,20 +39,19 @@ public class UserAuthController {
 		  if(checkedUser == null) { //		  
 			  
 			  user.setPassword(encoder.encode(user.getPassword()));
+			  user.setEnabled(true);
+			  user.setRole("ROLE_USER");
+			 
 			  
 			  userDao.save(user);
-			  			 
-				/*
-				 * String indicatorString = UUID.randomUUID().toString();
-				 * checkedUser.setLoginIndicator(indicatorString); model.addAttribute("user",
-				 * checkedUser); //redAttr.addAttribute("userd", checkedUser);
-				 * redAttr.addFlashAttribute("username", checkedUser.getUsername());
-				 */
 			  model.addAttribute("Registration-Successful");
-			  return "redirect:/user/dashboard?reg=success";
+			  indicator = "success";
+//			  return "redirect:/user/dashboard?reg=success";
+			  
 	  }
 		  
 		  redAttr.addFlashAttribute("loginStatus", indicator);
-	  return "redirect:/"; 
+	  //return "redirect:/"; 
+		  return "redirect:/?reg="+indicator; 
 	  }
 }
