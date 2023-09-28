@@ -6,6 +6,10 @@
 	height: 35px;
 	padding: 0.25rem;
 }
+.modal-open-disable-body-scrolling{
+	position: fixed;
+	overflow-y: scroll;
+}
 
 /*.modal-open {
 	padding: 0.25rem 1.19rem 0.25rem 0.25rem !important;

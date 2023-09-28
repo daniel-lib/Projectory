@@ -8,7 +8,11 @@ function displayViewingModal(contentType) {
 
 	if (contentType >= 0 || contentType <= (contents.length) - 1) {
 		contents[contentType].style.display = "block";
-		document.body.classList.add('overflow-hidden');
+		//document.body.classList.add('overflow-hidden')
+
+		/*document.body.style.position = "fixed";
+		document.body.style.overflowY = "scroll";*/
+		document.body.classList.add('modal-open-disable-body-scrolling');
 
 		const nav = document.getElementsByTagName("nav");
 
@@ -72,7 +76,8 @@ function closeViewingModal() {
 	for (let c of modalContents) {
 		c.style.display = "none";
 	}
-	document.body.classList.remove('overflow-hidden');
+	//document.body.classList.remove('overflow-hidden');
+	document.body.classList.remove('modal-open-disable-body-scrolling');
 	const nav = document.getElementsByTagName("nav");
 	nav[0].classList.remove("modal-open");
 	document.body.classList.remove('modal-open-body');
