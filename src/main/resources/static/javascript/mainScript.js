@@ -151,7 +151,7 @@ function hideNotificationBar() {
 	const closeNoticeButton = document.getElementById("cookie-accept-btn");
 	
 	if (localStorage.getItem('cookie-status') === null) {
-		cookieNoticeBoard.classList.add("show");
+		window.setTimeout(()=>cookieNoticeBoard.classList.add("show"),1000);
 		closeNoticeButton.addEventListener("click", ()=>{
 		cookieNoticeBoard.classList.remove("show");
 		localStorage.setItem('cookie-status', "policy-accepted");

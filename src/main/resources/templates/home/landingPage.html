@@ -21,18 +21,22 @@
 						<h3 class="login-signup-form-header">Welcome back</h3>
 					</span>
 					<hr />
-					<form class="m-3" action="/login" method="post" th:object="${user}">
+					<form class="m-3" th:action="@{/login}" method="post" th:object="${user}">
 						<div class="row">
 							<div class="col-md-12">
 								<label for="username-input"
 									class="form-input-label form-input-label-dark-bg">Username</label>
-								<input type="text" placeholder="username" th:field="${user.username}"
+								<!--<input type="text" placeholder="username" th:field="${user.username}"
+									id="username-input" class="form-control form-control-sm mb-3">-->
+									<input type="text" placeholder="username" name="username"
 									id="username-input" class="form-control form-control-sm mb-3">
 							</div>
 							<div class="col-md-12">
 								<label for="signin-password-input"
 									class="form-input-label form-input-label-dark-bg">Password</label>
-								<input type="password" placeholder="*************" th:field="${user.password}"
+								<!--<input type="password" placeholder="*************" th:field="${user.password}"
+									class="form-control form-control-sm mb-3" id="signin-password-input">-->
+									<input type="password" placeholder="*************" name="password"
 									class="form-control form-control-sm mb-3" id="signin-password-input">
 							</div>
 						</div>
@@ -91,6 +95,8 @@
 								<input type="password" placeholder="************" th:field="${user.password}"
 									class="form-control form-control-sm mb-3" id="signup-password-input" required>
 							</div>
+							
+							<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
 
 						</div>
 
