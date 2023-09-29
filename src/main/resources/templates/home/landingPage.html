@@ -209,6 +209,14 @@
 
 	<script>
 		var loginStatus = "[[${loginStatus}]]";
+		var login_error = "[[${param.auth}]]";
+		if(auth_error == "required")
+		alert("You need to signin first");
+		else if(auth_error = "loggedout")
+		alert("Successfully logged out")
+		else{
+			
+		}
 	//alert(loginStatus.);
 	</script>
 <div th:replace="/mainLayouts::cookie-notice"></div>
