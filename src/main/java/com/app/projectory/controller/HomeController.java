@@ -23,9 +23,7 @@ import com.app.projectory.service.userAccountService;
 public class HomeController {
 
 	UserAuthService userLgServ = new UserAuthService();
-	
-	
-	
+
 	@Autowired
 	userAccountService accServ;
 	@Autowired
@@ -55,37 +53,30 @@ public class HomeController {
 		return "/home/landingPage";
 	}
 
-	
-	  @PostMapping("/login") 
-	  public String validateUser(Model model, Users user, RedirectAttributes redAttr) { 
-		  List<Users> allUsers = userDao.findAll();
-		  Users checkedUser = userLgServ.authenticateUser(user.getUsername(), user.getPassword(), allUsers); 
-		  String indicator = "err"; 
-		  
-		  if(checkedUser != null) { //		  
-			 
-			  String indicatorString = UUID.randomUUID().toString();
-			  checkedUser.setLoginIndicator(indicatorString);
-			  model.addAttribute("user", checkedUser); //redAttr.addAttribute("userd", checkedUser);
-			  redAttr.addFlashAttribute("username", checkedUser.getUsername()); //
-			  redAttr.addAttribute("firstName", checkedUser.getFirstName()); //
-			  redAttr.addAttribute("lastName", checkedUser.getFirstName());
-			  redAttr.addFlashAttribute("userA", checkedUser); 
-			  checkedUser.setLoginIndicator(indicatorString);
-			  userDao.save(checkedUser);
-			  redAttr.addFlashAttribute("loginIndicator", indicatorString);
-			  indicator = "pass"; 
-			  return "redirect:/user/dashboard?indicator="+indicator+"&user="+checkedUser.getUserId()+"&proof="+indicatorString; 
-	  }
-		  
-		  redAttr.addFlashAttribute("loginStatus", indicator);
-	  return "redirect:/"; 
-		/* return "redirect:/?indicator="+indicator; */
-//	  return "redirect: /user/dashboard?indicator=\""+indicator+"\""; 
-	  }
-	 
-	  
-	  
-	
+	/*
+	 * @PostMapping("/login") public String validateUser(Model model, Users user,
+	 * RedirectAttributes redAttr) { List<Users> allUsers = userDao.findAll(); Users
+	 * checkedUser = userLgServ.authenticateUser(user.getUsername(),
+	 * user.getPassword(), allUsers); String indicator = "err";
+	 * 
+	 * if(checkedUser != null) { //
+	 * 
+	 * String indicatorString = UUID.randomUUID().toString();
+	 * checkedUser.setLoginIndicator(indicatorString); model.addAttribute("user",
+	 * checkedUser); //redAttr.addAttribute("userd", checkedUser);
+	 * redAttr.addFlashAttribute("username", checkedUser.getUsername()); //
+	 * redAttr.addAttribute("firstName", checkedUser.getFirstName()); //
+	 * redAttr.addAttribute("lastName", checkedUser.getFirstName());
+	 * redAttr.addFlashAttribute("userA", checkedUser);
+	 * checkedUser.setLoginIndicator(indicatorString); userDao.save(checkedUser);
+	 * redAttr.addFlashAttribute("loginIndicator", indicatorString); indicator =
+	 * "pass"; return
+	 * "redirect:/user/dashboard?indicator="+indicator+"&user="+checkedUser.
+	 * getUserId()+"&proof="+indicatorString; }
+	 * 
+	 * redAttr.addFlashAttribute("loginStatus", indicator); return "redirect:/";
+	 * return "redirect:/?indicator="+indicator; // return
+	 * "redirect: /user/dashboard?indicator=\""+indicator+"\""; }
+	 */
 
 }

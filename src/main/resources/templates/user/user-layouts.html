@@ -67,7 +67,8 @@
 					</div>
 
 					<!--top-collapsable-menu content outer container-->
-					<div class="top-collapsable-menu-container" id="top-collapsable-menu-container">
+					<div class="top-collapsable-menu-container custom-scrollbar-style-3"
+						id="top-collapsable-menu-container">
 						<!--onmouseleave="collapseTopMenu()">-->
 						<div class="top-menu-content" id="notification-menu-content">
 							<span class="top-menu-header">Notification</span>
@@ -75,18 +76,28 @@
 
 						<div class="top-menu-content" id="message-menu-content">
 							<span class="top-menu-header">Messages</span>
+							<span role="button" class="top-menu-link d-block my-3">
+								<span class="fa-solid fa-gear pe-2">
+								</span><a href="">Go to messenger</a></span>
 						</div>
 
 						<div class="top-menu-content" id="setting-menu-content">
 							<span class="top-menu-header">Account</span>
-							
+
 							<div><span></span></div>
 
-							<table>
-								<tr><span role="button" class="top-menu-link">
-										<span class="fa-solid fa-right-from-bracket">
-										</span><a href="/logout">Sign out</a></span></tr>
-							</table>
+							<span role="button" class="top-menu-link d-block my-3">
+								<span class="fa-solid fa-id-card pe-2"></span>								
+							@<span th:text = "${user}"></span><br/>
+							<a href="/logout" class="ms-4 fs-10">View Profile</a></span>
+
+							<span role="button" class="top-menu-link d-block my-3">
+								<span class="fa-solid fa-user-pen pe-2">
+								</span><a href="/logout">Edit Profile</a></span>
+							<hr />
+							<span role="button" class="top-menu-link d-block mt-3">
+								<span class="fa-solid fa-right-from-bracket pe-2">
+								</span><a href="/logout">Sign out</a></span>
 						</div>
 					</div>
 
@@ -125,11 +136,12 @@
 				onClick="selectedSideMenuToggle(3)">
 				<span class="nav-icon mt-1 fa-solid fa-sliders"></span>
 				<span class="side-nav-text mx-2">Setting</span></a>
-				
-				<span class="logged-theme-switch theme-switch-container"><label th:replace="mainLayouts::theme-switch"></label></span>
+
+			<span class="logged-theme-switch theme-switch-container"><label
+					th:replace="mainLayouts::theme-switch"></label></span>
 
 		</div>
-		
+
 	</div>
 </aside>
 

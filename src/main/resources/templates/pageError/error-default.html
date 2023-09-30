@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org" class="dark-mode">
+
+<head th:replace="mainLayouts :: head"></head>
+
+
+	<body>
+		<header th:replace="mainLayouts :: nav"></header>
+		<h3>You took a wrong turn ol' friend. Let me show you a way home </h3>
+		<a th:href="@{/}">Go home</a>
+	</body>
+</html>

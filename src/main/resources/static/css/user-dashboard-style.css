@@ -92,7 +92,10 @@
 
 .top-collapsable-menu-container-expanded {
 	padding: 0.75rem;
-	height: 300px !important;
+	/*height: 300px !important;*/
+	height: auto;
+	max-height: 300px;
+	overflow-y: auto;
 	display: block !important;
 	border: 1px solid rgb(61, 56, 70);
 	border-top: none;
@@ -121,6 +124,12 @@
 	display: none;
 	min-width: 150px;
 }
+
+.top-menu-content a{
+	text-decoration:none;
+	color: rgba(255, 255, 255, 0.55);
+}
+
 
 .navbar-links-container {
 	color: rgba(255, 255, 255, 0.55);

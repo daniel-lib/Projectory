@@ -24,6 +24,28 @@ div.dark-mode {
 	color: #EEF3F9 !important;
 }
 
+.fs-6{
+	font-size: 6pt!important;
+}
+.fs-8{
+	font-size: 8pt!important;
+}
+.fs-9{
+	font-size: 9pt!important;
+}
+.fs-10{
+	font-size: 10pt!important;
+}
+.fs-11{
+	font-size: 11pt!important;
+}
+.fs-14{
+	font-size: 14pt!important;
+}
+.fs-16{
+	font-size: 16pt!important;
+}
+
 .card {
 	background-color: var(--primary-card-bg) !important;
 	border: var(--primary-card-border) !important;

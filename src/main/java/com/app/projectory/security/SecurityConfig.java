@@ -41,15 +41,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			//.antMatchers("/register-user").permitAll()
 				.antMatchers("/user","/user/**").authenticated()
 				.antMatchers("/user").hasRole("USER")
-				//.antMatchers("/user/**").authenticated()
 				.antMatchers("/user/**").hasRole("USER")
 //				.antMatchers("/db/**").permitAll()
-				.antMatchers("/", "/**").permitAll()
-//				.antMatchers("/").authenticated()
+				.antMatchers("/", "/**").permitAll()				
 				.and().formLogin();
+				//.and().formLogin().loginPage("/?auth=required");
+				
 			
 			//to get the h2 console working
-			http.csrf().disable();
+			//http.csrf().disable();
 //			http.headers().frameOptions().disable();
 				
 	}

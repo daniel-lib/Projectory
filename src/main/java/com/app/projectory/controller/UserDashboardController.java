@@ -1,15 +1,18 @@
 package com.app.projectory.controller;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -45,10 +48,15 @@ public class UserDashboardController {
 	
 	
 	
-	
+	@RequestMapping(value = "/username", method = RequestMethod.GET)
+    @ResponseBody
+    public String currentUserName(Principal principal, Authentication auth) {
+		
+        return auth.getDetails().toString();
+    }
 	
 	@GetMapping("/dashboard")
-	public String displayUserDashboard(Model model, Todo todo) throws JsonProcessingException {
+	public String displayUserDashboard(Model model, Todo todo, Principal principal) throws JsonProcessingException {
 //		return "/user/user-dashboard?indicator = pass"; 
 		List<Todo> fetchedItems = todoData.findAll();
 		List<Project> projectsList = projDao.findAll();
@@ -67,7 +75,7 @@ public class UserDashboardController {
 		
 		model.addAttribute("itemCount", todoData.count());
 		/* model.addAttribute("items", fetchedItems); */
-		model.addAttribute("user", model.getAttribute("userA"));
+		model.addAttribute("user", principal.getName());
 		model.addAttribute("projectCount", projDao.count());
 		model.addAttribute("projectTaskCount", projTaskDao.count());
 		model.addAttribute("project", projectsList);
