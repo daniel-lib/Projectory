@@ -7,7 +7,8 @@
 
 <!--project list display start-->
 <div class="item-display-table project-display-table" th:fragment="project-list-table">
-	<span style="font-size:9pt; color:grey">Expand the project boxes for full experience</span>
+	<span style="font-size:9pt; color:grey"><span class="fa-solid fa-expand"></span>
+	Expand the project boxes for full experience</span>
 	<div th:object="${project}" class="d-flex justify-content-around flex-wrap">
 		<div th:each="proj : ${project}" class="project-modal-boxes-container mb-5" id="project-modal-boxes-container">
 			<!--<span role="button" class="float-end top-dangling-x-btn fa-solid fa-maximize" title="Expand"-->

@@ -34,24 +34,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	
 	
-	
+	//override a configure method to set the access rules
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 			http.authorizeRequests()
-			//.antMatchers("/register-user").permitAll()
-				.antMatchers("/user","/user/**").authenticated()
+				//.antMatchers("/user","/user/**").authenticated()
 				.antMatchers("/user").hasRole("USER")
 				.antMatchers("/user/**").hasRole("USER")
-//				.antMatchers("/db/**").permitAll()
 				.antMatchers("/", "/**").permitAll()				
-				.and().formLogin();
-				//.and().formLogin().loginPage("/?auth=required");
-				
-			
-			//to get the h2 console working
-			//http.csrf().disable();
-//			http.headers().frameOptions().disable();
-				
+				.and().formLogin();				
 	}
 	/*
 	 * @Bean public SecurityFilterChain filterChain(HttpSecurity http) throws

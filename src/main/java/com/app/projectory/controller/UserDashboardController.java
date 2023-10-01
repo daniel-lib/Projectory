@@ -8,11 +8,13 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -46,13 +48,57 @@ public class UserDashboardController {
 	@Autowired
 	UsersRepository userDao;
 	
+	@Autowired
+	private UserDetailsService userDetailsService;
 	
 	
-	@RequestMapping(value = "/username", method = RequestMethod.GET)
+	
+	@GetMapping("/username")
     @ResponseBody
-    public String currentUserName(Principal principal, Authentication auth) {
+    public String currentUserName(Principal principal, Authentication auth, UserDetailsService userDetailsService) {
+		 UserDetails userDetails = userDetailsService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+	        Long userId = userDetails.getId();
 		
-        return auth.getDetails().toString();
+		
+		
+		//Users customUser = (Users)auth.getPrincipal();
+		
+		/*
+		 * Authentication authentication =
+		 * SecurityContextHolder.getContext().getAuthentication(); UsersDetails
+		 * userDetails = (UserDetails) authentication.getPrincipal();
+		 */
+		
+		/*
+		 * UserDetails userDetails =
+		 * userDetailsService.loadUserByUsername(SecurityContextHolder.getContext().
+		 * getAuthentication().getName()); return userDetails.;
+		 */
+		
+
+		
+
+		// getUsername() - Returns the username used to authenticate the user.
+		//System.out.println("User name: " + userDetails.getUsername());
+
+		// getAuthorities() - Returns the authorities granted to the user.
+		//System.out.println("User has authorities: " + userDetails.getAuthorities());
+		
+	//	long userId = userDetails.getUserId();
+		
+		
+		//long userId = customUser.getUserId();
+
+		
+		String username = auth.getDetails().toString();
+		username = principal.getName();
+		String projects = "";
+		//String projectForUser = projDao.findProjectListByUser(1).toString();
+		for(Project p : projDao.findProjectListByUser(userId)) {
+			projects += p.getTitle()+" [] ";
+		}
+		
+        return projects;
     }
 	
 	@GetMapping("/dashboard")
@@ -60,6 +106,7 @@ public class UserDashboardController {
 //		return "/user/user-dashboard?indicator = pass"; 
 		List<Todo> fetchedItems = todoData.findAll();
 		List<Project> projectsList = projDao.findAll();
+		List<Project> projectsListByUsername = projDao.findAll();
 		List<Project> userProjects = projDao.findAll();
 		List<ProjectTasks> projectTasks = projTaskDao.findAll();
 		List<TodoListCollection> collection = collectionDao.findAll();

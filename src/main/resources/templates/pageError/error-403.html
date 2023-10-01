@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns="https://www.thymeleaf.org" class="dark-mode">
 
-<head th:replace="mainLayouts :: head"></head>	
-	
+<head th:replace="mainLayouts :: head"></head>
+
+
 	<body>
 		<header th:replace="mainLayouts :: nav"></header>
 		<br/>
 		<div class="mt-5 d-flex content-justify-center" >
-			<h3>Something went wrong. Go to home.</h3>
-			<h4 th:text = "${errorCode}"></h4>
+			<h3>You are not allowed to visit this page. You need to signin.</h3>
 		</div>
 	</body>
 </html>

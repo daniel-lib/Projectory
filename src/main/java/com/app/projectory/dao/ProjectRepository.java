@@ -19,4 +19,8 @@ public interface ProjectRepository extends CrudRepository<Project, Long>{
 			+ "GROUP BY STATUS ORDER BY statusLabel")
 	List<ProjectStatusCount> countProjectStatus();
 	
+	@Query(value = "SELECT * FROM project p WHERE p.project_owner_user_id = ?1", nativeQuery = true)
+	List<Project> findProjectListByUser(long userId); 
+	
 }
+	
