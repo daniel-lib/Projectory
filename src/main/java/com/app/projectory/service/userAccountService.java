@@ -1,13 +1,30 @@
 package com.app.projectory.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+
+import com.app.projectory.dao.UsersRepository;
 
 @Service
 public class userAccountService {
 	
-	public boolean usernameExists(String username) {
+	@Autowired
+	UsersRepository userDao;
+	
+	public userAccountService() {
 		
-		return true;
+	}
+	
+	
+	
+	public long getUserId(Authentication auth) {        
+	        
+		long userId = userDao.findUserByUsername(getCurrentUsername(auth)).getUserId();
+		return userId;
+	}
+	public String getCurrentUsername(Authentication auth) {
+		return auth.getName();		
 	}
 
 }

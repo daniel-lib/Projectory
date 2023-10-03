@@ -8,9 +8,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +27,9 @@ import com.app.projectory.entity.ProjectTasks;
 import com.app.projectory.entity.Todo;
 import com.app.projectory.entity.TodoListCollection;
 import com.app.projectory.entity.Users;
+import com.app.projectory.service.ProjectService;
+import com.app.projectory.service.TodoListCollectionService;
+import com.app.projectory.service.userAccountService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -47,69 +48,47 @@ public class UserDashboardController {
 //	UserAuthService userLgServ = new UserAuthService();
 	@Autowired
 	UsersRepository userDao;
-	
 	@Autowired
-	private UserDetailsService userDetailsService;
+	BCryptPasswordEncoder encoder;	
+	@Autowired
+	ProjectService projServ;
+	@Autowired
+	TodoListCollectionService collectionServ;
 	
+//	@Autowired
+//	private Authentication auth;
+	@Autowired
+	private userAccountService userServ;
 	
-	
+	//For testing
 	@GetMapping("/username")
     @ResponseBody
-    public String currentUserName(Principal principal, Authentication auth, UserDetailsService userDetailsService) {
-		 UserDetails userDetails = userDetailsService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-	        Long userId = userDetails.getId();
+    public String currentUserName(Authentication auth) {	
+		//return userServ.getCurrentUsername(auth);
+		//return auth.getName();
 		
-		
-		
-		//Users customUser = (Users)auth.getPrincipal();
-		
-		/*
-		 * Authentication authentication =
-		 * SecurityContextHolder.getContext().getAuthentication(); UsersDetails
-		 * userDetails = (UserDetails) authentication.getPrincipal();
-		 */
-		
-		/*
-		 * UserDetails userDetails =
-		 * userDetailsService.loadUserByUsername(SecurityContextHolder.getContext().
-		 * getAuthentication().getName()); return userDetails.;
-		 */
-		
-
-		
-
-		// getUsername() - Returns the username used to authenticate the user.
-		//System.out.println("User name: " + userDetails.getUsername());
-
-		// getAuthorities() - Returns the authorities granted to the user.
-		//System.out.println("User has authorities: " + userDetails.getAuthorities());
-		
-	//	long userId = userDetails.getUserId();
-		
-		
-		//long userId = customUser.getUserId();
-
-		
-		String username = auth.getDetails().toString();
-		username = principal.getName();
-		String projects = "";
-		//String projectForUser = projDao.findProjectListByUser(1).toString();
-		for(Project p : projDao.findProjectListByUser(userId)) {
-			projects += p.getTitle()+" [] ";
-		}
-		
-        return projects;
+		  String projects = ""; 
+		 // projDao.findProjectListByUser(1).toString(); 
+		  for(Project p :  projServ.getProjectForCurrentUser(auth) ) { 
+			  projects += p.getTitle()+" <br/> "; 
+			  
+		  }
+		  
+		  return projects;
+		 
     }
 	
 	@GetMapping("/dashboard")
-	public String displayUserDashboard(Model model, Todo todo, Principal principal) throws JsonProcessingException {
+	public String displayUserDashboard(Model model, Todo todo, Principal principal, Authentication auth) throws JsonProcessingException {
 //		return "/user/user-dashboard?indicator = pass"; 
-		List<Todo> fetchedItems = todoData.findAll();
-		List<Project> projectsList = projDao.findAll();
-		List<Project> projectsListByUsername = projDao.findAll();
-		List<Project> userProjects = projDao.findAll();
+		
+		//List<Project> projectsList = projDao.findAll();
+		//List<Project> projectsListByUsername = projDao.findAll();
+		List<Project> projectsList = projServ.getProjectForCurrentUser(auth);		
+		//List<Project> userProjects = projDao.findAll();
 		List<ProjectTasks> projectTasks = projTaskDao.findAll();
-		List<TodoListCollection> collection = collectionDao.findAll();
+		
+		List<TodoListCollection> collection = collectionServ.getTodoCollectionForCurrentUser(auth);
 		
 		List<ProjectStatusCount> StatusCountList = projDao.countProjectStatus();
 		Map<String, ProjectStatusCount> StatusCntMap = new HashMap<>();
@@ -121,7 +100,6 @@ public class UserDashboardController {
 		model.addAttribute("ProjectStatusCount",jsonString);
 		
 		model.addAttribute("itemCount", todoData.count());
-		/* model.addAttribute("items", fetchedItems); */
 		model.addAttribute("user", principal.getName());
 		model.addAttribute("projectCount", projDao.count());
 		model.addAttribute("projectTaskCount", projTaskDao.count());

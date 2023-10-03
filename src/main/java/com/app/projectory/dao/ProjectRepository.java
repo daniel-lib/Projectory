@@ -11,7 +11,7 @@ import com.app.projectory.entity.Project;
 
 @Repository
 public interface ProjectRepository extends CrudRepository<Project, Long>{
-	/* List<Project> */
+	/* for*/
 	@Override
 	List<Project> findAll();
 	
@@ -21,6 +21,8 @@ public interface ProjectRepository extends CrudRepository<Project, Long>{
 	
 	@Query(value = "SELECT * FROM project p WHERE p.project_owner_user_id = ?1", nativeQuery = true)
 	List<Project> findProjectListByUser(long userId); 
+	
+	
 	
 }
 	

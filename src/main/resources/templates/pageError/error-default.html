@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html xmlns="https://www.thymeleaf.org" class="dark-mode">
 
-<head th:replace="mainLayouts :: head"></head>	
-	
-	<body>
-		<header th:replace="mainLayouts :: nav"></header>
-		<br/>
-		<div class="mt-5 d-flex content-justify-center" >
-			<h3>Something went wrong. Go to home.</h3>
-			<h4 th:text = "${errorCode}"></h4>
-		</div>
-	</body>
+<head th:replace="mainLayouts :: head"></head>
+
+<body>
+	<header th:replace="mainLayouts :: nav"></header>
+	<br />
+	<div class="mt-5 ">
+		<h3>Something went wrong. Go to home.</h3>
+		<h4 th:text="${errorCode}"></h4><br /><br />
+		<!--<div th:text="${#authentication.name}" class="mt-2"></div>
+		<div th:text="${#authentication.id}" class="mt-2"></div>
+		<span th:text="${#request.userPrincipal.principal.firstName}"></span>-->
+	</div>
+	<!--<div sec:authorize="isAuthenticated()">
+		Authenticated user roles:
+		Logged user: <span sec:authentication="name"></span> |
+		Roles: <span sec:authentication="principal.authorities"></span>
+	</div>-->
+</body>
+
 </html>

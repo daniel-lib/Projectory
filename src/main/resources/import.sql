@@ -2,12 +2,12 @@
 
 
 -- INSERT USERS
-insert into USERS (username, password, first_name, last_name, email_address, enabled, role) values ('testuser1', 'testuser123', 'Test', 'User1', 'test1@user.com', true, 'ROLE.USER');
-insert into USERS (username, password, first_name, last_name, email_address, enabled, role) values ('testuser2', 'testuser123', 'gebru', 'User2', 'gebru@user.com', true, 'ROLE.USER');
-insert into USERS (username, password, first_name, last_name, email_address, enabled, role) values ('testuser3', 'testuser123', 'semhal', 'User3', 'semhal@user.com', true, 'ROLE.USER');
-insert into USERS (username, password, first_name, last_name, email_address, enabled, role) values ('hena', '123456', 'henok', 'sertse', 'hena_s@user.com', true, 'ROLE.USER');
-insert into USERS (username, password, first_name, last_name, email_address, enabled, role) values ('hawa2', 'pasw1', 'hewan', 'john', 'hewi2@user.com', true, 'ROLE.USER');
-insert into USERS (username, password, first_name, last_name, email_address, enabled, role) values ('markos55', 'inthe24', 'mark', 'os', 'mark_os2@user.com', true, 'ROLE.USER');
+insert into USERS (username, password, first_name, last_name, email_address, enabled, role) values ('testuser1', '$2a$10$olzF1bMSWZ2AGs0JpydC.epzpHCHMO.eFjQ0ZHgrUOeyjKlQiQXIO', 'Test', 'User1', 'test1@user.com', true, 'ROLE_USER');
+insert into USERS (username, password, first_name, last_name, email_address, enabled, role) values ('testuser2', '$2a$10$XkH2VeVm7iRwR39ffj.YlumyOY4nGgL5M7GKKh4cDm9Lx0/1Cc.ja', 'gebru', 'User2', 'gebru@user.com', true, 'ROLE_USER');
+insert into USERS (username, password, first_name, last_name, email_address, enabled, role) values ('testuser3', '$2a$10$acWgUujEfTBvpfO4qomyceFjKBmsI8X538RVkUC4A4emHgmXx7U.e', 'semhal', 'User3', 'semhal@user.com', true, 'ROLE_USER');
+insert into USERS (username, password, first_name, last_name, email_address, enabled, role) values ('hena', '$2a$10$.1xwBsFLGBg6QJslpGzXjerwwK8lmvKUD7kZ1zxHLStqRT6HGXc/K', 'henok', 'sertse', 'hena_s@user.com', true, 'ROLE_USER');
+insert into USERS (username, password, first_name, last_name, email_address, enabled, role) values ('hawa2', '$2a$10$ewBRT1MqlGvLK4p2GS07uOxpGqtGLrp7oAaRAbl.W28OsBTKRI2Se', 'hewan', 'john', 'hewi2@user.com', true, 'ROLE_USER');
+insert into USERS (username, password, first_name, last_name, email_address, enabled, role) values ('markos55', '$2a$10$Q4lmSuqzTrxsx1v2J8FrHuw0coBW85Z3idtylVHs6Ld.KElrcVO46', 'mark', 'os', 'mark_os2@user.com', true, 'ROLE_USER');
 
 -- INSERT CONNECTIONS
 insert into CONNECTIONS (REQUEST_RECEIVER_USER, CONNECTION_DATE, CONNECTION_STATUS, REQUEST_SENDER_USER) values (2, '01/07/2023', 'approved', 1);
@@ -46,9 +46,9 @@ insert into PROJECT_TASKS (DEADLINE, STATUS, TASK_DESCRIPTION, TASK_NAME, PROJEC
 
 
 --INSERT Todo collections
-insert into TODO_LIST_COLLECTION (COLLECTION_TITLE, CREATION_DATE, MODIFICATION_DATE) values ('Groceries', '01/07/2023', '01/07/2023');
-insert into TODO_LIST_COLLECTION (COLLECTION_TITLE, CREATION_DATE, MODIFICATION_DATE) values ('today schedule', '01/07/2023', '01/07/2023');
-insert into TODO_LIST_COLLECTION (COLLECTION_TITLE, CREATION_DATE, MODIFICATION_DATE) values ('for the hr project', '01/07/2023', '01/07/2023');
+insert into TODO_LIST_COLLECTION (COLLECTION_TITLE, CREATION_DATE, MODIFICATION_DATE, USER_ID) values ('Groceries', '01/07/2023', '01/07/2023', 1);
+insert into TODO_LIST_COLLECTION (COLLECTION_TITLE, CREATION_DATE, MODIFICATION_DATE, USER_ID) values ('today schedule', '01/07/2023', '01/07/2023', 1);
+insert into TODO_LIST_COLLECTION (COLLECTION_TITLE, CREATION_DATE, MODIFICATION_DATE, USER_ID) values ('for the hr project', '01/07/2023', '01/07/2023', 1);
 
 --INSERT Todo list
 insert into TODO (title, COLLECTION_ID) values ('onions', 1);
