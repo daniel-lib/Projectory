@@ -1,10 +1,10 @@
 <main class="dashboard-content" th:fragment="dashboard-content">
 	<section class="dashboard-area d-flex">
+		<aside th:replace="/user/user-layouts :: side-menu"></aside>
+		
 		<div id="viewing-modal-container" class="modal-backdrop-blur">
 			<div id="viewing-modal" class="mt">
 				<span class="viewing-modal-exit-btn fa-solid fa-xmark p-1" onclick="closeViewingModal()"></span>
-
-
 
 				<div class="viewing-modal custom-scrollbar-style">
 
@@ -14,7 +14,7 @@
 			</div>
 		</div>
 
-		<aside th:replace="/user/user-layouts :: side-menu"></aside>
+		
 		<div class="dashboard-cards-container d-flex justify-content-evenly flex-wrap mt-4">
 
 			<div th:replace="/user/project/project-layouts :: project-dashboard-card"></div>

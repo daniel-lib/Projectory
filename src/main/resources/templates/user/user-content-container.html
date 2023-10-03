@@ -11,10 +11,28 @@
 		class="badge item-action-notification px-4 d-flex justify-content-center fixed-top"
 		th:text="${param.indicator}"></div>
 	<header th:replace="/user/user-layouts :: nav"></header>
-	<div class="containers d-flex">
+	<div class="containers ">
 
-		<main class="dashboard-content" th:replace="/user/dashboard-content-layout :: dashboard-content"></main>
-
+		
+	
+		<!--<div th:text="${currentPagee}" class="mt-5"></div>-->
+		<!--<span class="mt-5">sdfffffffffffsd</span>-->
+		<div th:if="${currentPage == 'dashboard'}">			
+			<main th:replace="/user/dashboard-content-layout :: dashboard-content"></main>
+		</div>
+		
+		<div th:if="${currentPage == 'profile'}">
+				<span class="mt-5">sdfffffffffffsd</span>
+			<main th:replace="/user/profile :: profile-content"></main>
+				<span class="mt-5">sdfffffffffffsd</span>
+		</div>
+		
+		
+	<!-- th:if on both of the works but th:unless doesn't. It breaks the conditional	
+		<div th:unless="${currentPage == 'profile'}">
+			<main th:replace="/user/profile :: profile-content"></main>
+		</div>-->
+		
 		<!--
 		<main class="dashboard-content" th:replace="/user/user-connections-layout :: connections-page"></main>
 		<main class="dashboard-content" th:replace="/user/scrum-kanban-board-layout :: scrum-kanban-board-page"></main>

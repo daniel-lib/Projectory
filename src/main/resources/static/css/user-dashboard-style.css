@@ -69,6 +69,22 @@
 	color: rgb(192, 191, 188);
 }
 
+.profile-pic-btn{	
+	padding: 0.3em 0.5em !important;	
+	font-weight: 900;
+	background-color: rgba(218, 165, 32, 0.5);
+	border-radius: 100%;
+	color: rgb(255, 255, 255);
+	user-select: none;
+}
+.profile-pic-btn-link{
+	padding: 0.25rem 0.20rem 0.20rem 0rem !important
+}
+.no-text-decoration{
+	text-decoration: none!important;;
+}
+
+
 .top-collapsable-menu-container {
 	border-top: 0;
 	z-index: 2000;
@@ -109,8 +125,11 @@
 	padding: 2;
 	font-size: 11pt;
 }
-.top-menu-link:hover{
+.top-menu-link:not(.non-hoverable-top-menu-text):hover{
 	opacity: 0.6;
+}
+.non-hoverable-top-menu-text:hover{
+	opacity: 1 !important;
 }
 
 .top-menu-header{

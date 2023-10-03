@@ -31,6 +31,7 @@ public class Users {
 	private String loginIndicator;
 	private String role;
 	private boolean enabled;
+	private String profilePicture;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "userWithConnection")
@@ -143,8 +144,16 @@ public class Users {
 	}
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}	
+	public String getProfilePicture() {
+		return profilePicture;
 	}
-	
+	public void setProfilePicture(String profilePicture) {
+		this.profilePicture = profilePicture;
+	}
+
+
+
 	public List<Connections> getConnection() {
 		return connection;
 	}

@@ -12,17 +12,14 @@ import com.app.projectory.entity.TodoListCollection;
 
 @Service
 public class TodoListCollectionService {
+
 	
-	@Autowired
-	ProjectRepository projDao;
 	@Autowired
 	TodoListCollectionRepository collectionRepo;
-	@Autowired
-	private userAccountService userServ;
 	
 	
-	public List<TodoListCollection> getTodoCollectionForCurrentUser(Authentication auth) {
-		List<TodoListCollection> fetchedCollection = collectionRepo.findTodoCollectionByUserId(userServ.getUserId(auth));
+	public List<TodoListCollection> getTodoCollectionForCurrentUser(long userId) {
+		List<TodoListCollection> fetchedCollection = collectionRepo.findTodoCollectionByUserId(userId);
 			return fetchedCollection;
 	}
 

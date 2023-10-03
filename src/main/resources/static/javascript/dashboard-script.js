@@ -1,3 +1,15 @@
+(function displayProfilePicBtn() {
+	const profilePicBtn = document.getElementsByClassName('profile-pic-btn');
+	if (profilePicBtn[0].textContent == "")  {	
+		Array.from(profilePicBtn).forEach((element)=>element.textContent = username[0].toUpperCase());
+	}
+	else {
+		//get pic link from db or remote storage
+	}
+})();
+
+
+
 function displayViewingModal(contentType) {
 	/*const modalContainer = document.getElementById("viewing-modal");*/
 	const modalContainer = document.getElementById("viewing-modal-container");
@@ -21,9 +33,9 @@ function displayViewingModal(contentType) {
 		const isMobile = mediaQuery.matches;
 		/*if (!isMobile)
 			nav[0].classList.add("modal-open");*/
-			
-			nav[0].classList.add("modal-open");
-document.body.classList.add('modal-open-body');
+
+		nav[0].classList.add("modal-open");
+		document.body.classList.add('modal-open-body');
 
 		modalContainer.classList.add('overflow-ver-scroll');
 	}

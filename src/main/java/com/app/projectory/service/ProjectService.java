@@ -14,12 +14,10 @@ public class ProjectService {
 	
 	@Autowired
 	ProjectRepository projDao;
-	@Autowired
-	private userAccountService userServ;
 	
 	
-	public List<Project> getProjectForCurrentUser(Authentication auth) {
-		List<Project> fetchedProjects = projDao.findProjectListByUser(userServ.getUserId(auth));
+	public List<Project> getProjectForCurrentUser(Long userId) {
+		List<Project> fetchedProjects = projDao.findProjectListByUser(userId);
 			return fetchedProjects;
 	}
 

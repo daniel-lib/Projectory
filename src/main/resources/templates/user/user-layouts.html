@@ -60,9 +60,10 @@
 							id="top-notification-nav-link" aria-label="not-selected" title="Messages">
 							<span class="nav-icon mt-0 pt-0 fa-solid fa-bell"></span></a>
 						<!--<a class="nav-link" th:href="@{/user/dashboard}"  th:text="${user.firstName}  + ' '+ ${user.lastName}">-->
-						<a class="top-nav-links" onClick="showTopCollapsableMenu(2, this.id)" id="top-user-nav-link"
+						<a class="top-nav-links no-text-decoration profile-pic-btn-link" onClick="showTopCollapsableMenu(2, this.id)" id="top-user-nav-link"
 							aria-label="not-selected" title="Account">
-							<span class="nav-icon mt-0 pt-0 fa-solid fa-user"></span>
+							<!--<span class="nav-icon mt-0 pt-0 fa-solid fa-user" th:text="${currentUserDetail.profilePicture}"></span>-->
+							<span class="nav-icon mt-0 pt-0 profile-pic-btn" th:text="${currentUserDetail.profilePicture}" id="profile-pic-btn"></span>
 							<!--<img src="/images/projectory-logo.png" height="20px" width="20px">--></a>
 					</div>
 
@@ -82,20 +83,28 @@
 						</div>
 
 						<div class="top-menu-content" id="setting-menu-content">
-							<span class="top-menu-header">Account</span>
+							<span class="top-menu-header   text-center">
+								<span class="d-block mb-3">
+								<!--<span class="fa-solid fa-id-card pe-2"></span>	-->							
+							<span class="non-hoverable-top-menu-text d-block mb-2">@<span th:text = "${user}"></span></span>
+							<span class="nav-icon mt-0 pt-0 profile-pic-btn " th:text="${currentUserDetail.profilePicture}" id="profile-pic-btn"></span>
+								<br/>
+								<span class="fs-14">Hi, <span th:text = "${currentUserDetail.firstName}"></span>
+							 <span th:text = "${currentUserDetail.lastName}"></span></span>
+								
+							<a href="/user/profile" class="fs-10 minimalistic-btn d-block top-menu-link minimalist-btn" >View Profile</a>
+							</span>
+								
+							</span>
 
 							<div><span></span></div>
+							
 
-							<span role="button" class="top-menu-link d-block my-3">
-								<span class="fa-solid fa-id-card pe-2"></span>								
-							@<span th:text = "${user}"></span><br/>
-							<a href="/logout" class="ms-4 fs-10">View Profile</a></span>
-
-							<span role="button" class="top-menu-link d-block my-3">
+							<span role="button" class="top-menu-link d-block my-3 text-center">
 								<span class="fa-solid fa-user-pen pe-2">
 								</span><a href="/logout">Edit Profile</a></span>
 							<hr />
-							<span role="button" class="top-menu-link d-block mt-3">
+							<span role="button" class="top-menu-link d-block mt-3 text-center">
 								<span class="fa-solid fa-right-from-bracket pe-2">
 								</span><a href="/logout">Sign out</a></span>
 						</div>
@@ -146,6 +155,11 @@
 </aside>
 
 <footer th:fragment="footer" class="mt-5 pt-2 dashboard-footer m-0">
+	<script>
+		var username = "[[${currentUserDetail.username}]]";
+	
+		
+	</script>
 	<a href="#" class="go-to-top-btn"><span role="button" class="fa-solid fa-caret-up"></span></a>
 
 	<span th:text="${param.proof}" id="login_indicator" style="margin-left: 20%"></span>

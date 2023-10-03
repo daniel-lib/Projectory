@@ -67,28 +67,28 @@ public class UserDashboardController {
 		//return userServ.getCurrentUsername(auth);
 		//return auth.getName();
 		
-		  String projects = ""; 
-		 // projDao.findProjectListByUser(1).toString(); 
-		  for(Project p :  projServ.getProjectForCurrentUser(auth) ) { 
-			  projects += p.getTitle()+" <br/> "; 
-			  
-		  }
-		  
-		  return projects;
+		/*
+		 * String projects = ""; // projDao.findProjectListByUser(1).toString();
+		 * for(Project p : projServ.getProjectForCurrentUser(auth) ) { projects +=
+		 * p.getTitle()+" <br/> ";
+		 * 
+		 * }
+		 * 
+		 * return projects;
+		 */
+		
+		return null;
 		 
     }
 	
 	@GetMapping("/dashboard")
 	public String displayUserDashboard(Model model, Todo todo, Principal principal, Authentication auth) throws JsonProcessingException {
-//		return "/user/user-dashboard?indicator = pass"; 
-		
-		//List<Project> projectsList = projDao.findAll();
-		//List<Project> projectsListByUsername = projDao.findAll();
-		List<Project> projectsList = projServ.getProjectForCurrentUser(auth);		
+		long userId = userServ.getUserId(auth);
+		List<Project> projectsList = projServ.getProjectForCurrentUser(userId);		
 		//List<Project> userProjects = projDao.findAll();
 		List<ProjectTasks> projectTasks = projTaskDao.findAll();
 		
-		List<TodoListCollection> collection = collectionServ.getTodoCollectionForCurrentUser(auth);
+		List<TodoListCollection> collection = collectionServ.getTodoCollectionForCurrentUser(userId);
 		
 		List<ProjectStatusCount> StatusCountList = projDao.countProjectStatus();
 		Map<String, ProjectStatusCount> StatusCntMap = new HashMap<>();
@@ -107,13 +107,15 @@ public class UserDashboardController {
 		model.addAttribute("projectTasks", projectTasks);
 		model.addAttribute("todoModel", todo);
 		model.addAttribute("TodoCollections", collection);
+	
 		
 		if(model.containsAttribute("loginIndicator")) {
 			model.addAttribute("loginIndicator", model.getAttribute("loginIndicator"));
 		}
 		
-		/* model.addAttribute("userL", LoggedInUser); */
-		 return "/user/user-dashboard"; 
+		model.addAttribute("currentUserDetail", userServ.getCurrentUserDetail(auth));
+		model.addAttribute("currentPage", "dashboard");
+		 return "/user/user-content-container"; 
 		
 	}
 	
@@ -136,6 +138,13 @@ public class UserDashboardController {
 		return null;
 	}
 	
+	
+	@GetMapping("profile")
+	public String displayUserProfile(Model model, Authentication auth) {
+		model.addAttribute("currentUserDetail", userServ.getCurrentUserDetail(auth));
+		model.addAttribute("currentPage", "profile");
+		return "/user/user-content-container";
+	}
 	
 
 }

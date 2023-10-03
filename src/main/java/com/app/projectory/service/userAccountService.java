@@ -5,6 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.app.projectory.dao.UsersRepository;
+import com.app.projectory.entity.Users;
 
 @Service
 public class userAccountService {
@@ -23,8 +24,13 @@ public class userAccountService {
 		long userId = userDao.findUserByUsername(getCurrentUsername(auth)).getUserId();
 		return userId;
 	}
+	
 	public String getCurrentUsername(Authentication auth) {
 		return auth.getName();		
+	}
+	
+	public Users getCurrentUserDetail(Authentication auth) {
+		return userDao.findUserByUsername(getCurrentUsername(auth));	
 	}
 
 }
