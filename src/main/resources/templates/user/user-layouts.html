@@ -55,15 +55,13 @@
 					<div class="top-menu-links d-flex">
 						<a class="top-nav-links" onClick="showTopCollapsableMenu(1, this.id)" id="top-message-nav-link"
 							aria-label="not-selected" title="Notification">
-							<span class="nav-icon mt-0 pt-0 fa-solid fa-message"></span></a>
+							<span class="nav-icon mt-0 pt-0 fa-solid fa-message text-center"></span></a>
 						<a class="top-nav-links" onClick="showTopCollapsableMenu(0, this.id)"
 							id="top-notification-nav-link" aria-label="not-selected" title="Messages">
-							<span class="nav-icon mt-0 pt-0 fa-solid fa-bell"></span></a>
-						<!--<a class="nav-link" th:href="@{/user/dashboard}"  th:text="${user.firstName}  + ' '+ ${user.lastName}">-->
+							<span class="nav-icon mt-0 pt-0 fa-solid fa-bell text-center"></span></a>
 						<a class="top-nav-links no-text-decoration profile-pic-btn-link" onClick="showTopCollapsableMenu(2, this.id)" id="top-user-nav-link"
 							aria-label="not-selected" title="Account">
-							<!--<span class="nav-icon mt-0 pt-0 fa-solid fa-user" th:text="${currentUserDetail.profilePicture}"></span>-->
-							<span class="nav-icon mt-0 pt-0 profile-pic-btn" th:text="${currentUserDetail.profilePicture}" id="profile-pic-btn"></span>
+							<span class="nav-icon mt-0 pt-0 profile-pic-btn text-center" th:text="${currentUserDetail.profilePicture}" id="profile-pic-btn"></span>
 							<!--<img src="/images/projectory-logo.png" height="20px" width="20px">--></a>
 					</div>
 
@@ -107,11 +105,14 @@
 
 							<span role="button" class="top-menu-link d-block my-3 text-center">
 								<span class="fa-solid fa-user-pen pe-2">
-								</span><a href="/logout">Edit Profile</a></span>
+								</span><a href="/editProfile">Edit Profile</a></span>
 							<hr />
 							<span role="button" class="top-menu-link d-block mt-3 text-center">
 								<span class="fa-solid fa-right-from-bracket pe-2">
 								</span><a href="/logout">Sign out</a></span>
+								<form th:action="@{/logout}" method="post">
+									<button type="submit"></span>Sign out</span></button>
+								</form>
 						</div>
 					</div>
 

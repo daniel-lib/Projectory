@@ -211,10 +211,15 @@ z-index: 2000;
 	display: inline !important;
 	color: rgba(255, 255, 255, 0.55);
 	border-radius: 100px;
-	padding: 0.25rem 0.20rem 0.20rem 0.50rem !important;
+	padding: 0.20rem !important;
+	padding: 0.25rem 0.19rem 0.20rem 0.19rem !important;
 	transition: 0.2s ease-in-out;
 	cursor: pointer;
+	margin: 0rem 0.02rem;
 }
+.top-nav-links .nav-icon:not(.profile-pic-btn){
+	margin: 0 0.20rem !important;	
+	}
 
 .top-nav-links:hover,
 .top-nav-links.selected {
