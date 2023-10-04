@@ -1,4 +1,5 @@
 @import "fetched-data-styling.css";
+@import "confirmation-modal-style.css";
 .dashboard-nav {}
 
 .user-dashboard-nav {
@@ -225,6 +226,16 @@ z-index: 2000;
 .top-nav-links.selected {
 	background-color: #4a4a4a;
 	color: rgb(118, 187, 118);
+}
+
+.sign-out-btn{
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
 }
 
 .navbar-brand-dashboard {

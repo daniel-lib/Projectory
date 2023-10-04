@@ -41,7 +41,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.antMatchers("/user").hasRole("USER")
 				.antMatchers("/user/**").hasRole("USER")
 				.antMatchers("/", "/**").permitAll()
-				.and().formLogin().loginPage("/?auth=required") ;				
+				.and().formLogin();
+				//.and().formLogin().loginPage("/?auth=required").successForwardUrl("/user/dashboard");
+				
+			    
 	}
 	
 	@Override

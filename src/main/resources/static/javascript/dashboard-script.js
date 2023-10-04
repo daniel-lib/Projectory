@@ -1,7 +1,7 @@
 (function displayProfilePicBtn() {
 	const profilePicBtn = document.getElementsByClassName('profile-pic-btn');
-	if (profilePicBtn[0].textContent == "")  {	
-		Array.from(profilePicBtn).forEach((element)=>element.textContent = username[0].toUpperCase());
+	if (profilePicBtn[0].textContent == "") {
+		Array.from(profilePicBtn).forEach((element) => element.textContent = username[0].toUpperCase());
 	}
 	else {
 		//get pic link from db or remote storage
@@ -95,10 +95,23 @@ function closeViewingModal() {
 	document.body.classList.remove('modal-open-body');
 }
 
+/*
+//confirmation modal
+const openBtn = document.querySelector("[data-modal-open]");
+const closeBtn = document.querySelector("[data-close]");
+const modal = document.querySelector("#confirmation-modal");
+const signoutModal = document.querySelector("#sign-out-confirmation-modal");
 
+// Open the modal when the button is clicked
+openBtn.addEventListener("click", () => {
+		modal.showModal();
+});
+// Close the modal when the close button is clicked
+closeBtn.addEventListener("click", () => {
+	modal.close();
+});
 
-
-
+*/
 
 var isCollapsed = true;
 function sideMenuToggle() {
