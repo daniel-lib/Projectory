@@ -4,20 +4,16 @@
 <head th:replace="mainLayouts :: head"></head>
 
 <body>
-	<header th:replace="mainLayouts :: nav"></header>
+	<!--<header th:replace="mainLayouts :: nav"></header>-->
 	<br />
-	<div class="mt-5 ">
-		<h3>Something went wrong. Go to home.</h3>
-		<h4 th:text="${errorCode}"></h4><br /><br />
-		<!--<div th:text="${#authentication.name}" class="mt-2"></div>
-		<div th:text="${#authentication.id}" class="mt-2"></div>
-		<span th:text="${#request.userPrincipal.principal.firstName}"></span>-->
+	<div class="containers error-page-container">
+		<div class="mt-5 text-center">
+			<img th:src = "@{/images/projectory-logo-full.png}">
+			<h4 th:text="${errorCode}"></h4>
+			<h3>Something went wrong</h3>
+			<a th:href="@{/}" class="minimalist-btn fs-16">Take me to safety</a>
+		</div>
 	</div>
-	<!--<div sec:authorize="isAuthenticated()">
-		Authenticated user roles:
-		Logged user: <span sec:authentication="name"></span> |
-		Roles: <span sec:authentication="principal.authorities"></span>
-	</div>-->
 </body>
 
 </html>

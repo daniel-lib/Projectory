@@ -4,12 +4,17 @@
 <head th:replace="mainLayouts :: head"></head>
 
 
-	<body>
-		<header th:replace="mainLayouts :: nav"></header>
-		<br/>
-		<div class="mt-5 d-flex content-justify-center" >
-			<h3>Bruv, Are you lost?</h3>
-		<a th:href="@{/}">Go home</a>
+<body>
+	<!--<header th:replace="mainLayouts :: nav"></header>-->
+	<br />
+	<div class="containers error-page-container">
+		<div class="mt-5 text-center">
+			<img th:src = "@{/images/projectory-logo-full.png}">
+			<h3>This is no man's land </h3>
+			<a th:href="@{/}" class="minimalist-btn fs-16">Take me to safety</a>
 		</div>
-	</body>
+	</div>
+
+</body>
+
 </html>

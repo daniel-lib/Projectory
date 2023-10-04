@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -143,8 +144,20 @@ public class UserDashboardController {
 	public String displayUserProfile(Model model, Authentication auth) {
 		model.addAttribute("currentUserDetail", userServ.getCurrentUserDetail(auth));
 		model.addAttribute("currentPage", "profile");
+		model.addAttribute("usernameOnPath", false);
 		return "/user/user-content-container";
 	}
+	
+	@GetMapping("{username}")
+	public String displayUserProfileWithUsername(Model model, Authentication auth, @PathVariable String username) {
+		model.addAttribute("UserDetailByUsername", userServ.getUserDetailByUsername(username));
+		model.addAttribute("currentUserDetail", userServ.getCurrentUserDetail(auth));
+		model.addAttribute("currentPage", "profile");
+		model.addAttribute("usernameOnPath", true);
+		return "/user/user-content-container";
+	}
+	
+	
 	
 
 }

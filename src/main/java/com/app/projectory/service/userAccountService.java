@@ -32,5 +32,9 @@ public class userAccountService {
 	public Users getCurrentUserDetail(Authentication auth) {
 		return userDao.findUserByUsername(getCurrentUsername(auth));	
 	}
+	
+	public Users getUserDetailByUsername(String username) {
+		return userDao.findUserByUsername(username);	
+	}
 
 }

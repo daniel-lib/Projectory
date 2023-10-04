@@ -83,7 +83,22 @@
 .no-text-decoration{
 	text-decoration: none!important;;
 }
+.collapsable-top-menu-prof-pic{
+	display: inline-block;
+	width: 60px !important;
+	height: 60px!important;	
+}
 
+.collapsable-top-menu-prof-pic:hover{
+color: red;	
+}
+.change-profile-pic-btn{
+z-index: 2000;
+}
+.change-profile-pic-btn{
+	border: 1px solid red;
+	padding: 4px;
+}
 
 .top-collapsable-menu-container {
 	border-top: 0;

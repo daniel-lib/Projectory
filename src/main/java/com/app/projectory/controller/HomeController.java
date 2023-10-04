@@ -30,6 +30,10 @@ public class HomeController {
 		/*
 		 * if(auth.isAuthenticated()) { return "redirect:/user/dashboard"; }
 		 */
+		
+		if(auth !=null && auth.isAuthenticated())
+			return "redirect:/user/dashboard";
+		else
 		return "/home/landingPage";
 	}
 

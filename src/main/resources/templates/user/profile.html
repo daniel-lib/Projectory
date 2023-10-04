@@ -1,7 +1,18 @@
 <main class="profile-content mt-5" th:fragment="profile-content">
 	<section class="profile-header-area d-flex mt-5">
 		<div class="profile-picture-container">Profile Pic</div>
-		<span th:text="${currentUserDetail.firstName}+' '+${currentUserDetail.LastName}"></span>
+		
+		<!--displays logged in users's profile-->
+		<span th:if="${!usernameOnPath}">
+			<span th:text="${currentUserDetail.firstName}+' '+${currentUserDetail.LastName}"></span>
+		</span>
+		
+		<!--displays profile based on path variable(value from the url)-->
+		<span th:if="${usernameOnPath}">
+			<span th:text="${UserDetailByUsername.firstName}+' '+${UserDetailByUsername.LastName}"></span>
+		</span>
+		
+		
 	</section>
 
 

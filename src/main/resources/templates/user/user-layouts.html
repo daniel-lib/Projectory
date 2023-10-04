@@ -87,7 +87,12 @@
 								<span class="d-block mb-3">
 								<!--<span class="fa-solid fa-id-card pe-2"></span>	-->							
 							<span class="non-hoverable-top-menu-text d-block mb-2">@<span th:text = "${user}"></span></span>
-							<span class="nav-icon mt-0 pt-0 profile-pic-btn " th:text="${currentUserDetail.profilePicture}" id="profile-pic-btn"></span>
+							
+							<span class="profile-pic-btn collapsable-top-menu-prof-pic fs-22">
+							<span class="nav-icon mt-0 pt-0 " th:text="${currentUserDetail.profilePicture}"></span>
+							<span class="fa-solid fa-image change-profile-pic-btn fs-16"></span>
+							</span>	
+						
 								<br/>
 								<span class="fs-14">Hi, <span th:text = "${currentUserDetail.firstName}"></span>
 							 <span th:text = "${currentUserDetail.lastName}"></span></span>
