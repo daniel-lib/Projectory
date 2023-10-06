@@ -1,0 +1,45 @@
+<main class="profile-content" th:fragment="profile-content">
+	
+	<section>
+		<section class="profile-header-area d-flex">
+		<aside th:replace="/user/user-layouts :: side-menu"></aside>
+		
+		<div class="profile-header ms-5 mt-5">
+		<div class="profile-picture-container">Profile Pic</div>
+		
+		<!--displays logged in users's profile-->
+		<span th:if="${!usernameOnPath}">
+			<span th:text="${currentUserDetail.firstName}+' '+${currentUserDetail.lastName}"></span>
+		</span>
+		
+		<span th:if="${usernameOnPath}">
+			<span th:if="${UserDetailByUsername == 'User does not exist'}" class="d-flex justify-content-center">
+				<span >No user with that username exists</span>
+			</span>
+			<span th:unless="${UserDetailByUsername == 'User does not exist'}">
+				<span th:text="${UserDetailByUsername.firstName}+' '+${UserDetailByUsername.lastName}"></span>
+				
+			</span>
+		</span>
+		
+		<!--<span th:text="${UserDetailByUsername}"></span>-->
+		<!--displays profile based on path variable(value from the url)-->
+		
+		</div>
+		
+	</section>
+
+
+	<section class="metrics-and-report pt-2 mt-2">
+			<h5>metrics</h5>
+		<main class="charts">
+			<div class="projects-report d-flex justify-content-evenly flex-wrap">
+				
+			</div>
+		</main>
+
+	</section>
+	</section>	
+	
+	
+</main>

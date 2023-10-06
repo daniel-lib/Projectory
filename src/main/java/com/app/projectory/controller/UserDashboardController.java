@@ -150,7 +150,16 @@ public class UserDashboardController {
 	
 	@GetMapping("{username}")
 	public String displayUserProfileWithUsername(Model model, Authentication auth, @PathVariable String username) {
-		model.addAttribute("UserDetailByUsername", userServ.getUserDetailByUsername(username));
+		Users UserByUsernameResult = userServ.getUserDetailByUsername(username);
+		
+		  if(UserByUsernameResult==null) 
+			  model.addAttribute("UserDetailByUsername", "User does not exist");	
+		  else		  
+			  model.addAttribute("UserDetailByUsername", UserByUsernameResult);	
+		 
+		
+		
+		
 		model.addAttribute("currentUserDetail", userServ.getCurrentUserDetail(auth));
 		model.addAttribute("currentPage", "profile");
 		model.addAttribute("usernameOnPath", true);

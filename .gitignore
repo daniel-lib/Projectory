@@ -32,4 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 
-src/main/java/com/app/projectory/Car
+src/main/java/com/app/projectory/expArea

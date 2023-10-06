@@ -251,6 +251,7 @@ background-color:red;
    	--date-icon-filter: invert(71%) sepia(81%) saturate(495%) hue-rotate(71deg) brightness(49%) contrast(91%);
    	--viewing-modal-bg: rgb(36, 31, 49);
    	--project-modal-boxes-expaned-bg: rgb(17, 17, 17);
+   	--image-brightness-filter: brightness(100%);
     
   }
   .dark-mode {    
@@ -269,6 +270,7 @@ background-color:red;
 	--date-icon-filter: invert(71%) sepia(31%) saturate(495%) hue-rotate(71deg) brightness(100%) contrast(100%);
 	--viewing-modal-bg: rgb(12, 10, 17);
 	--project-modal-boxes-expaned-bg: rgb(8, 7, 7);
+	--image-brightness-filter: brightness(60%);
   }
   
 

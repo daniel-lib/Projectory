@@ -21,8 +21,8 @@
 			<main th:replace="/user/dashboard-content-layout :: dashboard-content"></main>
 		</div>
 		
-		<div th:if="${currentPage == 'profile'}" class="mt-5">
-			<main th:replace="/user/profile :: profile-content"></main>
+		<div th:if="${currentPage == 'profile'}">
+			<main th:replace="/user/profile/profile :: profile-content"></main>
 		</div>
 		
 		

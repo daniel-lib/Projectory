@@ -1,5 +1,10 @@
-<main class="profile-content mt-5" th:fragment="profile-content">
-	<section class="profile-header-area d-flex mt-5">
+<main class="profile-content" th:fragment="profile-content">
+	
+	<section>
+		<section class="profile-header-area d-flex">
+		<aside th:replace="/user/user-layouts :: side-menu"></aside>
+		
+		<div class="profile-header ms-5 mt-5">
 		<div class="profile-picture-container">Profile Pic</div>
 		
 		<!--displays logged in users's profile-->
@@ -11,13 +16,13 @@
 		<span th:if="${usernameOnPath}">
 			<span th:text="${UserDetailByUsername.firstName}+' '+${UserDetailByUsername.LastName}"></span>
 		</span>
-		
+		</div>
 		
 	</section>
 
 
 	<section class="metrics-and-report pt-2 mt-2">
-
+			<h5>metrics</h5>
 		<main class="charts">
 			<div class="projects-report d-flex justify-content-evenly flex-wrap">
 				
@@ -25,4 +30,7 @@
 		</main>
 
 	</section>
+	</section>	
+	
+	
 </main>

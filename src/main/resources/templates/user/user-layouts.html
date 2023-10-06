@@ -4,8 +4,9 @@
 <head th:fragment="head">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Projectory - Project Management App</title>
-	<link rel="icon" th:href="@{/images/projectory-logo.png}" type="image/x-icon">
+	<title>Projectory - Project Management App</title>	
+	<!--<link rel="icon" th:href="@{/images/projectory-logo.png}" type="image/x-icon">-->
+	<link rel="icon" th:href="@{/images/projectory-logo.png}" type="image/png">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
@@ -120,12 +121,23 @@
 
 							<span role="button" class="sign-out-btn top-menu-link text-center d-block"
 								onClick="document.querySelector('#sign-out-confirmation-modal').showModal()">
-								<span class="fa-solid fa-right-from-bracket pe-2"></span>Sign out</span></sp>
+								<span class="fa-solid fa-right-from-bracket pe-2"></span>Sign out</span>
+
+							<dialog id="sign-out-confirmation-modal" th:fragment="confirmation-modal">
+								<h2 class="confirmation-modal-header">Are you sure you want to signout?</h2>
+								<!--<p class="confirmation-modal-body">Click No to cancel, Yes to sign out</p>-->
+								<div class="confirmation-modal-btn-container">
+									<form th:action="@{/logout}" method="post" class="d-inline">
+										<button type="submit" class="confirmation-modal-btn confirm-signout-btn"></span>
+											<span class="fa-solid fa-right-from-bracket pe-2"></span>Sign
+											out</span></button>
+									</form>
+									<button class="confirmation-modal-btn cancel-signout-btn"
+										onClick="document.getElementById('sign-out-confirmation-modal').close()">Cancel</button>
+								</div>
+							</dialog>
 
 
-							<!--<span role="button" class="top-menu-link d-block text-center">
-								<span class="fa-solid fa-right-from-bracket pe-2">
-								</span><a href="/logout">Sign out</a></span>-->
 						</div>
 					</div>
 
@@ -139,35 +151,6 @@
 
 
 <aside th:fragment="side-menu" id="side-menu" class="p-0">
-
-	<!--<button class="modal-trigger" data-modal-open>Modal Test</button>-->
-
-	<dialog id="confirmation-modal" th:fragment="confirmation-modal">
-		<h2 class="confirmation-modal-header">Are you sure?</h2>
-		<p class="confirmation-modal-body">Click No to cancel, Yes to continue with action</p>
-		<div class="confirmation-modal-btn-container">
-			<button class="confirmation-modal-btn">Yes</button>
-			<button class="confirmation-modal-btn" data-close>No</button>
-		</div>
-	</dialog>
-
-
-	<dialog id="sign-out-confirmation-modal" th:fragment="confirmation-modal">
-		<h2 class="confirmation-modal-header">Are you sure you want to signout?</h2>
-		<p class="confirmation-modal-body">Click No to cancel, Yes to sign out</p>
-		<div class="confirmation-modal-btn-container">
-			<!--<button class="confirmation-modal-btn">Yes</button>-->
-
-			<form th:action="@{/logout}" method="post" class="d-inline">
-				<button type="submit" class="confirmation-modal-btn confirm-signout-btn"></span>
-					<span class="fa-solid fa-right-from-bracket pe-2"></span>Sign out</span></button>
-			</form>
-			<button class="confirmation-modal-btn cancel-signout-btn"
-				onClick="document.getElementById('sign-out-confirmation-modal').close()">Cancel</button>
-		</div>
-	</dialog>
-
-
 
 	<div class="navbar-dark bg-dark pt-5 side-nav">
 		<div class="navbar-nav ms-0" th:object="${user}">
@@ -207,6 +190,17 @@
 
 
 	</script>
+		<!--<button class="modal-trigger" data-modal-open>Modal Test</button>-->
+
+	<dialog id="confirmation-modal" th:fragment="confirmation-modal">
+		<h2 class="confirmation-modal-header">Are you sure?</h2>
+		<p class="confirmation-modal-body">Click No to cancel, Yes to continue with action</p>
+		<div class="confirmation-modal-btn-container">
+			<button class="confirmation-modal-btn">Yes</button>
+			<button class="confirmation-modal-btn" data-close>No</button>
+		</div>
+	</dialog>
+
 	<a href="#" class="go-to-top-btn"><span role="button" class="fa-solid fa-caret-up"></span></a>
 
 	<span th:text="${param.proof}" id="login_indicator" style="margin-left: 20%"></span>
