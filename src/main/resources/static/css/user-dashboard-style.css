@@ -748,6 +748,11 @@ z-index: 2000;
 	margin-bottom: 40px;
 }
 
+.productivity-chart {
+	width: 600px;
+	margin-bottom: 40px;
+}
+
 .dashboard-footer {
 	z-index: 1000 !important;
 	bottom: 0;

@@ -25,6 +25,7 @@ public class Project {
 	private String title;
 	private String description;
 	private String status;
+	private String creationDate;
 	
 	/* private Date finishDate; */
 	
@@ -44,11 +45,14 @@ public class Project {
 
 
 
-	public Project(String title, String description, String status) {
+	
+
+	public Project( String title, String description, String status, String projectDate) {
 		super();
 		this.title = title;
 		this.description = description;
 		this.status = status;
+		this.creationDate = projectDate;
 	}
 
 	public Project() {
@@ -85,6 +89,14 @@ public class Project {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(String projectDate) {
+		this.creationDate = projectDate;
 	}
 
 	public List<ProjectTasks> getProjectTasks() {

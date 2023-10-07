@@ -1,7 +1,7 @@
 <main class="main-content-container" th:fragment="dashboard-content">
 	<section class="dashboard-area d-flex">
 		<aside th:replace="/user/user-layouts :: side-menu"></aside>
-		
+
 		<div id="viewing-modal-container" class="modal-backdrop-blur">
 			<div id="viewing-modal" class="mt">
 				<span class="viewing-modal-exit-btn fa-solid fa-xmark p-1" onclick="closeViewingModal()"></span>
@@ -14,7 +14,7 @@
 			</div>
 		</div>
 
-		
+
 		<div class="dashboard-cards-container d-flex justify-content-evenly flex-wrap mt-4">
 
 			<div th:replace="/user/project/project-layouts :: project-dashboard-card"></div>
@@ -30,11 +30,27 @@
 					<h5 class="card-title dashboard-card-title">Activity</h5>
 				</div>
 				<div class="card-body">
-					<p class="card-text fw-lighter">Catch-up with your activities</p><br />
-					<input type="date">
-					<a href="/">Update Task Status</a>
-					</br>
-					<a href="#" class="btn btn-primary btn-sm">View</a>
+					<!--<p class="card-text fw-lighter">Catch-up with your activities</p><br />-->
+					
+					<div class="modal-project-task-container-inner custom-scrollbar-style-3">
+						<span>Projects: </span>
+						<span th:text="${projectCount}"></span>
+						<div th:each="proj : ${project}">
+							<div class="modal-project-task-items p-1 m-1">
+								<span>You created project: </span>
+								<span class="modal-project-task-name cadetblue-light" th:text="${proj.title}"></span>
+								<span> on </span>
+								<span class="p-1 cadetblue-light"
+									th:text="${proj.creationDate}"></span>
+								<!--<span th:text="${proj.projectMembers}"></span>-->
+							</div>
+						</div>
+					</div>
+					
+					
+				
+				
+					
 				</div>
 			</div>
 		</div>
@@ -49,18 +65,20 @@
 					<h5>Project Status</h5>
 					<!--<canvas id="projects-chart" class="chart pie-chart" th:fragment = "project-status"></canvas>-->
 					<canvas id="projects-chart" class="chart pie-chart"></canvas>
+					
+					
 
 					<script>
 						var ProjectStatusCount = "[[${ProjectStatusCount}]]";
 					</script>
 				</div>
-				<div class="project-status-chart">
-					<h5>Project Status</h5>
-					<canvas id="projects-chart" class="chart pie-chart">
+				<div class="project-status-chart productivity-chart">
+					<h5>Weekly Productivity Report</h5>
+					<canvas id="productivity-chart" class="chart pie-chart"></canvas>
 					</canvas>
 				</div>
-				<div class="project-status-chart">
-					<h5>Project Status</h5>
+				<div class="project-status-chart productivity-chart" width="400px" height="500px">
+					<h5>Projectttttt Status</h5>
 					<canvas id="projects-chart" class="chart pie-chart">
 					</canvas>
 				</div>

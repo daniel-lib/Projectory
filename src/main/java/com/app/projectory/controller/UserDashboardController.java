@@ -91,7 +91,7 @@ public class UserDashboardController {
 		
 		List<TodoListCollection> collection = collectionServ.getTodoCollectionForCurrentUser(userId);
 		
-		List<ProjectStatusCount> StatusCountList = projDao.countProjectStatus();
+		List<ProjectStatusCount> StatusCountList = projDao.countProjectStatus(userId);
 		Map<String, ProjectStatusCount> StatusCntMap = new HashMap<>();
 		ObjectMapper objectMapper = new ObjectMapper();
 		for(ProjectStatusCount obj : StatusCountList)
@@ -102,12 +102,18 @@ public class UserDashboardController {
 		
 		model.addAttribute("itemCount", todoData.count());
 		model.addAttribute("user", principal.getName());
+		//model.addAttribute("projectCount", projDao.count());   //only works on the repo?
+		
 		model.addAttribute("projectCount", projDao.count());
+		model.addAttribute("projectMembersCount", projDao.count());
 		model.addAttribute("projectTaskCount", projTaskDao.count());
 		model.addAttribute("project", projectsList);
 		model.addAttribute("projectTasks", projectTasks);
 		model.addAttribute("todoModel", todo);
 		model.addAttribute("TodoCollections", collection);
+		
+		//activity
+		
 	
 		
 		if(model.containsAttribute("loginIndicator")) {
