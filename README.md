@@ -1,6 +1,6 @@
 
 ![Projectory Logo](/src/main/resources/static/images/projectory-logo-full.png)
-### Project Management Tool
+<p>Project Management Tool</p>
 
 
 ## Introduction
@@ -26,8 +26,8 @@ This is a project management web application built using Spring framework. The a
 ![Projectory user dashboard themes](/src/main/resources/static/images/UI-Screenshot/readme-dashboard-theme2.png?raw=true "user dashboard themes")
 
 <div align="center">
-    <img src="/src/main/resources/static/images/UI-Screenshot/readme-dashboard2.png?raw=true" width="100px" alt="Responsive design"/> 
-    <img src="/src/main/resources/static/images/UI-Screenshot/modal-project-view.png?raw=true" width="100px" alt="Expanded Projectory"/> 
+    <img src="/src/main/resources/static/images/UI-Screenshot/readme-dashboard2.png?raw=true" width="57%" alt="Responsive design"/> 
+    <img src="/src/main/resources/static/images/UI-Screenshot/modal-project-view.png?raw=true" width="38%" alt="Expanded Projectory"/> 
 </div>
 
 ## Disclaimer

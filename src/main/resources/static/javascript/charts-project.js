@@ -11,7 +11,7 @@ for (let i = 0; i < arrayLength; i++) {
 
 const projectsChart = document.getElementById('projects-chart');
 
-Chart.defaults.color = 'black'; //change color of labels
+Chart.defaults.color = 'goldenrod'; //change color of labels
 new Chart(projectsChart, {
 	type: 'pie',
 	data: {
