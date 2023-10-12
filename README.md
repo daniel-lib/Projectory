@@ -33,5 +33,5 @@ This is a project management web application built using Spring framework. The a
 
 ## Disclaimer
 
-This app is still under development. It's not ready for release yet.
+This app is still under development. It's not production-ready yet.
 
