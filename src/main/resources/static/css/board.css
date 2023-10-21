@@ -1,0 +1,29 @@
+.board-container{
+	background-color: var(--board-border-color-primary);
+	padding: 2rem;
+	min-height: 70vh;
+	width: 85vw;
+}
+.board-inside-container{
+	background-color: var(--board-background-color-primary);
+	min-height: 70vh;
+	padding: 1rem;
+	border: 5px inset;
+}
+.task-stage{
+	border-bottom: 1px solid rgb(94, 92, 100);
+	padding-bottom: 1rem;
+	border: 1px solid rgb(36, 31, 49);
+	min-width: 10vw;
+	transition: 0.5s ease-in-out;
+	width: 32%;
+}
+.task-draggable-card{
+	border: 4px dotted rgb(94, 92, 100);
+	border-radius: 0.3rem;
+} 
+.task-draggable-card h6{
+	background-color: rgb(154, 153, 150);
+	cursor: grab;
+	padding: 0.4rem;	
+	}

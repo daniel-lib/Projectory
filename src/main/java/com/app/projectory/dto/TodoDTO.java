@@ -1,4 +1,4 @@
-package com.app.projectory.entity;
+package com.app.projectory.dto;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -8,11 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity
-public class Todo {
+public class TodoDTO {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	
@@ -20,15 +19,10 @@ public class Todo {
 	
 	private String title;
 	
-	@JsonIgnore
-	@ManyToOne(cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-	@JoinColumn(name="collection_id")
-	private TodoListCollection collection;
-	
-	public Todo() {
+	public TodoDTO() {
 		
 	}
-	public Todo(String title) {
+	public TodoDTO(String title) {
 		this.title = title;
 	}
 	public long getTodoItemId() {
@@ -43,15 +37,10 @@ public class Todo {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public TodoListCollection getCollection() {
-		return collection;
-	}
-	public void setCollection(TodoListCollection collection) {
-		this.collection = collection;
-	}
+	
 	@Override
 	public String toString() {
-		return "Todo [todoItemId=" + todoItemId + ", title=" + title + "]";
+		return "TodoDto [todoItemId=" + todoItemId + ", title=" + title + "]";
 	}
 	
 	

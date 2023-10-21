@@ -35,3 +35,6 @@
 .project-status-label.Completed {
 	background-color: rgba(52, 135, 237, 0.3);
 }
+.todo-done{
+	text-decoration: line-through;
+}

@@ -11,7 +11,11 @@ for (let i = 0; i < arrayLength; i++) {
 
 const projectsChart = document.getElementById('projects-chart');
 
+const toggle = document.getElementById("theme");
+
 Chart.defaults.color = 'goldenrod'; //change color of labels
+	
+
 new Chart(projectsChart, {
 	type: 'pie',
 	data: {

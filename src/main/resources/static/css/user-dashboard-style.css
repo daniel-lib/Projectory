@@ -1,5 +1,6 @@
 @import "fetched-data-styling.css";
 @import "confirmation-modal-style.css";
+@import "board.css";
 .dashboard-nav {}
 
 .user-dashboard-nav {
@@ -522,7 +523,7 @@ z-index: 2000;
 	border-bottom: 2px ridge rgb(51, 209, 122);
 	background-color: rgba(61, 56, 70, 0.5);
 	border-radius: 0.5rem;
-	transition: 0.2s ease-in-out
+	transition: 0.2s ease-in-out;
 }
 
 .todo-collection:hover {
@@ -543,8 +544,9 @@ z-index: 2000;
 
 .list-items {
 	color: rgb(222, 221, 218);
-	background-color: rgba(181, 131, 90, 0.2);
+	/*background-color: rgba(181, 131, 90, 0.2);*/
 	border-radius: 0.25rem;
+	border-bottom: 1px dotted #4a365e;
 }
 
 .collection-bottom-btns {

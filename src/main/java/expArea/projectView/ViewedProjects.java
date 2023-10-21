@@ -1,4 +1,4 @@
-package expArea.car;
+package expArea.projectView;
 
 public class ViewedProjects {
 

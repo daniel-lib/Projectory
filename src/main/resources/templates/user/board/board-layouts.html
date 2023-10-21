@@ -1,0 +1,45 @@
+<div th:fragment="board-container" class="board-container p-2">
+	<div class="board-inside-container">
+		<div th:replace="/user/board/board-layouts::task-stage-categories"></div>
+	</div>
+
+	<script>
+		function allowDrop(ev) {
+			ev.preventDefault();
+		}
+
+		function drag(ev) {
+			ev.dataTransfer.setData("text", ev.target.id);
+		}
+
+		function drop(ev) {
+			ev.preventDefault();
+			var data = ev.dataTransfer.getData("text");
+			ev.target.appendChild(document.getElementById(data));
+		}
+	</script>
+</div>
+
+<div th:fragment="task-stage-categories" class="d-flex justify-content-between flex-wrap">
+	<div class="task-stage p-2" ondrop="drop(event)"
+	ondragover="allowDrop(event)">
+		<h4 class="text-center">Todo</h4>
+		<div th:replace="/user/board/board-layouts::task-draggable-card"></div>
+	</div>
+	<div class="task-stage p-2" ondrop="drop(event)"
+	ondragover="allowDrop(event)">
+		<h4 class="text-center">In progress</h4>
+	</div>
+	<div class="task-stage p-2" ondrop="drop(event)"
+	ondragover="allowDrop(event)">
+		<h4 class="text-center">Done</h4>
+	</div>
+</div>
+
+<div class="task-draggable-card" th:fragment="task-draggable-card" draggable="true" ondragstart="drag(event)" id="drg">
+	<h6 class="task-card-title text-center">task title</h6>
+	<div class="task-card-body m-2">
+		<span>task Body</span>
+		<button>Done</button>
+	</div>
+</div>

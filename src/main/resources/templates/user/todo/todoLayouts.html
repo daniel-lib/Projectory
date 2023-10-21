@@ -20,7 +20,7 @@
 
 
 
-	<div th:object="${TodoCollections}">
+	<div th:object="${TodoCollections}" class="">
 		<div class="todo-collection my-3 pt-1" th:each="collection : ${TodoCollections}"
 			th:id="todo-collection-box-+''+${collection.todoCollectionId}">
 			<div class="collection-date d-flex flex-wrap justify-content-between">
@@ -124,7 +124,7 @@
 							id="mark-todo-task-done" title="Mark as done">
 					</span>
 
-					<div class="d-flex justify-content-between p-2 mb-1">
+					<div class="d-flex justify-content-between p-2">
 
 						<div style="display: inline;" th:id="${item.todoItemId}">
 							<span th:text="${item.title}" id=""></span>

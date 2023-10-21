@@ -37,6 +37,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Controller
 @RequestMapping("/user")
 public class UserDashboardController {
+	@Autowired
+	private userAccountService userServ;
+	
+	@Autowired
+	private TodoListCollectionService todoCollServ;
 	
 	@Autowired
 	TodoListRepository todoData;
@@ -56,10 +61,7 @@ public class UserDashboardController {
 	@Autowired
 	TodoListCollectionService collectionServ;
 	
-//	@Autowired
-//	private Authentication auth;
-	@Autowired
-	private userAccountService userServ;
+	
 	
 	//For testing
 	@GetMapping("/username")
@@ -126,6 +128,14 @@ public class UserDashboardController {
 		
 	}
 	
+	@GetMapping("/api/todo-list/{collectionId}")
+	@ResponseBody
+	public List<Todo> fetchTodoList(Authentication auth, @PathVariable long collectionId ){
+		List<Todo> fetchedTodoList = todoCollServ.getCurrentUserTodoListByCollection(collectionId);
+		return fetchedTodoList;
+	}
+	
+	
 	@GetMapping("/check-login-info")
 	@ResponseBody
 	public Users checkLoginInfo(@RequestParam Long userId, @RequestParam String proof) {
@@ -155,14 +165,13 @@ public class UserDashboardController {
 	}
 	
 	@GetMapping("{username}")
-	public String displayUserProfileWithUsername(Model model, Authentication auth, @PathVariable String username) {
+	public String displayUserProfileWithUsername(Model model, Authentication auth, @PathVariable("username") String username) {
 		Users UserByUsernameResult = userServ.getUserDetailByUsername(username);
 		
 		  if(UserByUsernameResult==null) 
 			  model.addAttribute("UserDetailByUsername", "User does not exist");	
 		  else		  
-			  model.addAttribute("UserDetailByUsername", UserByUsernameResult);	
-		 
+			  model.addAttribute("UserDetailByUsername", UserByUsernameResult);			 
 		
 		
 		

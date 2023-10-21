@@ -252,7 +252,10 @@ background-color:red;
    	--viewing-modal-bg: rgb(36, 31, 49);
    	--project-modal-boxes-expaned-bg: rgb(17, 17, 17);
    	--image-brightness-filter: brightness(100%);
-    
+   	
+   	/*board colors*/
+   	--board-background-color-primary: rgb(192, 191, 188);
+    --board-border-color-primary:  rgb(42, 27, 14);
   }
   .dark-mode {    
     --primary-bg: #252525;
@@ -271,6 +274,10 @@ background-color:red;
 	--viewing-modal-bg: rgb(12, 10, 17);
 	--project-modal-boxes-expaned-bg: rgb(8, 7, 7);
 	--image-brightness-filter: brightness(60%);
+	
+	/*board colors*/
+   	--board-background-color-primary: rgb(7, 6, 6);
+   	--board-border-color-primary:  rgb(99, 69, 44);
   }
   
 

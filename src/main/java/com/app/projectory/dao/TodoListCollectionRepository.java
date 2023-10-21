@@ -15,4 +15,7 @@ public interface TodoListCollectionRepository extends CrudRepository<TodoListCol
 	List<TodoListCollection> findTodoCollectionByUserId(long userId);
 	
 	
+	
+	
+	
 }

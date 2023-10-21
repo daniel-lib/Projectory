@@ -1,4 +1,4 @@
-package expArea.car;
+package expArea.projectView;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
