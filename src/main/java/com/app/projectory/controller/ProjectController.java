@@ -32,6 +32,7 @@ public class ProjectController {
 	public String serveBoard(Model model, Authentication auth){
 		model.addAttribute("currentUserDetail", userServ.getCurrentUserDetail(auth));
 		model.addAttribute("currentPage", "board");
+		/* model.addAttribute("user", auth.getName()); */
 		return "/user/user-content-container";
 	}
 	

@@ -31,7 +31,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script src="/javascript/charts-project.js" defer></script>
 	<script src="/javascript/theme-switch-script.js" defer></script>
-	<script src="/javascript/vue3.3.4.js"></script>
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
 </head>
 
@@ -93,7 +93,7 @@
 								<span class="d-block mb-3">
 									<!--<span class="fa-solid fa-id-card pe-2"></span>	-->
 									<span class="non-hoverable-top-menu-text d-block mb-2">@<span
-											th:text="${user}"></span></span>
+											th:text="${currentUserDetail.username}"></span></span>
 
 									<span class="profile-pic-btn collapsable-top-menu-prof-pic fs-22">
 										<span class="nav-icon mt-0 pt-0 "
@@ -129,7 +129,7 @@
 								<!--<p class="confirmation-modal-body">Click No to cancel, Yes to sign out</p>-->
 								<div class="confirmation-modal-btn-container">
 									<form th:action="@{/logout}" method="post" class="d-inline">
-										<button type="submit" class="confirmation-modal-btn confirm-signout-btn"></span>
+										<button type="submit" class="confirmation-modal-btn confirm-signout-btn">
 											<span class="fa-solid fa-right-from-bracket pe-2"></span>Sign
 											out</span></button>
 									</form>
@@ -168,9 +168,9 @@
 				<span class="nav-icon mt-1 fa-solid fa-user-group"></span> <span
 					class="side-nav-text mx-2">Connections</span></a>
 			<a role="button" class="nav-link scrum-board-link" id="side-menu-board-link"
-				onClick="selectedSideMenuToggle(2)">
+				onClick="selectedSideMenuToggle(2)" th:href="@{/project/board}">
 				<span class="nav-icon mt-1 fa-solid fa-chalkboard-user"></span>
-				<span class="side-nav-text mx-2">Scrum Board</span></a>
+				<span class="side-nav-text mx-2">Agile Board</span></a>
 			<!--<a class="nav-link" th:href="@{/user/dashboard}"  th:text="${user.firstName}  + ' '+ ${user.lastName}">-->
 			<a role="button" class="nav-link account-link" id="side-menu-setting-link"
 				onClick="selectedSideMenuToggle(3)">

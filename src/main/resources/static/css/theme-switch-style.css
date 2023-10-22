@@ -256,6 +256,9 @@ background-color:red;
    	/*board colors*/
    	--board-background-color-primary: rgb(192, 191, 188);
     --board-border-color-primary:  rgb(42, 27, 14);
+    --board-border-color-primary:  rgb(99, 69, 44);
+    
+     --board-border-inset-primary:  rgb(181, 131, 90);
   }
   .dark-mode {    
     --primary-bg: #252525;
@@ -276,8 +279,12 @@ background-color:red;
 	--image-brightness-filter: brightness(60%);
 	
 	/*board colors*/
-   	--board-background-color-primary: rgb(7, 6, 6);
+   	/*--board-background-color-primary: rgb(7, 6, 6);*/
+   	--board-background-color-primary: rgb(12, 10, 17);
    	--board-border-color-primary:  rgb(99, 69, 44);
+   	--board-border-color-primary:   rgb(50, 32, 18);
+   	
+   	 --board-border-inset-primary:  rgb(99, 69, 44);
   }
   
 

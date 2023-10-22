@@ -1,45 +1,135 @@
-<div th:fragment="board-container" class="board-container p-2">
-	<div class="board-inside-container">
+<div th:fragment="board-container" class="board-container p-2" id="board-container">
+
+<div class="board-top-controls mb-2">
+		<button onclick="boardOnFullScreen()" id="board-full-screen-btn"
+	class="board-full-screen-btn minimalist-btn minimalist-btn-blk-bg btn-sm">Full
+		Screen</button>
+		<span class="board-info fa-regular fa-hand">
+			</span><span class="board-info info-tag-dark">You can drag the tasks to your desired stage</span>
+
+<span class="float-end"> 
+	<select class="form-select form-select-sm mb-2 me-1  minimalist-btn minimalist-btn-blk-bg btn-sm">
+		<option selected disabled>Change Project</option>
+		<option>Proj1</option>
+	</select>
+	
+</span>
+</div>
+
+	<div class="board-inside-container" id="board-inside-container">
 		<div th:replace="/user/board/board-layouts::task-stage-categories"></div>
 	</div>
 
 	<script>
+		function boardOnFullScreen() {
+			const boardContainer = document.getElementById("board-container");
+			const fullScreenBtn = document.getElementById("board-full-screen-btn");
+			const boardOuterContainer = document.getElementById("board-container-container");
+			const boardInnerContainer = document.getElementById("board-inside-container");
+			if (boardContainer.classList.contains("full-screen")) {
+				boardContainer.classList.remove("full-screen");
+				boardInnerContainer.classList.remove("full-screen");		
+				boardOuterContainer.classList.add("ms-5");					
+				fullScreenBtn.textContent = "Full Screen";	
+				document.body.style.overflow = "visible";	
+			}
+			else {
+				boardContainer.classList.add("full-screen");
+				boardInnerContainer.classList.add("full-screen");
+				boardOuterContainer.classList.remove("ms-5");		
+				fullScreenBtn.textContent = "Back";	
+				document.body.style.overflow = "hidden";	
+			}
+		}
 		function allowDrop(ev) {
+			//			document.querySelectorAll(".drop-area-card-body").forEach((el)=>{
+			////	el.style.height = el.style.height +100;
+			//el.style.borderColor = "yellow"
+			//	})
+			//ev.currentTarget.style.border= "1px solid yellow";
 			ev.preventDefault();
+
+			//alert(ev);
 		}
 
 		function drag(ev) {
 			ev.dataTransfer.setData("text", ev.target.id);
+			//alert(ev);
 		}
 
 		function drop(ev) {
 			ev.preventDefault();
 			var data = ev.dataTransfer.getData("text");
 			ev.target.appendChild(document.getElementById(data));
+			/*if(ev.target.classList.contains("drop-area-card-body")){
+				ev.target.appendChild(document.getElementById(data));
+			}
+			else{
+				ev.currentTarget.appendChild(document.getElementById(data));
+			}*/
+			ev.currentTarget.appendChild(document.getElementById(data));
+
+			//ev.currentTarget.style.border = "1px solid red";
+			ev.currentTarget.classList.remove("highlighted");
+
+		}
+		function cancelDropAreaHighlight(ev) {
+			//ev.currentTarget.style.border = "1px solid red";
+			ev.currentTarget.classList.remove("highlighted");
+		}
+		function dropAreaHighlight(ev) {
+			//ev.currentTarget.style.border = "1px solid yellow";
+			ev.currentTarget.classList.add("highlighted");
 		}
 	</script>
 </div>
 
 <div th:fragment="task-stage-categories" class="d-flex justify-content-between flex-wrap">
-	<div class="task-stage p-2" ondrop="drop(event)"
-	ondragover="allowDrop(event)">
-		<h4 class="text-center">Todo</h4>
-		<div th:replace="/user/board/board-layouts::task-draggable-card"></div>
-	</div>
-	<div class="task-stage p-2" ondrop="drop(event)"
-	ondragover="allowDrop(event)">
-		<h4 class="text-center">In progress</h4>
-	</div>
-	<div class="task-stage p-2" ondrop="drop(event)"
-	ondragover="allowDrop(event)">
-		<h4 class="text-center">Done</h4>
-	</div>
-</div>
+	<div class="task-stage p-2 mb-3">
+		<h4 class="text-center task-stage-todo">Todo</h4>
+		<div class="drop-area-card-body" ondrop="drop(event)" ondragover="allowDrop(event)"
+			ondragleave="cancelDropAreaHighlight(event)" ondragenter="dropAreaHighlight(event)">
 
-<div class="task-draggable-card" th:fragment="task-draggable-card" draggable="true" ondragstart="drag(event)" id="drg">
-	<h6 class="task-card-title text-center">task title</h6>
-	<div class="task-card-body m-2">
-		<span>task Body</span>
-		<button>Done</button>
+			<div class="task-draggable-card todo mb-3" th:fragment="task-draggable-card" draggable="true"
+				ondragstart="drag(event)" id="drg" ondragleave="cancelDropAreaHighlight(event)"
+				ondragenter="dropAreaHighlight(event)">
+				<h6 class="task-card-title text-center">task title</h6>
+				<div class="task-card-body m-2">
+					<span>task Body</span>
+					<button>Done</button>
+				</div>
+			</div>
+			<div class="task-draggable-card todo mb-3" th:fragment="task-draggable-card" draggable="true"
+				ondragstart="drag(event)" id="drg2" ondragleave="cancelDropAreaHighlight(event)"
+				ondragenter="dropAreaHighlight(event)">
+				<h6 class="task-card-title text-center">task title</h6>
+				<div class="task-card-body m-2">
+					<span>task Body</span>
+					<button>Done</button>
+				</div>
+			</div>
+
+			<div class="task-draggable-card todo mb-3" th:fragment="task-draggable-card" draggable="true"
+				ondragstart="drag(event)" id="drg3" ondragleave="cancelDropAreaHighlight(event)"
+				ondragenter="dropAreaHighlight(event)">
+				<h6 class="task-card-title text-center">task title</h6>
+				<div class="task-card-body m-2">
+					<span>task Body</span>
+					<button>Done</button>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+	<div class="task-stage p-2 mb-3">
+		<h4 class="text-center task-stage-in-progress">In progress</h4>
+		<div class="drop-area-card-body" ondrop="drop(event)" ondragover="allowDrop(event)"
+			ondragleave="cancelDropAreaHighlight(event)" ondragenter="dropAreaHighlight(event)"></div>
+	</div>
+	<div class="task-stage p-2 mb-3">
+		<h4 class="text-center task-stage-done">Done</h4>
+		<div class="drop-area-card-body" ondrop="drop(event)" ondragover="allowDrop(event)"
+			ondragleave="cancelDropAreaHighlight(event)" ondragenter="dropAreaHighlight(event)"></div>
 	</div>
 </div>

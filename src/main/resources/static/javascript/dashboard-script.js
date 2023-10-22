@@ -148,13 +148,26 @@ function sideMenuToggle() {
 
 }
 
-
+selectedSideMenuToggle();
 function selectedSideMenuToggle(selectedSideMenu) {
-	const menuLinks = ["side-menu-dashboard-link", "side-menu-connection-link", "side-menu-board-link", "side-menu-setting-link"];
+	if(selectedSideMenu == undefined){
+		//alert("nothing to see here");
+		const selectedNav = window.localStorage.getItem("selected-side-menu");
+		document.getElementById("side-menu-dashboard-link").classList.remove("side-nav-link-selected");
+		document.getElementById(selectedNav).classList.add("side-nav-link-selected");
+	}
+	else{
+		//alert("heyaaall");
+		const menuLinks = ["side-menu-dashboard-link", "side-menu-connection-link", "side-menu-board-link", "side-menu-setting-link"];
+	
 	for (let links of menuLinks) {
 		document.getElementById(links).classList.remove("side-nav-link-selected");
 	}
 	document.getElementById(menuLinks[selectedSideMenu]).classList.add("side-nav-link-selected");
+	window.localStorage.setItem("selected-side-menu", menuLinks[selectedSideMenu]);
+	}
+	
+
 }
 
 
