@@ -9,18 +9,14 @@
 <div class="item-display-table project-display-table" th:fragment="project-list-table">
 	<span style="font-size:9pt; color:grey"><span class="fa-solid fa-expand"></span>
 	Expand the project boxes for full experience</span>
-	<div th:object="${project}" class="d-flex justify-content-around flex-wrap">
+	
+	
+	<div th:object="${project}" class="d-flex justify-content-around flex-wrap" id="projects-holder-container">
 		<div th:each="proj : ${project}" class="project-modal-boxes-container mb-5" id="project-modal-boxes-container">
-			<!--<span role="button" class="float-end top-dangling-x-btn fa-solid fa-maximize" title="Expand"-->
 			<span role="button" class="float-end top-dangling-x-btn fa-solid fa-expand" title="Expand"
 				th:id="project-modal-expand-btn-+''+${proj.projectId}"
 				th:onclick="expandContainer('project-modal-box-'+[[${proj.projectId}]], this.id)"></span>
 			<div class="mt-1"></div>
-			<!--<button class="btn minimalist-btn btn-sm p-1 float-end expand-btn top-dangling-x-btn"
-				th:id="project-modal-expand-btn-+''+${proj.projectId}"
-				th:onclick="expandContainer('project-modal-box-'+[[${proj.projectId}]])" title="Expand">
-				<span class="fa-solid fa-maximize"></span> <b>Expand</b></button>
-			<div class="mb-1"></div>-->
 
 			<div class="project-modal-boxes-default pt-3 float-none p-1 project-modal-boxes"
 				th:id="project-modal-box-+''+${proj.projectId}">
@@ -38,10 +34,7 @@
 					<div class="project-modal-boxes-inner p-1 my-2 mx-2 align-self-start" style="display: block;"
 						th:id="${proj.projectId}">
 						<span id="itemNumber" class="badge text-bg-warning itemNumber">0</span>
-						<!--<span th:text = "${item.todoItemId}" class="badge text-bg-warning"></span>-->
 						<span th:text="${proj.title}" id=""></span>
-						<!--<span>|</span>-->
-						<!--<span th:text="${proj.status}" class="fw-lighter modal-project-status"></span>-->
 						<br />
 						<span th:text="${proj.description}" class="fw-lighter"></span>
 						<span th:class="d-block +' '+project-status-label +' '+${proj.status}"
@@ -90,9 +83,6 @@
 
 								<input type="button" value="add" class="btn btn-primary-golden btn-sm"
 									th:onclick="addTaskToProject([[${proj.projectId}]])">
-								<!--<button th:onclick="myfunction([[${proj.projectId}]])" data-projectId="${proj.projectId}">
-								Click here
-							</button>-->
 							</div>
 						</div>
 						<!--display Project tasks-->

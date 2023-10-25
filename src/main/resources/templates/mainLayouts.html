@@ -21,6 +21,9 @@
 	<script src="/javascript/dashboard-script.js" defer></script>
 	<script src="/javascript/mainScript.js" defer></script>
 	<script src="/javascript/theme-switch-script.js" defer></script>
+	
+	<script src="/javascript/vue.global.js.js"></script>
+	<script src="/javascript/vue-script.js" defer></script>
 </head>
 
 <label for="theme" class="theme" th:fragment="theme-switch" title="switch theme">
@@ -81,6 +84,9 @@
 	</nav>
 	<span class="guest-theme-switch theme-switch-container"><label
 			th:replace="mainLayouts::theme-switch"></label></span>
+			
+			<button class="btn login-btn d-inline"
+								onClick="displaySigninForm('login'); startElementRotation();">Login</button>
 
 </header>
 

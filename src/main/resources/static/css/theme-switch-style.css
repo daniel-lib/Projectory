@@ -157,6 +157,7 @@ background-color:red;
 
 .theme__toggle:before {
 	background-color: hsl(48, 90%, 55%);
+	background-color: rgba(243, 202, 36, 0.2);
 	border-radius: 50%;
 	content: "";
 	width: 2.5em;
@@ -172,6 +173,7 @@ background-color:red;
 /* Checked */
 .theme__toggle:checked {
 	background-color: hsl(198, 90%, 15%);
+	background-color: rgba(3, 52, 72, 0.2);
 }
 
 .theme__toggle:checked:before,
@@ -182,6 +184,7 @@ background-color:red;
 .theme__toggle:checked:before {
 	background-color: hsl(198, 90%, 55%);
 	background-color: rgb(118, 187, 118);
+	background-color: rgba(118, 187, 118, 0.2);
 }
 
 .theme__toggle:checked~.theme__icon .theme__icon-part:nth-child(1) {
@@ -256,9 +259,10 @@ background-color:red;
    	/*board colors*/
    	--board-background-color-primary: rgb(192, 191, 188);
     --board-border-color-primary:  rgb(42, 27, 14);
-    --board-border-color-primary:  rgb(99, 69, 44);
-    
+    --board-border-color-primary:  rgb(99, 69, 44);    
      --board-border-inset-primary:  rgb(181, 131, 90);
+     
+     --get-started-border-color: gold;
   }
   .dark-mode {    
     --primary-bg: #252525;
@@ -282,9 +286,10 @@ background-color:red;
    	/*--board-background-color-primary: rgb(7, 6, 6);*/
    	--board-background-color-primary: rgb(12, 10, 17);
    	--board-border-color-primary:  rgb(99, 69, 44);
-   	--board-border-color-primary:   rgb(50, 32, 18);
-   	
+   	--board-border-color-primary:   rgb(50, 32, 18);   	
    	 --board-border-inset-primary:  rgb(99, 69, 44);
+   	 
+   	 --get-started-border-color: goldenrod;
   }
   
 

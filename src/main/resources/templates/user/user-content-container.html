@@ -38,36 +38,9 @@
 
 		</div>
 		
-		is vue working
-		<script>
-			const fetchListUrl = 'http://localhost:8080/user/api/todo-list/1';
-			const fetchListUrlREST = 'http://localhost:8080/api/todo-list/1';
-			const fetchListUrlREST2 = '/api/todo-list/1';
-			fetch(fetchListUrlREST)
-				.then(response => response.json())
-				.then(data => {
-					for (let d of data) {
-						//alert(d.title);
-					}
-
-				})
-
-
-
-
-			Vue.createApp({
-				data() {
-					return {
-						todoList: []
-					}
-				},
-				created() {
-					fetch(fetchListUrl)
-						.then(response => response.json())
-						.then(response => this.todoList = response)
-				}
-			}).mount("#vue-test-area")
-		</script>
+		
+			
+	
 
 
 
@@ -81,28 +54,6 @@
 		</div>
 
 		
-		<script>
-			//const {createApp} = Vue
-
-			const red = Vue.createApp({
-				data() {
-					return {
-						todoList: [],
-						dt: 'test'
-					}
-				},
-				created() {
-					fetch(fetchListUrlREST)
-						.then(response => response.json())
-						.then(data => this.todoList = data)
-				}
-			}).mount("#app")
-		</script>
-
-
-
-
-
 		<!-- th:if on both of the works but th:unless doesn't. It breaks the conditional	
 		<div th:unless="${currentPage == 'profile'}">
 			<main th:replace="/user/profile :: profile-content"></main>
