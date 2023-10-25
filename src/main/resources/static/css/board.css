@@ -1,0 +1,116 @@
+.board-container{
+	background-color: var(--board-border-color-primary);
+	padding: 2rem;
+	min-height: 70vh;
+	width: 85vw;
+	border: 5px outset var(--board-border-color-primary);
+}
+.board-container.full-screen{
+	z-index: 10;
+	height: 100vh;
+	width: 100vw;
+	position: fixed;
+	top: 0;
+	margin:0 !important;
+}
+
+.board-inside-container.full-screen{
+	height: 95%;
+}
+.board-full-screen-btn{
+	background-color: rgb(119, 118, 123);
+	color: white;
+	padding: 0.1rem 0.4rem;
+}
+
+.board-info{
+	color: rgb(192, 191, 188) !important;
+}
+
+.board-inside-container{
+	background-color: var(--board-background-color-primary);
+	min-height: 70vh;
+	padding: 1rem;
+	border: 5px inset var(--board-border-inset-primary);
+}
+.task-stage{
+	border-bottom: 1px solid rgb(94, 92, 100);
+	padding-bottom: 1rem;
+	border: 1px solid rgb(36, 31, 49);
+	min-width: 10vw;
+	transition: 0.1s ease-in-out;
+	min-width: 32%;
+	border-bottom: 3px solid var(--board-border-color-primary);
+}
+
+.drop-area-card-body{
+	border: 1px solid rgb(119, 118, 123);
+	min-height: 20%;
+	height: fit-content;
+	height: min-content;
+	height: 83%;
+	
+	/*height: auto;*/
+	transition: 0.2s ease-in-out;
+	padding: 0.9rem;
+}
+.drop-area-card-body.highlighted{
+	/*border: 1px solid yellow;*/
+	background-color: rgba(0, 0, 0, 0.2);
+	scale: 1.1;
+	height: 80%;
+}
+
+.task-draggable-card{
+	border: 4px dotted rgb(94, 92, 100);
+	border-radius: 0.3rem;
+	cursor: grab;
+} 
+.task-draggable-card h6{
+	background-color: rgb(154, 153, 150);	
+	padding: 0.4rem;	
+	}
+	
+.task-draggable-card.todo h6{	
+	background-color: rgb(246, 97, 81);
+	background-color: rgb(38, 155, 101);
+	background-color: rgb(47, 85, 133);
+	background-color: rgb(163, 157, 79);
+}
+
+.task-draggable-card.todo{	
+	background-color: rgba(246, 97, 81, 0.2);
+	background-color: rgba(38, 155, 101, 0.2);	
+	background-color: rgba(47, 85, 133, 0.2);
+	background-color: rgba(163, 157, 79, 0.2);
+}
+.task-stage-todo{
+	background-color: rgb(163, 157, 79);
+}
+.task-stage-in-progress{
+	background-color: rgb(38, 155, 101);
+}
+.task-stage-done{
+	background-color: rgb(47, 85, 133);
+}
+
+.task-card-body{
+	cursor: grab;
+}
+
+.board-header{
+	margin-left: 3rem;
+	margin-left: 1.8rem;
+}
+
+@media (max-width: 650px) {
+	.task-stage{
+	min-width: 99% !important;
+}
+
+.board-header{
+	margin-left: .25rem;
+	margin-right: .25em;	
+}
+}
+

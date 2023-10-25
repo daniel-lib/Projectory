@@ -20,8 +20,12 @@ public class userAccountService {
 	
 	
 	public long getUserId(Authentication auth) {        
-	        
-		long userId = userDao.findUserByUsername(getCurrentUsername(auth)).getUserId();
+	    //get user by username    
+		Users user = getCurrentUserDetail(auth);
+		
+		//get user id from the user object
+		long userId = user.getUserId();
+	
 		return userId;
 	}
 	

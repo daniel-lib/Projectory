@@ -120,6 +120,18 @@ public class UserDashboardController {
 		
 	}
 	
+<<<<<<< Updated upstream
+=======
+	//for test only
+	@GetMapping("/api/todo-list/{collectionId}")
+	@ResponseBody
+	public List<Todo> fetchTodoList(Authentication auth, @PathVariable long collectionId ){
+		List<Todo> fetchedTodoList = todoCollServ.getCurrentUserTodoListByCollection(collectionId);
+		return fetchedTodoList;
+	}
+	
+	
+>>>>>>> Stashed changes
 	@GetMapping("/check-login-info")
 	@ResponseBody
 	public Users checkLoginInfo(@RequestParam Long userId, @RequestParam String proof) {

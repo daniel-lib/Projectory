@@ -177,6 +177,11 @@ div.dark-mode {
 	/*text-shadow: 0px 0px 1px rgb(36, 31, 49);*/
 }
 
+/*.navbar-brand img{
+	width: 10%;
+	height: 17%;
+	}
+*/
 /*.navbar-nav {
 	margin-left: 10%;
 }
@@ -421,7 +426,7 @@ div.dark-mode {
 }
 
 .get-started-btn-container-inner {
-	margin-top: 100%;
+	margin-top: 160%;
 }
 
 .landing-page-btn {
@@ -432,13 +437,14 @@ div.dark-mode {
 	padding: 0.5rem 1.5rem 0.5rem 1.5rem;
 	border: 0 !important;
 	border-bottom: 2px solid gold !important;
+	border-bottom: 2px solid var(--get-started-border-color) !important;
 	cursor: pointer;
 	box-shadow: none !important;
 	transition: 0.2s ease-in-out;
 }
 
 .landing-page-btn:hover {
-	border-bottom: 2px solid rgb(118, 187, 118) !important;
+	/*border-bottom: 2px solid rgb(118, 187, 118) !important;*/
 }
 
 .landing-page-btn:active {
@@ -449,21 +455,36 @@ div.dark-mode {
 .get-started-btn {
 	background-color: rgb(36, 31, 49, 0.9) !important;
 	color: rgb(205, 171, 143);
+	transition: 0.2s ease-in-out;
 }
 
 .get-started-btn:hover {
 	background-color: rgb(61, 56, 70, 0.7) !important;
+	outline: 2px  solid rgb(118, 187, 118);
+	outline: 2px  solid var(--get-started-border-color);
+	outline-offset: 0.2rem;
+	border-color: rgb(61, 56, 70, 0.7) !important;
+	
 }
 
 .login-btn {
 	/*border-color:  rgb(15, 12, 22);*/
 	background-color: rgba(194, 199, 185, 0.3);
 	color: rgb(255, 255, 255);
+	position: absolute;
+	z-index: 1991;
+	right: 25%;
+	top: 0.8em;
+	transition: outline 0.2s ease-in-out;
+	padding: 0.5%;
 }
 
 .login-btn:hover {
 	background-color: rgba(194, 199, 185, 0.6);
 	background-color: rgb(61, 56, 70, 0.7) !important;
+	color: #FFF;
+	outline: 1px solid rgb(61, 56, 70, 0.7);
+	outline-offset: 0.2rem;
 	/*color: rgb(61, 56, 70);*/
 }
 
@@ -775,18 +796,6 @@ footer ul li a:hover,
 	width: 30%;
 }
 
-@media (max-width: 450px) {
-	.get-started-btn-container {
-		margin-top: 8%;
-		/*border: 1px solid red !important;*/
-	}
-
-	.container-bg-blue {
-		border-top-right-radius: 20%;
-		border-top-left-radius: 20%;
-		padding-top: 50px !important;
-	}
-}
 
 .error-page-container{
 	position: fixed;
@@ -803,6 +812,30 @@ footer ul li a:hover,
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+}
+
+
+@media (max-width: 450px) {
+	.get-started-btn-container {
+		margin-top: 8%;
+		/*border: 1px solid red !important;*/
+	}
+
+	.container-bg-blue {
+		border-top-right-radius: 20%;
+		border-top-left-radius: 20%;
+		padding-top: 50px !important;
+	}
+	
+	.login-btn {
+	right: 30%;	
+	top: 1.1em;
+	}
+	
+	.navbar-brand {
+	
+	/*text-shadow: 0px 0px 1px rgb(36, 31, 49);*/
+}
 }
 
 @media (max-width: 600px) {

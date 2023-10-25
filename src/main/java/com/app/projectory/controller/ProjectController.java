@@ -1,5 +1,6 @@
 package com.app.projectory.controller;
 
+import java.security.Principal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import com.app.projectory.entity.ProjectTasks;
 public class ProjectController {
 	
 	@Autowired
-	ProjectRepository projDoa;
+	ProjectRepository projDao;
 	@Autowired
 	ProjectTaskRepository projTaskDoa;
 	
@@ -31,7 +32,7 @@ public class ProjectController {
 			project.setTitle(title);
 			project.setDescription(description);
 			project.setStatus(status);
-			projDoa.save(project);			
+			projDao.save(project);			
 		}
 		catch(Exception error) {
 			return "project creation - error";
@@ -47,7 +48,7 @@ public class ProjectController {
 					
 		if(title != "" && description != "" && projId > 0 && projId > 0) {
 			ProjectTasks task = new ProjectTasks();
-			Optional<Project> project = projDoa.findById(projId);
+			Optional<Project> project = projDao.findById(projId);
 			project.ifPresent(value -> task.setContainerProject(value));
 			/* project.orElse(defaultApplicationType); */
 			task.setTaskName(title);
@@ -57,6 +58,15 @@ public class ProjectController {
 			return 1;			
 		}
 		return 0;		
+	}
+	
+	@GetMapping("/getProjects")
+	public @ResponseBody Project serveProjects(Authentication auth, Principal p) {
+		//get user id from user account service
+		long userId = userServ.getUserId(auth);
+		//get projects for specific user
+		projDao.findProjectListByUser(userId);
+		return null;
 	}
 
 }

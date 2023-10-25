@@ -26,7 +26,36 @@
 		</div>
 		
 		
+<<<<<<< Updated upstream
 	<!-- th:if on both of the works but th:unless doesn't. It breaks the conditional	
+=======
+
+		<div id="vue-test-area" class="mx-5 p-2">
+			<h3>vue Test</h3>
+			<ul>
+				<li v-for="todoItem in todoList">{{todoItem.title}}</li>
+			</ul>
+
+		</div>
+		
+		
+			
+	
+
+
+
+
+		<!--<div id="app" class="mx-5 px-5">{{ message }}</div>-->
+		
+		<div id="app" class="mx-5 px-5" v-for="data in todoList">			
+			<span v-for="data in todoList" style="color:rgb(255, 163, 72)">{{ data.title }}</span>
+			
+			<span v-for="data in todoList" class="d-block mb-2" style="color:rgb(255, 190, 111)">{{ data.details }}</span>
+		</div>
+
+		
+		<!-- th:if on both of the works but th:unless doesn't. It breaks the conditional	
+>>>>>>> Stashed changes
 		<div th:unless="${currentPage == 'profile'}">
 			<main th:replace="/user/profile :: profile-content"></main>
 		</div>-->
