@@ -254,6 +254,12 @@ background-color:red;
    	--date-icon-filter: invert(71%) sepia(81%) saturate(495%) hue-rotate(71deg) brightness(49%) contrast(91%);
    	--viewing-modal-bg: rgb(36, 31, 49);
    	--project-modal-boxes-expaned-bg: rgb(17, 17, 17);
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+    
+=======
+>>>>>>> review
    	--image-brightness-filter: brightness(100%);
    	
    	/*board colors*/
@@ -263,6 +269,10 @@ background-color:red;
      --board-border-inset-primary:  rgb(181, 131, 90);
      
      --get-started-border-color: gold;
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> review
   }
   .dark-mode {    
     --primary-bg: #252525;
@@ -280,6 +290,11 @@ background-color:red;
 	--date-icon-filter: invert(71%) sepia(31%) saturate(495%) hue-rotate(71deg) brightness(100%) contrast(100%);
 	--viewing-modal-bg: rgb(12, 10, 17);
 	--project-modal-boxes-expaned-bg: rgb(8, 7, 7);
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> review
 	--image-brightness-filter: brightness(60%);
 	
 	/*board colors*/
@@ -290,6 +305,10 @@ background-color:red;
    	 --board-border-inset-primary:  rgb(99, 69, 44);
    	 
    	 --get-started-border-color: goldenrod;
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> review
   }
   
 

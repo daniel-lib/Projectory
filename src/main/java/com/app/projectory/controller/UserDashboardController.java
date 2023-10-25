@@ -128,6 +128,11 @@ public class UserDashboardController {
 		
 	}
 	
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> review
 	//for test only
 	@GetMapping("/api/todo-list/{collectionId}")
 	@ResponseBody
@@ -137,6 +142,10 @@ public class UserDashboardController {
 	}
 	
 	
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> review
 	@GetMapping("/check-login-info")
 	@ResponseBody
 	public Users checkLoginInfo(@RequestParam Long userId, @RequestParam String proof) {
