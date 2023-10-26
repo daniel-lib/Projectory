@@ -9,7 +9,7 @@ import com.app.projectory.entity.Users;
 
 @Service
 public class userAccountService {
-	
+	                                                                            
 	@Autowired
 	UsersRepository userDao;
 	
