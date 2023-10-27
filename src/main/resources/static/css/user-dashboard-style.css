@@ -577,12 +577,49 @@ z-index: 2000;
 
 .add-project-task-btn-text {
 	font-size: 10pt;
+	
+}
+.add-project-members-btn-text {
+	font-size: 10pt;
+	background-color: inherit;
+	border:none;
+	color: rgb(192, 191, 188); 
+	border-top-right-radius: 50px;
+	border-bottom-right-radius: 50px;
+	width: 12ch;
+	border-width: 1px;
+	border-style: hidden;
+}
+.add-project-members-btn-text:hover {
+	background-color: rgb(36, 31, 49);
+	}
+.add-project-members-btn-text:focus {
+	/*border: 1px solid rgb(119, 118, 123);*/
+	outline: none;
+	background-color: rgb(36, 31, 49);
+	color: rgb(192, 191, 188);
 }
 
 .add-project-task-form {
 	transition: 0.3s ease-in-out;
 	overflow: hidden;
 }
+
+.add-project-member-list-container{
+	height: 200px;
+	width: 60%;
+	background-color: rgb(61, 56, 70);
+	z-index: 1000;
+	display: block;
+	border-radius: 0.5rem;
+	padding: 0.5rem;
+	margin-right: 0.25rem;
+	box-shadow: 0px 4px 2px 1px rgba(0, 0, 0, 0.5);
+	}
+.add-project-member-list-container .add-project-member-list-item-box{
+	padding: 0;
+	border-bottom: 1px solid rgb(94, 92, 100);
+	}
 
 .item-display-table {}
 

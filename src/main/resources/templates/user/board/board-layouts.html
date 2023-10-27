@@ -42,43 +42,25 @@
 			}
 		}
 		function allowDrop(ev) {
-			//			document.querySelectorAll(".drop-area-card-body").forEach((el)=>{
-			////	el.style.height = el.style.height +100;
-			//el.style.borderColor = "yellow"
-			//	})
-			//ev.currentTarget.style.border= "1px solid yellow";
 			ev.preventDefault();
-
-			//alert(ev);
 		}
 
 		function drag(ev) {
 			ev.dataTransfer.setData("text", ev.target.id);
-			//alert(ev);
 		}
 
 		function drop(ev) {
 			ev.preventDefault();
 			var data = ev.dataTransfer.getData("text");
 			ev.target.appendChild(document.getElementById(data));
-			/*if(ev.target.classList.contains("drop-area-card-body")){
-				ev.target.appendChild(document.getElementById(data));
-			}
-			else{
-				ev.currentTarget.appendChild(document.getElementById(data));
-			}*/
 			ev.currentTarget.appendChild(document.getElementById(data));
-
-			//ev.currentTarget.style.border = "1px solid red";
 			ev.currentTarget.classList.remove("highlighted");
 
 		}
 		function cancelDropAreaHighlight(ev) {
-			//ev.currentTarget.style.border = "1px solid red";
 			ev.currentTarget.classList.remove("highlighted");
 		}
 		function dropAreaHighlight(ev) {
-			//ev.currentTarget.style.border = "1px solid yellow";
 			ev.currentTarget.classList.add("highlighted");
 		}
 	</script>

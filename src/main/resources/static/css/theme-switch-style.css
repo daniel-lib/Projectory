@@ -263,6 +263,7 @@ background-color:red;
      --board-border-inset-primary:  rgb(181, 131, 90);
      
      --get-started-border-color: gold;
+    --get-started-outline-color: rgb(55, 54, 54);
   }
   .dark-mode {    
     --primary-bg: #252525;
@@ -290,6 +291,7 @@ background-color:red;
    	 --board-border-inset-primary:  rgb(99, 69, 44);
    	 
    	 --get-started-border-color: goldenrod;
+   	 --get-started-outline-color: #828282;
   }
   
 

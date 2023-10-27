@@ -1,6 +1,8 @@
 package com.app.projectory.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.app.projectory.dao.ProjectRepository;
 import com.app.projectory.dao.ProjectTaskRepository;
+import com.app.projectory.dto.ProjectDto;
 import com.app.projectory.entity.Project;
 import com.app.projectory.entity.ProjectTasks;
 import com.app.projectory.service.userAccountService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping("/project")
@@ -74,12 +78,23 @@ public class ProjectController {
 	}
 	
 	@GetMapping("/getProjects")
-	public @ResponseBody Project serveProjects(Authentication auth, Principal p) {
+	public @ResponseBody List<ProjectDto> serveProjects(Authentication auth, Principal p) {
 		//get user id from user account service
 		long userId = userServ.getUserId(auth);
 		//get projects for specific user
-		projDao.findProjectListByUser(userId);
-		return null;
+			
+		return projDao.findProjectListByUserIncUsername(userId);
+		//return null;
+	}
+	
+	@GetMapping("/getProjectCount")
+	public @ResponseBody long serveProjectCount(Authentication auth) {
+		//get user id from user account service
+		long userId = userServ.getUserId(auth);
+		//get projects for specific user
+			
+		return projDao.countProjectForUser(userId);
+		//return null;
 	}
 
 }

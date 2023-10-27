@@ -1,6 +1,5 @@
 package com.app.projectory.entity;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,6 +13,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Project {
@@ -27,18 +29,24 @@ public class Project {
 	private String status;
 	private String creationDate;
 	
+	
+	
+	
 	/* private Date finishDate; */
 	
 	//for project tasks
+	@JsonIgnore	
 	@OneToMany(mappedBy = "containerProject")
 	private List<ProjectTasks> projectTasks;
 	
 	//for indicating owner(creator) of the project
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "project_owner_user_id")
 	private Users projectOwner;
 	
 	//for listing members of the project(people who joined the project)
+	@JsonIgnore
 	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
 	@JoinTable(name = "project_members", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<Users> projectMembers;

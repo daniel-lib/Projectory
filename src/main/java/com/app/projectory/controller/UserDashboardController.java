@@ -17,12 +17,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.app.projectory.dao.ConnectionsRepository;
 import com.app.projectory.dao.ProjectRepository;
 import com.app.projectory.dao.ProjectTaskRepository;
 import com.app.projectory.dao.TodoListCollectionRepository;
 import com.app.projectory.dao.TodoListRepository;
 import com.app.projectory.dao.UsersRepository;
 import com.app.projectory.dto.ProjectStatusCount;
+import com.app.projectory.dto.PublicUserConnectionsDetailDto;
+import com.app.projectory.dto.PublicUserPersonalDetailDto;
+import com.app.projectory.dto.PublicUserProjectDetailDto;
+import com.app.projectory.entity.Connections;
 import com.app.projectory.entity.Project;
 import com.app.projectory.entity.ProjectTasks;
 import com.app.projectory.entity.Todo;
@@ -60,27 +65,16 @@ public class UserDashboardController {
 	ProjectService projServ;
 	@Autowired
 	TodoListCollectionService collectionServ;
+	@Autowired
+	ConnectionsRepository connectionsDao;
 	
 	
 	
-	//For testing
-	@GetMapping("/username")
-    @ResponseBody
-    public String currentUserName(Authentication auth) {	
-		//return userServ.getCurrentUsername(auth);
-		//return auth.getName();
+	//get authenticated user details
+	@GetMapping("/username")    
+    public @ResponseBody Users currentUserName(Authentication auth) {	
 		
-		/*
-		 * String projects = ""; // projDao.findProjectListByUser(1).toString();
-		 * for(Project p : projServ.getProjectForCurrentUser(auth) ) { projects +=
-		 * p.getTitle()+" <br/> ";
-		 * 
-		 * }
-		 * 
-		 * return projects;
-		 */
-		
-		return null;
+		return userServ.getCurrentUserDetail(auth);
 		 
     }
 	
@@ -168,19 +162,43 @@ public class UserDashboardController {
 	@GetMapping("{username}")
 	public String displayUserProfileWithUsername(Model model, Authentication auth, @PathVariable("username") String username) {
 		Users UserByUsernameResult = userServ.getUserDetailByUsername(username);
-		
+		PublicUserPersonalDetailDto publicUser = userDao.getPublicUserDetail(username);
+		List<PublicUserConnectionsDetailDto> publicUserConnections = connectionsDao.findPublicConnections(username);
+		List<PublicUserProjectDetailDto> publicUserProjects = projDao.findPublicUserProjects(username);
 		  if(UserByUsernameResult==null) 
 			  model.addAttribute("UserDetailByUsername", "User does not exist");	
-		  else		  
-			  model.addAttribute("UserDetailByUsername", UserByUsernameResult);			 
+		  else {
+			  String authUsername = userServ.getCurrentUsername(auth);
+			  if(authUsername.equals(username)) {
+				  model.addAttribute("UserDetailByUsername", UserByUsernameResult);	
+				  return "redirect: /profile";
+			  }
+			  else
+				  model.addAttribute("UserDetailByUsername", UserByUsernameResult);
+		  }
+			  		 
 		
-		
+		  
 		
 		model.addAttribute("currentUserDetail", userServ.getCurrentUserDetail(auth));
 		model.addAttribute("currentPage", "profile");
 		model.addAttribute("usernameOnPath", true);
 		return "/user/user-content-container";
 	}
+	
+	
+	@GetMapping("/getUserConnectionList")
+	public @ResponseBody List<PublicUserConnectionsDetailDto> serveConnectionList(Authentication auth){
+		String username = userServ.getCurrentUsername(auth);
+		//PublicUserPersonalDetailDto publicUser = userDao.getPublicUserDetail(username);
+		List<PublicUserConnectionsDetailDto> publicUserConnections = connectionsDao.findApprovedConnections(username);
+		//List<PublicUserProjectDetailDto> publicUserProjects = projDao.findPublicUserProjects(username);
+		
+		return publicUserConnections;
+	}
+	
+	
+	
 	
 	
 	

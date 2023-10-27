@@ -468,6 +468,7 @@ div.dark-mode {
 	background-color: rgb(61, 56, 70, 0.7) !important;
 	outline: 2px  solid rgb(118, 187, 118);
 	outline: 2px  solid var(--get-started-border-color);
+	outline: 2px solid var(--get-started-outline-color);
 	outline-offset: 0.2rem;
 	border-color: rgb(61, 56, 70, 0.7) !important;
 	
@@ -633,6 +634,11 @@ footer ul li a:hover,
 .minimalist-btn-right-rounded {
 	border-top-right-radius: 50px;
 	border-bottom-right-radius: 50px;
+}
+
+.minimalist-btn.toggled{
+	background-color: rgb(94, 92, 100);
+	color: rgb(118, 187, 118)
 }
 
 

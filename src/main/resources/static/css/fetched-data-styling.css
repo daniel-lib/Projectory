@@ -38,3 +38,12 @@
 .todo-done{
 	text-decoration: line-through;
 }
+.project-created-by-you{
+	color: rgb(198, 70, 0);	
+	font-weight: 900;
+}
+.project-owner-another{
+	color: rgb(28, 113, 216);	
+	font-weight: 900;
+}
+
