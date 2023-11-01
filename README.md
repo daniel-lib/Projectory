@@ -25,12 +25,13 @@ This is a project management web application built using Spring framework. The a
 -----
 ![Projectory user dashboard](/src/main/resources/static/images/UI-Screenshot/readme-dashboard1.png?raw=true "User Dashboard")
 ![Projectory user dashboard themes](/src/main/resources/static/images/UI-Screenshot/readme-dashboard-theme2.png?raw=true "user dashboard themes")
+![Projectory agile board](/src/main/resources/static/images/UI-Screenshot/board.png?raw=true "Agile board")
 
 <div align="center">
     <img src="/src/main/resources/static/images/UI-Screenshot/readme-dashboard2.png?raw=true" width="57%" alt="Responsive design"/> 
     <img src="/src/main/resources/static/images/UI-Screenshot/modal-project-view.png?raw=true" width="38%" alt="Expanded Projectory"/> 
 </div>
-![Projectory agile board](/src/main/resources/static/images/UI-Screenshot/board.png?raw=true "Agile board")
+
 
 
 ## Disclaimer
