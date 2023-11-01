@@ -25,7 +25,7 @@ Vue.createApp({
 			//alert(this.projectList[0].title)
 			
 			this.getProjectData();
-			alert(this.projectList[0].title)
+			//alert(this.projectList[0].title)
 				window.setTimeout(()=>{
 					this.selectProject(localStoredBoardProject);
 					//alert(localStoredBoardProject)

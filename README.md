@@ -30,6 +30,8 @@ This is a project management web application built using Spring framework. The a
     <img src="/src/main/resources/static/images/UI-Screenshot/readme-dashboard2.png?raw=true" width="57%" alt="Responsive design"/> 
     <img src="/src/main/resources/static/images/UI-Screenshot/modal-project-view.png?raw=true" width="38%" alt="Expanded Projectory"/> 
 </div>
+![Projectory agile board](/src/main/resources/static/images/UI-Screenshot/board.png?raw=true "Agile board")
+
 
 ## Disclaimer
 
