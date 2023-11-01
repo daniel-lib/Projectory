@@ -1,38 +1,38 @@
 <main class="board-content" th:fragment="board-content">
-	
-	<section>
-		<section class="board-header-area d-flex">
-		<aside th:replace="/user/user-layouts :: side-menu"></aside>
-		
-		<div class="board-header mt-5">
-		
-		
-		
-		<h3>Agile board</h3>	
-		<span class="info-tag-dark">The board in agile development is a visual tool that helps 
-			teams to track their work and progress towards their goals</span>
-				
-		</div>
-		
-	</section>
-	
-	<main class=" d-flex justify-content-center ms-5" id="board-container-container">
-		
-			<div th:replace="/user/board/board-layouts :: board-container"></div>
-		
-	</main>
+	<div id="agile-board">
+		<section>
+			<section class="board-header-area d-flex">
+				<aside th:replace="/user/user-layouts :: side-menu"></aside>
+
+				<div class="board-header mt-5">
 
 
-	<section class="metrics-and-report pt-2 mt-2">
-			<h5>metrics</h5>
-		<main class="charts">
-			<div class="projects-report d-flex justify-content-evenly flex-wrap">
-				
-			</div>
-		</main>
 
-	</section>
-	</section>	
-	
-	
+					<h3>Agile board</h3>
+					<span class="info-tag-dark">The board in agile development is a visual tool that helps
+						teams to track their work and progress towards their goals</span>
+
+				</div>
+
+			</section>
+
+			<main class=" d-flex justify-content-center ms-5" id="board-container-container">
+
+				<div th:replace="/user/board/board-layouts :: board-container"></div>
+
+			</main>
+
+
+			<section class="metrics-and-report pt-2 mt-2">
+				<h5>metrics</h5>
+				<main class="charts">
+					<div class="projects-report d-flex justify-content-evenly flex-wrap">
+
+					</div>
+				</main>
+
+			</section>
+		</section>
+	</div>
+	<script src="/javascript/vue-scripts/agile-board-vue.js" defer></script>
 </main>

@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class ProjectTasks {
 	
@@ -20,7 +22,7 @@ public class ProjectTasks {
 	private String status;
 	private String deadline;
 	
-	
+	@JsonIgnore
 	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, 
 			fetch = FetchType.LAZY)
 	@JoinColumn(name = "project_id")

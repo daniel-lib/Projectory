@@ -49,6 +49,7 @@
 	height: fit-content;
 	height: min-content;
 	height: 83%;
+	overflow-x: scroll;
 	
 	/*height: auto;*/
 	transition: 0.2s ease-in-out;
@@ -62,45 +63,83 @@
 }
 
 .task-draggable-card{
-	border: 4px dotted rgb(94, 92, 100);
+	border: 2px dotted rgb(230, 97, 0);
 	border-radius: 0.3rem;
 	cursor: grab;
+	max-width: 300px;
 } 
+.task-draggable-card:hover{
+	scale: 1.01;
+	box-shadow: 0 2px 12px 0 rgb(0 0 0/50%);
+}
+
 .task-draggable-card h6{
 	background-color: rgb(154, 153, 150);	
 	padding: 0.4rem;	
 	}
-	
-.task-draggable-card.todo h6{	
-	background-color: rgb(246, 97, 81);
-	background-color: rgb(38, 155, 101);
-	background-color: rgb(47, 85, 133);
-	background-color: rgb(163, 157, 79);
-}
 
-.task-draggable-card.todo{	
-	background-color: rgba(246, 97, 81, 0.2);
-	background-color: rgba(38, 155, 101, 0.2);	
-	background-color: rgba(47, 85, 133, 0.2);
-	background-color: rgba(163, 157, 79, 0.2);
-}
 .task-stage-todo{
 	background-color: rgb(163, 157, 79);
+}	
+.task-draggable-card.not.started h6{	
+	background-color: transparent;
 }
+.task-draggable-card.not.started{	
+	border-left: 4px solid rgb(163, 157, 79);
+	background-color: rgba(163, 157, 79, 0.2);
+}
+
 .task-stage-in-progress{
 	background-color: rgb(38, 155, 101);
 }
+.task-draggable-card.in.progress-stage h6{	
+	background-color: transparent;
+}
+.task-draggable-card.in.progress-stage{	
+	border-left: 4px solid rgb(38, 155, 101);
+	background-color: rgba(38, 155, 101, 0.2);
+}
+
 .task-stage-done{
 	background-color: rgb(47, 85, 133);
 }
+.task-draggable-card.done h6{	
+	background-color: transparent;
+}
+
+.task-draggable-card.done{		
+	border-left: 4px solid rgb(47, 85, 133);
+	background-color: rgba(47, 85, 133, 0.2);
+}
+
+
+.task-draggable-card.urgent h6{	
+	background-color: rgb(246, 97, 81);
+}
+
+.task-draggable-card.urgent{	
+	background-color: rgba(246, 97, 81, 0.2);
+}
+
 
 .task-card-body{
 	cursor: grab;
 }
-
+.draggable-task-card-description{
+	font-weight: 200;
+	word-break: break-word;
+}
+.submit-task-btn{
+	right:0;
+	margin-left: auto;
+}
 .board-header{
 	margin-left: 3rem;
 	margin-left: 1.8rem;
+}
+.board-change-proj-btn{
+	width: 200px;
+	max-width: 200px;
 }
 
 @media (max-width: 650px) {

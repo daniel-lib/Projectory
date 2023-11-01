@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Connections {
 	
@@ -21,6 +23,7 @@ public class Connections {
 	private String connectionStatus; //pending, accepted, blocked, 
 	private Long requestReceiverUser;
 	
+	@JsonIgnore	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "request_sender_user")
 	Users userWithConnection;

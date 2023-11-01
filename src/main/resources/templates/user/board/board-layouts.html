@@ -1,117 +1,100 @@
 <div th:fragment="board-container" class="board-container p-2" id="board-container">
 
-<div class="board-top-controls mb-2">
-		<button onclick="boardOnFullScreen()" id="board-full-screen-btn"
-	class="board-full-screen-btn minimalist-btn minimalist-btn-blk-bg btn-sm">Full
-		Screen</button>
-		<span class="board-info fa-regular fa-hand">
-			</span><span class="board-info info-tag-dark">You can drag the tasks to your desired stage</span>
+	<div class="board-top-controls mb-2 d-flex justify-content-between flex-wrap">
+		<button @click="boardOnFullScreen()" id="board-full-screen-btn"
+			class="board-full-screen-btn minimalist-btn minimalist-btn-blk-bg btn-sm align-self-start">Full
+			Screen</button>
+		
+		<span><span class="board-info fa-regular fa-hand">
+		</span><span class="board-info info-tag-dark">You can drag the tasks to your desired stage</span></span>
 
-<span class="float-end"> 
-	<select class="form-select form-select-sm mb-2 me-1  minimalist-btn minimalist-btn-blk-bg btn-sm">
-		<option selected disabled>Change Project</option>
-		<option>Proj1</option>
-	</select>
-	
-</span>
-</div>
+		<span class="">
+			<span v-if="showLoader" style="z-index: 5000; position: absolute;">
+				<div id="loader" class="loader-container" th:replace="/user/user-layouts :: loader-animation">
+			</span>
+			<select
+				class="form-select form-select-sm mb-2 me-1  minimalist-btn minimalist-btn-blk-bg btn-sm board-change-proj-btn"
+				@click="getProjectData()" title="Change Project">
+				<option disabled selected>Change Project</option>
+				<option v-for="project in projectList" @click="selectProject(project.projectId)">{{project.title}}
+				</option>
+			</select>
+
+		</span>
+	</div>
 
 	<div class="board-inside-container" id="board-inside-container">
 		<div th:replace="/user/board/board-layouts::task-stage-categories"></div>
 	</div>
 
 	<script>
-		function boardOnFullScreen() {
-			const boardContainer = document.getElementById("board-container");
-			const fullScreenBtn = document.getElementById("board-full-screen-btn");
-			const boardOuterContainer = document.getElementById("board-container-container");
-			const boardInnerContainer = document.getElementById("board-inside-container");
-			if (boardContainer.classList.contains("full-screen")) {
-				boardContainer.classList.remove("full-screen");
-				boardInnerContainer.classList.remove("full-screen");		
-				boardOuterContainer.classList.add("ms-5");					
-				fullScreenBtn.textContent = "Full Screen";	
-				document.body.style.overflow = "visible";	
-			}
-			else {
-				boardContainer.classList.add("full-screen");
-				boardInnerContainer.classList.add("full-screen");
-				boardOuterContainer.classList.remove("ms-5");		
-				fullScreenBtn.textContent = "Back";	
-				document.body.style.overflow = "hidden";	
-			}
-		}
-		function allowDrop(ev) {
-			ev.preventDefault();
-		}
 
-		function drag(ev) {
-			ev.dataTransfer.setData("text", ev.target.id);
-		}
-
-		function drop(ev) {
-			ev.preventDefault();
-			var data = ev.dataTransfer.getData("text");
-			ev.target.appendChild(document.getElementById(data));
-			ev.currentTarget.appendChild(document.getElementById(data));
-			ev.currentTarget.classList.remove("highlighted");
-
-		}
-		function cancelDropAreaHighlight(ev) {
-			ev.currentTarget.classList.remove("highlighted");
-		}
-		function dropAreaHighlight(ev) {
-			ev.currentTarget.classList.add("highlighted");
-		}
 	</script>
 </div>
 
 <div th:fragment="task-stage-categories" class="d-flex justify-content-between flex-wrap">
 	<div class="task-stage p-2 mb-3">
 		<h4 class="text-center task-stage-todo">Todo</h4>
-		<div class="drop-area-card-body" ondrop="drop(event)" ondragover="allowDrop(event)"
-			ondragleave="cancelDropAreaHighlight(event)" ondragenter="dropAreaHighlight(event)">
 
-			<div class="task-draggable-card todo mb-3" th:fragment="task-draggable-card" draggable="true"
-				ondragstart="drag(event)" id="drg" ondragleave="cancelDropAreaHighlight(event)"
-				ondragenter="dropAreaHighlight(event)">
-				<h6 class="task-card-title text-center">task title</h6>
-				<div class="task-card-body m-2">
-					<span>task Body</span>
-					<button>Done</button>
-				</div>
-			</div>
-			<div class="task-draggable-card todo mb-3" th:fragment="task-draggable-card" draggable="true"
-				ondragstart="drag(event)" id="drg2" ondragleave="cancelDropAreaHighlight(event)"
-				ondragenter="dropAreaHighlight(event)">
-				<h6 class="task-card-title text-center">task title</h6>
-				<div class="task-card-body m-2">
-					<span>task Body</span>
-					<button>Done</button>
-				</div>
-			</div>
+		<div class="drop-area-card-body custom-scrollbar-style-3 not-started-section" @drop="drop($event)" @dragover="allowDrop($event)"
+			@dragleave="cancelDropAreaHighlight($event)" @dragenter="dropAreaHighlight($event)">
 
-			<div class="task-draggable-card todo mb-3" th:fragment="task-draggable-card" draggable="true"
-				ondragstart="drag(event)" id="drg3" ondragleave="cancelDropAreaHighlight(event)"
-				ondragenter="dropAreaHighlight(event)">
-				<h6 class="task-card-title text-center">task title</h6>
-				<div class="task-card-body m-2">
-					<span>task Body</span>
-					<button>Done</button>
+			<template v-for="task in projectTasksOnBoard">
+				<div class="task-draggable-card not started mb-3" draggable="true" @dragstart="drag(`${task.taskId}`,$event)"
+					:id="`draggable-card-${task.taskId}`" @dragleave="cancelDropAreaHighlight($event)"
+					@dragenter="dropAreaHighlight($event)"
+					v-if="projectOnBoard !== null && task.status==='not started'">
+					<h6 class="task-card-title text-center">{{task.taskName}}</h6>
+					<div class="task-card-body m-2">
+						<span class="draggable-task-card-description text-center">{{task.taskDescription}}</span>
+						<button class="minimalist-btn minimalist-btn-grey d-block submit-task-btn">Submit>></button>
+					</div>
 				</div>
-			</div>
+			</template>
 
 
 		</div>
 	</div>
 	<div class="task-stage p-2 mb-3">
 		<h4 class="text-center task-stage-in-progress">In progress</h4>
-		<div class="drop-area-card-body" ondrop="drop(event)" ondragover="allowDrop(event)"
-			ondragleave="cancelDropAreaHighlight(event)" ondragenter="dropAreaHighlight(event)"></div>
+		<div class="drop-area-card-body custom-scrollbar-style-3 in-progress-section" @drop="drop($event)" @dragover="allowDrop($event)"
+			@dragleave="cancelDropAreaHighlight($event)" @dragenter="dropAreaHighlight($event)">
+
+			<template v-for="task in projectTasksOnBoard">
+				<div class="task-draggable-card in progress-stage mb-3" draggable="true" @dragstart="drag(`${task.taskId}`, $event)"
+					:id="`draggable-card-${task.taskId}`" @dragleave="cancelDropAreaHighlight($event)"
+					@dragenter="dropAreaHighlight($event)" 
+					v-if="projectOnBoard !== null && task.status==='in progress'">
+					<h6 class="task-card-title text-center">{{task.taskName}}</h6>
+					<div class="task-card-body m-2">
+						<span class="draggable-task-card-description text-center">{{task.taskDescription}}</span>
+						<br/>
+						<button class="minimalist-btn minimalist-btn-grey d-block submit-task-btn">Submit>></button>
+						<div> </div>
+					</div>
+				</div>
+			</template>
+
+		</div>
 	</div>
 	<div class="task-stage p-2 mb-3">
 		<h4 class="text-center task-stage-done">Done</h4>
-		<div class="drop-area-card-body" ondrop="drop(event)" ondragover="allowDrop(event)"
-			ondragleave="cancelDropAreaHighlight(event)" ondragenter="dropAreaHighlight(event)"></div>
+		<div class="drop-area-card-body custom-scrollbar-style-3 completed-section" @drop="drop($event)" @dragover="allowDrop($event)"
+			@dragleave="cancelDropAreaHighlight($event)" @dragenter="dropAreaHighlight($event)">
+
+			<template v-for="task in projectTasksOnBoard">
+				<div class="task-draggable-card done mb-3" draggable="true" @dragstart="drag(`${task.taskId}`, $event)"
+					:id="`draggable-card-${task.taskId}`" @dragleave="cancelDropAreaHighlight($event)"
+					@dragenter="dropAreaHighlight($event)"
+					v-if="projectOnBoard !== null && task.status==='done'">
+					<h6 class="task-card-title text-center">{{task.taskName}}</h6>
+					<div class="task-card-body m-2">
+						<span class="draggable-task-card-description text-center">{{task.taskDescription}}</span>
+						<!--<button class="minimalist-btn minimalist-btn-grey d-block float-end">Done</button>-->
+					</div>
+				</div>
+			</template>
+
+		</div>
 	</div>
 </div>

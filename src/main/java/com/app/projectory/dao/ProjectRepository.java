@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.app.projectory.dto.ProjectDto;
 import com.app.projectory.dto.ProjectStatusCount;
+import com.app.projectory.dto.ProjectTasksDto;
 import com.app.projectory.dto.PublicUserProjectDetailDto;
 import com.app.projectory.entity.Project;
 
@@ -42,9 +43,21 @@ public interface ProjectRepository extends CrudRepository<Project, Long>{
 			+ "creation_date as creationDate, username as projectOwnerUsername, \n"
 			+ "p.project_id as projectId FROM project p \n"
 			+ "LEFT JOIN project_members m ON m.user_id = ?1\n"
-			+ "Left Join Users us on us.user_id = p.project_owner_user_id\n"
+			+ "LEFT JOIN Users us on us.user_id = p.project_owner_user_id\n"
 			+ "WHERE p.project_owner_user_id = ?1 OR p.project_id = m.project_id", nativeQuery = true)
 	List<ProjectDto> findProjectListByUserIncUsername(long userId); 
+	
+	
+	@Query(value = "SELECT pt.task_id taskId, pt.deadline, pt.status, pt.task_description taskDescription, \n"
+			+ "pt.task_name taskName\n"
+			+ "FROM project_tasks pt\n"
+			+ "LEFT JOIN project p on p.project_id = ?1 AND p.project_owner_user_id = ?2\n"
+			+ "LEFT JOIN project_members pm on pm.project_id = ?1 AND pm.user_id = ?2\n"
+			+ "WHERE pt.project_id = ?1 AND (pm.user_id = ?2 OR p.project_owner_user_id = ?2)", nativeQuery = true)
+	List<ProjectTasksDto> findProjectTasksByProject(long projectId, long userId); 
+	
+	
+	
 	
 	
 	@Query(value = "Select COUNT(*) FROM(\n"

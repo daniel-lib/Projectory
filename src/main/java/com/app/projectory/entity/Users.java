@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -26,6 +27,7 @@ public class Users {
 	private String firstName;
 	private String lastName;
 	private String emailAddress;
+	@Column(nullable = false, unique = true)
 	private String username;
 	private String password;
 	private String loginIndicator;

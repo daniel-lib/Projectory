@@ -5,64 +5,38 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 
-@SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+public class SecurityConfig {
 	
-	@Autowired
-	DataSource dataSource;
+//	@Autowired
+//	DataSource dataSource;
 	@Autowired
 	BCryptPasswordEncoder encoder;
 	
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth)throws Exception{
-		auth.jdbcAuthentication().dataSource(dataSource)
-			.usersByUsernameQuery("SELECT username, password, enabled FROM users where username = ?")
-			.authoritiesByUsernameQuery("SELECT username, role FROM users where username = ?")
-			.passwordEncoder(encoder);	
-	}
-	
-	
-	
-	//override a configure method to set the access rules
-	@Override
-	protected void configure(HttpSecurity http) throws Exception{
-			http.authorizeRequests()
-				//.antMatchers("/user","/user/**").authenticated()
-				.antMatchers("/user").hasRole("USER")
-				.antMatchers("/user/**").hasRole("USER")
-				.antMatchers("/project/**").hasRole("USER")
-				.antMatchers("/", "/**").permitAll()
-				.and().formLogin();
+	@Bean
+	//create security chain to set the access rules	
+	public SecurityFilterChain secFilterChain(HttpSecurity http) throws Exception{
+			http.authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
+					.antMatchers("/user").hasRole("USER")
+					.antMatchers("/user/**").hasRole("USER")
+					.antMatchers("/project/**").hasRole("USER")
+					.antMatchers("/", "/**").permitAll()
+					)		
+				.formLogin();
 				//.and().formLogin().loginPage("/?auth=required").successForwardUrl("/user/dashboard");
-				
+			return http.build();							
 			    
 	}
 	
-	@Override
-	@Bean
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-	    return super.authenticationManagerBean();
-	}
-	
-	/*
-	 * @Bean public SecurityFilterChain filterChain(HttpSecurity http) throws
-	 * Exception { http .authorizeHttpRequests((authz) -> authz
-	 * .anyRequest().authenticated() ) .httpBasic(withDefaults()); return
-	 * http.build(); }
-	 * z
-	 * @Bean public WebSecurityCustomizer webSecurityCustomizer() { return (web) ->
-	 * web.ignoring().antMatchers("/", "/ignore2"); }
-	 */
-    
+
     
 }

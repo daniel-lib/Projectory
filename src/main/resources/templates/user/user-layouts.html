@@ -32,8 +32,7 @@
 	<script src="/javascript/charts-project.js" defer></script>
 	<script src="/javascript/theme-switch-script.js" defer></script>
 	
-	<script src="/javascript/vue.global.js.js"></script>
-	<script src="/javascript/vue-script.js" defer></script>
+	<script src="/javascript/vue.global.js.js"></script>	
 </head>
 
 <header th:fragment="nav" class="dashboard-nav fixed-top">
@@ -217,6 +216,11 @@
 	<div th:replace="/mainLayouts::copyright-info"></div>
 </footer>
 
-
+<div id="loader" class="loader-container" th:fragment="loader-animation">
+	<div class="loader-circle" id="1"> </div>
+	<div class="loader-circle" id="2"> </div>
+	<div class="loader-circle" id="3"></div>
+	<div class="loader-circle" id="3"></div>
+</div>
 
 </html>

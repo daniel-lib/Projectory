@@ -1,7 +1,6 @@
 package com.app.projectory.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,19 +16,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.app.projectory.dao.ProjectRepository;
 import com.app.projectory.dao.ProjectTaskRepository;
 import com.app.projectory.dto.ProjectDto;
+import com.app.projectory.dto.ProjectTasksDto;
 import com.app.projectory.entity.Project;
 import com.app.projectory.entity.ProjectTasks;
 import com.app.projectory.service.userAccountService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping("/project")
 public class ProjectController {
 	
 	@Autowired
-	ProjectRepository projDao;
+	private ProjectRepository projDao;
 	@Autowired
-	ProjectTaskRepository projTaskDoa;
+	private ProjectTaskRepository projTaskDoa;
 	@Autowired
 	private userAccountService userServ;
 	
@@ -87,6 +86,18 @@ public class ProjectController {
 		//return null;
 	}
 	
+	
+
+	@GetMapping("/getProjectTasks")
+	public @ResponseBody List<ProjectTasksDto> serveProjectTaskById(Authentication auth, @RequestParam("project") long projectId) {
+		//get user id from user account service
+		long userId = userServ.getUserId(auth);
+		//get project tasks for specific user			
+		return projDao.findProjectTasksByProject(projectId, userId);
+		//return null;
+	}
+	
+	
 	@GetMapping("/getProjectCount")
 	public @ResponseBody long serveProjectCount(Authentication auth) {
 		//get user id from user account service
@@ -95,6 +106,15 @@ public class ProjectController {
 			
 		return projDao.countProjectForUser(userId);
 		//return null;
+	}
+	
+	@GetMapping("/task/update/status")
+	public @ResponseBody int updateProjectTaskStatus(@RequestParam("status") String statusUpdate, 
+			@RequestParam("task") long taskId, Authentication auth) {
+		long userId = userServ.getUserId(auth);
+		return projTaskDoa.updateProjectStaus(taskId, statusUpdate, userId);		
+		
+		
 	}
 
 }

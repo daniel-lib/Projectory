@@ -1,6 +1,8 @@
 @import "fetched-data-styling.css";
 @import "confirmation-modal-style.css";
 @import "board.css";
+@import "loader.css";
+
 .dashboard-nav {}
 
 .user-dashboard-nav {
@@ -9,7 +11,7 @@
 	padding: 0.25rem;
 }
 
-.modal-open-disable-body-scrolling{
+.modal-open-disable-body-scrolling {
 	position: fixed;
 	overflow-y: scroll;
 }
@@ -18,10 +20,12 @@
 	padding: 0.25rem 1.19rem 0.25rem 0.25rem !important;
 }*/
 
-.main-content-container{  /*formerly .dashboard-content{*/
+.main-content-container {
+	/*formerly .dashboard-content{*/
 	background-color: var(--secondary-bg);
 	color: var(--primary-bg);
 }
+
 /**{
 	border:1px solid red;
 }
@@ -74,33 +78,39 @@
 	color: rgb(192, 191, 188);
 }
 
-.profile-pic-btn{	
-	padding: 0.3em 0.5em !important;	
+.profile-pic-btn {
+	padding: 0.3em 0.5em !important;
 	font-weight: 900;
 	background-color: rgba(218, 165, 32, 0.5);
 	border-radius: 100%;
 	color: rgb(255, 255, 255);
 	user-select: none;
 }
-.profile-pic-btn-link{
+
+.profile-pic-btn-link {
 	padding: 0.25rem 0.20rem 0.20rem 0rem !important
 }
-.no-text-decoration{
-	text-decoration: none!important;;
-}
-.collapsable-top-menu-prof-pic{
-	display: inline-block;
-	width: 60px !important;
-	height: 60px!important;	
+
+.no-text-decoration {
+	text-decoration: none !important;
+	;
 }
 
-.collapsable-top-menu-prof-pic:hover{
-color: red;	
+.collapsable-top-menu-prof-pic {
+	display: inline-block;
+	width: 60px !important;
+	height: 60px !important;
 }
-.change-profile-pic-btn{
-z-index: 2000;
+
+.collapsable-top-menu-prof-pic:hover {
+	color: red;
 }
-.change-profile-pic-btn{
+
+.change-profile-pic-btn {
+	z-index: 2000;
+}
+
+.change-profile-pic-btn {
 	border: 1px solid red;
 	padding: 4px;
 }
@@ -137,22 +147,24 @@ z-index: 2000;
 	border-top: none;
 }
 
-.top-menu-header{
+.top-menu-header {
 	font-size: 13pt;
 }
 
-.top-collapsable-menu-container:not(.top-menu-header){
+.top-collapsable-menu-container:not(.top-menu-header) {
 	padding: 2;
 	font-size: 11pt;
 }
-.top-menu-link:not(.non-hoverable-top-menu-text):hover{
+
+.top-menu-link:not(.non-hoverable-top-menu-text):hover {
 	opacity: 0.6;
 }
-.non-hoverable-top-menu-text:hover{
+
+.non-hoverable-top-menu-text:hover {
 	opacity: 1 !important;
 }
 
-.top-menu-header{
+.top-menu-header {
 	border-bottom: 1px solid rgb(61, 56, 70);
 	width: 100%;
 	display: block;
@@ -164,8 +176,8 @@ z-index: 2000;
 	min-width: 150px;
 }
 
-.top-menu-content a{
-	text-decoration:none;
+.top-menu-content a {
+	text-decoration: none;
 	color: rgba(255, 255, 255, 0.55);
 }
 
@@ -222,9 +234,10 @@ z-index: 2000;
 	cursor: pointer;
 	margin: 0rem 0.02rem;
 }
-.top-nav-links .nav-icon:not(.profile-pic-btn){
-	margin: 0 0.20rem !important;	
-	}
+
+.top-nav-links .nav-icon:not(.profile-pic-btn) {
+	margin: 0 0.20rem !important;
+}
 
 .top-nav-links:hover,
 .top-nav-links.selected {
@@ -232,7 +245,7 @@ z-index: 2000;
 	color: rgb(118, 187, 118);
 }
 
-.sign-out-btn{
+.sign-out-btn {
 	background: none;
 	color: inherit;
 	border: none;
@@ -577,22 +590,25 @@ z-index: 2000;
 
 .add-project-task-btn-text {
 	font-size: 10pt;
-	
+
 }
+
 .add-project-members-btn-text {
 	font-size: 10pt;
 	background-color: inherit;
-	border:none;
-	color: rgb(192, 191, 188); 
+	border: none;
+	color: rgb(192, 191, 188);
 	border-top-right-radius: 50px;
 	border-bottom-right-radius: 50px;
 	width: 12ch;
 	border-width: 1px;
 	border-style: hidden;
 }
+
 .add-project-members-btn-text:hover {
 	background-color: rgb(36, 31, 49);
-	}
+}
+
 .add-project-members-btn-text:focus {
 	/*border: 1px solid rgb(119, 118, 123);*/
 	outline: none;
@@ -605,21 +621,32 @@ z-index: 2000;
 	overflow: hidden;
 }
 
-.add-project-member-list-container{
-	height: 200px;
-	width: 60%;
+.add-project-member-list-container {
+	
+	/*width: 60%;*/
 	background-color: rgb(61, 56, 70);
 	z-index: 1000;
-	display: block;
 	border-radius: 0.5rem;
 	padding: 0.5rem;
-	margin-right: 0.25rem;
 	box-shadow: 0px 4px 2px 1px rgba(0, 0, 0, 0.5);
-	}
-.add-project-member-list-container .add-project-member-list-item-box{
+	/*display: none;*/
+	height: 0;
+	opacity: 0;
+	transition: opacity 0.1s ease-in-out;
+	position:relative;
+}
+
+
+.add-project-member-list-container .add-project-member-list-item-box {
 	padding: 0;
 	border-bottom: 1px solid rgb(94, 92, 100);
-	}
+}
+
+.add-project-member-list-container.show {
+	/*display:block;*/
+	height: 200px;
+	opacity: 1;
+}
 
 .item-display-table {}
 
@@ -642,7 +669,7 @@ z-index: 2000;
 .project-modal-boxes-expanded {
 	width: 100% !important;
 	height: 100% !important;
-	
+
 	background-color: var(--project-modal-boxes-expaned-bg);
 	border-top: 3px solid rgb(118, 187, 118) !important;
 	border-bottom: 3px solid rgb(118, 187, 118) !important;
@@ -800,20 +827,25 @@ z-index: 2000;
 
 /*	applied to:	.user-dashboard-cards*/
 .custom-scrollbar-style::-webkit-scrollbar {
-	width: 12px; /*width of the entire scrollbar */
+	width: 12px;
+	/*width of the entire scrollbar */
 	cursor: pointer;
 }
 
 .custom-scrollbar-style::-webkit-scrollbar-track {
-	background: rgb(222, 221, 218); /*color of the tracking area */
-	background-color: rgba(222, 221, 218,0.6);
+	background: rgb(222, 221, 218);
+	/*color of the tracking area */
+	background-color: rgba(222, 221, 218, 0.6);
 	background-color: rgb(94, 92, 100);
 }
 
 .custom-scrollbar-style::-webkit-scrollbar-thumb {
-	background-color: rgb(118, 187, 118);	 /*color of the scroll thumb */
-	border-radius: 20px; /*roundness of the scroll thumb */
-	border: 3px solid rgb(118, 187, 118); /*creates padding around scroll thumb */
+	background-color: rgb(118, 187, 118);
+	/*color of the scroll thumb */
+	border-radius: 20px;
+	/*roundness of the scroll thumb */
+	border: 3px solid rgb(118, 187, 118);
+	/*creates padding around scroll thumb */
 	transition: all 0.8s ease-in-out;
 	box-shadow: 0px 6px 6px rgb(19, 14, 34);
 	min-height: 30px;

@@ -11,7 +11,7 @@
 		Expand the project boxes for full experience</span>
 
 
-	<div th:object="${project}" class="d-flex justify-content-around flex-wrap" id="projects-holder-container">
+	<div class="d-flex justify-content-around flex-wrap" id="projects-holder-container">
 		<div v-for="project in projects" class="project-modal-boxes-container mb-5" id="project-modal-boxes-container">
 			<span role="button" class="float-end top-dangling-x-btn fa-solid fa-expand" title="Expand"
 				:id="`project-modal-expand-btn-${project.projectId}`"
@@ -53,41 +53,53 @@
 
 
 						<!-- add task / members buttons-->
-						<div class="mt-1 d-flex justify-content-evenly" id="boob">
+						<div class="mt-1 d-flex justify-content-around">
 							<!--<button id="add-project-task-button" role="button"-->
+								<div class="align-self-start">
 							<button role="button"
-								class="minimalist-btn minimalist-btn-blk-bg minimalist-btn-rounded add-project-task-button"
+								class="minimalist-btn minimalist-btn-blk-bg minimalist-btn-rounded add-project-task-button align-self-start"
 								@click="showAddProjectTaskForm(`${project.projectId}`,$event)">
 								<span class="fa-solid fa-notes-medical"></span>
 								<span class="add-project-task-btn-text">Add Task</span>
 							</button>
+								</div>
 							<!--<button id="add-project-members-button"
 								class="minimalist-btn minimalist-btn-blk-bg minimalist-btn-rounded add-project-members-button btn-sm"
 								 onClick="addContributersForm()">-->
-							<button id="add-project-members-button"
-								class="minimalist-btn minimalist-btn-blk-bg minimalist-btn-rounded add-project-members-button btn-sm">
+							<div>
+								<button id="add-project-members-button"
+									@click="showAddProjectMembersList(`${project.projectId}`, $event, 'clk')"
+									@blur="showAddProjectMembersList(`${project.projectId}`, $event, 'blr')"
+									class="minimalist-btn minimalist-btn-blk-bg minimalist-btn-rounded add-project-members-button btn-sm">
 
-								<span class="fa-solid fa-user-plus"></span>
-								<input type="text" class="add-project-members-btn-text d-inline "
-									@click="showAddProjectMembersList(`${project.projectId}`,$event)"
-									placeholder="Add Members" />
-							</button>
+									<span class="fa-solid fa-user-plus"></span>
+									<input type="text" class="add-project-members-btn-text d-inline "
+										placeholder="Add Members" id="add-project-members-btn-text" />
+								</button>
 
-						</div>
-						<div :id="`add-member-list-container-${project.projectId}`"
-							class="add-project-member-list-container float-end custom-scrollbar-style-2 overflow-ver-scroll">
-							<div v-for="conn in connectsList" class="add-project-member-list-item-box-container">
-								<span class="d-flex justify-content-between add-project-member-list-item-box">
-									<span>
-										<span class="d-block">{{conn.connectedUserFirstName}}
-											{{conn.connectedUserLastName}}</span>
-										<span class="d-block fs-10 ">@{{conn.connectedUserUsername}}</span>
-									</span>
-									<input type="checkbox" :value="conn.connectedUserUsername" title="add"
-										class="form-check-input red-checkbox green-checkbox align-self-center">
-								</span>
+								
 							</div>
+
 						</div>
+						
+						<div :id="`add-member-list-container-${project.projectId}`"
+									class="add-project-member-list-container custom-scrollbar-style-2 overflow-ver-scroll">
+									<div v-for="conn in connectsList"
+										class="add-project-member-list-item-box-container">
+										<span class="d-flex justify-content-between add-project-member-list-item-box">
+											<span>
+												<span class="d-block">{{conn.connectedUserFirstName}}
+													{{conn.connectedUserLastName}}</span>
+												<span
+													class="d-block fs-10 cadetblue">{{conn.connectedUserUsername}}</span>
+											</span>
+											<input type="checkbox" :value="conn.connectedUserUsername" title="add"
+												class="form-check-input red-checkbox green-checkbox align-self-center"
+												@click="addProjectMember(`${project.projectId}, ${conn.connectedUserUsername}`)">
+										</span>
+									</div>
+								</div>
+
 
 						<!--add project task form-->
 						<div class="add-project-task-form mt-2" :id="`add-project-task-form${project.projectId}`"
@@ -119,7 +131,7 @@
 						<hr />
 						<div class="modal-project-task-container p-1">
 							<h6 class="project-task-title mt-2 ms-2">Tasks</h6>
-							<p class="card-text fw-lighter item-count-check" th:text="${projectTaskCount}"></p>
+							<!--					<p class="card-text fw-lighter item-count-check" th:text="${projectTaskCount}"></p>-->
 							<div class="modal-project-task-container-inner custom-scrollbar-style-3">
 								<!--<div th:each="task : ${proj.projectTasks}">
 									<div class="modal-project-task-items p-1 m-1">
@@ -229,7 +241,7 @@
 
 	<div th:replace="/user/project/project-layouts :: add-project-form"></div>
 
-	<p class="card-text fw-lighter item-count-check" th:text="${projectCount}"></p><br />
+	<!--<p class="card-text fw-lighter item-count-check" th:text="${projectCount}"></p>--><br />
 	<div class="d-fle flex-wrap">
 		<!--<form th:action="@{/user/todo/delete-selected}" method="post">-->
 		<!--<button type="submit" class="btn btn-danger btn-sm mt-3 float-end" value="Delete Selected"
@@ -241,6 +253,7 @@
 
 		<!--</form>-->
 	</div>
+	<script src="/javascript/vue-scripts/dashboard-project-vue.js" defer></script>
 </div>
 <!--Project display modal end-->
 

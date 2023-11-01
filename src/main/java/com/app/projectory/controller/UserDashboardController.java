@@ -108,13 +108,7 @@ public class UserDashboardController {
 		model.addAttribute("todoModel", todo);
 		model.addAttribute("TodoCollections", collection);
 		
-		//activity
-		
-	
-		
-		if(model.containsAttribute("loginIndicator")) {
-			model.addAttribute("loginIndicator", model.getAttribute("loginIndicator"));
-		}
+			
 		
 		model.addAttribute("currentUserDetail", userServ.getCurrentUserDetail(auth));
 		model.addAttribute("currentPage", "dashboard");
@@ -129,27 +123,7 @@ public class UserDashboardController {
 		List<Todo> fetchedTodoList = todoCollServ.getCurrentUserTodoListByCollection(collectionId);
 		return fetchedTodoList;
 	}
-	
-	
-	@GetMapping("/check-login-info")
-	@ResponseBody
-	public Users checkLoginInfo(@RequestParam Long userId, @RequestParam String proof) {
 		
-		Optional<Users> fetchedUser = userDao.findById(userId);
-		if(fetchedUser.isPresent() && fetchedUser.get().getLoginIndicator()!=null) {
-			if(fetchedUser.get().getLoginIndicator().equals(proof)) {
-//				return fetchedUser.get();
-				Users checkedUser = fetchedUser.get();
-				return checkedUser;
-			}
-				
-		}
-//		fetchUser.ifPresent(value -> checkedUser = value);
-		
-//		return null;
-		return null;
-	}
-	
 	
 	@GetMapping("profile")
 	public String displayUserProfile(Model model, Authentication auth) {
