@@ -23,11 +23,13 @@
 				<div class="">
 					<span class="project-owner-indicator info-tag-dark info-tag-dark-sm float-start"><span
 							class="fa-solid fa-user-tie"></span>
-						Project owner: <span v-if="project.projectOwnerUsername === 'testuser1'"
-							class="project-created-by-you">You</span>
+						Project owner: <span v-if="project.projectOwnerUsername === currentUserDetail.username"
+							class="project-created-by-you">
+							<a :href="`/user/${currentUserDetail.username}`"
+							 class="no-text-decoration inherit-color">You</a></span>
 						<span v-else class="project-owner-another">
-							<a
-								:href="`/user/${project.projectOwnerUsername}`">{{project.projectOwnerUsername}}</a></span>
+							<a :href="`/user/${project.projectOwnerUsername}`" class="no-text-decoration">
+								{{project.projectOwnerUsername}}</a></span>
 					</span>
 					<span class="project-owner-indicator info-tag-dark info-tag-dark-sm float-end"><span
 							class="fa-solid fa-users"></span> Members: </span>
@@ -283,7 +285,7 @@
 				</div>
 			</div>
 		</div>
-		<button class="minimalist-btn-lighter btn-sm create-project-btn create-project-btn-card ms-2 mt-2"
+		<button class="minimalist-btn minimalist-btn-lighter btn-sm create-project-btn create-project-btn-card ms-2 mt-2"
 			onClick="showAddProjectForm('card')">Create
 			Project</button>
 

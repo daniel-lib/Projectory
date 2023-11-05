@@ -14,10 +14,16 @@
 			</span>
 			<select
 				class="form-select form-select-sm mb-2 me-1  minimalist-btn minimalist-btn-blk-bg btn-sm board-change-proj-btn"
-				@click="getProjectData()" title="Change Project">
-				<option disabled selected>Change Project</option>
-				<option v-for="project in projectList" @click="selectProject(project.projectId)">{{project.title}}
-				</option>
+				@click="getProjectData()" title="Select Project">
+				<option disabled selected>Select Project</option>
+				<template v-for="project in projectList">
+					<option @click="selectProject(project.projectId)" v-if="projectOnBoard.title == project.title" selected>
+						{{project.title}}
+					</option>
+					<option @click="selectProject(project.projectId)" v-if="projectOnBoard.title != project.title" >
+						{{project.title}}
+					</option>
+				</template>
 			</select>
 
 		</span>
@@ -33,10 +39,11 @@
 </div>
 
 <div th:fragment="task-stage-categories" class="d-flex justify-content-between flex-wrap">
-	<div class="task-stage p-2 mb-3">
+	<div class="task-stage p-2 mb-3 flex-fill">
 		<h4 class="text-center task-stage-todo">Todo</h4>
 
-		<div class="drop-area-card-body custom-scrollbar-style-3 not-started-section" @drop="drop($event)" @dragover="allowDrop($event)"
+		<div class="drop-area-card-body custom-scrollbar-style-3 not-started-section" 
+		@drop="drop($event)" @dragover="allowDrop($event)"
 			@dragleave="cancelDropAreaHighlight($event)" @dragenter="dropAreaHighlight($event)">
 
 			<template v-for="task in projectTasksOnBoard">
@@ -44,10 +51,22 @@
 					:id="`draggable-card-${task.taskId}`" @dragleave="cancelDropAreaHighlight($event)"
 					@dragenter="dropAreaHighlight($event)"
 					v-if="projectOnBoard !== null && task.status==='not started'">
+					<span v-if="task.assigneeUsername != null" class="fs-9 ms-2">
+						task owner: <a :href="`/user/${task.assigneeUsername}`" class="no-text-decoration task-owner">
+							{{task.assigneeUsername}}</a></span>
 					<h6 class="task-card-title text-center">{{task.taskName}}</h6>
 					<div class="task-card-body m-2">
 						<span class="draggable-task-card-description text-center">{{task.taskDescription}}</span>
-						<button class="minimalist-btn minimalist-btn-grey d-block submit-task-btn">Submit>></button>
+						<span class="d-flex flex-wrap">
+							<select class="minimalist-btn minimalist-btn-grey mb-1" @click="getProjectMembers()">
+								<option disabled selected><span class="fa-solid fa-plus"></span>Assign</option>
+								<option v-for="member in projectMembers" 
+								@click="assignTask(member.projectMemberUserId, task.taskId)">
+									@{{member.username}}</option>
+							</select>
+							<button class="minimalist-btn minimalist-btn-grey  submit-task-btn">Submit>></button>
+						</span>
+						
 					</div>
 				</div>
 			</template>
@@ -55,9 +74,10 @@
 
 		</div>
 	</div>
-	<div class="task-stage p-2 mb-3">
+	<div class="task-stage p-2 mb-3 flex-fill">
 		<h4 class="text-center task-stage-in-progress">In progress</h4>
-		<div class="drop-area-card-body custom-scrollbar-style-3 in-progress-section" @drop="drop($event)" @dragover="allowDrop($event)"
+		<div class="drop-area-card-body custom-scrollbar-style-3 in-progress-section" 
+		@drop="drop($event)" @dragover="allowDrop($event)"
 			@dragleave="cancelDropAreaHighlight($event)" @dragenter="dropAreaHighlight($event)">
 
 			<template v-for="task in projectTasksOnBoard">
@@ -65,6 +85,9 @@
 					:id="`draggable-card-${task.taskId}`" @dragleave="cancelDropAreaHighlight($event)"
 					@dragenter="dropAreaHighlight($event)" 
 					v-if="projectOnBoard !== null && task.status==='in progress'">
+					<span v-if="task.assigneeUsername != null" class="fs-9 ms-2">
+						task owner: <a :href="`/user/${task.assigneeUsername}`" class="no-text-decoration task-owner">
+							{{task.assigneeUsername}}</a></span>
 					<h6 class="task-card-title text-center">{{task.taskName}}</h6>
 					<div class="task-card-body m-2">
 						<span class="draggable-task-card-description text-center">{{task.taskDescription}}</span>
@@ -77,9 +100,10 @@
 
 		</div>
 	</div>
-	<div class="task-stage p-2 mb-3">
+	<div class="task-stage p-2 mb-3 flex-fill">
 		<h4 class="text-center task-stage-done">Done</h4>
-		<div class="drop-area-card-body custom-scrollbar-style-3 completed-section" @drop="drop($event)" @dragover="allowDrop($event)"
+		<div class="drop-area-card-body custom-scrollbar-style-3 completed-section" 
+		@drop="drop($event)" @dragover="allowDrop($event)"
 			@dragleave="cancelDropAreaHighlight($event)" @dragenter="dropAreaHighlight($event)">
 
 			<template v-for="task in projectTasksOnBoard">
@@ -87,6 +111,9 @@
 					:id="`draggable-card-${task.taskId}`" @dragleave="cancelDropAreaHighlight($event)"
 					@dragenter="dropAreaHighlight($event)"
 					v-if="projectOnBoard !== null && task.status==='done'">
+					<span v-if="task.assigneeUsername != null" class="fs-9 ms-2">
+						task owner: <a :href="`/user/${task.assigneeUsername}`" class="no-text-decoration task-owner">
+							{{task.assigneeUsername}}</a></span>
 					<h6 class="task-card-title text-center">{{task.taskName}}</h6>
 					<div class="task-card-body m-2">
 						<span class="draggable-task-card-description text-center">{{task.taskDescription}}</span>

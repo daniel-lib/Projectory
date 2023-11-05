@@ -64,6 +64,7 @@
 
 .task-draggable-card{
 	border: 2px dotted rgb(230, 97, 0);
+	border: 2px dotted rgb(106, 106, 106);
 	border-radius: 0.3rem;
 	cursor: grab;
 	max-width: 300px;

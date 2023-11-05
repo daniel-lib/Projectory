@@ -4,6 +4,7 @@ const fetchListUrlREST2 = '/api/todo-list/1';
 const getProjectsUrl = '/project/getProjects';
 const getProjectCountUrl = '/project/getProjectCount';
 const getPublicConnectsUrl = '/user/getUserConnectionList';
+const userDetailUrl = "/user/detail"
 
 
 
@@ -14,14 +15,21 @@ Vue.createApp({
 		return {
 			projects: [],
 			projectCount: null,
-			connectsList: []
+			connectsList: [],
+			currentUserDetail: null
 		}
 	},
 	created() {
 		this.getProjects(),
-			this.getProjectCount()
+			this.getProjectCount(),
+			this.getCurrentUserDetail()
 	},
 	methods: {
+		getCurrentUserDetail(){
+			fetch(userDetailUrl)
+				.then(response => response.json())
+				.then(data => this.currentUserDetail = data)
+		},
 		getProjects() {
 			fetch(getProjectsUrl)
 				.then(response => response.json())

@@ -31,7 +31,10 @@ public class SecurityConfig {
 					.antMatchers("/project/**").hasRole("USER")
 					.antMatchers("/", "/**").permitAll()
 					)		
-				.formLogin();
+				.formLogin()
+					.loginPage("/")
+					.loginProcessingUrl("/login")
+					.defaultSuccessUrl("/user/dashboard");
 				//.and().formLogin().loginPage("/?auth=required").successForwardUrl("/user/dashboard");
 			return http.build();							
 			    

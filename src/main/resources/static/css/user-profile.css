@@ -1,0 +1,179 @@
+* {
+	/*	border:1px solid red;*/
+}
+
+.profile-content-inner {}
+
+.profile-main-body {
+	width: 70%;
+
+}
+
+.profile-content-inner .small-rounded-containers {}
+
+
+.profile-pic-btn {
+	border-radius: 50%;
+	color: rgb(255, 255, 255);
+	user-select: none;
+	display: inline-block;
+}
+
+.profile-pic-btn img {
+	width: 30px;
+	height: 20px;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+}
+
+.profile-pic-btn.prof-text-only {
+	text-align: center;
+	align-items: center;
+	align-self: center;
+	font-weight: 900;
+
+	padding: 0.2em 0.5em;
+	padding: 0.2em 0.6em;
+	font-size: 14;
+}
+
+/*.profile-pic-btn.prof-text-only,*/
+.prof-A,
+.prof-C,
+.prof-E {
+	background-color: rgb(134, 94, 60);
+}
+
+.prof-B,
+.prof-D,
+.prof-F {
+	background-color: rgb(246, 97, 81);
+}
+
+.prof-M,
+.prof-O,
+.prof-Q,
+.prof-S {
+	background-color: rgb(255, 163, 72);
+}
+
+.prof-N,
+.prof-P,
+.prof-R,
+.prof-T {
+	background-color: rgb(98, 160, 234);
+}
+
+.prof-V,
+.prof-X,
+.prof-Z {
+	background-color: rgb(143, 240, 164);
+}
+
+.prof-U,
+.prof-W,
+.prof-Y {
+	background-color: rgb(249, 240, 107);
+}
+
+.prof-H,
+.prof-J,
+.prof-L {
+	background-color: rgb(97, 53, 131);
+}
+
+.prof-G,
+.prof-I,
+.prof-K {
+	background-color: rgb(50, 64, 94);
+}
+
+.profile-pic-btn-link {
+	padding: 0.25rem 0.20rem 0.20rem 0rem !important
+}
+
+
+.small-rounded-containers {
+	box-shadow: 0px 1px 2px 1px var(--small-rounded-containers-box-shadow);
+	background-color: var(--small-rounded-containers-bg);
+	border-radius: 0.5rem;
+}
+
+.profile-content-inner {
+	margin: 3em 3em 0 5em;
+}
+
+.profile-header-section {
+	padding-bottom: 0.5rem;
+}
+
+.profile-banner {
+	background-image: url("/images/landing-banner-bg.jpg");
+	border-radius: 0.5rem;
+	padding: 10px 20px 0 20px;
+	padding: 100px 20px 0 20px;
+}
+
+.profile-picture {
+	border-radius: 50%;
+	border: 4px solid var(--small-rounded-containers-bg);
+	height: 100px;
+	width: 100px;
+	display: inline-block;
+	position: relative;
+	top: 60px;
+	background-color: #CCC;
+	overflow: hidden;
+
+}
+
+.profile-picture img {
+	border-radius: 50%;
+	height: 100px;
+	width: 100px;
+}
+
+.profile-right-side-content {
+	width: 27%;
+}
+
+.profile-top-user-info {
+	margin-left: 150px
+}
+
+.profile-public-projects {}
+
+.public-data-list {
+	height: 300px;
+	overflow-y: scroll;
+}
+
+.public-prof-list {
+	line-height: 0.5em;
+}
+
+.user-project-list-items {
+	background-color: rgb(94, 92, 100);
+	color: #fff;
+	border-radius: 0.5rem;
+	background-color: var(--primary-bg) !important;
+	background-color: var(--small-rounded-containers-inner-bg) !important;
+	color: var(--primary-color);
+	box-shadow: 0px 1px 2px 1px var(--small-rounded-containers-box-shadow);
+}
+
+.profile-connections {}
+
+.online-status-indicator {
+	background-color: rgb(124, 252, 0);
+	border-radius: 50%;
+}
+
+.online-status-indicator.false {
+	background-color: rgb(110, 119, 101);
+}
+
+.test2 {
+	border: 1px solid red;
+}

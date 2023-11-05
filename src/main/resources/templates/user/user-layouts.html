@@ -32,7 +32,9 @@
 	<script src="/javascript/charts-project.js" defer></script>
 	<script src="/javascript/theme-switch-script.js" defer></script>
 	
+	<script src="/javascript/vue-scripts/user-detail-vue.js" defer></script>
 	<script src="/javascript/vue.global.js.js"></script>	
+	<!--<script src="/javascript/vue-scripts/user-detail-vue.js" defer></script>-->
 </head>
 
 <header th:fragment="nav" class="dashboard-nav fixed-top">
@@ -68,7 +70,7 @@
 						<a class="top-nav-links no-text-decoration profile-pic-btn-link"
 							onClick="showTopCollapsableMenu(2, this.id)" id="top-user-nav-link"
 							aria-label="not-selected" title="Account">
-							<span class="nav-icon mt-0 pt-0 profile-pic-btn text-center"
+							<span class="nav-icon mt-0 pt-0 profile-pic-btn own-profile-pic text-center"
 								th:text="${currentUserDetail.profilePicture}" id="profile-pic-btn"></span>
 							<!--<img src="/images/projectory-logo.png" height="20px" width="20px">--></a>
 					</div>
@@ -95,7 +97,7 @@
 									<span class="non-hoverable-top-menu-text d-block mb-2">@<span
 											th:text="${currentUserDetail.username}"></span></span>
 
-									<span class="profile-pic-btn collapsable-top-menu-prof-pic fs-22">
+									<span class="profile-pic-btn own-profile-pic collapsable-top-menu-prof-pic fs-22">
 										<span class="nav-icon mt-0 pt-0 "
 											th:text="${currentUserDetail.profilePicture}"></span>
 										<span class="fa-solid fa-image change-profile-pic-btn fs-16"></span>
@@ -188,9 +190,9 @@
 <footer th:fragment="footer" class="mt-5 pt-2 dashboard-footer m-0">
 	<script>
 		var username = "[[${currentUserDetail.username}]]";
-
-
 	</script>
+	
+	
 		<!--<button class="modal-trigger" data-modal-open>Modal Test</button>-->
 
 	<dialog id="confirmation-modal" th:fragment="confirmation-modal">

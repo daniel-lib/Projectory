@@ -1,45 +1,129 @@
 <main class="profile-content" th:fragment="profile-content">
-	
-	<section>
-		<section class="profile-header-area d-flex">
+	<div id="user-details">
 		<aside th:replace="/user/user-layouts :: side-menu"></aside>
-		
-		<div class="profile-header ms-5 mt-5">
+
+		<section class="profile-content-inner d-flex gap-4 flex-wrap">
+
+			<section class="profile-main-body  flex-fill">
+
+				<div class="profile-header-section small-rounded-containers">
+					<section th:replace="/user/profile/profile-layouts::profile-banner"></section>
+					<div th:replace="/user/profile/profile-layouts::profile-top-user-info"></div>
+
+				</div>
+
+
+				<div class="small-rounded-containers p-2 mt-3 d-flex flex-wrap gap-3 justify-content-between">
+					<div class="profile-public-projects flex-fill">
+						<h5>Public projects({{userProjectCount}})</h5>
+						<h5 v-if="userProjectCount == 0" class="p-5">user has no public projects</h5>
+						<div class="public-data-list custom-scrollbar-style-2" v-if="userProjectCount != 0">
+							<div th:replace="/user/profile/profile-layouts::user-project-list"></div>
+						</div>
+					</div>
+					<div class="profile-connections flex-fill ">
+						
+						<h5>Connections({{userConnectsCount}})</h5>
+						<h5 v-if="userConnectsCount == 0" class="p-5">user has no connections yet</h5>
+						<div class="public-data-list public-prof-list custom-scrollbar-style-2" v-if="userConnectsCount != 0" >
+							<h6 class="text-center">Pending Connection Request</h6>
+							<div th:replace="/user/profile/profile-layouts::pending-user-connections-list"></div>
+							
+							<h6 class="mt-4 text-center">Connected with</h6>
+							<div th:replace="/user/profile/profile-layouts::approved-user-connections-list"></div>
+						</div>
+
+					</div>
+				</div>
+
+
+			</section>
+
+			<aside class="profile-right-side-content flex-fill align-self-start">
+
+				<div class="small-rounded-containers p-5">
+					About me
+				</div>
+
+				<div class="small-rounded-containers p-5 mt-3">
+					Socials
+				</div>
+				<div class="small-rounded-containers p-5 mt-3">
+					Similar profiles
+					suggested by the projects they work on
+					and connection list
+				</div>
+			</aside>
+
+			<section class="metrics-and-report pt-2 mt-2">
+				<h5>misc</h5>
+				<main class="charts">
+					<div class="projects-report d-flex justify-content-evenly flex-wrap">
+
+					</div>
+				</main>
+
+			</section>
+
+		</section>
+	</div>
+
+
+	<script>
+		ownAccount = "[[${ownAccount}]]";
+		if (!ownAccount) {
+			UserDetailByUsername = "[[${UserDetailByUsername}]]";
+			if (UserDetailByUsername == "User does not exist") {
+				//alert(ownAccount);
+			}
+			else {
+				profileUsernameValue = "[[${UserDetailByUsername}]]";
+				ownAccount = "[[${ownAccount}]]";
+				//alert(ownAccount);
+			}
+		}
+		else {
+			profileUsernameValue = "[[${UserDetailByUsername}]]";
+			ownAccount = "[[${ownAccount}]]";
+			//alert(ownAccount);
+		}
+	</script>
+
+
+
+	<!--<div class="profile-header mt-1">
 		<div class="profile-picture-container">Profile Pic</div>
-		
-		<!--displays logged in users's profile-->
-		<span th:if="${!usernameOnPath}">
-			<span th:text="${currentUserDetail.firstName}+' '+${currentUserDetail.lastName}"></span>
-		</span>
-		
-		<span th:if="${usernameOnPath}">
+
+
+		displays logged in users's profile
+		<span th:if="${!ownAccount}">
 			<span th:if="${UserDetailByUsername == 'User does not exist'}" class="d-flex justify-content-center">
-				<span >No user with that username exists</span>
+				<span>No user with that username exists</span>
+				<script>
+					profileUsernameValue = null; //set it to null
+					ownAccount = "[[${ownAccount}]]";
+					alert(ownAccount)
+				</script>
 			</span>
+
 			<span th:unless="${UserDetailByUsername == 'User does not exist'}">
 				<span th:text="${UserDetailByUsername.firstName}+' '+${UserDetailByUsername.lastName}"></span>
-				
+				<script>
+					profileUsernameValue = "[[${UserDetailByUsername}]]";
+					ownAccount = "[[${ownAccount}]]";
+					alert(ownAccount)
+				</script>
 			</span>
 		</span>
-		
-		<!--<span th:text="${UserDetailByUsername}"></span>-->
-		<!--displays profile based on path variable(value from the url)-->
-		
-		</div>
-		
-	</section>
 
+		<span th:if="${ownAccount}">
+			<script>
+				profileUsernameValue = "[[${UserDetailByUsername}]]";
+				ownAccount = "[[${ownAccount}]]";
+				alert(ownAccount)		
+			</script>
+			Your account
 
-	<section class="metrics-and-report pt-2 mt-2">
-			<h5>metrics</h5>
-		<main class="charts">
-			<div class="projects-report d-flex justify-content-evenly flex-wrap">
-				
-			</div>
-		</main>
-
-	</section>
-	</section>	
-	
-	
+		</span>
+	</div>-->
 </main>

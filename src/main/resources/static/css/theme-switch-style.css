@@ -264,12 +264,15 @@ background-color:red;
      
      --get-started-border-color: gold;
     --get-started-outline-color: rgb(55, 54, 54);
+     --small-rounded-containers-bg: rgb(255, 255, 255);
+     --small-rounded-containers-box-shadow: #CCC;
+     --small-rounded-containers-inner-bg: #CCC;
   }
   .dark-mode {    
     --primary-bg: #252525;
     --primary-color: #ffffff;
     --container-bg-blue: rgb(27, 44, 72);
-	--primary-card-bg: #121212;
+	--primary-card-bg: rgb(22, 22, 22);
 	--primary-card-border: 1px solid #121212;
 	--home-nav-bg: rgba(61, 56, 70, 0.6);
 	--top-banner-overlay-bg:  rgba(0, 0, 0, 0.7);
@@ -283,6 +286,7 @@ background-color:red;
 	--project-modal-boxes-expaned-bg: rgb(8, 7, 7);
 	--image-brightness-filter: brightness(60%);
 	
+	
 	/*board colors*/
    	/*--board-background-color-primary: rgb(7, 6, 6);*/
    	--board-background-color-primary: rgb(12, 10, 17);
@@ -292,6 +296,9 @@ background-color:red;
    	 
    	 --get-started-border-color: goldenrod;
    	 --get-started-outline-color: #828282;
+   	 --small-rounded-containers-bg: #464646;
+   	 --small-rounded-containers-box-shadow: rgb(36, 31, 49);
+   	 --small-rounded-containers-inner-bg: #252525;
   }
   
 

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.app.projectory.dao.ProjectRepository;
 import com.app.projectory.dao.ProjectTaskRepository;
 import com.app.projectory.dto.ProjectDto;
+import com.app.projectory.dto.ProjectMembersDto;
 import com.app.projectory.dto.ProjectTasksDto;
 import com.app.projectory.entity.Project;
 import com.app.projectory.entity.ProjectTasks;
@@ -97,6 +98,14 @@ public class ProjectController {
 		//return null;
 	}
 	
+	@GetMapping("/members")
+	public @ResponseBody List<ProjectMembersDto> serveProjectMembersById(Authentication auth, @RequestParam("project") long projectId) {
+		//get user id from user account service
+		long userId = userServ.getUserId(auth);
+		//get project member for specific project			
+		return projDao.findProjectMembersByProjectId(projectId, userId);
+		//return null;
+	}
 	
 	@GetMapping("/getProjectCount")
 	public @ResponseBody long serveProjectCount(Authentication auth) {
@@ -112,9 +121,16 @@ public class ProjectController {
 	public @ResponseBody int updateProjectTaskStatus(@RequestParam("status") String statusUpdate, 
 			@RequestParam("task") long taskId, Authentication auth) {
 		long userId = userServ.getUserId(auth);
-		return projTaskDoa.updateProjectStaus(taskId, statusUpdate, userId);		
-		
-		
+		return projTaskDoa.updateProjectStatus(taskId, statusUpdate, userId);
+
+	}
+	
+	@GetMapping("/task/update/assignee")
+	public @ResponseBody int addProjectTaskAssignee(@RequestParam("user") long assigneeUserId, 
+			@RequestParam("task") long taskId, Authentication auth) {
+		long authUserId = userServ.getUserId(auth);
+		return projTaskDoa.updateProjectTaskAssignee(taskId, assigneeUserId, authUserId);
+
 	}
 
 }

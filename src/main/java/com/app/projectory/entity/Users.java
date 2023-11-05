@@ -30,7 +30,7 @@ public class Users {
 	@Column(nullable = false, unique = true)
 	private String username;
 	private String password;
-	private String loginIndicator;
+	private boolean onlineStatus;
 	private String role;
 	private boolean enabled;
 	private String profilePicture;
@@ -57,12 +57,10 @@ public class Users {
 	
 	public Users() {
 			
-	}
-	
-	
+	}		
 	
 	public Users(long userId, String firstName, String lastName, String emailAddress, String username, String password,
-			String loginIndicator, String role, boolean enabled) {
+			boolean onlineStatus, String role, boolean enabled) {
 		super();
 		this.userId = userId;
 		this.firstName = firstName;
@@ -70,7 +68,7 @@ public class Users {
 		this.emailAddress = emailAddress;
 		this.username = username;
 		this.password = password;
-		this.loginIndicator = loginIndicator;
+		this.onlineStatus = onlineStatus;
 		this.role = role;
 		this.enabled = enabled;
 	}
@@ -127,12 +125,12 @@ public class Users {
 		this.joinedProjects = joinedProjects;
 	}
 	
-	public String getLoginIndicator() {
-		return loginIndicator;
+	public boolean getLoginIndicator() {
+		return onlineStatus;
 	}
 	
-	public void setLoginIndicator(String loginIndicator) {
-		this.loginIndicator = loginIndicator;
+	public void setLoginIndicator(boolean onlineStatus) {
+		this.onlineStatus = onlineStatus;
 	}
 		
 	public String getRole() {

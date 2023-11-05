@@ -4,7 +4,8 @@ import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.app.projectory.dao.ConnectionsRepository;
@@ -23,11 +23,11 @@ import com.app.projectory.dao.ProjectTaskRepository;
 import com.app.projectory.dao.TodoListCollectionRepository;
 import com.app.projectory.dao.TodoListRepository;
 import com.app.projectory.dao.UsersRepository;
+import com.app.projectory.dto.CurrentUserDetailDto;
 import com.app.projectory.dto.ProjectStatusCount;
 import com.app.projectory.dto.PublicUserConnectionsDetailDto;
 import com.app.projectory.dto.PublicUserPersonalDetailDto;
 import com.app.projectory.dto.PublicUserProjectDetailDto;
-import com.app.projectory.entity.Connections;
 import com.app.projectory.entity.Project;
 import com.app.projectory.entity.ProjectTasks;
 import com.app.projectory.entity.Todo;
@@ -125,38 +125,38 @@ public class UserDashboardController {
 	}
 		
 	
-	@GetMapping("profile")
+	@GetMapping("/profile")
 	public String displayUserProfile(Model model, Authentication auth) {
-		model.addAttribute("currentUserDetail", userServ.getCurrentUserDetail(auth));
+		Users currentUser = userServ.getCurrentUserDetail(auth);
+		model.addAttribute("currentUserDetail", currentUser);
 		model.addAttribute("currentPage", "profile");
-		model.addAttribute("usernameOnPath", false);
+		//model.addAttribute("ownAccount", false);
+		model.addAttribute("ownAccount", true);
+		model.addAttribute("UserDetailByUsername", currentUser.getUsername());
 		return "/user/user-content-container";
 	}
 	
 	@GetMapping("{username}")
 	public String displayUserProfileWithUsername(Model model, Authentication auth, @PathVariable("username") String username) {
 		Users UserByUsernameResult = userServ.getUserDetailByUsername(username);
-		PublicUserPersonalDetailDto publicUser = userDao.getPublicUserDetail(username);
-		List<PublicUserConnectionsDetailDto> publicUserConnections = connectionsDao.findPublicConnections(username);
-		List<PublicUserProjectDetailDto> publicUserProjects = projDao.findPublicUserProjects(username);
+		
 		  if(UserByUsernameResult==null) 
 			  model.addAttribute("UserDetailByUsername", "User does not exist");	
-		  else {
+		  else {			  
 			  String authUsername = userServ.getCurrentUsername(auth);
 			  if(authUsername.equals(username)) {
-				  model.addAttribute("UserDetailByUsername", UserByUsernameResult);	
-				  return "redirect: /profile";
+				  return "redirect:profile";  //redirect to current user profile
 			  }
-			  else
-				  model.addAttribute("UserDetailByUsername", UserByUsernameResult);
-		  }
-			  		 
-		
+			  else {				 
+					model.addAttribute("UserDetailByUsername", UserByUsernameResult.getUsername());
+			  }
+				  
+		  }		  		 		
 		  
 		
 		model.addAttribute("currentUserDetail", userServ.getCurrentUserDetail(auth));
 		model.addAttribute("currentPage", "profile");
-		model.addAttribute("usernameOnPath", true);
+		model.addAttribute("ownAccount", false);
 		return "/user/user-content-container";
 	}
 	
@@ -171,8 +171,39 @@ public class UserDashboardController {
 		return publicUserConnections;
 	}
 	
+	@GetMapping("/detail")
+	public @ResponseBody CurrentUserDetailDto getCurrentUserDetail(Authentication auth) {
+		CurrentUserDetailDto userDetail = userDao.getCurrentUserDetail(userServ.getUserId(auth));
+		return userDetail;
+	}
+	@GetMapping("/detail/{username}")
+	public @ResponseBody PublicUserPersonalDetailDto getUserDetailByUsername(@PathVariable("username") String username, Authentication auth) {
+		/*if(username.equals(userServ.getCurrentUsername(auth)))
+			return "redirect:/detail";
+		else {*/
+		PublicUserPersonalDetailDto publicUser = userDao.getPublicUserDetail(username);
+		return publicUser;		
+	}
+	@GetMapping("/projects/{username}")
+	public @ResponseBody List<PublicUserProjectDetailDto> getPublicProjectsByUsername(@PathVariable("username") String username, Authentication auth) {
+	List<PublicUserProjectDetailDto> publicUserProjects = projDao.findPublicUserProjects(username);
+	return publicUserProjects;
+	}
 	
+	@GetMapping("/connections/{username}")
+	public @ResponseBody List<PublicUserConnectionsDetailDto> getConnectionByUsername(@PathVariable("username") String username, Authentication auth) {
+		
+		List<PublicUserConnectionsDetailDto> UserConnections;
+	if(username.equals(userServ.getCurrentUsername(auth))) {
+		UserConnections = connectionsDao.findAllConnections(username);
+	}
+	else {
+		UserConnections = connectionsDao.findPublicConnections(username);
+	}
+		
 	
+	return UserConnections;
+	}
 	
 	
 	

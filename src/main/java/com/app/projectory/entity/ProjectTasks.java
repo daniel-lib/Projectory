@@ -22,6 +22,8 @@ public class ProjectTasks {
 	private String status;
 	private String deadline;
 	
+	private long assignee;
+	
 	@JsonIgnore
 	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, 
 			fetch = FetchType.LAZY)

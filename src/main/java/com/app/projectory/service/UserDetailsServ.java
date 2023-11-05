@@ -1,6 +1,7 @@
 package com.app.projectory.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,7 +11,7 @@ import com.app.projectory.dao.UsersRepository;
 import com.app.projectory.entity.Users;
 
 @Service
-public class MyUserDetailsService implements UserDetailsService{
+public class UserDetailsServ implements UserDetailsService{
 	@Autowired
 	UsersRepository userRepo;
 	
@@ -20,8 +21,9 @@ public class MyUserDetailsService implements UserDetailsService{
 		if(user == null) {
 			throw new UsernameNotFoundException(username);
 		}
-		return org.springframework.security.core.userdetails.User
-	            .withUsername(user.getUsername())
+		
+		return User
+				.withUsername(user.getUsername())
 	            .password(user.getPassword())
 	            .roles(user.getRole()) 
 	            .accountExpired(false)
@@ -29,5 +31,15 @@ public class MyUserDetailsService implements UserDetailsService{
 	            .credentialsExpired(false)
 	            .disabled(false)
 	            .build();
+		
+//		return org.springframework.security.core.userdetails.User
+//	            .withUsername(user.getUsername())
+//	            .password(user.getPassword())
+//	            .roles(user.getRole()) 
+//	            .accountExpired(false)
+//	            .accountLocked(false)
+//	            .credentialsExpired(false)
+//	            .disabled(false)
+//	            .build();
 	}
 } 

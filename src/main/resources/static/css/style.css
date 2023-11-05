@@ -25,35 +25,44 @@ div.dark-mode {
 	color: #EEF3F9 !important;
 }
 
-.fs-6{
-	font-size: 6pt!important;
+.fs-6 {
+	font-size: 6pt !important;
 }
-.fs-8{
-	font-size: 8pt!important;
+
+.fs-8 {
+	font-size: 8pt !important;
 }
-.fs-9{
-	font-size: 9pt!important;
+
+.fs-9 {
+	font-size: 9pt !important;
 }
-.fs-10{
-	font-size: 10pt!important;
+
+.fs-10 {
+	font-size: 10pt !important;
 }
-.fs-11{
-	font-size: 11pt!important;
+
+.fs-11 {
+	font-size: 11pt !important;
 }
-.fs-14{
-	font-size: 14pt!important;
+
+.fs-14 {
+	font-size: 14pt !important;
 }
-.fs-18{
-	font-size: 18pt!important;
+
+.fs-18 {
+	font-size: 18pt !important;
 }
-.fs-20{
-	font-size: 20pt!important;
+
+.fs-20 {
+	font-size: 20pt !important;
 }
-.fs-22{
-	font-size: 22pt!important;
+
+.fs-22 {
+	font-size: 22pt !important;
 }
-.fs-24{
-	font-size: 24pt!important;
+
+.fs-24 {
+	font-size: 24pt !important;
 }
 
 .card {
@@ -61,10 +70,10 @@ div.dark-mode {
 	border: var(--primary-card-border) !important;
 }
 
-.card-img-top{
+.card-img-top {
 	/*background-blend-mode:darken;*/
 	/*mix-blend-mode:color;*/
-	filter:var(--image-brightness-filter);
+	filter: var(--image-brightness-filter);
 }
 
 .form-control,
@@ -467,12 +476,12 @@ div.dark-mode {
 
 .get-started-btn:hover {
 	background-color: rgb(61, 56, 70, 0.7) !important;
-	outline: 2px  solid rgb(118, 187, 118);
-	outline: 2px  solid var(--get-started-border-color);
+	outline: 2px solid rgb(118, 187, 118);
+	outline: 2px solid var(--get-started-border-color);
 	outline: 2px solid var(--get-started-outline-color);
 	outline-offset: 0.2rem;
 	border-color: rgb(61, 56, 70, 0.7) !important;
-	
+
 }
 
 .login-btn {
@@ -546,10 +555,11 @@ footer ul li a:hover,
 	opacity: 0;
 	transition: all 0.6s ease-in-out;
 }
+
 .cookie-notice2.show {
 	visibility: visible;
-	opacity: 1;	
-	}
+	opacity: 1;
+}
 
 .cookie-accept-btn {
 	color: #FFF !important;
@@ -592,25 +602,36 @@ footer ul li a:hover,
 /*.login-signup-form{
 	margin
 }*/
-.minimalist-btn,
-.minimalist-btn-lighter {
+.minimalist-btn {
 	font-size: 9pt !important;
 	border: 1px solid rgb(119, 118, 123);
-	border-radius: 0.25rem;
-	color: rgb(119, 118, 123);
 	transition: 0.2s ease-in-out;
 	padding: 0.2rem 0.4rem 0.2rem 0.4rem;
+	border-radius: 0.25rem;
 	margin-right: 0.3rem;
 	cursor: pointer;
 }
 
-.minimalist-btn-blk-bg {
-	background-color: rgb(36, 31, 49)
+.minimalist-btn-theme-controlled {
+	background-color: var(--primary-card-bg);
+	color: var(--primary-color);
 }
 
-.minimalist-btn:hover {
+.minimalist-btn-theme-controlled:hover {
+	background-color: goldenrod;
+	text-decoration: none !important;
+	color: #FFF !important;
+	background-color: rgb(94, 92, 100) !important;
+}
+
+.minimalist-btn-blk-bg {
+	background-color: rgb(36, 31, 49);
+	color: #FFF;
+}
+
+.minimalist-btn:hover {	
 	background-color: rgba(119, 118, 123, 0.6);
-	color: rgb(118, 187, 118) !important;
+	color: rgb(118, 187, 118);
 }
 
 .minimalist-btn-lighter {
@@ -619,8 +640,8 @@ footer ul li a:hover,
 
 .minimalist-btn-lighter:hover {
 	color: rgb(0, 0, 0);
-	background-color: rgba(119, 118, 123, 0.6);
-
+	color: rgb(246, 245, 244) !important;
+	background-color: rgb(94, 92, 100);
 }
 
 .minimalist-btn-grey {
@@ -631,9 +652,7 @@ footer ul li a:hover,
 .minimalist-btn-grey:hover {
 	color: rgb(222, 221, 218);
 	background-color: rgb(36, 31, 49);
-
 }
-
 
 .minimalist-btn-rounded {
 	border-radius: 50px;
@@ -649,7 +668,7 @@ footer ul li a:hover,
 	border-bottom-right-radius: 50px;
 }
 
-.minimalist-btn.toggled{
+.minimalist-btn.toggled {
 	background-color: rgb(94, 92, 100);
 	color: rgb(118, 187, 118)
 }
@@ -821,21 +840,21 @@ footer ul li a:hover,
 }
 
 
-.error-page-container{
+.error-page-container {
 	position: fixed;
 	height: 100vh;
 	width: 100vw;
 	background-image: url("../images/error-page-bg-dark-sunset.jpg");
 	background-repeat: no-repeat;
-	background-size:cover;
+	background-size: cover;
 }
 
-.error-page-container div{
-	 position: fixed;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+.error-page-container div {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
 }
 
 
@@ -850,16 +869,16 @@ footer ul li a:hover,
 		border-top-left-radius: 20%;
 		padding-top: 50px !important;
 	}
-	
+
 	.login-btn {
-	right: 30%;	
-	top: 1.1em;
+		right: 30%;
+		top: 1.1em;
 	}
-	
+
 	.navbar-brand {
-	
-	/*text-shadow: 0px 0px 1px rgb(36, 31, 49);*/
-}
+
+		/*text-shadow: 0px 0px 1px rgb(36, 31, 49);*/
+	}
 }
 
 @media (max-width: 600px) {

@@ -14,5 +14,10 @@ public interface ProjectTasksDto {
 	public String getStatus();
 
 	public String getDeadline();
+	public long getProjectId();
+	public long getAssigneeId();
+	//public String getProjectOwnerUsername();
+	public String getAssigneeUsername();
+	public String getProjectCreationDate();
 
 }

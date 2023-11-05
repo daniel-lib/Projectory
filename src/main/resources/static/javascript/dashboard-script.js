@@ -1,5 +1,5 @@
 (function displayProfilePicBtn() {
-	const profilePicBtn = document.getElementsByClassName('profile-pic-btn');
+	const profilePicBtn = document.querySelectorAll('.profile-pic-btn.own-profile-pic');
 	if (profilePicBtn[0].textContent == "") {
 		Array.from(profilePicBtn).forEach((element) => element.textContent = username[0].toUpperCase());
 	}
@@ -8,6 +8,36 @@
 	}
 })();
 
+
+
+
+
+/*(function displayProfilePicBtn() {
+	const profilePicBtn = document.getElementsByClassName('profile-pic-btn');
+	if (profilePicBtn[0].textContent == "") {
+		Array.from(profilePicBtn).forEach((element) => element.textContent = username[0].toUpperCase());
+	}
+	for(let prof of profilePicBtn){
+		if (prof.textContent.length == 1) {
+		//Array.from(profilePicBtn).forEach((element) => element.textContent = username[0].toUpperCase());
+		//prof.textContent=prof.textContent[1].toUpperCase();
+		//prof.textContent="+";
+			let fn = prof.textContent;
+			//alert(fn[0])
+			//prof.textContent=fn.toUpperCase();
+	}
+	else{
+		//prof.textContent="-";
+		//get pic link from db or remote storage
+		//alert(prof.textContent+": "+prof.textContent.length)
+		prof.style.backgroundImage = "URL(prof.textContent)";
+		//prof.textContent = "";
+	}
+	}
+	
+})();
+
+*/
 
 
 function displayViewingModal(contentType) {
@@ -127,8 +157,6 @@ function sideMenuToggle() {
 	if (isCollapsed) {
 		sideNav.style = "width: 200px;";
 		toggle.style.letterSpacing = "0em";
-
-
 
 		for (let t of sideNavText) {
 			t.style.display = "inline";

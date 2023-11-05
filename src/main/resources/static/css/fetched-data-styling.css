@@ -1,6 +1,9 @@
 .cadetblue{
 	color: cadetblue;
 }
+.cadetblue:hover.cadetblue{
+	color: rgb(36, 127, 130);
+}
 
 .cadetblue-light{
 	color: rgb(105, 215, 219);
@@ -42,8 +45,21 @@
 	color: rgb(198, 70, 0);	
 	font-weight: 900;
 }
-.project-owner-another{
+.project-owner-another, task-owner{
 	color: rgb(28, 113, 216);	
 	font-weight: 900;
+}
+.goldenrod{
+	color: goldenrod;
+}
+.goldenrod:hover{
+	color: rgb(199, 145, 7);
+}
+
+.goldenrod-darker{
+	color: rgb(169, 132, 38);
+}
+.goldenrod:hover{
+	color: rgb(199, 145, 7);
 }
 

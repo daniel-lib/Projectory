@@ -2,6 +2,7 @@
 @import "confirmation-modal-style.css";
 @import "board.css";
 @import "loader.css";
+@import "user-profile.css";
 
 .dashboard-nav {}
 
@@ -78,22 +79,12 @@
 	color: rgb(192, 191, 188);
 }
 
-.profile-pic-btn {
-	padding: 0.3em 0.5em !important;
-	font-weight: 900;
-	background-color: rgba(218, 165, 32, 0.5);
-	border-radius: 100%;
-	color: rgb(255, 255, 255);
-	user-select: none;
-}
-
-.profile-pic-btn-link {
-	padding: 0.25rem 0.20rem 0.20rem 0rem !important
-}
-
 .no-text-decoration {
 	text-decoration: none !important;
-	;
+}
+
+.inherit-color {
+	color: inherit;
 }
 
 .collapsable-top-menu-prof-pic {
@@ -103,7 +94,7 @@
 }
 
 .collapsable-top-menu-prof-pic:hover {
-	color: red;
+	/*color: red;*/
 }
 
 .change-profile-pic-btn {
@@ -622,7 +613,7 @@
 }
 
 .add-project-member-list-container {
-	
+
 	/*width: 60%;*/
 	background-color: rgb(61, 56, 70);
 	z-index: 1000;
@@ -633,7 +624,7 @@
 	height: 0;
 	opacity: 0;
 	transition: opacity 0.1s ease-in-out;
-	position:relative;
+	position: relative;
 }
 
 
@@ -815,8 +806,15 @@
 }
 
 .productivity-chart {
-	width: 600px;
+	/*width: 600px;
+	width: 60%;*/
+
+	/*width: auto;
+	width: 60%;*/
+	width: 300px;
+	min-width: 250px;
 	margin-bottom: 40px;
+
 }
 
 .dashboard-footer {
@@ -923,6 +921,14 @@
 	background-color: rgb(230, 97, 0);
 }
 
+
+
+
+
+
+
+
+/*mobile devices*/
 @media (max-width: 900px) {
 	.viewing-modal-header {
 		margin-left: 15% !important;
