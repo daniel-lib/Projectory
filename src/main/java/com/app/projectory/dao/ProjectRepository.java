@@ -2,6 +2,9 @@ package com.app.projectory.dao;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -80,18 +83,42 @@ public interface ProjectRepository extends CrudRepository<Project, Long>{
 	List<ProjectMembersDto> findProjectMembersByProjectId(long projectId, long userId); 
 	
 	
+	//count all projects
+//	@Query(value = "Select COUNT(*) FROM(\n"
+//			+ "SELECT p.*, project_owner_user_id as projectOwnerUserId,\n"
+//			+ "creation_date as creationDate, username as projectOwnerUsername FROM project p \n"
+//			+ "LEFT JOIN project_members m ON m.user_id = ?1\n"
+//			+ "Left Join Users us on us.user_id = p.project_owner_user_id\n"
+//			+ "WHERE p.project_owner_user_id = ?1 OR p.project_id = m.project_id\n"
+//			+ "Group by p.project_id, us.username\n"
+//			+ ") AS pCount", nativeQuery = true)
+//	long countProjectForUser(long userId); 
 	
-	@Query(value = "Select COUNT(*) FROM(\n"
-			+ "SELECT p.*, project_owner_user_id as projectOwnerUserId,\n"
-			+ "creation_date as creationDate, username as projectOwnerUsername FROM project p \n"
-			+ "LEFT JOIN project_members m ON m.user_id = ?1\n"
-			+ "Left Join Users us on us.user_id = p.project_owner_user_id\n"
+	//the above commented one improved
+	@Query(value = "Select COUNT(*) AllProjectsCount FROM(\n"
+			+ "SELECT p.* FROM project p \n"
+			+ "LEFT JOIN project_members m ON m.user_id =?1\n"
 			+ "WHERE p.project_owner_user_id = ?1 OR p.project_id = m.project_id\n"
-			+ "Group by p.project_id, us.username\n"
 			+ ") AS pCount", nativeQuery = true)
 	long countProjectForUser(long userId); 
 	
+	//count OWN projects
+	@Query(value = "Select COUNT(*) ProjectsCreatedByUserCount FROM(\n"
+			+ "SELECT p.* FROM project p \n"
+			+ "WHERE p.project_owner_user_id = ?1\n"
+			+ ") AS pCount", nativeQuery = true)
+	long countProjectsCreatedByUser(long userId); 
 	
+	
+	//count Joined projects
+		@Query(value = "Select COUNT(*) JoinedProjectsCount FROM(\n"
+				+ "SELECT p.* FROM project p \n"
+				+ "LEFT JOIN project_members m ON m.user_id =?1\n"
+				+ "WHERE p.project_id = m.project_id\n"
+				+ ") AS pCount", nativeQuery = true)
+		long countJoinedProjects(long userId); 
+		
+		
 	
 	@Query(value = "SELECT DISTINCT p.project_id projectId, p.title, p.description, \n"
 			+ "p.status, p.creation_date creationDate, \n"
@@ -106,6 +133,25 @@ public interface ProjectRepository extends CrudRepository<Project, Long>{
 	
 	//@Query(nativeQuery=true, value="Select COUNT(projects_id) as projectCount from PROJECT ")
 	
+	@Transactional
+	@Modifying
+	//add project members
+	@Query(value="INSERT into project_members(user_id, project_id) \n"
+			+ "SELECT ?2, ?1\n"
+			+ "WHERE NOT EXISTS(SELECT 1 \n"
+			+ "FROM project_members pm \n"
+			+ "WHERE pm.user_id =?2 \n"
+			+ " AND pm.project_id = ?1)", nativeQuery = true)
+	int addProjectMember(long projectId, long userId);
+	
+	
+	
+	@Transactional
+	@Modifying
+	//add project members
+	@Query(value="DELETE FROM public.project_members\n"
+			+ "	WHERE user_id = ?2 AND project_id = ?1;", nativeQuery = true)
+	int removeProjectMember(long projectId, long userId);
 	
 }
 	

@@ -23,9 +23,9 @@ function switchTheme() {
 (function() {
 	const toggle = document.getElementById("theme");
 	const all_theme_toggle = document.getElementsByClassName("theme__toggle");
-	document.getElementsByClassName("theme__toggle").forEach((tog)=>{
+	/*document.getElementsByClassName("theme__toggle").forEach((tog)=>{
 		tog.checked = true;
-	})
+	})*/
 	if (localStorage.getItem('theme') === 'dark-mode') {
 		toggle.checked = true;
 		switchTheme();

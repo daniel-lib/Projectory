@@ -1,6 +1,6 @@
 (function displayProfilePicBtn() {
 	const profilePicBtn = document.querySelectorAll('.profile-pic-btn.own-profile-pic');
-	if (profilePicBtn[0].textContent == "") {
+	if (profilePicBtn ) {
 		Array.from(profilePicBtn).forEach((element) => element.textContent = username[0].toUpperCase());
 	}
 	else {

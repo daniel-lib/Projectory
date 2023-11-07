@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.app.projectory.dao.ProjectRepository;
 import com.app.projectory.dao.ProjectTaskRepository;
+import com.app.projectory.dao.UsersRepository;
 import com.app.projectory.dto.ProjectDto;
 import com.app.projectory.dto.ProjectMembersDto;
 import com.app.projectory.dto.ProjectTasksDto;
 import com.app.projectory.entity.Project;
 import com.app.projectory.entity.ProjectTasks;
+import com.app.projectory.entity.Users;
 import com.app.projectory.service.userAccountService;
 
 @Controller
@@ -32,6 +34,7 @@ public class ProjectController {
 	private ProjectTaskRepository projTaskDoa;
 	@Autowired
 	private userAccountService userServ;
+	@Autowired private UsersRepository userRepo;
 	
 	@GetMapping("/board")
 	public String serveBoard(Model model, Authentication auth){
@@ -107,15 +110,64 @@ public class ProjectController {
 		//return null;
 	}
 	
+	//Project count
 	@GetMapping("/getProjectCount")
 	public @ResponseBody long serveProjectCount(Authentication auth) {
 		//get user id from user account service
 		long userId = userServ.getUserId(auth);
-		//get projects for specific user
-			
+		//get projects for specific user			
 		return projDao.countProjectForUser(userId);
-		//return null;
 	}
+	
+	@GetMapping("/getOwnProjectsCount")
+	public @ResponseBody long serveOwnProjectCount(Authentication auth) {
+		//get user id from user account service
+		long userId = userServ.getUserId(auth);
+		//get projects for specific user			
+		return projDao.countProjectsCreatedByUser(userId);
+	}
+	
+	@GetMapping("/getJoinedProjectsCount")
+	public @ResponseBody long serveJoinedProjectCount(Authentication auth) {
+		//get user id from user account service
+		long userId = userServ.getUserId(auth);
+		//get joined projects for specific user			
+		return projDao.countJoinedProjects(userId);
+	}
+	//Project count ended
+	
+	@GetMapping("/findByUsername")
+	public @ResponseBody Users findByUsername(@RequestParam("user") String username) {
+		return userRepo.findByUsername(username);
+	}
+	
+	
+	//add project member
+	//returns 1 if successful or 0 if not
+	@GetMapping("/addProjectMember")
+	public @ResponseBody int addProjectMember(@RequestParam("project") long projectId, 
+			@RequestParam("user") String username) {
+		if(userRepo.findByUsername(username) != null) {
+		long userId = userRepo.findByUsername(username).getUserId();
+		return projDao.addProjectMember(projectId, userId);	
+		}
+		return 0;
+	}
+	
+	
+	//add project member
+		//returns 1 if successful or 0 if not
+		@GetMapping("/removeProjectMember")
+		public @ResponseBody int removeProjectMember(@RequestParam("project") long projectId, 
+				@RequestParam("user") String username) {
+			if(userRepo.findByUsername(username) != null) {
+			long userId = userRepo.findByUsername(username).getUserId();
+			return projDao.removeProjectMember(projectId, userId);	
+			}
+			return 0;
+		}
+		
+		
 	
 	@GetMapping("/task/update/status")
 	public @ResponseBody int updateProjectTaskStatus(@RequestParam("status") String statusUpdate, 

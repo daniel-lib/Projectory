@@ -3,28 +3,51 @@ const fetchListUrlREST = '/api/todo-list/1';
 const fetchListUrlREST2 = '/api/todo-list/1';
 const getProjectsUrl = '/project/getProjects';
 const getProjectCountUrl = '/project/getProjectCount';
+const getOwnProjectsCount = '/project/getOwnProjectsCount';
+const getJoinedProjectsCount = '/project/getJoinedProjectsCount';
+
+const addProjectMember = '/project/addProjectMember'
 const getPublicConnectsUrl = '/user/getUserConnectionList';
 const userDetailUrl = "/user/detail"
 
 
-
+let projectListCount2 = 0;
 //project - display -modal
-Vue.createApp({
+const projectVue = Vue.createApp({
 
 	data() {
 		return {
 			projects: [],
-			projectCount: null,
+			projectCount: [],
 			connectsList: [],
-			currentUserDetail: null
+			currentUserDetail: null,
+			
+			
 		}
 	},
 	created() {
 		this.getProjects(),
 			this.getProjectCount(),
-			this.getCurrentUserDetail()
+			this.getCurrentUserDetail()		
+			
+	},
+	mounted(){
+		//sends it into unending loop when declared in data();
+		this.projectListCount = 0
+	},
+	updated(){
+		//prevents it from incrementing when data is updates
+		this.projectListCount = 0
+	},
+	computed(){
+		//projectListCount: 0
 	},
 	methods: {
+	/*	incrementCount(){
+			//alert(this.projectListCount)
+			
+			return ++this.projectListCount-600
+		},*/
 		getCurrentUserDetail(){
 			fetch(userDetailUrl)
 				.then(response => response.json())
@@ -36,9 +59,18 @@ Vue.createApp({
 				.then(data => this.projects = data)
 		},
 		getProjectCount() {
+			//get all projects count
 			fetch(getProjectCountUrl)
 				.then(response => response.json())
-				.then(data => this.projectCount = data)
+				.then(data => this.projectCount[0] = data)
+			//get projects Created by user count
+			fetch(getOwnProjectsCount)
+				.then(response => response.json())
+				.then(data => this.projectCount[1] = data)
+			//get joined projects count
+			fetch(getJoinedProjectsCount)
+				.then(response => response.json())
+				.then(data => this.projectCount[2] = data)
 		},
 		showAddProjectMembersList(id, ev, on) {
 			const container = document.getElementById("add-member-list-container-" + id);
@@ -76,9 +108,10 @@ Vue.createApp({
 				.then(data => this.projects = data)
 		},
 		addProjectMember(projectId, username) {
-			fetch(getProjectsUrl)
+			fetch(addProjectMember+"?project="+projectId+"&user="+username)
 				.then(response => response.json())
-				.then(data => this.projects = data)
+				.then(data => alert(data))
+				//.then(data => this.projects = data)
 		},
 		//show "add project task" form
 		showAddProjectTaskForm(id, trigger) {
@@ -140,4 +173,8 @@ Vue.createApp({
 
 	}
 
-}).mount("#projects-holder-container")
+})
+projectVue.mount("#project-list-modal-content")
+/*if(document.getElementById("projects-holder-container")){
+projectVue.mount("#projects-holder-container")
+}*/

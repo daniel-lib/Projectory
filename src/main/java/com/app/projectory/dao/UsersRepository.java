@@ -13,7 +13,8 @@ import com.app.projectory.entity.Users;
 @Repository
 public interface UsersRepository extends CrudRepository<Users, Long> {
 	
-	String findByUsername(String username);
+	//String findByUsername(String username);
+	Users findByUsername(String username);
 	
 	 List<Users> findAll();
 	 

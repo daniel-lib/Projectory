@@ -186,6 +186,9 @@
 .nav-link {
 	padding-left: .5rem !important;
 }
+.side-nav-links{
+	line-height: 2em;
+}
 
 .nav-icon::before {
 	text-align: center;
@@ -213,6 +216,10 @@
 	background-color: rgba(0, 0, 0, 0.5);
 	border-left: 3px solid rgb(191, 152, 56) !important;
 	transition: 0.1s ease-in-out;
+}
+
+.side-nav-hr-line{
+	border: 1px solid #777171;
 }
 
 .top-nav-links {

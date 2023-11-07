@@ -117,135 +117,65 @@
 
 		</div>
 
-		<div class="front-poster-container">
+		<div class="front-poster-container" style="height: 250px;">
 			<div class="front-poster-container-inner">
-				<div class="front-poster-text d-flex justify-content-center px-3 pt-5">
-					<p class="mt-5" data-aos="fade-down">Visualizing the trajectory of your projects has never been easier!</p><br /><br />
+				<div class="front-poster-text d-flex justify-content-center px-3 pt-5" style="height: 250px; min-height: 250px;">
+					<!--<p class="mt-5">Some blog posts about productivity and productivity tools</p>-->
+					<span class="mt-5">Some blog posts about productivity and productivity tools</span>
 					<div class="get-started-btn-container d-flex justify-content-center">
 						<div class="get-started-btn-container-inner">
-							<button class="btn landing-page-btn get-started-btn d-inline"
-								onClick="displaySigninForm('signup'); startElementRotation();">Get Started</button>
-							<span class="px-2"></span>
+							
 							
 						</div>
 					</div>
 				</div>
 
 
-				<img th:src="@{/images/landing-banner-bg.jpg}">
+				<img th:src="@{/images/landing-banner-bg.jpg}" style="min-height: 250px;">
 			</div>
 
 		</div>
 
 
+		<main id="blog-post-area">
+			<h4 class="mt-4 text-center">Most viewed</h4>
+		
 		<div class="d-flex justify-content-around flex-wrap mt-4">
-			<div data-aos="zoom-in" data-aos-delay="450" class="card projectory-fact-cards p-2 mb-3" style="width: 18rem;" th:each="blog : ${MostRatedBlogPeekViewList}">
-				<img class="card-img-top" th:src="@{${blog.imageLink}}" th:alt="${blog.title} +' '+ illustration">
-				<div class="card-body">
-					<h5 class="card-title" th:text = "${blog.title}"></h5>
+			
+			<div class="blog-post-container card projectory-fact-cards p-2 mb-3" data-aos="zoom-in" style="width: 18rem;" 
+			th:each="blog : ${MostRatedBlogPeekViewList}" th:id="blog-post-container-+''+${blog.id}">
+				<img class="card-img-top float-start d-inline" th:src="@{${blog.imageLink}}" th:alt="${blog.title} +' '+ illustration" height="200px">
+				<div class="card-body d-inline"> 
+					<h5 class="card-title" th:text = "${blog.title}" style="color:cadetblue"></h5>
 					<p class="card-text" th:text = "${blog.shortDescription}"> 
 					</p>
+					<hr/>
+					<p class="blog-full-content" th:text = "${blog.textContent}"></p>
+					
 					<!--<a th:href="/blog?post=+' '+${blog.id}" class="btn btn-primary btn-sm">Learn More</a>-->
-					<a th:href="@{/blog(post=${blog.id})}" class="btn btn-primary btn-sm">Continue Read</a>
+					<button class="btn btn-primary btn-sm blog-post-container-expanded-toggle" @click="expandBlogPost($event)" th:id="${blog.id}">Continue Read</button>
 				</div>
 			</div>
-			<!--
-			<div class="card projectory-fact-cards p-2 mb-3" style="width: 18rem;" th:each="blog : blogPeakViewList">
-				<img class="card-img-top" th:src="@{/images/productivity.png}" alt="productivity illustration">
-				<div class="card-body">
-					<h5 class="card-title">Plan Your Day</h5>
-					<p class="card-text">Studies show scheduling and planning your day increases productivity by 100%.
-						we spend more energy trying to remember what we need to do than actually accomplishing a task.
-					</p>
-					<a href="#" class="btn btn-primary btn-sm">Learn More</a>
-				</div>
-			</div>
-
-			<div class="card projectory-fact-cards p-2 mb-3" style="width: 18rem;">
-				<img class="card-img-top" th:src="@{/images/manage-stress.png}" alt="manage stress illustration">
-				<div class="card-body">
-					<h5 class="card-title">Manage Stress</h5>
-					<p class="card-text">Stress has become prevalent in the current state of the world we live in. We
-						need to protect our mental health
-						with everything we got. Keeping your life organized can keep you sane. </p>
-					<a href="#" class="btn btn-primary btn-sm">Learn More</a>
-				</div>
-			</div>
-			<div class="card projectory-fact-cards p-2 mb-3" style="width: 18rem;">
-				<img class="card-img-top" th:src="@{/images/save-time.png}" alt="save time illustration">
-				<div class="card-body">
-					<h5 class="card-title">Save time</h5>
-					<p class="card-text">It is well know that time is the ultimate currency. We need to salvage as much
-						of it as we can and put it
-						in good use. Just like as foreth fathers used tools to save time when hunting, we need to do the
-						same.
-					</p>
-					<a href="#" class="btn btn-primary btn-sm">Learn More</a>
-				</div>
-			</div>
-			-->
 			
 		</div>
+		<hr/>
+		<div class="d-flex justify-content-around flex-wrap mt-4">
+		<div class="blog-post-container card projectory-fact-cards p-2 mb-3 flex-fill mx-2" data-aos="zoom-in" style="width: 18rem;" 
+		th:each="blog : ${AllExceptMostViewedBlogsPeekView}" th:id="blog-post-container-+''+${blog.id}">
+				<!--<img class="card-img-top float-start d-inline" th:src="@{${blog.imageLink}}" th:alt="${blog.title} +' '+ illustration">-->
+				<div class="card-body d-inline"> 
+					<h5 class="card-title" th:text = "${blog.title}" style="color:cadetblue"></h5>
+					<p class="card-text" th:text = "${blog.shortDescription}"> 
+					</p>
+					<hr/>
+					<p class="blog-full-content" th:text="${blog.textContent}"></p>
+					<!--<a th:href="/blog?post=+' '+${blog.id}" class="btn btn-primary btn-sm">Learn More</a>-->
+					<!--<a th:href="@{/blog(post=${blog.id})}" class="btn btn-primary btn-sm">Continue Read</a>-->
+					<button class="btn btn-primary btn-sm blog-post-container-expanded-toggle" @click="expandBlogPost($event)" th:id="${blog.id}">Continue Read</button>
+				</div>
+			</div>
+</div>
 
-<!-- Service start -->
-<section class="service-section service-home">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-6">
-				<h2 class="mb-2 ">Core Features.</h2>
-				<p class="mb-5">Projectory's core services are designed to help you and your team plan, 
-					manage, and deliver projects successfully. By using Projectory, you can improve your 
-					team's productivity, efficiency, and collaboration.</p>
-			</div>
-		</div>
-		
-		<div class="row">
-			<div class="col-lg-4">
-				<div class="service-item mb-5" data-aos="fade-left" >
-					<i class="ti-layers"></i>
-					<h4 class="my-3">Task management</h4>
-					<p>Create, assign, and track tasks. See how tasks are progressing in real time.</p>
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="service-item mb-5" data-aos="fade-left"  data-aos-delay="450">
-					<i class="ti-announcement"></i>
-					<h4 class="my-3">Collaboration</h4>
-					<p>Get notified of updates to tasks and projects. Share tasks, files, and comments with team members.</p>
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="service-item mb-5 mb-lg-0" data-aos="fade-left"  data-aos-delay="750">
-					<i class="ti-layout"></i>
-					<h4 class="my-3">Kanban boards</h4>
-					<p>Great way for visualizing project progress.</p>
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="service-item" data-aos="fade-left"  data-aos-delay="750">
-					<i class="ti-pie-chart"></i>
-					<h4 class="my-3">Reporting and analytics</h4>
-					<p>Generate reports on project progress, task completion, and resource utilization.</p>
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="service-item mb-5" data-aos="fade-left"  data-aos-delay="950">
-					<i class="ti-id-badge"></i>
-					<h4 class="my-3">Social experience</h4>
-					<p>Meet new people. Create community &amp; participate public projects</p>
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="service-item mb-5 mb-lg-0" data-aos="fade-left"  data-aos-delay="1050">
-					<i class="ti-server"></i>
-					<h4 class="my-3">Data-driven decision making</h4>
-					<p>Make decisions based on progress data.</p>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-<!-- service end -->
 
 		<div class="div-top-decor-container d-flex">
 			<!--<script>
@@ -262,16 +192,9 @@
 
 			</script>-->
 		</div>
+		</main>
 
-
-		<div class="d-flex justify-content-around mt-4 container-bg-blue p-3">
-
-			<p class="fs-1 blue-bg-text-headline pt-5">Projectory can help you take the lead and be the <span
-					class="colored-text-inline align-self-center">pro</span>
-				in your <span class="colored-text-inline">pro</span>jects.</p>
-			<p class="blue-bg-text-paragraph align-self-start"> <img src="images/pro-ject-manager.png" width="200px"
-					height="200px" class="d-inline"></p>
-		</div>
+<script src="/javascript/vue-scripts/blog-vue.js" defer></script>
 
 
 
@@ -299,4 +222,3 @@
 </body>
 
 </html>
-

@@ -1,4 +1,5 @@
 
+
 //display go to the top button
 toggleGoTo();
 // Listen for click events on body

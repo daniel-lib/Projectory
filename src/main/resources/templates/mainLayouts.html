@@ -18,12 +18,17 @@
 	<link href="/css/notification-popup-bar.css" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/6d882a57d9.js" crossorigin="anonymous"></script>
 	<script src="/javascript/todoListScript.js" defer></script>
-	<script src="/javascript/dashboard-script.js" defer></script>
+	<!--<script src="/javascript/dashboard-script.js" defer></script>-->
 	<script src="/javascript/mainScript.js" defer></script>
 	<script src="/javascript/theme-switch-script.js" defer></script>
 	
 	<script src="/javascript/vue.global.js.js"></script>
-	<script src="/javascript/vue-script.js" defer></script>
+	
+	
+	
+	  <!-- ** Plugins Needed for animation and icon flare** -->
+  <link rel="stylesheet" href="/plugins/themify/css/themify-icons.css">
+  <link rel="stylesheet" href="/plugins/aos/aos.css">
 </head>
 
 <label for="theme" class="theme" th:fragment="theme-switch" title="switch theme">
@@ -66,18 +71,17 @@
 			<button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
 				data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
 				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon fa-solid fa-bars" onmouseover="toggleMenuClose(true)"
-					onmouseout="toggleMenuClose(false)">
+				<span class="navbar-toggler-icon fa-solid fa-bars" >
 					<span class="menu-icon menu-icon-one"></span>
 
 				</span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-				<div class="navbar-nav home-nav-container">
-					<a class="nav-link" aria-current="page" th:href="@{/}">Home</a>
-					<a class="nav-link" aria-current="page" th:href="@{/}">Features</a>
-					<a class="nav-link" href="">Resources</a>
-					<a class="nav-link" href="">About</a>
+				<div class="navbar-nav home-nav-container" id="home-top-nav">
+					<a class="nav-link home" aria-current="page" th:href="@{/}">Home</a>
+					<a class="nav-link features" aria-current="page" th:href="@{/features}">Features</a>
+					<a class="nav-link blog" href="/blog">Blog</a>
+					<a class="nav-link about" href="/about">About</a>
 				</div>
 			</div>
 		</div>
@@ -99,17 +103,17 @@
 					<h6>FEATURES</h6>
 				</li>
 				<li><a href="">Project Management</a></li>
-				<li><a href="">To-do list tool</a></li>
+				<li><a href="">To-do task tool</a></li>
 				<li><a href="">Kanban Board</a></li>
 			</ul>
 		</div>
-		<div class="compamy">
+		<div class="company">
 
 			<ul>
 				<li>
-					<h6>COMPANY</h6>
+					<h6>DEV</h6>
 				</li>
-				<li><a href="">About</a></li>
+				<li><a href="/about">About</a></li>
 				<li><a href="">Work With Us</a></li>
 				<li><a href="">Contact Us</a></li>
 			</ul>
@@ -128,10 +132,23 @@
 			</ul>
 		</div>
 	</div>
+	<hr/>
 	<div th:replace="/mainLayouts::copyright-info"></div>
+	
+<!-- jQuery -->
+<script src="/plugins/jQuery/jquery.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="/plugins/bootstrap/bootstrap.min.js"></script>
+<script src="/plugins/aos/aos.js"></script>
 
+
+<!-- Main Script -->
+<script src="javascript/anim-script.js"></script>
+<script src="/javascript/landing-pages-menu-script.js" defer></script>
 </footer>
-<div class="d-block copyright-info" th:fragment="copyright-info">
+
+
+<div class="d-block text-center ms-5 copyright-info pb-4" th:fragment="copyright-info">
 	<span>&copy;&nbsp;</span>
 	<a class="footer-link-default" href="https://github.com/daniel-lib" target="_blank">
 		<span>Daniel T. Al. <svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 28"

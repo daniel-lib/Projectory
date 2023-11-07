@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org" class="dark-mode">
+
+<head th:replace="mainLayouts :: head"></head>
+
+<header th:replace="mainLayouts :: nav"></header>
+
+<body onLoad="showMainNotification()" class="">
+	<div class="containers">
+
+		<div id="login-signup-form" class="">
+			<div id="item-action-notification"
+				class="badge item-action-notification px-4 d-flex justify-content-center login-error-notif"
+				th:text="${param.indicator}"></div>
+			<!--<div th:fragment = "notification-board" id="item-action-notification" class="badge item-action-notification px-4 d-flex justify-content-center" th:text="${param.indicator}"></div>-->
+			<div class="login-signup-form">
+				<span class="login-signup-form-exit-btn mx-3 float-end" onclick="closeSigninForm()">&times;</span>
+				<br />
+				<div id="sign-in-form">
+					<span class="d-flex justify-content-center mt-3">
+						<h3 class="login-signup-form-header">Welcome back</h3>
+					</span>
+					<hr />
+					<form class="m-3" th:action="@{/login}" method="post" th:object="${user}">
+						<div class="row">
+							<div class="col-md-12">
+								<label for="username-input"
+									class="form-input-label form-input-label-dark-bg">Username</label>
+								<!--<input type="text" placeholder="username" th:field="${user.username}"
+									id="username-input" class="form-control form-control-sm mb-3">-->
+									<input type="text" placeholder="username" name="username"
+									id="username-input" class="form-control form-control-sm mb-3">
+							</div>
+							<div class="col-md-12">
+								<label for="signin-password-input"
+									class="form-input-label form-input-label-dark-bg">Password</label>
+								<!--<input type="password" placeholder="*************" th:field="${user.password}"
+									class="form-control form-control-sm mb-3" id="signin-password-input">-->
+									<input type="password" placeholder="*************" name="password"
+									class="form-control form-control-sm mb-3" id="signin-password-input">
+							</div>
+						</div>
+						<input type="submit" value="Sign in" class="btn btn-sm btn-primary-golden mb-3">
+						<span class="fw- auth-form-small-text"> New to the platform? <a class="form-alternative-btn"
+								onClick="displaySigninForm('signup')"> Create an account</a></span>
+					</form>
+				</div>
+
+				<div id="sign-up-form">
+					<span class="d-flex justify-content-center mt-3">
+						<h3 class="login-signup-form-header">Stress-free life begins here</h3>
+					</span>
+					<hr />
+					<form class="m-3" action="/register-user" method="post" th:object="${user}">
+
+						<div class="row">
+							<div class="col-md-4">
+								<label for="signup-username-input"
+									class="form-input-label form-input-label-dark-bg">First name</label>
+								<span class="required-field-asterisks"> *</span>
+								<input type="text" placeholder="First Name" th:field="${user.firstName}"
+									class="form-control form-control-sm mb-3" id="signup-username-input" required
+									autofocus>
+							</div>
+
+							<div class="col-md-4">
+								<label for="project-title-input" class="form-input-label form-input-label-dark-bg">Last
+									name</label>
+								<span class="required-field-asterisks"> *</span>
+								<input type="text" placeholder="Last Name" th:field="${user.lastName}"
+									class="form-control form-control-sm mb-3" id="signup-username-input" required>
+							</div>
+
+							<div class="col-md-4">
+
+								<label for="signup-email-input"
+									class="form-input-label form-input-label-dark-bg">Email</label>
+								<span class="required-field-asterisks"> *</span>
+								<input type="email" placeholder="example@example.com" th:field="${user.emailAddress}"
+									class="form-control form-control-sm mb-3" id="signup-email-input" required>
+							</div>
+
+							<div class="col-md-6">
+								<label for="signup-username-input"
+									class="form-input-label form-input-label-dark-bg">Username</label>
+								<span class="required-field-asterisks"> *</span>
+								<input type="text" placeholder="username" th:field="${user.username}"
+									class="form-control form-control-sm mb-3" id="signup-username-input" required>
+							</div>
+
+							<div class="col-md-6">
+								<label for="signup-password-input"
+									class="form-input-label form-input-label-dark-bg">Password</label>
+								<span class="required-field-asterisks"> *</span>
+								<input type="password" placeholder="************" th:field="${user.password}"
+									class="form-control form-control-sm mb-3" id="signup-password-input" required>
+							</div>
+							
+							<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+
+						</div>
+
+						<div class="terms-services-agreement mb-2 ">
+							<input type="checkbox" value="agree-to-terms" class="d-inline mt-1" required>
+							<span class="auth-form-small-text auth-form-medium-size d-inline"> I accept terms &amp;
+								conditions. </span>
+						</div>
+
+						<input type="submit" value="Sign up" class="btn btn-sm btn-primary-golden mb-3">
+						<span class="fw- auth-form-small-text"> Already have an account? <a class="form-alternative-btn"
+								onClick="displaySigninForm('login')"> Login</a></span>
+
+					</form>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="front-poster-container" style="height: 250px;">
+			<div class="front-poster-container-inner">
+				<div class="front-poster-text d-flex justify-content-center px-3 pt-5" style="height: 250px; min-height: 250px;">
+					<!--<p class="mt-5">Some blog posts about productivity and productivity tools</p>-->
+					<span class="mt-5">About Projectory</span>
+					<div class="get-started-btn-container d-flex justify-content-center">
+						<div class="get-started-btn-container-inner">
+							
+							
+						</div>
+					</div>
+				</div>
+
+
+				<img th:src="@{/images/landing-banner-bg.jpg}" style="min-height: 250px;">
+			</div>
+
+		</div>
+
+
+		<main id="about-projectory-area" class="p-5">
+			<div class="mb-4">
+				<img src="/images/projectory-logo-full.png" height="50px">
+			<h6>Project management tool</h6>
+			</div>
+			<p>This is a project management web application built using Spring framework. 
+				The app helps businesses track and manage their projects, allow users to create 
+				and manage projects, tasks, milestones, and collaborate with each other on projects.</p>
+			<h6>with features like:</h6>
+			<ul>
+				<li>User Registration and Login: Users can create an account and log in to the app using their email or username.</li>
+				<li>The ability to create and manage projects</li>
+				<li>The ability to create and manage tasks</li>
+				
+				<li>The ability to create and manage milestones</li>
+				<li>The ability to collaborate with other users on projects</li>
+				<li>The ability to track project progress</li>
+				<li>The ability to generate reports on project progress</li>
+				<li>The ability to create todo list &amp; organized them in a collection</li>
+				<li>Kanban board: a way to manage tasks and projects in an organized and visual manner</li>
+			
+			</ul>
+			<h6 class="mb-4">Here are some screenshots of what you could expect to see when you login</h6>
+			<h6>Dashboard - Dark/Light theme</h6>
+			<img src="/images/UI-Screenshot/readme-dashboard-theme2.png/" width="100%" class="mb-4">
+			<hr/>
+			<h6>Agile board</h6>
+			<img src="/images/UI-Screenshot/board.png" width="100%" class="mb-4"/>
+			<hr/>
+			<h6>Project view modal</h6>
+			<img src="/images/UI-Screenshot/modal-project-view.png/" width="100%" class="mb-4"/>
+		<hr/>
+		</main>
+
+<script src="/javascript/vue-scripts/blog-vue.js" defer></script>
+
+
+
+
+	</div>
+	<footer th:replace="/mainLayouts :: footer"></footer>
+
+	<!--<script th:replace="/user/user-layouts::notification-board-script"></script>-->
+
+
+
+	<script>
+	/*	var loginStatus = "[[${loginStatus}]]";
+		var login_error = "[[${param.auth}]]";
+		if(auth_error == "required")
+		alert("You need to signin first");
+		else if(auth_error = "loggedout")
+		alert("Successfully logged out")
+		else{
+			
+		}*/
+	//alert(loginStatus.);
+	</script>
+<div th:replace="/mainLayouts::cookie-notice"></div>
+</body>
+
+</html>

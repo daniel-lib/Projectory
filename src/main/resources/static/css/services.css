@@ -1,0 +1,18 @@
+.service-section {
+  padding: 120px 0px;
+}
+
+.service-section-sm {
+  padding: 60px 0px;
+}
+
+.service-home {
+  position: relative;
+}
+
+.service-item i {
+  font-size: 35px;
+  float: left;
+  width: 65px;
+  height: 120px;
+}

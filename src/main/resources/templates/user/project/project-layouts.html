@@ -12,7 +12,8 @@
 
 
 	<div class="d-flex justify-content-around flex-wrap" id="projects-holder-container">
-		<div v-for="project in projects" class="project-modal-boxes-container mb-5" id="project-modal-boxes-container">
+		<div v-for="project in projects" :key="project.projectId" class="project-modal-boxes-container mb-5"
+			id="project-modal-boxes-container">
 			<span role="button" class="float-end top-dangling-x-btn fa-solid fa-expand" title="Expand"
 				:id="`project-modal-expand-btn-${project.projectId}`"
 				@click="expandContainer(`project-modal-box-${project.projectId}`, $event)"></span>
@@ -26,7 +27,7 @@
 						Project owner: <span v-if="project.projectOwnerUsername === currentUserDetail.username"
 							class="project-created-by-you">
 							<a :href="`/user/${currentUserDetail.username}`"
-							 class="no-text-decoration inherit-color">You</a></span>
+								class="no-text-decoration inherit-color">You</a></span>
 						<span v-else class="project-owner-another">
 							<a :href="`/user/${project.projectOwnerUsername}`" class="no-text-decoration">
 								{{project.projectOwnerUsername}}</a></span>
@@ -38,36 +39,26 @@
 				</div>
 
 				<div class="project-modal-inner-content-container d-flex flex-wrap justify-content-around p-2">
-					<!--<div class="project-modal-boxes-inner p-1 my-2 mx-2 align-self-start" style="display: block;"
-						th:id="${proj.projectId}">-->
 					<div class="project-modal-boxes-inner p-1 my-2 mx-2 align-self-start" style="display: block;"
 						:id="project.projectId">
-						<span id="itemNumber" class="badge text-bg-warning itemNumber">0</span>
-						<!--<span th:text="${proj.title}" id=""> </span>-->
-						<span id=""> {{project.title}}</span>
+						<span id="itemNumber" class="badge text-bg-warning itemNumber">{{++projectListCount}}</span>
+						<span id="">&nbsp; {{project.title}}</span>
 						<br />
-						<!--<span th:text="${proj.description}" class="fw-lighter"></span>-->
 						<span class="fw-lighter">{{project.description}}</span>
-						<!--<span th:class="d-block +' '+project-status-label +' '+${proj.status}"
-							th:text="${proj.status}"></span>-->
 						<span :class="`d-block project-status-label ${project.status}`">{{project.status}}</span>
 						<br />
 
 
 						<!-- add task / members buttons-->
 						<div class="mt-1 d-flex justify-content-around">
-							<!--<button id="add-project-task-button" role="button"-->
-								<div class="align-self-start">
-							<button role="button"
-								class="minimalist-btn minimalist-btn-blk-bg minimalist-btn-rounded add-project-task-button align-self-start"
-								@click="showAddProjectTaskForm(`${project.projectId}`,$event)">
-								<span class="fa-solid fa-notes-medical"></span>
-								<span class="add-project-task-btn-text">Add Task</span>
-							</button>
-								</div>
-							<!--<button id="add-project-members-button"
-								class="minimalist-btn minimalist-btn-blk-bg minimalist-btn-rounded add-project-members-button btn-sm"
-								 onClick="addContributersForm()">-->
+							<div class="align-self-start">
+								<button role="button"
+									class="minimalist-btn minimalist-btn-blk-bg minimalist-btn-rounded add-project-task-button align-self-start"
+									@click="showAddProjectTaskForm(`${project.projectId}`,$event)">
+									<span class="fa-solid fa-notes-medical"></span>
+									<span class="add-project-task-btn-text">Add Task</span>
+								</button>
+							</div>
 							<div>
 								<button id="add-project-members-button"
 									@click="showAddProjectMembersList(`${project.projectId}`, $event, 'clk')"
@@ -79,28 +70,27 @@
 										placeholder="Add Members" id="add-project-members-btn-text" />
 								</button>
 
-								
+
 							</div>
 
 						</div>
-						
+
 						<div :id="`add-member-list-container-${project.projectId}`"
-									class="add-project-member-list-container custom-scrollbar-style-2 overflow-ver-scroll">
-									<div v-for="conn in connectsList"
-										class="add-project-member-list-item-box-container">
-										<span class="d-flex justify-content-between add-project-member-list-item-box">
-											<span>
-												<span class="d-block">{{conn.connectedUserFirstName}}
-													{{conn.connectedUserLastName}}</span>
-												<span
-													class="d-block fs-10 cadetblue">{{conn.connectedUserUsername}}</span>
-											</span>
-											<input type="checkbox" :value="conn.connectedUserUsername" title="add"
-												class="form-check-input red-checkbox green-checkbox align-self-center"
-												@click="addProjectMember(`${project.projectId}, ${conn.connectedUserUsername}`)">
-										</span>
-									</div>
-								</div>
+							class="add-project-member-list-container custom-scrollbar-style-2 overflow-ver-scroll">
+							<div v-for="conn in connectsList" class="add-project-member-list-item-box-container">
+								<span class="d-flex justify-content-between add-project-member-list-item-box">
+									<span>
+										<span class="d-block">{{conn.connectedUserFirstName}}
+											{{conn.connectedUserLastName}}</span>
+										<span class="d-block fs-10 cadetblue">@{{conn.connectedUserUsername}}</span>
+									</span>
+									<input type="checkbox" :value="conn.connectedUserUsername" title="add"
+										class="form-check-input red-checkbox green-checkbox align-self-center"
+										@click="addProjectMember(project.projectId, conn.connectedUserUsername, $event)">
+								</span>
+								
+							</div>
+						</div>
 
 
 						<!--add project task form-->
@@ -133,15 +123,9 @@
 						<hr />
 						<div class="modal-project-task-container p-1">
 							<h6 class="project-task-title mt-2 ms-2">Tasks</h6>
-							<!--					<p class="card-text fw-lighter item-count-check" th:text="${projectTaskCount}"></p>-->
+
 							<div class="modal-project-task-container-inner custom-scrollbar-style-3">
-								<!--<div th:each="task : ${proj.projectTasks}">
-									<div class="modal-project-task-items p-1 m-1">
-										<span class="modal-project-task-name" th:text="${task.taskName}"></span>
-										<span class="modal-project-task-description d-block p-1"
-											th:text="${task.taskDescription}"></span>
-									</div>
-								</div>-->
+
 							</div>
 						</div>
 					</div>
@@ -250,7 +234,15 @@
 			id="delete-selected-btn" disabled>
 			Delete Selected <span class="badge text-bg-info" id="number-of-items-badge">0</span>
 		</button>-->
-		<div class="p-4 project-modal-boxes-extra-info"> stat and more info</div><br />
+		<div class="p-4 project-modal-boxes-extra-info">
+			<div class="project-count-info">
+				<span class="d-block">Projects: {{projectCount[0]}}</span>
+				<span class="d-block ms-2 ps-1 border-start border-secondary project-created-by-you">Created:
+					{{projectCount[1]}}</span>
+				<span class="d-block ms-2 ps-1 border-start border-secondary project-owner-another pb-0">Joined:
+					{{projectCount[2]}}</span>
+			</div>
+		</div><br />
 		<div th:replace="/user/project/project-layouts :: project-list-table"></div>
 
 		<!--</form>-->
@@ -285,7 +277,8 @@
 				</div>
 			</div>
 		</div>
-		<button class="minimalist-btn minimalist-btn-lighter btn-sm create-project-btn create-project-btn-card ms-2 mt-2"
+		<button
+			class="minimalist-btn minimalist-btn-lighter btn-sm create-project-btn create-project-btn-card ms-2 mt-2"
 			onClick="showAddProjectForm('card')">Create
 			Project</button>
 
