@@ -6,12 +6,18 @@ const getProjectCountUrl = '/project/getProjectCount';
 const getOwnProjectsCount = '/project/getOwnProjectsCount';
 const getJoinedProjectsCount = '/project/getJoinedProjectsCount';
 
-const addProjectMember = '/project/addProjectMember'
+const getProjectMembers = '/project/members';
+const addProjectMember = '/project/addProjectMember';
+const removeProjectMember = '/project/removeProjectMember';
 const getPublicConnectsUrl = '/user/getUserConnectionList';
 const userDetailUrl = "/user/detail"
 
+const getProjectTasks = '/project/task';
+const getProjectTasksUrl = '/project/getProjectTasks';
+const addProjectUrl = '/project/add-project';
+const deleteProjectUrl = '/project/delete';
 
-let projectListCount2 = 0;
+//let projectListCount2 = 0;
 //project - display -modal
 const projectVue = Vue.createApp({
 
@@ -20,35 +26,40 @@ const projectVue = Vue.createApp({
 			projects: [],
 			projectCount: [],
 			connectsList: [],
+			projectMembers: [],
 			currentUserDetail: null,
-			
-			
+			projectTasks: {}
+
+
+
 		}
 	},
 	created() {
 		this.getProjects(),
 			this.getProjectCount(),
-			this.getCurrentUserDetail()		
-			
+			this.getCurrentUserDetail()
+
+		//this.getProjectTasks();
+
 	},
-	mounted(){
+	mounted() {
 		//sends it into unending loop when declared in data();
 		this.projectListCount = 0
 	},
-	updated(){
+	updated() {
 		//prevents it from incrementing when data is updates
 		this.projectListCount = 0
 	},
-	computed(){
+	computed() {
 		//projectListCount: 0
 	},
 	methods: {
-	/*	incrementCount(){
-			//alert(this.projectListCount)
-			
-			return ++this.projectListCount-600
-		},*/
-		getCurrentUserDetail(){
+		/*	incrementCount(){
+				//alert(this.projectListCount)
+				
+				return ++this.projectListCount-600
+			},*/
+		getCurrentUserDetail() {
 			fetch(userDetailUrl)
 				.then(response => response.json())
 				.then(data => this.currentUserDetail = data)
@@ -56,7 +67,20 @@ const projectVue = Vue.createApp({
 		getProjects() {
 			fetch(getProjectsUrl)
 				.then(response => response.json())
-				.then(data => this.projects = data)
+				.then(data => {
+					this.projects = data
+
+					this.projects.forEach(project => {
+
+
+						fetch(getProjectTasks + "?project=" + project.projectId)
+							.then(response => response.json())
+							.then(data => {
+								project.projectTasks = data;
+							})
+					})
+				})
+
 		},
 		getProjectCount() {
 			//get all projects count
@@ -72,7 +96,72 @@ const projectVue = Vue.createApp({
 				.then(response => response.json())
 				.then(data => this.projectCount[2] = data)
 		},
+		getProjectTasks() {
+			fetch(getProjectTasks)
+				.then(response => response.json())
+				.then(data => {
+					data.forEach(task => {
+						this.projectTasks[task.projectId] = task
+						alert(task.projectId)
+					})
+
+				})
+			//alert(this.projectTasks.toString())
+			//alert("fff")
+		},
+		getProjectTasksByProject(projectId) {
+			fetch(getProjectTasks + "?project=" + projectId)
+				.then(response => response.json())
+				.then(data => {
+					return data;
+				})
+		},
+		removeProjectMember() {
+			fetch(removeProjectMember + "?project=" + projectId)
+				.then(response => response.json())
+				.then(data => this.projectMembers = data)
+		},
+		getProjectMembers(projectId) {
+			fetch(getProjectMembers + "?project=" + projectId)
+				.then(response => response.json())
+				.then(data => this.projectMembers = data)
+			//alert(this.projectMembers[0].username)			
+		},
+		addProject() {
+			let title = document.getElementById("project-title-input");
+			let description = document.getElementById("project-description-input");
+			let status = document.getElementById("project-status-input");
+			
+			if(title.value.length == ""){
+				toggleNotification("error", "Project title can't be blank!")
+			}
+			else{
+				fetch(addProjectUrl+'?title=' + title.value + '&description=' + description.value + '&status=' + status.value)
+				.then(response => response.json())
+				.then(data => {
+					toggleNotification("success", "Project successfully created!")
+					title.value = "";
+					description.value = "";
+					this.getProjects();	
+					this.getProjectCount();
+					
+				})
+			}
+		},
+		deleteProject(projectId) {			
+				fetch(deleteProjectUrl+'?project=' + projectId)
+				.then(response => response.json())
+				.then(data => {
+					if(data == 1)
+					toggleNotification("success", "Project successfully deleted!")
+					else
+					toggleNotification("error", "Unable to delete project!")
+					this.getProjects();	
+					this.getProjectCount();					
+				})			
+		},
 		showAddProjectMembersList(id, ev, on) {
+			this.getProjectMembers(id);
 			const container = document.getElementById("add-member-list-container-" + id);
 
 			const inputArea = document.getElementById("add-project-members-btn-text");
@@ -80,10 +169,13 @@ const projectVue = Vue.createApp({
 				this.collapseAllAddProjectMembersList();
 				this.collapseAllAddProjectTaskForm();
 				container.classList.add("show");
+
+
+
 				fetch(getPublicConnectsUrl)
 					.then(response => response.json())
 					.then(data => this.connectsList = data)
-				
+
 			}
 			else {
 				if ((ev.currentTarget.value == "" && on == "blr") || ev.currentTarget.id != container.id) {
@@ -94,12 +186,12 @@ const projectVue = Vue.createApp({
 			}
 
 		},
-		collapseAllAddProjectMembersList(){
+		collapseAllAddProjectMembersList() {
 			const memberForm = document.getElementsByClassName("add-project-member-list-container");
-			for(let formContainer of memberForm){
+			for (let formContainer of memberForm) {
 				formContainer.classList.remove("show");
 			}
-			
+
 		}
 		,
 		searchThroughProjectMembersList() {
@@ -108,10 +200,10 @@ const projectVue = Vue.createApp({
 				.then(data => this.projects = data)
 		},
 		addProjectMember(projectId, username) {
-			fetch(addProjectMember+"?project="+projectId+"&user="+username)
+			fetch(addProjectMember + "?project=" + projectId + "&user=" + username)
 				.then(response => response.json())
 				.then(data => alert(data))
-				//.then(data => this.projects = data)
+			//.then(data => this.projects = data)
 		},
 		//show "add project task" form
 		showAddProjectTaskForm(id, trigger) {

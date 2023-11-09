@@ -1,10 +1,10 @@
 <main class="profile-content" th:fragment="profile-content">
-	<div id="user-details">
+	<div>
 		<aside th:replace="/user/user-layouts :: side-menu"></aside>
 
 		<section class="profile-content-inner d-flex gap-4 flex-wrap">
 
-			<section class="profile-main-body  flex-fill">
+			<section class="profile-main-body  flex-fill" id="user-details">
 
 				<div class="profile-header-section small-rounded-containers">
 					<section th:replace="/user/profile/profile-layouts::profile-banner"></section>
@@ -56,7 +56,7 @@
 			</aside>
 
 			<section class="metrics-and-report pt-2 mt-2">
-				<h5>misc</h5>
+				<h5>...</h5>
 				<main class="charts">
 					<div class="projects-report d-flex justify-content-evenly flex-wrap">
 
@@ -84,6 +84,7 @@
 		}
 		else {
 			profileUsernameValue = "[[${UserDetailByUsername}]]";
+			//alert(profileUsernameValue)
 			ownAccount = "[[${ownAccount}]]";
 			//alert(ownAccount);
 		}

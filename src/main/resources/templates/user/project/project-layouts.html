@@ -32,15 +32,15 @@
 							<a :href="`/user/${project.projectOwnerUsername}`" class="no-text-decoration">
 								{{project.projectOwnerUsername}}</a></span>
 					</span>
-					<span class="project-owner-indicator info-tag-dark info-tag-dark-sm float-end"><span
-							class="fa-solid fa-users"></span> Members: </span>
+					<!--<span class="project-owner-indicator info-tag-dark info-tag-dark-sm float-end"><span
+							class="fa-solid fa-users"></span> Members: </span>-->
 					<div></div>
 					<br />
 				</div>
 
 				<div class="project-modal-inner-content-container d-flex flex-wrap justify-content-around p-2">
-					<div class="project-modal-boxes-inner p-1 my-2 mx-2 align-self-start" style="display: block;"
-						:id="project.projectId">
+					<div class="project-modal-boxes-inner p-1 my-2 mx-2 align-self-start flex-fill"
+						style="display: block;" :id="project.projectId">
 						<span id="itemNumber" class="badge text-bg-warning itemNumber">{{++projectListCount}}</span>
 						<span id="">&nbsp; {{project.title}}</span>
 						<br />
@@ -78,17 +78,50 @@
 						<div :id="`add-member-list-container-${project.projectId}`"
 							class="add-project-member-list-container custom-scrollbar-style-2 overflow-ver-scroll">
 							<div v-for="conn in connectsList" class="add-project-member-list-item-box-container">
+
+								<!--list of already members-->
+								<!--	<span class="d-flex justify-content-between add-project-member-list-item-box"
+								 v-for="member in projectMembers">
+									<span>
+										<span class="d-block">>>{{member.firstName}}
+											{{member.lastName}}</span>
+										<span class="d-block fs-10 cadetblue">>>@{{member.username}}</span>
+									</span>
+									<button  :value="conn.connectedUserUsername" title="add"
+										class="btn btn-sm btn-danger p-0 px-1 align-self-center"
+										@click="removeProjectMember(project.projectId, projectMembers.projectMemberUserId, $event)">
+										<span class="fa-solid fa-times"></span></button>
+								</span>-->
+
+								<!--list of connections-->
 								<span class="d-flex justify-content-between add-project-member-list-item-box">
+
 									<span>
 										<span class="d-block">{{conn.connectedUserFirstName}}
 											{{conn.connectedUserLastName}}</span>
 										<span class="d-block fs-10 cadetblue">@{{conn.connectedUserUsername}}</span>
 									</span>
-									<input type="checkbox" :value="conn.connectedUserUsername" title="add"
+									<!--if connected user exists in list of members display remove btn-->
+									<!--<button  v-if="projectMembers.filter((mem) => mem.username == conn.connectedUserUsername) != ''"
+									:value="conn.connectedUserUsername" title="add"
+										class="btn btn-sm btn-danger p-0 px-1 align-self-center"
+										@click="removeProjectMember(project.projectId, projectMembers.projectMemberUserId, $event)">
+										<span class="fa-solid fa-times"></span></button>-->
+
+									<!--if connected user exists in list of members display remove btn-->
+									<input
+										v-if="projectMembers.filter((mem) => mem.username == conn.connectedUserUsername) != ''"
+										type="checkbox" :value="conn.connectedUserUsername" title="add"
+										class="form-check-input red-checkbox green-checkbox align-self-center"
+										@click="addProjectMember(project.projectId, conn.connectedUserUsername, $event)"
+										checked>
+									<!--if connected user is not in list of members display checkbox-->
+									<input
+										v-if="projectMembers.filter((mem) => mem.username == conn.connectedUserUsername) == ''"
+										type="checkbox" :value="conn.connectedUserUsername" title="add"
 										class="form-check-input red-checkbox green-checkbox align-self-center"
 										@click="addProjectMember(project.projectId, conn.connectedUserUsername, $event)">
 								</span>
-								
 							</div>
 						</div>
 
@@ -105,7 +138,7 @@
 
 								<div class="d-flex">
 									<select class="form-select form-select-sm mb-1 me-1 task-status" id="task-status">
-										<option>Not started</option>
+										<option selected>Not started</option>
 										<option>Working on it</option>
 										<option>Done</option>
 									</select>
@@ -119,41 +152,60 @@
 									@click="`addTaskToProject(${project.projectId})`">
 							</div>
 						</div>
+
+					</div>
+
+
+
+					<div class="project-modal-boxes-inner p-1 my-2 mx-2 align-self-start">
+						<h5 class="project-task-title mt-2 ms-2">Tasks</h5>
 						<!--display Project tasks-->
 						<hr />
 						<div class="modal-project-task-container p-1">
-							<h6 class="project-task-title mt-2 ms-2">Tasks</h6>
 
 							<div class="modal-project-task-container-inner custom-scrollbar-style-3">
-
+								<span v-for="task in project.projectTasks"
+									class="d-block border-bottom border-secondary">
+									<span>
+										<span class="d-flex justify-content-between">
+											<span>
+												<span>{{task.taskName}}</span>
+												<span class="fs-10 d-block">{{task.taskDescription}}</span>
+											</span>
+											<span>
+												<span class="ms-5 task-owner"
+													v-if="task.assigneeUsername!=null">@{{task.assigneeUsername}}</span>
+												<span :class="`ms-5 d-block ${status}`">{{task.status}}</span>
+											</span>
+										</span>
+									</span>
+								</span>
 							</div>
 						</div>
 					</div>
 
+					<div class="project-modal-boxes-inner p-4 my-2 mx-2 pt-0 align-self-start">
+						<h4>...</h4>
+						<span role="button"
+							class="badge text-bg-danger delete-single-item-btn delete-single-item-btn-1"
+							title="Delete Project" @click="deleteProject(project.projectId)">
+							<span class="fa-solid fa-trash-can"></span> Delete</span>
+					</div>
+
+
+					<!--<div class="project-modal-boxes-inner p-5 my-2 mx-2 align-self-start">
+						<h3>placeholder</h3>
+					</div>
 
 
 					<div class="project-modal-boxes-inner p-5 my-2 mx-2 align-self-start">
 						<h3>placeholder</h3>
 					</div>
+
 
 					<div class="project-modal-boxes-inner p-4 my-2 mx-2 align-self-start">
 						<h3>placeholder</h3>
-					</div>
-
-
-					<div class="project-modal-boxes-inner p-5 my-2 mx-2 align-self-start">
-						<h3>placeholder</h3>
-					</div>
-
-
-					<div class="project-modal-boxes-inner p-5 my-2 mx-2 align-self-start">
-						<h3>placeholder</h3>
-					</div>
-
-
-					<div class="project-modal-boxes-inner p-4 my-2 mx-2 align-self-start">
-						<h3>placeholder</h3>
-					</div>
+					</div>-->
 
 				</div>
 			</div>
@@ -176,9 +228,9 @@
 		<div class="col-md-4">
 			<label for="project-status-input" class="form-input-label">Status</label>
 			<select id="project-status-input" class="task-status form-select form-select-sm">
-				<option value="Not Started" selected>Not Started</option>
-				<option value="In progress">In progress</option>
-				<option value="Done	">Done</option>
+				<option value="Not started" selected>Not Started</option>
+				<option value="In Progress">In Progress</option>
+				<option value="Completed">Done</option>
 			</select>
 		</div>
 
@@ -193,10 +245,10 @@
 
 
 
-		<div class="col-md-3">
+		<!--<div class="col-md-3">
 			<lable for="project-deadline" class="form-input-label">Deadline</lable>
-			<input type="date" class="form-control form-control-sm" id="project-deadline" placeholder="Deadline">
-		</div>
+			<input type="date" value="2023/11/09" class="form-control form-control-sm" id="project-deadline" placeholder="Deadline">
+		</div>-->
 
 		<div class="col-md-12">
 			<label for="project-title-input" class="form-input-label">Description</label>
@@ -208,7 +260,7 @@
 
 
 	<div class="col-md-12 mb-2">
-		<input onClick="addProject()" type="submit" value="Create Project" class="btn btn-primary-golden btn-sm mt-3">
+		<input @click="addProject()" type="submit" value="Create Project" class="btn btn-primary-golden btn-sm mt-3">
 	</div>
 </div>
 
@@ -253,7 +305,7 @@
 
 <!-- Projects card -->
 <div th:fragment="project-dashboard-card" class="card user-dashboard-cards custom-scrollbar-style" style="width: 18rem;"
-	onclick="displayViewingModal(1)">
+	onclick="displayViewingModal(1)" data-aos="zoom-in">
 	<div class="card-header d-flex">
 		<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-diagram-project" alt="project icon"></span>
 		<h5 class="card-title dashboard-card-title">Project</h5>
@@ -278,7 +330,7 @@
 			</div>
 		</div>
 		<button
-			class="minimalist-btn minimalist-btn-lighter btn-sm create-project-btn create-project-btn-card ms-2 mt-2"
+			class="minimalist-btn minimalist-btn-lighter minimalist-btn-lighter2 btn-sm create-project-btn create-project-btn-card ms-2 mt-2"
 			onClick="showAddProjectForm('card')">Create
 			Project</button>
 
@@ -288,26 +340,51 @@
 
 <!-- Project tasks card-->
 <div th:fragment="project-task-dashboard-card" class="card user-dashboard-cards custom-scrollbar-style"
-	style="width: 18rem;">
+	data-aos="zoom-in" style="width: 18rem;" onClick="window.location.assign('/project/board')"
+	id="projectTaskOnBoardPeekView">
 	<div class="card-header d-flex">
 		<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-list-check" alt="task icon"></span>
-		<h5 class="card-title dashboard-card-title">Tasks on board</h5>
+		<h5 class="card-title dashboard-card-title">{{projectOnBoardCount}} Task<span class="fs-11">|</span>s on board
+		</h5>
 	</div>
 	<div class="card-body p-1">
 		<div class="dashboard-card-content-container-inner custom-scrollbar-style-3">
 			<p class="card-text fw-lighter item-count-check" th:text="${projectTaskCount}"></p>
-			<div th:each="task : ${projectTasks}">
-				<div class="dashboard-card-content-items p-1 m-1">
-					<span class="dashboard-card-content-name" th:text="${task.taskName}"></span>
-					<span class="cadetblue-light"> | Project: </span>
-					<span class="cadetblue" th:text="${task.containerProject.title}"></span>
-					<span class="project-task-status d-block info-tag-dark" th:text="${task.status}"></span>
-					<span class="dashboard-card-content-description d-block p-1 cadetblue-darker"
-						th:text="${task.taskDescription}"></span><!--currently not visible(undecided)-->
-				</div>
+			<!--<div th:each="task : ${projectTasks}">
+				<span class="cadetblue" th:text="${task.containerProject.title}"></span>-->
+
+			<div>
+				<span v-if="projectTasksOnBoardPeekView.length=='0'"
+					style="background-color: var(--primary-bg);color: var(--primary-color)	" class="d-block alert fs-10"
+					role="alert">
+					<span class="ti-info-alt text-center d-block fs-20"></span>
+					There are currently no items on the board.
+					<a th:href="@{/project/board}" class="btn btn-secondary mx-0 p-0 fs-10">Click here</a>
+					to go to the agile board page
+					and select project with a task.<br /> <span class=" ">or</span>
+					go to Project section to add new project tasks</span>
+				<template v-if="projectTasksOnBoardPeekView.length!='0'">
+					<div class="dashboard-card-content-items p-1 m-1" v-for="tasks in projectTasksOnBoardPeekView">
+						<span class="dashboard-card-content-name">{{tasks.taskName}}</span>
+						<span class="cadetblue-light"> | Project: </span>
+						<span class="cadetblue">{{tasks.projectId}}</span>
+						<span
+							:class="`project-task-status d-block info-tag-dark ${tasks.status}-stage p-0`">{{tasks.status}}</span>
+						<span class="project-task-status info-tag-dark fs-12" v-if="tasks.assigneeUsername!=null">
+							Task assignee: @{{tasks.assigneeUsername}}</span>
+						<span class="dashboard-card-content-description d-block p-1 fs-11 ">
+							{{tasks.taskDescription}}</span><!--currently not visible(undecided)-->
+					</div>
+				</template>
 			</div>
+
 		</div>
+
+		<script src="/javascript/vue-scripts/dashboard-vue.js" defer></script>
+		<button class="minimalist-btn minimalist-btn-lighter minimalist-btn-lighter2 btn-sm btn-warning mt-2">Go to
+			board</button>
 	</div>
+
 </div>
 </div>
 

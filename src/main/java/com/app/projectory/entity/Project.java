@@ -1,5 +1,6 @@
 package com.app.projectory.entity;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,7 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,7 +29,9 @@ public class Project {
 	private String title;
 	private String description;
 	private String status;
-	private String creationDate;
+	@CreationTimestamp
+	private LocalDate creationDate;
+	//private String creationDate;
 	
 	
 	
@@ -55,7 +59,7 @@ public class Project {
 
 	
 
-	public Project( String title, String description, String status, String projectDate) {
+	public Project( String title, String description, String status, LocalDate projectDate) {
 		super();
 		this.title = title;
 		this.description = description;
@@ -99,11 +103,11 @@ public class Project {
 		this.status = status;
 	}
 
-	public String getCreationDate() {
+	public LocalDate getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(String projectDate) {
+	public void setCreationDate(LocalDate projectDate) {
 		this.creationDate = projectDate;
 	}
 

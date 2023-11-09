@@ -1,15 +1,16 @@
-.cadetblue{
+.cadetblue {
 	color: cadetblue;
 }
-.cadetblue:hover.cadetblue{
+
+.cadetblue:hover.cadetblue {
 	color: rgb(36, 127, 130);
 }
 
-.cadetblue-light{
+.cadetblue-light {
 	color: rgb(105, 215, 219);
 }
 
-.cadetblue-darker{
+.cadetblue-darker {
 	color: rgb(19, 81, 83);
 }
 
@@ -38,28 +39,46 @@
 .project-status-label.Completed {
 	background-color: rgba(52, 135, 237, 0.3);
 }
-.todo-done{
+
+.todo-done {
 	text-decoration: line-through;
 }
-.project-created-by-you{
-	color: rgb(198, 70, 0);	
+
+.project-created-by-you {
+	color: rgb(198, 70, 0);
 	font-weight: 900;
 }
-.project-owner-another, task-owner{
-	color: rgb(28, 113, 216);	
+
+.project-owner-another,
+task-owner {
+	color: rgb(28, 113, 216);
 	font-weight: 900;
 }
-.goldenrod{
+
+.goldenrod {
 	color: goldenrod;
 }
-.goldenrod:hover{
+
+.goldenrod:hover {
 	color: rgb(199, 145, 7);
 }
 
-.goldenrod-darker{
+.goldenrod-darker {
 	color: rgb(169, 132, 38);
 }
-.goldenrod:hover{
+
+.goldenrod:hover {
 	color: rgb(199, 145, 7);
 }
 
+.project-task-status.done-stage {
+	background-color: rgba(52, 135, 237, 0.3) !important;
+}
+
+.project-task-status.not.started-stage {
+	background-color: rgba(245, 169, 0, 0.2) !important;
+}
+
+.project-task-status.in.progress-stage {
+	background-color: rgba(63, 185, 124, 0.3) !important;
+}

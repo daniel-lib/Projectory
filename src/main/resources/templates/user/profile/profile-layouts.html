@@ -35,7 +35,7 @@
 
 </div>
 
-<div v-for="project in userProjectList" th:fragment="user-project-list" class="project-list-loop">
+<div v-for="project in userProjectList" :key="project.projectId" th:fragment="user-project-list" class="project-list-loop">
 	<div class="user-project-list-items mb-1 p-2 m-3">
 		<span class="d-flex justify-content-between">
 			<span style="font-weight: 300;">Created: {{project.creationDate}}</span>
@@ -48,7 +48,7 @@
 	</div>
 </div>
 
-<div v-for="connect in userConnectionsList" th:fragment="pending-user-connections-list" class="connections-list-loop">
+<div v-for="connect in userConnectionsList" :key="connect.connectionId" th:fragment="pending-user-connections-list" class="connections-list-loop">
 	<a v-if="connect.connectionStatus == 'pending'" :href="`/user/${connect.connectedUserUsername}`"
 		class="no-text-decoration">
 		<div class="user-project-list-items mb-1 p-2 m-3">		
@@ -71,7 +71,7 @@
 	</a>
 </div>
 
-<div v-for="connect in userConnectionsList" th:fragment="approved-user-connections-list" class="connections-list-loop">
+<div v-for="connect in userConnectionsList" :key="`approved-${connect.connectionId}`" th:fragment="approved-user-connections-list" class="connections-list-loop">
 	<a v-if="connect.connectionStatus == 'approved'" :href="`/user/${connect.connectedUserUsername}`"
 		class="no-text-decoration">
 		<div class="user-project-list-items mb-1 p-2 m-3">

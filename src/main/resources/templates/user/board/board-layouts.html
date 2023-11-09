@@ -14,7 +14,7 @@
 			</span>
 			<select
 				class="form-select form-select-sm mb-2 me-1  minimalist-btn minimalist-btn-blk-bg btn-sm board-change-proj-btn"
-				@click="getProjectData()" title="Select Project">
+				@click="getProjectData(!!true)" title="Select Project">
 				<option disabled selected>Select Project</option>
 				<template v-for="project in projectList">
 					<option @click="selectProject(project.projectId)" v-if="projectOnBoard.title == project.title" selected>
@@ -33,9 +33,7 @@
 		<div th:replace="/user/board/board-layouts::task-stage-categories"></div>
 	</div>
 
-	<script>
-
-	</script>
+	
 </div>
 
 <div th:fragment="task-stage-categories" class="d-flex justify-content-between flex-wrap">
@@ -44,7 +42,8 @@
 
 		<div class="drop-area-card-body custom-scrollbar-style-3 not-started-section" 
 		@drop="drop($event)" @dragover="allowDrop($event)"
-			@dragleave="cancelDropAreaHighlight($event)" @dragenter="dropAreaHighlight($event)">
+			@dragleave="cancelDropAreaHighlight($event)" @dragenter="dropAreaHighlight($event)"
+			id="drop-area-card-body-in-progress">
 
 			<template v-for="task in projectTasksOnBoard">
 				<div class="task-draggable-card not started mb-3" draggable="true" @dragstart="drag(`${task.taskId}`,$event)"
@@ -78,7 +77,8 @@
 		<h4 class="text-center task-stage-in-progress">In progress</h4>
 		<div class="drop-area-card-body custom-scrollbar-style-3 in-progress-section" 
 		@drop="drop($event)" @dragover="allowDrop($event)"
-			@dragleave="cancelDropAreaHighlight($event)" @dragenter="dropAreaHighlight($event)">
+			@dragleave="cancelDropAreaHighlight($event)" @dragenter="dropAreaHighlight($event)"
+			id="drop-area-card-body-in-progress">
 
 			<template v-for="task in projectTasksOnBoard">
 				<div class="task-draggable-card in progress-stage mb-3" draggable="true" @dragstart="drag(`${task.taskId}`, $event)"
@@ -104,7 +104,8 @@
 		<h4 class="text-center task-stage-done">Done</h4>
 		<div class="drop-area-card-body custom-scrollbar-style-3 completed-section" 
 		@drop="drop($event)" @dragover="allowDrop($event)"
-			@dragleave="cancelDropAreaHighlight($event)" @dragenter="dropAreaHighlight($event)">
+			@dragleave="cancelDropAreaHighlight($event)" @dragenter="dropAreaHighlight($event)"
+			id="drop-area-card-body-in-progress">
 
 			<template v-for="task in projectTasksOnBoard">
 				<div class="task-draggable-card done mb-3" draggable="true" @dragstart="drag(`${task.taskId}`, $event)"

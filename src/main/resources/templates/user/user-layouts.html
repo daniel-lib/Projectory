@@ -33,8 +33,11 @@
 	<script src="/javascript/theme-switch-script.js" defer></script>
 	
 	<script src="/javascript/vue-scripts/user-detail-vue.js" defer></script>
-	<script src="/javascript/vue.global.js.js"></script>	
+	<script src="/javascript/vue.global.js.js"></script>		
 	<!--<script src="/javascript/vue-scripts/user-detail-vue.js" defer></script>-->
+		  <!-- ** Plugins Needed for animation and icon flare** -->
+  <link rel="stylesheet" href="/plugins/themify/css/themify-icons.css">
+  <link rel="stylesheet" href="/plugins/aos/aos.css">
 </head>
 
 <header th:fragment="nav" class="dashboard-nav fixed-top">
@@ -161,22 +164,20 @@
 			<span role="button" class="fa-solid fa-bars mb-3" id="side-menu-toggle" onClick="sideMenuToggle()">
 				<span class="fa-solid fa-caret-right" id="side-nav-arrow"></span>
 			</span>
-			<a class="nav-link side-nav-links dashboard-link side-nav-link-selected" th:href="@{/user/dashboard}"
-				id="side-menu-dashboard-link" onClick="selectedSideMenuToggle(0)">
+			<a class="nav-link side-nav-links dashboard-link" th:href="@{/user/dashboard}"
+				id="side-menu-dashboard-link">
 				<span class="nav-icon mt-1 fa-solid fa-table-columns"></span> <span
 					class="side-nav-text mx-2">Dashboard</span></a>
-			<a role="button" class="nav-link side-nav-links todo-list-link" id="side-menu-connection-link"
-				onClick="selectedSideMenuToggle(1)">
+			<a role="button" class="nav-link side-nav-links todo-list-link" id="side-menu-connection-link"				>
 				<span class="nav-icon mt-1 fa-solid fa-user-group"></span> <span
 					class="side-nav-text mx-2">Connections</span></a>
 			<a role="button" class="nav-link side-nav-links scrum-board-link" id="side-menu-board-link"
-				onClick="selectedSideMenuToggle(2)" th:href="@{/project/board}">
+				 th:href="@{/project/board}">
 				<span class="nav-icon mt-1 fa-solid fa-chalkboard-user"></span>
 				<span class="side-nav-text mx-2">Agile Board</span></a>
 			<!--<a class="nav-link" th:href="@{/user/dashboard}"  th:text="${user.firstName}  + ' '+ ${user.lastName}">-->
 			<hr class="side-nav-hr-line"/>
-			<a role="button" class="nav-link side-nav-links account-link" id="side-menu-setting-link"
-				onClick="selectedSideMenuToggle(3)">
+			<a role="button" class="nav-link side-nav-links account-link" id="side-menu-setting-link">
 				<span class="nav-icon mt-1 fa-solid fa-sliders"></span>
 				<span class="side-nav-text mx-2">Setting</span></a>
 
@@ -189,9 +190,7 @@
 </aside>
 
 <footer th:fragment="footer" class="mt-5 pt-2 dashboard-footer m-0">
-	<script>
-		var username = "[[${currentUserDetail.username}]]";
-	</script>
+
 	
 	
 		<!--<button class="modal-trigger" data-modal-open>Modal Test</button>-->
@@ -217,6 +216,13 @@
 	</div>
 
 	<div th:replace="/mainLayouts::copyright-info"></div>
+		<script>
+		var username = "[[${currentUserDetail.username}]]";
+	</script>
+	<!-- jQuery -->
+<script src="/plugins/jQuery/jquery.min.js"></script>
+<script src="/plugins/aos/aos.js"></script>
+	<script src="/javascript/anim-script.js"></script>
 </footer>
 
 <div id="loader" class="loader-container" th:fragment="loader-animation">

@@ -32,9 +32,9 @@ public class SecurityConfig {
 					.antMatchers("/", "/**").permitAll()
 					)		
 				.formLogin()
-					.loginPage("/")
+					.loginPage("/?auth_required")
 					.loginProcessingUrl("/login")
-					.defaultSuccessUrl("/user/dashboard");
+					.defaultSuccessUrl("/user/dashboard?auth_successful");
 				//.and().formLogin().loginPage("/?auth=required").successForwardUrl("/user/dashboard");
 			return http.build();							
 			    

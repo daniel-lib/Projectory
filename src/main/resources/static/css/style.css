@@ -652,6 +652,11 @@ footer ul li a:hover,
 
 .minimalist-btn-lighter:hover {
 	color: rgb(0, 0, 0);
+	
+	
+}
+
+.minimalist-btn-lighter2 {
 	color: rgb(246, 245, 244) !important;
 	background-color: rgb(94, 92, 100);
 }

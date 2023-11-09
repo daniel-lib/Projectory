@@ -57,18 +57,7 @@ function showAddProjectForm(source) {
 	}
 }
 
-//submit new project to server
-function addProject() {
-	
-	const title = document.getElementById("project-title-input").value;
-	const description = document.getElementById("project-description-input").value;
-	const status = document.getElementById("project-status-input").value;
-	fetch('/project/add-project-js?title=' + title + '&description=' + description + '&status=' + status)
-		.then(response => response.json())
-		.then(data => {
-			alert(data);
-		})
-}
+
 function createItemButtonToDefault() {
 	//change the state of "Create Project" button to default state
 	projectForm.style.height = 0;

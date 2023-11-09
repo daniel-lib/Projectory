@@ -22,15 +22,18 @@ Vue.createApp({
 		}
 	},
 	created() {
+
 		this.getProjectData()
-		var localStoredBoardProject = window.localStorage.getItem("agile-board-selected-project");
-		//alert(localStoredBoardProject)
+		/*var localStoredBoardProject = window.localStorage.getItem("agile-board-selected-project");
 		if (localStoredBoardProject !== null) {
 			const proj = parseInt(window.localStorage.getItem("agile-board-selected-project"));
 			window.setTimeout(() => {
 				this.selectProject(proj);
 			}, 1000)
 		}
+*/
+
+
 
 
 		/*var localStoredBoardProject = window.localStorage.getItem("agile-board-selected-project");		
@@ -47,16 +50,29 @@ Vue.createApp({
 				}, 2000)
 	}*/
 	},
+	mounted() {
+
+	},
 	methods: {
 		//get list of projects for selecting projects to put on the board
-		getProjectData() {
+		getProjectData(clicked) {
 			this.showLoader = true;
 			fetch("/project/getProjects")
 				.then(response => response.json())
 				.then(data => {
 					this.projectList = data
 					this.showLoader = false;
-					return 1;
+
+					//alert(clicked)
+					if (clicked == undefined) {
+						var localStoredBoardProject = window.localStorage.getItem("agile-board-selected-project");
+						if (localStoredBoardProject !== null) {
+							const proj = parseInt(window.localStorage.getItem("agile-board-selected-project"));
+							this.selectProject(proj);
+						}
+					}
+
+					//return 1;
 				})
 				.catch(e => { return 0 })
 
@@ -64,8 +80,9 @@ Vue.createApp({
 
 		},
 		selectProject(projectId) {
+
 			var p;
-			this.getProjectData();
+			//this.getProjectData();
 
 			for (p of this.projectList) {
 				//alert("gggeeee")
@@ -79,29 +96,43 @@ Vue.createApp({
 			fetch(getProjectTasksUrl + "?project=" + projectId)
 				.then(response => response.json())
 				.then(data => {
+					//alert('got here')
 					this.projectTasksOnBoard = data;
 					window.localStorage.setItem("agile-board-selected-project", projectId);
 				})
 
 
 		},
-		getProjectMembers(){
+		updateTaskOnBoardData() {
+			const proj = parseInt(window.localStorage.getItem("agile-board-selected-project"));
+			//this.selectProject(proj);
+			fetch(getProjectTasksUrl + "?project=" + proj)
+				.then(response => response.json())
+				.then(data => {
+					//alert('got here')
+					this.projectTasksOnBoard = data;
+					//alert(this.projectTasksOnBoard[0].status)
+					//window.localStorage.setItem("agile-board-selected-project", projectId);
+				})
+
+		},
+		getProjectMembers() {
 			//alert("lebek")
-			fetch(getProjectMemberListUrl+"?project="+this.projectOnBoard.projectId)
+			fetch(getProjectMemberListUrl + "?project=" + this.projectOnBoard.projectId)
 				.then(response => response.json())
 				.then(data => {
 					this.projectMembers = data;
 				})
-			
+
 		},
-		assignTask(userId,taskId) {
+		assignTask(userId, taskId) {
 			fetch(assignTaskUrl + "?user=" + userId + "?task=" + taskId)
 				.then(response => response.json())
 				.then(data => {
-					if(data == 0){
+					if (data == 0) {
 						alert("error");
 					}
-					else{
+					else {
 						alert("success");
 					}
 					this.projectTasksOnBoard = this.projectTasksOnBoard;
@@ -115,6 +146,10 @@ Vue.createApp({
 			this.currentTask = taskID;
 		},
 		drop(ev) {
+			//appending the card to the stage drop area body was neccessary
+			//not anymore since data is being updated from server
+			this.showLoader = true;
+			const event = ev.currentTarget.id;
 			ev.preventDefault();
 			var data = ev.dataTransfer.getData("taskCard");
 			const task = this.currentTask;
@@ -131,14 +166,34 @@ Vue.createApp({
 				.then(response => response.json())
 				.then(data => {
 					if (data == 1) {
-						alert("success");
+						//alert("success");
+						
+					this.updateTaskOnBoardData();
+					
+						//alert(this.showLoader)
+						
+					//alert('updated')
 					}
-					else
+					else{
 						alert("couldn't update task status")
-
+					}
+						
+						
+					this.showLoader = false;
+					
 				});
-			ev.currentTarget.appendChild(dropedCard);
-			ev.currentTarget.classList.remove("highlighted");
+				
+				for(let body of document.getElementsByClassName('drop-area-card-body')) {
+					//body.appendChild(dropedCard);
+						body.classList.remove("highlighted");
+				}
+				
+				/*event.appendChild(dropedCard);
+						event.classList.remove("highlighted");*/
+				
+				
+				
+			
 		},
 		cancelDropAreaHighlight(ev) {
 			ev.currentTarget.classList.remove("highlighted");
@@ -167,7 +222,9 @@ Vue.createApp({
 			}
 		}
 	}
-}).mount("#agile-board")
+}).mount("#board-container-container")
+//.mount("#agile-board") //causes problems to side menu
+//.mount("#board-container")  //works...changed for no reason
 
 
 

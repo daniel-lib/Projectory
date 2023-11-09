@@ -74,6 +74,7 @@ public interface ProjectRepository extends CrudRepository<Project, Long>{
 	
 	//find project members
 	@Query(value = "SELECT DISTINCT us.username, us.user_id projectMemberUserId,\n"
+			+ "us.first_name firstName, us.last_name lastName,\n"
 			+ "p.project_owner_user_id projectOwnerUserId\n"
 			+ "	FROM users us\n"
 			+ "	LEFT JOIN project_members pm on pm.project_id = ?1\n"
@@ -148,10 +149,17 @@ public interface ProjectRepository extends CrudRepository<Project, Long>{
 	
 	@Transactional
 	@Modifying
-	//add project members
+	//remove project members
 	@Query(value="DELETE FROM public.project_members\n"
-			+ "	WHERE user_id = ?2 AND project_id = ?1;", nativeQuery = true)
+			+ "	WHERE user_id = ?2 AND project_id = ?1", nativeQuery = true)
 	int removeProjectMember(long projectId, long userId);
 	
+	
+	@Transactional
+	@Modifying
+	@Query(value="DELETE FROM project p \n"
+			+ "WHERE p.project_id = ?1\n"
+			+ "AND p.project_owner_user_id = ?2", nativeQuery = true)
+	int deleteProject(long projectId, long projectOwner);
 }
 	

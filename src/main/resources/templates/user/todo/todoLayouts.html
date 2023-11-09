@@ -10,9 +10,9 @@
 	<span class="d-flex justify-content-	 mt-3">
 		<!--<img class="dashboard-card-img-top mx-2" th:src="@{/images/to-do-list.png}" alt="to-do icon">-->
 		<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-list" alt="to-do icon"></span>
-		<h5 class="card-title dashboard-card-title">Todo</h5>
+		<h5 class="card-title dashboard-card-title">Notes &amp; personal todo tasks</h5>
 	</span>
-	<hr />
+	<hr/>
 
 	<div th:replace="/user/todo/todoLayouts :: notification-board"></div>
 
@@ -51,10 +51,10 @@
 <!--todo list card started-->
 <div th:fragment="todo-list-dashboard-card"
 	class="card user-dashboard-cards todo-list-card card user-dashboard-cards custom-scrollbar-style"
-	style="width: 18rem;" onclick="displayViewingModal(0)">
+	style="width: 18rem;" onclick="displayViewingModal(0)" data-aos="zoom-in">
 	<div class="card-header d-flex">
 		<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-list" alt="to-do icon"></span>
-		<h5 class="card-title dashboard-card-title">Todo List</h5>
+		<h5 class="card-title dashboard-card-title">Notes &amp; todo tasks</h5>
 	</div>
 	<div class="card-body p-1">
 
@@ -88,7 +88,7 @@
 		</div>
 
 		<div class="todo-card-btns mt-2">
-			<input type="button" class="minimalist-btn minimalist-btn-lighter btn-sm add-todo-collection-btn"
+			<input type="button" class="minimalist-btn minimalist-btn-lighter minimalist-btn-lighter2 btn-sm add-todo-collection-btn"
 				onClick="showAddTodoCollectionForm('card')" value="Add New Collection">
 		</div>
 

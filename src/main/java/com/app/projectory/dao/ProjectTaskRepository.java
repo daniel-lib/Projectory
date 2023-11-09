@@ -8,12 +8,24 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.app.projectory.dto.ProjectTasksDto;
 import com.app.projectory.entity.ProjectTasks;
 
 @Repository
 public interface ProjectTaskRepository extends CrudRepository<ProjectTasks, Long>{
 	/* public Project findById(long projId); */
 	List<ProjectTasks> findAll();
+	
+	@Query(value="SELECT DISTINCT pt.task_id taskId, pt.deadline, pt.status, pt.task_description taskDescription,\n"
+			+ "pt.task_name taskName, pt.project_id projectId, pt.assignee assigneeId, "
+			+ "us.username assigneeUsername, p.creation_date projectCreationDate\n"
+			+ "	FROM project_tasks pt\n"
+			+ "	LEFT JOIN project p on p.project_id = pt.project_id\n"
+			+ "	LEFT JOIN project_members pm on pm.project_id = pt.project_id\n"
+			+ "	LEFT JOIN users us ON us.user_id = pt.assignee\n"
+			+ "	WHERE pt.project_id = ?1 \n"
+			+ "	AND (pm.user_id = ?2 OR p.project_owner_user_id = ?2)", nativeQuery = true)
+	List<ProjectTasksDto> findProjectTasks(long projectId, long userId);
 	
 	@Modifying
 	@Transactional

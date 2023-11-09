@@ -176,7 +176,7 @@ function sideMenuToggle() {
 
 }
 
-selectedSideMenuToggle();
+/*	selectedSideMenuToggle();
 function selectedSideMenuToggle(selectedSideMenu) {
 	if(selectedSideMenu == undefined){
 		//alert("nothing to see here");
@@ -193,10 +193,47 @@ function selectedSideMenuToggle(selectedSideMenu) {
 	}
 	document.getElementById(menuLinks[selectedSideMenu]).classList.add("side-nav-link-selected");
 	window.localStorage.setItem("selected-side-menu", menuLinks[selectedSideMenu]);
-	}
-	
+	}	
+}*/
 
+//auth user view active menu indicator
+let paths = {
+	"/project/board" : "side-menu-board-link",
+	"/user/dashboard" : "side-menu-dashboard-link",
+	"/user/connections" : "side-menu-connection-link",
+	"/user/settings" : "side-menu-setting-link"	
 }
+
+selectedNavIndicator();
+function selectedNavIndicator(){
+		
+	let currentPath = window.location.pathname;
+	
+	if (currentPath in paths){	
+		//alert("hellloooo")
+		document.getElementById(paths[currentPath]).classList.add("side-nav-link-selected");
+		
+	}
+	/*if(currentPath in paths){
+		document.getElementById(paths[currentPath]).classList.add("side-nav-link-selected");
+	}*/
+	//const menuLinks = ["side-menu-dashboard-link", "side-menu-connection-link", "side-menu-board-link", "side-menu-setting-link"];
+	//if(window.location.pathname == )
+};
+
+
+
+/*(function displayProfilePicBtn() {
+	const profilePicBtn = document.querySelectorAll('.profile-pic-btn.own-profile-pic');
+	if (profilePicBtn ) {
+		Array.from(profilePicBtn).forEach((element) => element.textContent = username[0].toUpperCase());
+	}
+	else {
+		//get pic link from db or remote storage
+	}
+})();
+*/
+
 
 
 //display message when there is nothing( no project, project task, & todo list) on card & modal 
