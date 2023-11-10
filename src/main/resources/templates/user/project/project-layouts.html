@@ -127,7 +127,7 @@
 
 
 						<!--add project task form-->
-						<div class="add-project-task-form mt-2" :id="`add-project-task-form${project.projectId}`"
+						<div class="add-project-task-form mt-2" :id="`add-project-task-form-${project.projectId}`"
 							style="height: 0px;">
 							<div class="form form-container p-1" :id="`${project.projectId}`">
 								<input type="hidden" :value="project.projectId" id="proj-id">
@@ -149,7 +149,7 @@
 
 
 								<input type="button" value="add" class="btn btn-primary-golden btn-sm"
-									@click="`addTaskToProject(${project.projectId})`">
+									@click="addTaskToProject(project.projectId)">
 							</div>
 						</div>
 
@@ -186,7 +186,8 @@
 
 					<div class="project-modal-boxes-inner p-4 my-2 mx-2 pt-0 align-self-start">
 						<h4>...</h4>
-						<span role="button"
+						
+						<span role="button" v-if="project.projectOwnerUsername === currentUserDetail.username"
 							class="badge text-bg-danger delete-single-item-btn delete-single-item-btn-1"
 							title="Delete Project" @click="deleteProject(project.projectId)">
 							<span class="fa-solid fa-trash-can"></span> Delete</span>

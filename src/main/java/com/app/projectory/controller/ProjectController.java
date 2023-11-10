@@ -72,7 +72,8 @@ public class ProjectController {
 	
 	@GetMapping("/add-project-task")
 	@ResponseBody
-	public int addProjectTask(@RequestParam String title, @RequestParam String description, @RequestParam long projId, @RequestParam String status) {
+	public int addProjectTask(@RequestParam("title") String title, @RequestParam("desc") String description, 
+			@RequestParam("project") long projId, @RequestParam String status, Authentication auth) {
 					
 		if(title != "" && description != "" && projId > 0 && projId > 0) {
 			ProjectTasks task = new ProjectTasks();

@@ -7,7 +7,7 @@ const getProjectCountUrl = '/project/getProjectCount';
 const getPublicConnectsUrl = '/user/getUserConnectionList';
 const updateProjectTaskStatus = '/project/task/update/status'
 const getProjectMemberListUrl = '/project/members';
-const assignTaskUrl = '/task/update/assignee';
+const assignTaskUrl = '/project/task/update/assignee';
 
 
 //agile-board
@@ -76,8 +76,6 @@ Vue.createApp({
 				})
 				.catch(e => { return 0 })
 
-
-
 		},
 		selectProject(projectId) {
 
@@ -126,14 +124,17 @@ Vue.createApp({
 
 		},
 		assignTask(userId, taskId) {
-			fetch(assignTaskUrl + "?user=" + userId + "?task=" + taskId)
+			this.showLoader = true;
+			fetch(assignTaskUrl + "?user=" + userId + "&task=" + taskId)
 				.then(response => response.json())
 				.then(data => {
 					if (data == 0) {
-						alert("error");
+						toggleNotification("erro", "Unable to assign task to user.")
 					}
 					else {
-						alert("success");
+						this.updateTaskOnBoardData();
+						toggleNotification("success", "Task assigned to user.")
+						this.showLoader = false;
 					}
 					this.projectTasksOnBoard = this.projectTasksOnBoard;
 				})
@@ -145,7 +146,8 @@ Vue.createApp({
 			ev.dataTransfer.setData("taskCard", ev.target.id);
 			this.currentTask = taskID;
 		},
-		drop(ev) {
+		 //change task status
+		drop(ev) {   
 			//appending the card to the stage drop area body was neccessary
 			//not anymore since data is being updated from server
 			this.showLoader = true;
@@ -166,21 +168,14 @@ Vue.createApp({
 				.then(response => response.json())
 				.then(data => {
 					if (data == 1) {
-						//alert("success");
-						
 					this.updateTaskOnBoardData();
-					
-						//alert(this.showLoader)
-						
-					//alert('updated')
+					toggleNotification("success", "Task status updated.")
 					}
 					else{
-						alert("couldn't update task status")
-					}
-						
-						
-					this.showLoader = false;
-					
+						//toggleNotification("error","Task status not updated. Make sure you are assigned to the task.");
+						toggleNotification("error","Make sure you are assigned to the task.");
+					}						
+					this.showLoader = false;					
 				});
 				
 				for(let body of document.getElementsByClassName('drop-area-card-body')) {
@@ -189,11 +184,7 @@ Vue.createApp({
 				}
 				
 				/*event.appendChild(dropedCard);
-						event.classList.remove("highlighted");*/
-				
-				
-				
-			
+						event.classList.remove("highlighted");*/							
 		},
 		cancelDropAreaHighlight(ev) {
 			ev.currentTarget.classList.remove("highlighted");

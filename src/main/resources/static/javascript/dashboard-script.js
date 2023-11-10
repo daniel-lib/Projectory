@@ -223,6 +223,9 @@ function selectedNavIndicator(){
 
 
 
+
+
+
 /*(function displayProfilePicBtn() {
 	const profilePicBtn = document.querySelectorAll('.profile-pic-btn.own-profile-pic');
 	if (profilePicBtn ) {

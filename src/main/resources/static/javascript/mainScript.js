@@ -15,7 +15,28 @@ function toggleGoTo() {
 }
 
 
-
+//auth Notification
+let eventPathsVariables = {
+	"?auth_required?logout" : ["You have successfully signed out. See you soon.", "success"],
+	"?auth_required" : ["Please, login to continue.", "error"],
+	"?auth_required?error" : ["Incorrect credentials. Please try again.", "error"],
+	"?auth_required?error" : ["Incorrect credentials. Please try again.", "error"],
+	"?auth_successful" : ["Welcome back!", "success"],
+	
+}
+displayEventNotification(window.location.search);
+function displayEventNotification(currentPathVar){
+		
+	if(currentPathVar in eventPathsVariables){
+		toggleNotification(eventPathsVariables[currentPathVar][1], eventPathsVariables[currentPathVar][0])
+	}
+	/*else{
+		toggleNotification("error", "...")		
+	}*/
+	if(currentPathVar == "?auth_required?error" || currentPathVar == "?auth_required"){
+	displaySigninForm('login')
+	}
+}
 
 
 
@@ -116,10 +137,11 @@ function toggleNotification(notificationType, msgToUser) {
 	const icon = document.getElementById("notification-icon");
 	if (notificationType == undefined) {
 		content.textContent = content.textContent;
-		clearTimeout(timeoutID);
+		//clearTimeout(timeoutID);
 	}
 	else {
 		content.textContent = msgToUser;
+		//clearTimeout(timeoutID);
 		if (notificationType === "success") {
 			notification.classList.remove('notification-error');
 			notification.classList.add('notification-success');
@@ -137,7 +159,7 @@ function toggleNotification(notificationType, msgToUser) {
 	/*notification.classList.toggle('hide');*/
 
 	//trigger automatic notification bar exit	
-	timeoutID = window.setTimeout(hideNotificationBar, 2000);
+	timeoutID = window.setTimeout(hideNotificationBar, 3000);
 
 }
 function hideNotificationBar() {

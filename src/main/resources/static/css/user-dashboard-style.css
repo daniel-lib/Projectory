@@ -79,13 +79,6 @@
 	color: rgb(192, 191, 188);
 }
 
-.no-text-decoration {
-	text-decoration: none !important;
-}
-
-.inherit-color {
-	color: inherit;
-}
 
 .collapsable-top-menu-prof-pic {
 	display: inline-block;

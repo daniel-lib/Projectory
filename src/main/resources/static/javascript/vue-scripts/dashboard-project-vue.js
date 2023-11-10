@@ -16,6 +16,7 @@ const getProjectTasks = '/project/task';
 const getProjectTasksUrl = '/project/getProjectTasks';
 const addProjectUrl = '/project/add-project';
 const deleteProjectUrl = '/project/delete';
+const addProjectTaskUrl = 'project/add-project-task';
 
 //let projectListCount2 = 0;
 //project - display -modal
@@ -170,8 +171,6 @@ const projectVue = Vue.createApp({
 				this.collapseAllAddProjectTaskForm();
 				container.classList.add("show");
 
-
-
 				fetch(getPublicConnectsUrl)
 					.then(response => response.json())
 					.then(data => this.connectsList = data)
@@ -192,23 +191,23 @@ const projectVue = Vue.createApp({
 				formContainer.classList.remove("show");
 			}
 
-		}
-		,
-		searchThroughProjectMembersList() {
-			fetch(getProjectsUrl)
-				.then(response => response.json())
-				.then(data => this.projects = data)
 		},
-		addProjectMember(projectId, username) {
-			fetch(addProjectMember + "?project=" + projectId + "&user=" + username)
+		addTaskToProject(projectId){
+			//alert("hola "+projectId)			
+			let currentTaskForm = document.getElementById("add-project-task-form-"+projectId)
+			let taskTitle = document.querySelector("#"+currentTaskForm+" #task-title");
+			let taskDescription = document.querySelector("#"+currentTaskForm+" #task-description");
+			let taskStatus = document.querySelector("#"+currentTaskForm+" #task-status");
+			fetch(addProjectTaskUrl+"?")
 				.then(response => response.json())
 				.then(data => alert(data))
-			//.then(data => this.projects = data)
+			
+			
 		},
 		//show "add project task" form
 		showAddProjectTaskForm(id, trigger) {
 			//add-project-task-button
-			const addTaskForm = document.getElementById("add-project-task-form" + id);
+			const addTaskForm = document.getElementById("add-project-task-form-" + id);
 
 			if (addTaskForm.style.height == "0px") {
 				this.collapseAllAddProjectTaskForm();
@@ -226,6 +225,17 @@ const projectVue = Vue.createApp({
 			for (let f of AllAddTaskForms) {
 				f.style.height = "0";
 			}
+		},
+		searchThroughProjectMembersList() {
+			fetch(getProjectsUrl)
+				.then(response => response.json())
+				.then(data => this.projects = data)
+		},
+		addProjectMember(projectId, username) {
+			fetch(addProjectMember + "?project=" + projectId + "&user=" + username)
+				.then(response => response.json())
+				.then(data => alert(data))
+			//.then(data => this.projects = data)
 		},
 		//expand/maximize container
 		expandContainer(containerId, btnId) {

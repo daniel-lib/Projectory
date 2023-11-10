@@ -66,6 +66,15 @@ div.dark-mode {
 	font-size: 24pt !important;
 }
 
+
+.no-text-decoration {
+	text-decoration: none !important;
+}
+
+.inherit-color {
+	color: inherit;
+}
+
 .card {
 	background-color: var(--primary-card-bg) !important;
 	border: var(--primary-card-border) !important;
