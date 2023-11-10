@@ -1,5 +1,6 @@
 package com.app.projectory.entity;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 @Entity
 public class TodoListCollection {
 	
@@ -19,8 +23,10 @@ public class TodoListCollection {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long todoCollectionId;
 	private String collectionTitle;
-	private String creationDate;
-	private String modificationDate;
+	@CreationTimestamp
+	private LocalDate creationDate;
+	@UpdateTimestamp
+	private LocalDate modificationDate;
 	
 	@OneToMany(mappedBy = "collection")
 	private List<Todo> todoListItems;
@@ -34,7 +40,7 @@ public class TodoListCollection {
 		// TODO Auto-generated constructor stub
 	}
 
-	public TodoListCollection(String collectionTitle, String creationDate, String modificationDate) {
+	public TodoListCollection(String collectionTitle, LocalDate creationDate, LocalDate modificationDate) {
 		this.collectionTitle = collectionTitle;
 		this.creationDate = creationDate;
 		this.modificationDate = modificationDate;
@@ -56,19 +62,19 @@ public class TodoListCollection {
 		this.collectionTitle = collectionTitle;
 	}
 
-	public String getCreationDate() {
+	public LocalDate getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(String creationDate) {
+	public void setCreationDate(LocalDate creationDate) {
 		this.creationDate = creationDate;
 	}
 
-	public String getModificationDate() {
+	public LocalDate getModificationDate() {
 		return modificationDate;
 	}
 
-	public void setModificationDate(String modificationDate) {
+	public void setModificationDate(LocalDate modificationDate) {
 		this.modificationDate = modificationDate;
 	}
 

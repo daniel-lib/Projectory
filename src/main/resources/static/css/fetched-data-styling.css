@@ -82,3 +82,21 @@ task-owner {
 .project-task-status.in.progress-stage {
 	background-color: rgba(63, 185, 124, 0.3) !important;
 }
+
+.dropdown-menu.show{
+	height:200px; 
+	overflow-y: scroll;
+	background-color: var(--primary-bg);
+	color: var(--primary-color) !important;
+}
+.dropdown-item{
+	color: var(--primary-color);
+}
+.dropdown-item:hover{
+	background-color: rgba(255, 255, 255, 0.1);
+	color: white;
+}
+
+
+
+

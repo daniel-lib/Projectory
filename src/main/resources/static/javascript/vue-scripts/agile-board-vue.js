@@ -16,8 +16,8 @@ Vue.createApp({
 		return {
 			projectList: [],
 			showLoader: false,
-			projectOnBoard: null, //for checking if project is selected
-			projectTasksOnBoard: null, //tasks of selected project(to be on board)
+			projectOnBoard: [], //for checking if project is selected
+			projectTasksOnBoard: [], //tasks of selected project(to be on board)
 			projectMembers: [],
 		}
 	},
@@ -62,14 +62,16 @@ Vue.createApp({
 				.then(data => {
 					this.projectList = data
 					this.showLoader = false;
-
+	
 					//alert(clicked)
 					if (clicked == undefined) {
+						//alert("here......")
 						var localStoredBoardProject = window.localStorage.getItem("agile-board-selected-project");
 						if (localStoredBoardProject !== null) {
 							const proj = parseInt(window.localStorage.getItem("agile-board-selected-project"));
 							this.selectProject(proj);
 						}
+						//alert("here......")
 					}
 
 					//return 1;
@@ -78,7 +80,7 @@ Vue.createApp({
 
 		},
 		selectProject(projectId) {
-
+//projectId = 3
 			var p;
 			//this.getProjectData();
 
@@ -86,10 +88,10 @@ Vue.createApp({
 				//alert("gggeeee")
 				if (p.projectId === projectId) {
 					this.projectOnBoard = p;
-
 					break;
 				}
 			}
+			//this.projectOnBoard = projectList[3];
 			//fetch(getProjectTasksUrl + "?project=" + this.projectOnBoard.projectId)
 			fetch(getProjectTasksUrl + "?project=" + projectId)
 				.then(response => response.json())

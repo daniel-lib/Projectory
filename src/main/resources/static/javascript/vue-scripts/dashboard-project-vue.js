@@ -116,18 +116,7 @@ const projectVue = Vue.createApp({
 				.then(data => {
 					return data;
 				})
-		},
-		removeProjectMember() {
-			fetch(removeProjectMember + "?project=" + projectId)
-				.then(response => response.json())
-				.then(data => this.projectMembers = data)
-		},
-		getProjectMembers(projectId) {
-			fetch(getProjectMembers + "?project=" + projectId)
-				.then(response => response.json())
-				.then(data => this.projectMembers = data)
-			//alert(this.projectMembers[0].username)			
-		},
+		},		
 		addProject() {
 			let title = document.getElementById("project-title-input");
 			let description = document.getElementById("project-description-input");
@@ -164,7 +153,7 @@ const projectVue = Vue.createApp({
 		showAddProjectMembersList(id, ev, on) {
 			this.getProjectMembers(id);
 			const container = document.getElementById("add-member-list-container-" + id);
-
+			//alert(id)
 			const inputArea = document.getElementById("add-project-members-btn-text");
 			if (!container.classList.contains("show") && on != "blr") {
 				this.collapseAllAddProjectMembersList();
@@ -191,6 +180,58 @@ const projectVue = Vue.createApp({
 				formContainer.classList.remove("show");
 			}
 
+		},
+		addProjectMember(projectId, username, event) {
+			var ev = event.currentTarget;
+			ev.setAttribute("disabled", true); //to make sure nothing changes while request is being processed
+			//if(event.currentTarget.checked == true){ //member marked to be added
+				fetch(addProjectMember + "?project=" + projectId + "&user=" + username)
+				.then(response => response.json())
+				.then(data => {
+					//alert(data)
+					if(data == 1)
+					toggleNotification("success", "@"+username+" added as project member.");
+					else{
+					toggleNotification("error", "@"+username+" was not added as project member.");
+					ev.checked = false;
+					}
+					ev.removeAttribute("disabled");  //neccessary when things don't work out
+					this.getProjectMembers(projectId);					
+				})
+				
+				
+			//}
+			/*else{//member marked to be removed
+				this.removeProjectMember(projectId, username, event);
+			}*/
+			
+			//.then(data => this.projects = data)
+		},
+		removeProjectMember(projectId, username, event) {
+			var ev = event.currentTarget
+			ev.setAttribute("disabled", true); //to make sure nothing changes while request is being processed
+		
+			fetch(removeProjectMember + "?project=" + projectId + "&user=" + username)
+				.then(response => response.json())
+				.then(data => {
+					if(data == 1)
+					toggleNotification("success", "@"+username+" removed from project members.");
+					else{
+					toggleNotification("error", "unable to remove @"+username+" from project members.");
+					ev.checked = true;
+					}
+					//this.projectMembers = data)   //why tho?
+					ev.removeAttribute("disabled");  //neccessary when things don't work out
+					this.getProjectMembers(projectId);
+					});
+					
+					
+		},
+		getProjectMembers(projectId) {
+			fetch(getProjectMembers + "?project=" + projectId)
+				.then(response => response.json())
+				.then(data => this.projectMembers = data)
+			//alert(this.projectMembers[0].username)			
 		},
 		addTaskToProject(projectId){
 			//alert("hola "+projectId)			
@@ -230,12 +271,6 @@ const projectVue = Vue.createApp({
 			fetch(getProjectsUrl)
 				.then(response => response.json())
 				.then(data => this.projects = data)
-		},
-		addProjectMember(projectId, username) {
-			fetch(addProjectMember + "?project=" + projectId + "&user=" + username)
-				.then(response => response.json())
-				.then(data => alert(data))
-			//.then(data => this.projects = data)
 		},
 		//expand/maximize container
 		expandContainer(containerId, btnId) {

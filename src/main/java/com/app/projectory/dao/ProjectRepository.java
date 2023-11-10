@@ -43,7 +43,7 @@ public interface ProjectRepository extends CrudRepository<Project, Long>{
 			+ "	WHERE p.project_owner_user_id = ?1 OR p.project_id = m.project_id", nativeQuery = true)
 	List<Project> findProjectListByUser(long userId); 
 	
-	@Query(value = "SELECT p.*, project_owner_user_id as projectOwnerUserId,\n"
+	@Query(value = "SELECT DISTINCT p.*, project_owner_user_id as projectOwnerUserId,\n"
 			+ "creation_date as creationDate, username as projectOwnerUsername, \n"
 			+ "p.project_id as projectId FROM project p \n"
 			+ "LEFT JOIN project_members m ON m.user_id = ?1\n"
@@ -133,26 +133,42 @@ public interface ProjectRepository extends CrudRepository<Project, Long>{
 	
 	
 	//@Query(nativeQuery=true, value="Select COUNT(projects_id) as projectCount from PROJECT ")
+
+//	
+//	//add project member
+//	@Transactional
+//	@Modifying
+//	//add project members
+//	@Query(value="INSERT INTO project_members(user_id, project_id) \n"
+//			+ "SELECT ?2, ?1\n"
+//			+ "WHERE NOT EXISTS(SELECT 1 \n"
+//			+ "FROM project_members pm \n"
+//			+ "WHERE pm.user_id =?2 \n"
+//			+ " AND pm.project_id = ?1)", nativeQuery = true)
+//	int addProjectMember(long projectId, long userId);
+//	
+
 	
+	//add project member
 	@Transactional
 	@Modifying
-	//add project members
-	@Query(value="INSERT into project_members(user_id, project_id) \n"
+	@Query(value="INSERT INTO project_members(user_id, project_id) \n"
 			+ "SELECT ?2, ?1\n"
 			+ "WHERE NOT EXISTS(SELECT 1 \n"
 			+ "FROM project_members pm \n"
-			+ "WHERE pm.user_id =?2 \n"
-			+ " AND pm.project_id = ?1)", nativeQuery = true)
-	int addProjectMember(long projectId, long userId);
+			+ "WHERE pm.user_id = ?2 \n"
+			+ "AND pm.project_id = ?1)", nativeQuery = true)
+	int addProjectMember(long projectId, long userId, long authUserId);
 	
-	
-	
-	@Transactional
-	@Modifying
 	//remove project members
-	@Query(value="DELETE FROM public.project_members\n"
-			+ "	WHERE user_id = ?2 AND project_id = ?1", nativeQuery = true)
-	int removeProjectMember(long projectId, long userId);
+	@Transactional
+	@Modifying	
+	@Query(value="DELETE FROM project_members\n"
+			+ "	WHERE (user_id = ?2 AND project_id = ?1)\n"
+			+ "AND EXISTS(SELECT 1 FROM project p\n"
+			+ "LEFT JOIN project_members pm on pm.project_id = ?1\n"
+			+ "WHERE p.project_owner_user_id = ?3 OR pm.user_id = ?3)", nativeQuery = true)
+	int removeProjectMember(long projectId, long userId, long authUserId);
 	
 	
 	@Transactional

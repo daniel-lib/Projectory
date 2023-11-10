@@ -32,8 +32,28 @@
 							<a :href="`/user/${project.projectOwnerUsername}`" class="no-text-decoration">
 								{{project.projectOwnerUsername}}</a></span>
 					</span>
-					<!--<span class="project-owner-indicator info-tag-dark info-tag-dark-sm float-end"><span
-							class="fa-solid fa-users"></span> Members: </span>-->
+					<span class="project-owner-indicator info-tag-dark info-tag-dark-sm float-end d-flex">
+						<span><span class="fa-solid fa-users"></span> Members: </span>
+							
+							<span class="btn-group btn-group-sm project-owner-indicator info-tag-dark 
+					info-tag-dark-sm float-end fs-8 p-0">
+						<span role="button" class="btn btn-sm btn-secondary dropdown-toggle m-0" type="button" data-bs-toggle="dropdown"
+							data-bs-auto-close="true" aria-expanded="false">
+							0
+						</span>
+						<ul class="dropdown-menu" style="">
+							<li><a class="dropdown-item" href="#">Menu item</a></li>
+							<li><a class="dropdown-item" href="#">Menu item</a></li>
+							<li><a class="dropdown-item" href="#">Menu item</a></li>
+						</ul>
+					</span>
+							
+							</span>
+
+					
+
+
+
 					<div></div>
 					<br />
 				</div>
@@ -109,11 +129,12 @@
 										<span class="fa-solid fa-times"></span></button>-->
 
 									<!--if connected user exists in list of members display remove btn-->
+									<!--	<span style="color:red">{{projectMembers.filter((mem) => mem.username == conn.connectedUserUsername)}}</span>-->
 									<input
 										v-if="projectMembers.filter((mem) => mem.username == conn.connectedUserUsername) != ''"
 										type="checkbox" :value="conn.connectedUserUsername" title="add"
 										class="form-check-input red-checkbox green-checkbox align-self-center"
-										@click="addProjectMember(project.projectId, conn.connectedUserUsername, $event)"
+										@click="removeProjectMember(project.projectId, conn.connectedUserUsername, $event)"
 										checked>
 									<!--if connected user is not in list of members display checkbox-->
 									<input
@@ -175,7 +196,14 @@
 											<span>
 												<span class="ms-5 task-owner"
 													v-if="task.assigneeUsername!=null">@{{task.assigneeUsername}}</span>
-												<span :class="`ms-5 d-block ${status}`">{{task.status}}</span>
+												<span class="ms-5 task-owner"
+													v-if="task.assigneeUsername==null">...</span>
+												<span
+													:class="`ms-5 d-block ${task.status}-stage`">{{task.status}}</span>
+											</span>
+											<span>
+												<span
+													class="fa-solid fa-trash-can btn btn-danger ms-1 fs-10 p-1"></span>
 											</span>
 										</span>
 									</span>
@@ -186,11 +214,11 @@
 
 					<div class="project-modal-boxes-inner p-4 my-2 mx-2 pt-0 align-self-start">
 						<h4>...</h4>
-						
+
 						<span role="button" v-if="project.projectOwnerUsername === currentUserDetail.username"
 							class="badge text-bg-danger delete-single-item-btn delete-single-item-btn-1"
 							title="Delete Project" @click="deleteProject(project.projectId)">
-							<span class="fa-solid fa-trash-can"></span> Delete</span>
+							<span class="fa-solid fa-trash-can"></span> Delete Project</span>
 					</div>
 
 

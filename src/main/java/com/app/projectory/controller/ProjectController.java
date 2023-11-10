@@ -92,10 +92,9 @@ public class ProjectController {
 	@GetMapping("/getProjects")
 	public @ResponseBody List<ProjectDto> serveProjects(Authentication auth, Principal p) {
 		//get user id from user account service
-		long userId = userServ.getUserId(auth);
-		//get projects for specific user
-			
-		return projDao.findProjectListByUserIncUsername(userId);
+		long authUserId = userServ.getUserId(auth);
+		//get projects for specific user			
+		return projDao.findProjectListByUserIncUsername(authUserId);
 		//return null;
 	}
 	
@@ -158,10 +157,11 @@ public class ProjectController {
 	//returns 1 if successful or 0 if not
 	@GetMapping("/addProjectMember")
 	public @ResponseBody int addProjectMember(@RequestParam("project") long projectId, 
-			@RequestParam("user") String username) {
+			@RequestParam("user") String username, Authentication auth) {
 		if(userRepo.findByUsername(username) != null) {
 		long userId = userRepo.findByUsername(username).getUserId();
-		return projDao.addProjectMember(projectId, userId);	
+		long authUserId = userServ.getUserId(auth);
+		return projDao.addProjectMember(projectId, userId, authUserId);	
 		}
 		return 0;
 	}	
@@ -170,10 +170,11 @@ public class ProjectController {
 		//returns 1 if successful or 0 if not
 		@GetMapping("/removeProjectMember")
 		public @ResponseBody int removeProjectMember(@RequestParam("project") long projectId, 
-				@RequestParam("user") String username) {
+				@RequestParam("user") String username, Authentication auth) {
 			if(userRepo.findByUsername(username) != null) {
-			long userId = userRepo.findByUsername(username).getUserId();
-			return projDao.removeProjectMember(projectId, userId);	
+			long userId = userRepo.findByUsername(username).getUserId();//subject user id
+			long authUserId = userServ.getUserId(auth);//action performer user id
+			return projDao.removeProjectMember(projectId, userId, authUserId);	
 			}
 			return 0;
 		}

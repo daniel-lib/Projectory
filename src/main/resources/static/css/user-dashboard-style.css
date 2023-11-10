@@ -625,6 +625,7 @@
 	opacity: 0;
 	transition: opacity 0.1s ease-in-out;
 	position: relative;
+	
 }
 
 
@@ -635,7 +636,9 @@
 
 .add-project-member-list-container.show {
 	/*display:block;*/
-	height: 200px;
+	min-height:fit-content;
+	max-height: 200px;
+	height: 100%;
 	opacity: 1;
 }
 
@@ -822,13 +825,19 @@
 	bottom: 0;
 }
 
-
+.custom-scrollbar-style {
+	/*scrollbar-width: thin;*/
+	scrollbar-color: rgb(118, 187, 118) rgb(36, 31, 49);
+	
+}
 /*	applied to:	.user-dashboard-cards*/
 .custom-scrollbar-style::-webkit-scrollbar {
 	width: 12px;
 	/*width of the entire scrollbar */
 	cursor: pointer;
 }
+
+
 
 .custom-scrollbar-style::-webkit-scrollbar-track {
 	background: rgb(222, 221, 218);
@@ -861,8 +870,8 @@
  Works on Firefox */
 .custom-scrollbar-style-2 {
 	scrollbar-width: thin;
-	scrollbar-color: rgb(118, 187, 118) rgb(222, 221, 218);
-	min-height: 30px;
+	scrollbar-color: rgb(118, 187, 118) rgb(36, 31, 49);
+	/*min-height: 30px;*/
 }
 
 /* Works on Chrome, Edge, and Safari */
@@ -888,8 +897,8 @@
 
 
 .custom-scrollbar-style-3 {
-	scrollbar-width: thin;
-	scrollbar-color: rgb(118, 187, 118) rgb(222, 221, 218);
+	/*scrollbar-width: thin;*/
+	scrollbar-color: rgb(118, 187, 118) rgb(94, 92, 100);
 	min-height: 30px;
 }
 
