@@ -29,11 +29,12 @@
 	<script src="/javascript/project-script.js" defer></script>
 	<script src="/javascript/login-info-fetch.js" defer></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<script src="/javascript/charts-project.js" defer></script>
+	
 	<script src="/javascript/theme-switch-script.js" defer></script>
 
 	<script src="/javascript/vue-scripts/user-detail-vue.js" defer></script>
-	<script src="/javascript/vue.global.js.js"></script>
+	<!--<script src="/javascript/vue.global.js.js"></script>-->
+	<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
 	<!--<script src="/javascript/vue-scripts/user-detail-vue.js" defer></script>-->
 	<!-- ** Plugins Needed for animation and icon flare** -->
 	<link rel="stylesheet" href="/plugins/themify/css/themify-icons.css">
@@ -65,12 +66,11 @@
 						data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
 					<!--@keyup="fetchSearchableData($this.value, $event)"-->
 					<!--v-on:keyup="fetchSearchableData(this.$data.name = $event.target.value")-->
-					
+
 					<ul class="dropdown-menu" style="z-index: 1002;">
 						<li><span v-if="fetchedSearchableData.length == 0">no results found</span></li>
 
-						<div v-if="searchLoader == true" class="dot-spinner align-center"
-							style="top: 20px">
+						<div v-if="searchLoading" class="dot-spinner align-center" style="top: 20px">
 							<div class="dot-spinner__dot"></div>
 							<div class="dot-spinner__dot"></div>
 							<div class="dot-spinner__dot"></div>
@@ -82,26 +82,22 @@
 						</div>
 
 						<li v-for="searchItems in fetchedSearchableData" class="border-bottom border-bottom-secondary">
-							
-								<!--displays recently searched items for account at first then data from db-->
-								<template v-if="searchItems.searchResultType == 'user'">
-									<a :href="`/user/${searchItems.searchItemDescription}`" 
-									class="dropdown-item d-flex justify-content-between  p-0 px-1
-									d-flex justify-content-between no-text-decoration inherit-color inherit-color-hover">
-										<span>
-											<span class="fs-12 d-block pb-0"
-												style = "">{{searchItems.searchItemTitle}}</span>
-											<span class="fs-11 pt-0"
-												style = "">@{{searchItems.searchItemDescription}}</span>
-										</span>
 
-										<span role="button" :value="searchItems.searchItemDescription"
-											title="remove member"
-											class=" align-self-center fa-solid fa-arrow-right btn btn-sm btn-secondary align-right">
-											<!--@click="removeProjectMember(project.projectId, member.username, $event)">-->
-										</span></a>
-								</template>
-						
+							<!--displays recently searched items for account at first then data from db-->
+							<template v-if="searchItems.searchResultType == 'user'">
+								<a :href="`/user/${searchItems.searchItemDescription}`" class="dropdown-item d-flex justify-content-between  p-0 px-1
+									d-flex justify-content-between no-text-decoration inherit-color inherit-color-hover">
+									<span>
+										<span class="fs-12 d-block pb-0" style="">{{searchItems.searchItemTitle}}</span>
+										<span class="fs-11 pt-0" style="">@{{searchItems.searchItemDescription}}</span>
+									</span>
+
+									<span role="button" :value="searchItems.searchItemDescription" title="remove member"
+										class=" align-self-center fa-solid fa-arrow-right btn btn-sm btn-secondary align-right">
+										<!--@click="removeProjectMember(project.projectId, member.username, $event)">-->
+									</span></a>
+							</template>
+
 						</li>
 					</ul>
 				</span>
@@ -219,13 +215,15 @@
 				id="side-menu-dashboard-link">
 				<span class="nav-icon mt-1 fa-solid fa-table-columns"></span> <span
 					class="side-nav-text mx-2">Dashboard</span></a>
-			<a role="button" class="nav-link side-nav-links todo-list-link" id="side-menu-connection-link">
-				<span class="nav-icon mt-1 fa-solid fa-user-group"></span> <span
-					class="side-nav-text mx-2">Connections</span></a>
+
 			<a role="button" class="nav-link side-nav-links scrum-board-link" id="side-menu-board-link"
 				th:href="@{/project/board}">
 				<span class="nav-icon mt-1 fa-solid fa-chalkboard-user"></span>
 				<span class="side-nav-text mx-2">Agile Board</span></a>
+			<a role="button" class="nav-link side-nav-links todo-list-link" id="side-menu-connection-link">
+				<span class="nav-icon mt-1 fa-solid fa-user-group"></span> <span
+					class="side-nav-text mx-2">Connections</span></a>
+
 			<!--<a class="nav-link" th:href="@{/user/dashboard}"  th:text="${user.firstName}  + ' '+ ${user.lastName}">-->
 			<hr class="side-nav-hr-line" />
 			<a role="button" class="nav-link side-nav-links account-link" id="side-menu-setting-link">
