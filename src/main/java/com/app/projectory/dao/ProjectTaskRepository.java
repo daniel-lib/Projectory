@@ -52,4 +52,23 @@ public interface ProjectTaskRepository extends CrudRepository<ProjectTasks, Long
 			+ "	WHERE (p.project_owner_user_id = ?3 AND p.project_id = pt.project_id) OR pm.user_id = ?3\n"
 			+ ");", nativeQuery = true)
 	int updateProjectTaskAssignee(long taskId, long assigneeUser, long authUserId);
+	
+	
+	@Modifying
+	@Transactional
+	@Query(value="DELETE FROM project_tasks pt \n"
+			+ "WHERE pt.project_id = ?1\n"
+			+ "AND EXISTS(SELECT 1 FROM project p\n"
+			+ "		  WHERE p.project_owner_user_id = ?2)", nativeQuery = true)
+	int deleteAllTasksByProject(long projectId, long authUserId);
+	
+	@Modifying
+	@Transactional
+	@Query(value = "DELETE FROM project_tasks pt\n"
+			+ "WHERE pt.task_id = ?1\n"
+			+ "AND EXISTS(SELECT DISTINCT 1 FROM project p\n"
+			+ "LEFT JOIN project_tasks ptj ON ptj.task_id = ?1\n"
+			+ "LEFT JOIN project_members pm ON pm.project_id = ptj.project_id\n"
+			+ "WHERE p.project_owner_user_id = ?2 OR pm.user_id = ?2)", nativeQuery = true)
+	int deleteTask(long taskId, long authUserId);
 }

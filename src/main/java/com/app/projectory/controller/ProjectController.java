@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +19,7 @@ import com.app.projectory.dao.ProjectTaskRepository;
 import com.app.projectory.dao.UsersRepository;
 import com.app.projectory.dto.ProjectDto;
 import com.app.projectory.dto.ProjectMembersDto;
+import com.app.projectory.dto.ProjectStatusCount;
 import com.app.projectory.dto.ProjectTasksDto;
 import com.app.projectory.entity.Project;
 import com.app.projectory.entity.ProjectTasks;
@@ -63,10 +65,32 @@ public class ProjectController {
 		
 	}
 	
+	/*
+	 * @GetMapping("/tess") public @ResponseBody int tess(Authentication auth) {
+	 * long authUserId = userServ.getUserId(auth); long projectId = 57; return
+	 * 
+	 * }
+	 */
+	
 	@GetMapping("/delete")
 	public @ResponseBody int deleteProject(@RequestParam("project") long projectId, Authentication auth) {
-		return (projDao.deleteProject(projectId, userServ.getUserId(auth)) == 1)? 1:0 ;
-		//return 0;
+		long  authUserId = userServ.getUserId(auth);
+		boolean safeToDelete = false;
+		if(projDao.projectHasMembers(projectId) > 0) { //check if project has members
+			if(projDao.deleteProjectMembersOfaProject(projectId, authUserId) > 0) 
+				safeToDelete = true;	
+			}
+		else {
+			safeToDelete = true;
+		}
+		
+		if(safeToDelete) {
+			projTaskDao.deleteAllTasksByProject(projectId, authUserId);
+			return (projDao.deleteProject(projectId, authUserId) > 0)? 1:0;
+		}
+						
+		return 0;
+		
 	}
 	
 	
@@ -137,6 +161,13 @@ public class ProjectController {
 	}
 	//Project count ended
 	
+	//project label count
+	@GetMapping("/status/count")
+	public @ResponseBody List<ProjectStatusCount> serveProjectStatusCount(Authentication auth){
+		long userId = userServ.getUserId(auth);
+		return projDao.countAllProjectStatus(userId);
+	}
+	
 	@GetMapping("/findByUsername")
 	public @ResponseBody Users findByUsername(@RequestParam("user") String username) {
 		return userRepo.findByUsername(username);
@@ -200,6 +231,12 @@ public class ProjectController {
 		long authUserId = userServ.getUserId(auth);
 		return projTaskDao.updateProjectTaskAssignee(taskId, assigneeUserId, authUserId);
 
+	}
+	
+	@GetMapping("/task/delete/{taskId}")
+	public @ResponseBody int deleteTask(@PathVariable long taskId, Authentication auth) {
+		long authUserId = userServ.getUserId(auth);
+		return projTaskDao.deleteTask(taskId, authUserId);
 	}
 
 }

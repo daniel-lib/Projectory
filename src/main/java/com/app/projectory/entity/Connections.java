@@ -1,6 +1,6 @@
 package com.app.projectory.entity;
 
-import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.UpdateTimestamp;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -19,7 +21,8 @@ public class Connections {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private long connectionId;
-	private String connectionDate;
+	@UpdateTimestamp
+	private LocalDate connectionDate;
 	private String connectionStatus; //pending, accepted, blocked, 
 	private Long requestReceiverUser;
 	
@@ -36,7 +39,7 @@ public class Connections {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Connections(String connectionDate, Users user) {
+	public Connections(LocalDate connectionDate, Users user) {
 		super();
 		this.connectionDate = connectionDate;
 //		this.user = user;
@@ -50,11 +53,11 @@ public class Connections {
 		this.connectionId = connectionId;
 	}
 
-	public String getConnectionDate() {
+	public LocalDate getConnectionDate() {
 		return connectionDate;
 	}
 
-	public void setConnectionDate(String connectionDate) {
+	public void setConnectionDate(LocalDate connectionDate) {
 		this.connectionDate = connectionDate;
 	}
 

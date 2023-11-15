@@ -6,17 +6,19 @@ const getProjectCountUrl = '/project/getProjectCount';
 const getOwnProjectsCount = '/project/getOwnProjectsCount';
 const getJoinedProjectsCount = '/project/getJoinedProjectsCount';
 
+const addProjectUrl = '/project/add-project';
+const deleteProjectUrl = '/project/delete';
 const getProjectMembers = '/project/members';
 const addProjectMember = '/project/addProjectMember';
 const removeProjectMember = '/project/removeProjectMember';
+
 const getPublicConnectsUrl = '/user/getUserConnectionList';
 const userDetailUrl = "/user/detail"
 
+const addProjectTaskUrl = '/project/add-project-task';
 const getProjectTasks = '/project/task';
 const getProjectTasksUrl = '/project/getProjectTasks';
-const addProjectUrl = '/project/add-project';
-const deleteProjectUrl = '/project/delete';
-const addProjectTaskUrl = 'project/add-project-task';
+const deleteProjectTaskUrl = '/project/task/delete/';
 
 //let projectListCount2 = 0;
 //project - display -modal
@@ -27,19 +29,21 @@ const projectVue = Vue.createApp({
 			projects: [],
 			projectCount: [],
 			connectsList: [],
-			projectMembers: [],
-			currentUserDetail: null,
+			projectMembers: {},
+			currentUserDetail: [],
 			projectTasks: {}
-
+			
+				
 
 
 		}
 	},
 	created() {
+		this.projectListCount = 0,
 		this.getProjects(),
 			this.getProjectCount(),
 			this.getCurrentUserDetail()
-
+			
 		//this.getProjectTasks();
 
 	},
@@ -72,7 +76,7 @@ const projectVue = Vue.createApp({
 					this.projects = data
 
 					this.projects.forEach(project => {
-
+						this.getProjectMembers(project.projectId, true)
 
 						fetch(getProjectTasks + "?project=" + project.projectId)
 							.then(response => response.json())
@@ -116,42 +120,42 @@ const projectVue = Vue.createApp({
 				.then(data => {
 					return data;
 				})
-		},		
+		},
 		addProject() {
 			let title = document.getElementById("project-title-input");
 			let description = document.getElementById("project-description-input");
 			let status = document.getElementById("project-status-input");
-			
-			if(title.value.length == ""){
+
+			if (title.value.length == "") {
 				toggleNotification("error", "Project title can't be blank!")
 			}
-			else{
-				fetch(addProjectUrl+'?title=' + title.value + '&description=' + description.value + '&status=' + status.value)
-				.then(response => response.json())
-				.then(data => {
-					toggleNotification("success", "Project successfully created!")
-					title.value = "";
-					description.value = "";
-					this.getProjects();	
-					this.getProjectCount();
-					
-				})
+			else {
+				fetch(addProjectUrl + '?title=' + title.value + '&description=' + description.value + '&status=' + status.value)
+					.then(response => response.json())
+					.then(data => {
+						toggleNotification("success", "Project successfully created!")
+						title.value = "";
+						description.value = "";
+						this.getProjects();
+						this.getProjectCount();
+
+					})
 			}
 		},
-		deleteProject(projectId) {			
-				fetch(deleteProjectUrl+'?project=' + projectId)
+		deleteProject(projectId) {
+			fetch(deleteProjectUrl + '?project=' + projectId)
 				.then(response => response.json())
 				.then(data => {
-					if(data == 1)
-					toggleNotification("success", "Project successfully deleted!")
+					if (data == 1)
+						toggleNotification("success", "Project successfully deleted!")
 					else
-					toggleNotification("error", "Unable to delete project!")
-					this.getProjects();	
-					this.getProjectCount();					
-				})			
+						toggleNotification("error", "Unable to delete project!")
+					this.getProjects();
+					this.getProjectCount();
+				})
 		},
 		showAddProjectMembersList(id, ev, on) {
-			this.getProjectMembers(id);
+			this.getProjectMembers(id, true);
 			const container = document.getElementById("add-member-list-container-" + id);
 			//alert(id)
 			const inputArea = document.getElementById("add-project-members-btn-text");
@@ -163,12 +167,9 @@ const projectVue = Vue.createApp({
 				fetch(getPublicConnectsUrl)
 					.then(response => response.json())
 					.then(data => this.connectsList = data)
-
 			}
 			else {
 				if ((ev.currentTarget.value == "" && on == "blr") || ev.currentTarget.id != container.id) {
-					//alert("here...")
-					//alert("Container: "+container.id +" target: "+this.id)
 					container.classList.remove("show");
 				}
 			}
@@ -185,65 +186,98 @@ const projectVue = Vue.createApp({
 			var ev = event.currentTarget;
 			ev.setAttribute("disabled", true); //to make sure nothing changes while request is being processed
 			//if(event.currentTarget.checked == true){ //member marked to be added
-				fetch(addProjectMember + "?project=" + projectId + "&user=" + username)
+			fetch(addProjectMember + "?project=" + projectId + "&user=" + username)
 				.then(response => response.json())
 				.then(data => {
 					//alert(data)
-					if(data == 1)
-					toggleNotification("success", "@"+username+" added as project member.");
-					else{
-					toggleNotification("error", "@"+username+" was not added as project member.");
-					ev.checked = false;
+					if (data == 1)
+						toggleNotification("success", "@" + username + " added as project member.");
+					else {
+						toggleNotification("error", "@" + username + " was not added as project member.");
+						ev.checked = false;
 					}
 					ev.removeAttribute("disabled");  //neccessary when things don't work out
-					this.getProjectMembers(projectId);					
+					this.getProjectMembers(projectId, true);
 				})
-				
-				
-			//}
-			/*else{//member marked to be removed
-				this.removeProjectMember(projectId, username, event);
-			}*/
-			
-			//.then(data => this.projects = data)
 		},
 		removeProjectMember(projectId, username, event) {
 			var ev = event.currentTarget
 			ev.setAttribute("disabled", true); //to make sure nothing changes while request is being processed
-		
+
 			fetch(removeProjectMember + "?project=" + projectId + "&user=" + username)
 				.then(response => response.json())
 				.then(data => {
-					if(data == 1)
-					toggleNotification("success", "@"+username+" removed from project members.");
-					else{
-					toggleNotification("error", "unable to remove @"+username+" from project members.");
-					ev.checked = true;
+					if (data == 1)
+						toggleNotification("success", "@" + username + " removed from project members.");
+					else {
+						toggleNotification("error", "unable to remove @" + username + " from project members.");
+						ev.checked = true;
 					}
 					//this.projectMembers = data)   //why tho?
 					ev.removeAttribute("disabled");  //neccessary when things don't work out
-					this.getProjectMembers(projectId);
-					});
-					
-					
+					this.getProjectMembers(projectId, true);
+				});
+
+
 		},
-		getProjectMembers(projectId) {
+		getProjectMembers(projectId, multiple) {
+			//alert("ohboii")
 			fetch(getProjectMembers + "?project=" + projectId)
 				.then(response => response.json())
-				.then(data => this.projectMembers = data)
+				.then(data => {
+					if (multiple) {
+						this.projectMembers[projectId] = data;
+					}
+					else {
+						this.projectMembers = data
+					}
+				})
 			//alert(this.projectMembers[0].username)			
 		},
-		addTaskToProject(projectId){
+		isNotInProjectMembers(username, projectId) {
+			for (let member of this.projectMembers[projectId]) {
+				if(member.username === username){					
+					return false; // Username exists in project members
+				}
+				}
+			return true; // Username does not exist in project members
+		},
+		addTaskToProject(projectId) {
 			//alert("hola "+projectId)			
-			let currentTaskForm = document.getElementById("add-project-task-form-"+projectId)
-			let taskTitle = document.querySelector("#"+currentTaskForm+" #task-title");
-			let taskDescription = document.querySelector("#"+currentTaskForm+" #task-description");
-			let taskStatus = document.querySelector("#"+currentTaskForm+" #task-status");
-			fetch(addProjectTaskUrl+"?")
+			let currentTaskForm = "add-project-task-form-" + projectId;
+			let taskTitle = document.querySelector("#" + currentTaskForm + " #task-title").value;
+			let taskDescription = document.querySelector("#" + currentTaskForm + " #task-description").value;
+			let taskStatus = document.querySelector("#" + currentTaskForm + " #task-status").value;
+			fetch(addProjectTaskUrl + "?title="+taskTitle+"&desc="+taskDescription+"&project="+projectId+"&status="+taskStatus)
 				.then(response => response.json())
-				.then(data => alert(data))
-			
-			
+				.then(data => {
+					if(data == 1){
+						toggleNotification("success", "Task has been added to project.")
+						taskDescription = " ";
+						taskTitle = " ";
+						taskStatus = " ";
+						this.getProjects();
+						
+					}
+					else
+						toggleNotification("error", "Unable to add task to project.")
+				})
+
+
+		},
+		deleteTaskFromProject(taskId) {
+			fetch(deleteProjectTaskUrl+taskId)
+				.then(response => response.json())
+				.then(data => {
+					if(data == 1){
+						toggleNotification("success", "Task has been deleted from project.")
+						this.getProjects();
+					}
+					else
+						toggleNotification("error", "Unable to delete task from project.")
+				})
+
+
 		},
 		//show "add project task" form
 		showAddProjectTaskForm(id, trigger) {

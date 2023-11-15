@@ -4,6 +4,9 @@
 @import "loader.css";
 @import "user-profile.css";
 
+*{
+	word-wrap: anywhere;
+}
 .dashboard-nav {}
 
 .user-dashboard-nav {
@@ -305,6 +308,7 @@
 	width: 45px;
 	white-space: nowrap;
 	overflow: hidden;
+	z-index: 20;
 }
 
 .side-nav-text {
@@ -403,6 +407,8 @@
 	border-bottom: 3px solid goldenrod;
 	width: 80%;
 	margin-left: 9%;
+	margin-left: 50px;
+	width: calc(90vw - 10px);
 	position: fixed;
 	z-index: 14;
 	border-top-right-radius: 0.375rem;
@@ -967,7 +973,11 @@
 		padding: 0 0.4rem !important;
 		padding: 0 !important;
 		overflow-x: hidden;
-		width: 87%;
+		width: 76%;
+		width: calc(100%-200px);
+		width: calc(90vw - 60px);
+		/*width: calc(85vw - 40px);*/
+		
 	}
 
 	.viewing-modal-exit-btn {

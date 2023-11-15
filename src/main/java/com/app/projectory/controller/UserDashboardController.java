@@ -1,11 +1,10 @@
 package com.app.projectory.controller;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -23,12 +22,13 @@ import com.app.projectory.dao.ProjectTaskRepository;
 import com.app.projectory.dao.TodoListCollectionRepository;
 import com.app.projectory.dao.TodoListRepository;
 import com.app.projectory.dao.UsersRepository;
+import com.app.projectory.dto.ConnectionSenderReceiverDto;
 import com.app.projectory.dto.CurrentUserDetailDto;
+import com.app.projectory.dto.ProjectDto;
 import com.app.projectory.dto.ProjectStatusCount;
 import com.app.projectory.dto.PublicUserConnectionsDetailDto;
 import com.app.projectory.dto.PublicUserPersonalDetailDto;
 import com.app.projectory.dto.PublicUserProjectDetailDto;
-import com.app.projectory.entity.Project;
 import com.app.projectory.entity.ProjectTasks;
 import com.app.projectory.entity.Todo;
 import com.app.projectory.entity.TodoListCollection;
@@ -70,6 +70,7 @@ public class UserDashboardController {
 	
 	
 	
+	
 	//get authenticated user details
 	@GetMapping("/username")    
     public @ResponseBody Users currentUserName(Authentication auth) {	
@@ -81,20 +82,27 @@ public class UserDashboardController {
 	@GetMapping("/dashboard")
 	public String displayUserDashboard(Model model, Todo todo, Principal principal, Authentication auth) throws JsonProcessingException {
 		long userId = userServ.getUserId(auth);
-		List<Project> projectsList = projServ.getProjectForCurrentUser(userId);		
+		//List<Project> projectsList = projServ.getProjectForCurrentUser(userId);		
+		List<ProjectDto> projectsList = projDao.findProjectListByUserIncUsername(userId);		
 		//List<Project> userProjects = projDao.findAll();
 		List<ProjectTasks> projectTasks = projTaskDao.findAll();
 		
 		List<TodoListCollection> collection = collectionServ.getTodoCollectionForCurrentUser(userId);
 		
+		
+		
+		
 		List<ProjectStatusCount> StatusCountList = projDao.countProjectStatus(userId);
 		Map<String, ProjectStatusCount> StatusCntMap = new HashMap<>();
 		ObjectMapper objectMapper = new ObjectMapper();
 		for(ProjectStatusCount obj : StatusCountList)
-		StatusCntMap.put(obj.getStatusLabel() , obj);
+		StatusCntMap.put(obj.getStatusLabel() , obj);		
 		
 		String jsonString = objectMapper.writeValueAsString(StatusCountList);
 		model.addAttribute("ProjectStatusCount",jsonString);
+		
+		
+		
 		
 		model.addAttribute("itemCount", todoData.count());
 		model.addAttribute("user", principal.getName());
@@ -193,19 +201,94 @@ public class UserDashboardController {
 	@GetMapping("/connections/{username}")
 	public @ResponseBody List<PublicUserConnectionsDetailDto> getConnectionByUsername(@PathVariable("username") String username, Authentication auth) {
 		
-		List<PublicUserConnectionsDetailDto> UserConnections;
-	if(username.equals(userServ.getCurrentUsername(auth))) {
-		UserConnections = connectionsDao.findAllConnections(username);
-	}
-	else {
-		UserConnections = connectionsDao.findPublicConnections(username);
+//		List<PublicUserConnectionsDetailDto> UserConnections;
+//	if(username.equals(userServ.getCurrentUsername(auth))) {
+//		UserConnections = connectionsDao.findAllConnections(username);
+//	}
+//	else {
+//		UserConnections = connectionsDao.findPublicConnections(username);
+//	}	
+//	return UserConnections;
+		
+		return connectionsDao.findPublicConnections(username);	
 	}
 		
 	
-	return UserConnections;
+	
+	//find sent connection request
+	@GetMapping("/connection/request/sent/")
+	public @ResponseBody List<PublicUserConnectionsDetailDto> getSentConnectionRequests(Authentication auth) {
+		long senderUserId = userServ.getUserId(auth);
+		return connectionsDao.findSentConnectionRequests(senderUserId);
 	}
 	
 	
+	//find received connection request
+	@GetMapping("/connection/request/received/")
+	public @ResponseBody List<PublicUserConnectionsDetailDto> getReceivedConnectionRequests(Authentication auth) {
+		long senderUserId = userServ.getUserId(auth);
+		return connectionsDao.findReceivedConnectionRequests(senderUserId);
+	}
 	
+	
+	//send connection request
+	@GetMapping("/connection/request/send/{receiver}")
+	public @ResponseBody int sendConnectionRequest(@PathVariable long receiver, Authentication auth) {
+		long senderUserId = userServ.getUserId(auth);
+		LocalDate dateToday = LocalDate.now();
+		return connectionsDao.sendConnectionRequest(receiver, senderUserId, dateToday);
+	}
+	
+	
+	//cancel sent connection request
+		@GetMapping("/connection/request/remove/{receiver}")
+		public @ResponseBody int cancelConnectionRequest(@PathVariable long receiver, Authentication auth) {
+			long senderUserId = userServ.getUserId(auth);
+			return connectionsDao.cancelConnectionRequest(receiver, senderUserId);
+		}
+		
+		// cancel sent connection request by username
+				@GetMapping("/connection/request/remove-username/{receiver}")
+				public @ResponseBody int cancelConnectionRequestWithUsername(@PathVariable String receiver, Authentication auth) {
+					long senderUserId = userServ.getUserId(auth);
+					long receiverUsername = userServ.getUserDetailByUsername(receiver).getUserId();
+					return connectionsDao.cancelConnectionRequest(receiverUsername, senderUserId);
+				}
+				
+				//accept received connection request
+				@GetMapping("/connection/request/accept/{connectionId}")
+				public @ResponseBody int acceptConnectionRequest(@PathVariable long connectionId, Authentication auth) {
+					long senderUserId = userServ.getUserId(auth);
+					return connectionsDao.acceptConnectionRequest(connectionId);
+				}
+				
+				//reject received connection request
+				@GetMapping("/connection/request/reject/{connectionId}")
+				public @ResponseBody int rejectConnectionRequest(@PathVariable long connectionId, Authentication auth) {
+					long senderUserId = userServ.getUserId(auth);
+					return connectionsDao.rejectConnectionRequest(connectionId);
+				}
+				
+	
+	//get connection status
+	@GetMapping("/connection/status/{receiver}")
+		public @ResponseBody String getConnectionStatus(@PathVariable long receiver, Authentication auth) {
+		long senderUserId = userServ.getUserId(auth);
+	return connectionsDao.getConnectionStatus(receiver, senderUserId);
+	}
+	
+	//get connection status
+		@GetMapping("/connection/SenderReceiverId/{receiver}")
+			public @ResponseBody ConnectionSenderReceiverDto getConnectionSenderReceiverId(@PathVariable long receiver, Authentication auth) {
+			long senderUserId = userServ.getUserId(auth);
+		return connectionsDao.getConnectionSenderReceiverId(receiver, senderUserId); //order: receiver, center
+		}
+	
+	//unfriend user -- by connection id
+	@GetMapping("/connection/remove-by-conn-id/{connectionId}")
+	public @ResponseBody int terminateConnection(@PathVariable long connectionId, Authentication auth) {
+		return connectionsDao.terminateConnectionByConnectionId(connectionId);
+	}
+				
 
 }

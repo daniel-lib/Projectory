@@ -32,26 +32,22 @@ public class UserAuthController {
 	BCryptPasswordEncoder encoder;
 	
 	  @PostMapping("/register-user") 
-	  @ResponseBody
 	  public String registerUser(Model model, Users user, RedirectAttributes redAttr) { 
 		  List<Users> allUsers = userDao.findAll();
 		  Users checkedUser = userLgServ.authenticateUser(user.getUsername(), user.getPassword(), allUsers); 
 		  String indicator = "err"; 
 		  
-		  if(checkedUser == null) { //		  
-			  
+		  
+		//  if(checkedUser == null) { //		  
+		  if(userDao.findByUsername(user.getUsername()) == null) { //		   
 			  user.setPassword(encoder.encode(user.getPassword()));
 			  user.setEnabled(true);
-			  user.setRole("ROLE_USER");
-			 
-		
-			  
+			  user.setRole("USER"); 		  
 			  userDao.save(user);
 			  model.addAttribute("Registration-Successful");
 			  indicator = "success";
-//			  return "redirect:/user/dashboard?reg=success";
-			  
-	  }
+//			  return "redirect:/user/dashboard?reg=success";			  
+		  	}
 		  
 		  redAttr.addFlashAttribute("loginStatus", indicator);
 	  //return "redirect:/"; 

@@ -22,7 +22,8 @@ let eventPathsVariables = {
 	"?auth_required?error" : ["Incorrect credentials. Please try again.", "error"],
 	"?auth_required?error" : ["Incorrect credentials. Please try again.", "error"],
 	"?auth_successful" : ["Welcome back!", "success"],
-	
+	"?reg=success" : ["Registration was successful. Login with you credentials to continue.", "success"],
+	"?reg=err" : ["Registration unsuccessful. Please try again.", "error"]	
 }
 displayEventNotification(window.location.search);
 function displayEventNotification(currentPathVar){
@@ -35,6 +36,10 @@ function displayEventNotification(currentPathVar){
 	}*/
 	if(currentPathVar == "?auth_required?error" || currentPathVar == "?auth_required"){
 	displaySigninForm('login')
+	}
+	
+	if(currentPathVar == "?reg=err" || currentPathVar == "?reg=success"){
+	displaySigninForm('signup')
 	}
 }
 

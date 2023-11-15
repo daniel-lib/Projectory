@@ -31,6 +31,30 @@ public interface ProjectRepository extends CrudRepository<Project, Long>{
 			+ " WHERE project_owner_user_id = ?1 GROUP BY STATUS ORDER BY statusLabel")
 	List<ProjectStatusCount> countProjectStatus(long userId);
 	
+//	//count projectlabels
+//		@Query(nativeQuery=true, value="SELECT STATUS as statusLabel, COUNT(STATUS) as labelCount FROM PROJECT p\n"
+//				+ "LEFT JOIN project_members pm on pm.user_id = ?1\n"
+//				+ "WHERE p.project_owner_user_id = ?1 OR p.project_id = pm.project_id \n"
+//				+ "GROUP BY STATUS ORDER BY statusLabel")
+//		List<ProjectStatusCount> countAllProjectStatus(long userId);
+	
+	//count project status labels
+	@Query(nativeQuery=true, value="SELECT statusLabel, SUM(labelCount) AS labelCount\n"
+			+ "FROM (SELECT p.status AS statusLabel, COUNT(p.status) AS labelCount\n"
+			+ "FROM PROJECT p \n"
+			+ "	  WHERE p.project_owner_user_id = ?1\n"
+			+ "    GROUP BY statusLabel\n"
+			+ "UNION ALL\n"
+			+ "    SELECT p.status AS statusLabel, COUNT(p.status) AS labelCount\n"
+			+ "    FROM PROJECT p\n"
+			+ "    LEFT JOIN project_members pm ON p.project_id = pm.project_id\n"
+			+ "    WHERE pm.user_id = ?1\n"
+			+ "    GROUP BY statusLabel) AS subquery\n"
+			+ "GROUP BY statusLabel\n"
+			+ "ORDER BY statusLabel")
+	List<ProjectStatusCount> countAllProjectStatus(long userId);
+	
+	
 	//count project me
 	
 	/*
@@ -84,6 +108,15 @@ public interface ProjectRepository extends CrudRepository<Project, Long>{
 	List<ProjectMembersDto> findProjectMembersByProjectId(long projectId, long userId); 
 	
 	
+	
+	//does project has members
+	@Query(value = "SELECT count(*) \n"
+			+ "WHERE EXISTS(SELECT 1 FROM project_members pm \n"
+			+ "WHERE pm.project_id = ?1)", nativeQuery = true)
+	int projectHasMembers(long projectId); 
+	
+	
+	
 	//count all projects
 //	@Query(value = "Select COUNT(*) FROM(\n"
 //			+ "SELECT p.*, project_owner_user_id as projectOwnerUserId,\n"
@@ -96,8 +129,8 @@ public interface ProjectRepository extends CrudRepository<Project, Long>{
 //	long countProjectForUser(long userId); 
 	
 	//the above commented one improved
-	@Query(value = "Select COUNT(*) AllProjectsCount FROM(\n"
-			+ "SELECT p.* FROM project p \n"
+	@Query(value = "Select DISTINCT COUNT(*) AllProjectsCount FROM(\n"
+			+ "SELECT DISTINCT p.* FROM project p \n"
 			+ "LEFT JOIN project_members m ON m.user_id =?1\n"
 			+ "WHERE p.project_owner_user_id = ?1 OR p.project_id = m.project_id\n"
 			+ ") AS pCount", nativeQuery = true)
@@ -105,7 +138,7 @@ public interface ProjectRepository extends CrudRepository<Project, Long>{
 	
 	//count OWN projects
 	@Query(value = "Select COUNT(*) ProjectsCreatedByUserCount FROM(\n"
-			+ "SELECT p.* FROM project p \n"
+			+ "SELECT DISTINCT p.* FROM project p \n"
 			+ "WHERE p.project_owner_user_id = ?1\n"
 			+ ") AS pCount", nativeQuery = true)
 	long countProjectsCreatedByUser(long userId); 
@@ -113,7 +146,7 @@ public interface ProjectRepository extends CrudRepository<Project, Long>{
 	
 	//count Joined projects
 		@Query(value = "Select COUNT(*) JoinedProjectsCount FROM(\n"
-				+ "SELECT p.* FROM project p \n"
+				+ "SELECT DISTINCT p.* FROM project p \n"
 				+ "LEFT JOIN project_members m ON m.user_id =?1\n"
 				+ "WHERE p.project_id = m.project_id\n"
 				+ ") AS pCount", nativeQuery = true)
@@ -177,5 +210,18 @@ public interface ProjectRepository extends CrudRepository<Project, Long>{
 			+ "WHERE p.project_id = ?1\n"
 			+ "AND p.project_owner_user_id = ?2", nativeQuery = true)
 	int deleteProject(long projectId, long projectOwner);
+	
+	@Transactional
+	@Modifying
+	@Query(value="DELETE FROM project_members\n"
+			+ "WHERE project_id = ?1\n"
+			+ "AND EXISTS(SELECT 1 from project\n"
+			+ "where project_owner_user_id = ?2)", nativeQuery = true)
+	int deleteProjectMembersOfaProject(long projectId, long authProjectOwner);
+	
+	
+	
+	
+	
 }
 	

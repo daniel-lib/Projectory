@@ -30,9 +30,13 @@
 				</div>
 				<div class="card-body">
 					<!--<p class="card-text fw-lighter">Catch-up with your activities</p><br />-->
-					
-					<div class="modal-project-task-container-inner custom-scrollbar-style-3">
-						<span>Projects: </span>
+
+					<div class="modal-project-task-container-inner custom-scrollbar-style-3 text-center my-5">
+						<span class="text-body-secondary" style="color: rgb(94, 92, 100)">
+							<span class="ti-time d-block fs-20"></span>
+							<span>coming soon...</span>
+						</span>
+						<!--<span>Projects: </span>
 						<span th:text="${projectCount}"></span>
 						<div th:each="proj : ${project}">
 							<div class="modal-project-task-items p-1 m-1">
@@ -41,15 +45,15 @@
 								<span> on </span>
 								<span class="p-1 cadetblue-light"
 									th:text="${proj.creationDate}"></span>
-								<!--<span th:text="${proj.projectMembers}"></span>-->
+								<span th:text="${proj.projectMembers}"></span>
 							</div>
-						</div>
+						</div>-->
 					</div>
-					
-					
-				
-				
-					
+
+
+
+
+
 				</div>
 			</div>
 		</div>
@@ -63,24 +67,34 @@
 				<div class="project-status-chart">
 					<h5>Project Status</h5>
 					<!--<canvas id="projects-chart" class="chart pie-chart" th:fragment = "project-status"></canvas>-->
-					<canvas id="projects-chart" class="chart pie-chart"></canvas>		
+					<canvas id="projects-chart" class="chart pie-chart"></canvas>
+					<!--<div id="projects-chart-vue">
+						<h3>test chart with vue</h3>
+						<template> 
+						<canvas id="projects-chart-vue-canvas" class="chart pie-chart"></canvas>
+					</template>
+					<script src="/javascript/vue-scripts/charts-main-vue.js"></script>
+					</div>-->
 
-					<script>
+					<!--<script>
 						var ProjectStatusCount = "[[${ProjectStatusCount}]]";
-					</script>
+					</script>-->
 				</div>
-				<div class="productivity-chart flex-grow-1">
+				<!--<div class="productivity-chart flex-grow-1">
 					<h5>Weekly Productivity Report</h5>
 					<canvas id="productivity-chart" class="chart pie-chart"></canvas>
 					</canvas>
 				</div>
-				
-				
+
+
 				<div class="project-status-chart productivity-chart">
-					<h5>placeholder</h5>
+					<span class="text-center my-5">
+						<h5>...</h5>
+						<span class="ti-dashboard fs-24 text-center mx-5 my-5 " style="color: rgb(94, 92, 100)"></span>
+					</span>
 					<canvas id="projects-chart" class="chart pie-chart">
 					</canvas>
-				</div>
+				</div>-->
 			</div>
 		</main>
 
@@ -89,5 +103,5 @@
 	<!--<script>
 		var TodoCollections = "[[${ProjectStatusCount}]]";
 	</script>-->
-	
+
 </main>

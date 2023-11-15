@@ -75,6 +75,19 @@ div.dark-mode {
 	color: inherit;
 }
 
+.inherit-color-hover:hover {
+	color: inherit;
+}
+.align-center{
+	margin-left:auto; 
+	margin-right: auto;
+}
+.align-right{
+	margin-left:auto; 
+	right: 0;
+	position: absolute;
+}
+
 .card {
 	background-color: var(--primary-card-bg) !important;
 	border: var(--primary-card-border) !important;
@@ -639,6 +652,20 @@ footer ul li a:hover,
 }
 
 .minimalist-btn-theme-controlled:hover {
+	background-color: goldenrod;
+	text-decoration: none !important;
+	color: #FFF !important;
+	background-color: rgb(94, 92, 100) !important;
+}
+
+.minimalist-btn-theme-controlled-lighter {
+	background-color: var(--primary-card-bg);
+	color: var(--primary-color);
+	/*filter: invert(10);*/
+	filter:sepia(10);
+}
+
+.minimalist-btn-theme-controlled-lighter:hover {
 	background-color: goldenrod;
 	text-decoration: none !important;
 	color: #FFF !important;

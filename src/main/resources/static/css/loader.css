@@ -3,7 +3,7 @@
   font-family: "Surt", Arial, Helvetica, sans-serif;
   font-weight: 600;
 }*/
-
+@import "/css/search-loader.css";
 .loader-container{
 	margin-top: 0.5em;
 	margin-left: 90px;

@@ -22,15 +22,39 @@
 						</div>
 					</div>
 					<div class="profile-connections flex-fill ">
-						
+
 						<h5>Connections({{userConnectsCount}})</h5>
-						<h5 v-if="userConnectsCount == 0" class="p-5">user has no connections yet</h5>
-						<div class="public-data-list public-prof-list custom-scrollbar-style-2" v-if="userConnectsCount != 0" >
-							<h6 class="text-center">Pending Connection Request</h6>
+						
+
+						<h6 v-if="isOwnAccount == 'true'" class="text-center">Pending Connection Request</h6>
+
+						<ul class="nav nav-tabs mb-2" id="myTab" role="tablist">
+							<li class="nav-item" role="presentation">
+								<button class="nav-link active" id="approved-tab" data-bs-toggle="tab"
+									data-bs-target="#approved" type="button" role="tab" aria-controls="approved"
+									aria-selected="true">Connected</button>
+							</li>
+							<li class="nav-item" role="presentation">
+								<button class="nav-link" id="sent-tab" data-bs-toggle="tab"
+									data-bs-target="#sentRequest" type="button" role="tab" aria-controls="sent"
+									aria-selected="false">Sent Request</button>
+							</li>
+							<li class="nav-item" role="presentation">
+								<button class="nav-link" id="received-tab" data-bs-toggle="tab"
+									data-bs-target="#receivedRequest" type="button" role="tab" aria-controls="received"
+									aria-selected="false">Received Request</button>
+							</li>
+						</ul>
+						
+						
+						
+						<div class="public-data-list public-prof-list custom-scrollbar-style-2">
+							<!--v-if="userConnectsCount != 0">-->
+
 							<div th:replace="/user/profile/profile-layouts::pending-user-connections-list"></div>
+							<hr />
 							
-							<h6 class="mt-4 text-center">Connected with</h6>
-							<div th:replace="/user/profile/profile-layouts::approved-user-connections-list"></div>
+							<!--<div th:replace="/user/profile/profile-layouts::approved-user-connections-list"></div>-->
 						</div>
 
 					</div>
@@ -70,7 +94,7 @@
 
 
 	<script>
-		ownAccount = "[[${ownAccount}]]";
+		ownAccount = "[[${ownAccount}]]"; //get through thymeleaf
 		if (!ownAccount) {
 			UserDetailByUsername = "[[${UserDetailByUsername}]]";
 			if (UserDetailByUsername == "User does not exist") {

@@ -5,16 +5,17 @@
 
 
 <body>
+	<div th:replace="/mainLayouts::main-bottom-asset-imports"></div>
 	<!--<header th:replace="mainLayouts :: nav"></header>-->
 	<br />
 	<div class="containers error-page-container">
 		<div class="mt-5 text-center">
 			<img th:src = "@{/images/projectory-logo-full.png}">
-			<h3>This is no man's land </h3>
+			<h3>It's no man's land </h3>
 			<a th:href="@{/}" class="minimalist-btn no-text-decoration">Take me to safety</a>
 		</div>
 	</div>
-
+<div th:replace="/mainLayouts::main-bottom-asset-imports2"></div>
 </body>
 
 </html>

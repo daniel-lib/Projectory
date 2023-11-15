@@ -4,7 +4,7 @@
 <head th:fragment="head">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Projectory - Project Management App</title>	
+	<title>Projectory - Project Management App</title>
 	<!--<link rel="icon" th:href="@{/images/projectory-logo.png}" type="image/x-icon">-->
 	<link rel="icon" th:href="@{/images/projectory-logo.png}" type="image/png">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -27,17 +27,17 @@
 	<script src="/javascript/dashboard-script.js" defer></script>
 	<script src="/javascript/mainScript.js" defer></script>
 	<script src="/javascript/project-script.js" defer></script>
-	<script src="/javascript/login-info-fetch.js" defer></script>	
+	<script src="/javascript/login-info-fetch.js" defer></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script src="/javascript/charts-project.js" defer></script>
 	<script src="/javascript/theme-switch-script.js" defer></script>
-	
+
 	<script src="/javascript/vue-scripts/user-detail-vue.js" defer></script>
-	<script src="/javascript/vue.global.js.js"></script>		
+	<script src="/javascript/vue.global.js.js"></script>
 	<!--<script src="/javascript/vue-scripts/user-detail-vue.js" defer></script>-->
-		  <!-- ** Plugins Needed for animation and icon flare** -->
-  <link rel="stylesheet" href="/plugins/themify/css/themify-icons.css">
-  <link rel="stylesheet" href="/plugins/aos/aos.css">
+	<!-- ** Plugins Needed for animation and icon flare** -->
+	<link rel="stylesheet" href="/plugins/themify/css/themify-icons.css">
+	<link rel="stylesheet" href="/plugins/aos/aos.css">
 </head>
 
 <header th:fragment="nav" class="dashboard-nav fixed-top">
@@ -55,11 +55,62 @@
 
 
 		<div class="navbar-links-container d-flex justify-content-end mx-3">
-			<span class="search-bar me-1 d-flex">
-				<input type="text" class="top-search-text-input d-inline" placeholder="Search keyword"
-					id="search-text-input">
+
+			<span class="search-bar me-1 d-flex" id="search-bar">
+
+				<span class="btn-group btn-group-sm project-owner-indicator info-tag-dark 
+					info-tag-dark-sm float-end fs-8 p-0 ">
+					<input type="text" class="top-search-text-input d-inline" placeholder="Search keyword"
+						id="search-text-input" @keyup="fetchSearchableData($event.target.value, $event)"
+						data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+					<!--@keyup="fetchSearchableData($this.value, $event)"-->
+					<!--v-on:keyup="fetchSearchableData(this.$data.name = $event.target.value")-->
+					
+					<ul class="dropdown-menu" style="z-index: 1002;">
+						<li><span v-if="fetchedSearchableData.length == 0">no results found</span></li>
+
+						<div v-if="searchLoader == true" class="dot-spinner align-center"
+							style="top: 20px">
+							<div class="dot-spinner__dot"></div>
+							<div class="dot-spinner__dot"></div>
+							<div class="dot-spinner__dot"></div>
+							<div class="dot-spinner__dot"></div>
+							<div class="dot-spinner__dot"></div>
+							<div class="dot-spinner__dot"></div>
+							<div class="dot-spinner__dot"></div>
+							<div class="dot-spinner__dot"></div>
+						</div>
+
+						<li v-for="searchItems in fetchedSearchableData" class="border-bottom border-bottom-secondary">
+							
+								<!--displays recently searched items for account at first then data from db-->
+								<template v-if="searchItems.searchResultType == 'user'">
+									<a :href="`/user/${searchItems.searchItemDescription}`" 
+									class="dropdown-item d-flex justify-content-between  p-0 px-1
+									d-flex justify-content-between no-text-decoration inherit-color inherit-color-hover">
+										<span>
+											<span class="fs-12 d-block pb-0"
+												style = "">{{searchItems.searchItemTitle}}</span>
+											<span class="fs-11 pt-0"
+												style = "">@{{searchItems.searchItemDescription}}</span>
+										</span>
+
+										<span role="button" :value="searchItems.searchItemDescription"
+											title="remove member"
+											class=" align-self-center fa-solid fa-arrow-right btn btn-sm btn-secondary align-right">
+											<!--@click="removeProjectMember(project.projectId, member.username, $event)">-->
+										</span></a>
+								</template>
+						
+						</li>
+					</ul>
+				</span>
+				<!--Search button-->
 				<span role="button" class="top-search-btn d-inline fa-solid fa-magnifying-glass"></span>
 			</span>
+			<script src="/javascript/vue-scripts/search-vue.js"></script>
+
+
 
 			<div class="mt-0 pt-0 " th:object="${user}">
 				<div class="top-menu-icons">
@@ -122,7 +173,7 @@
 
 							<span role="button" class="top-menu-link d-block my-3 text-center">
 								<span class="fa-solid fa-user-pen pe-2">
-								</span><a href="/editProfile">Edit Profile</a></span>
+								</span><a href="">Edit Profile</a></span>
 							<hr />
 
 							<span role="button" class="sign-out-btn top-menu-link text-center d-block"
@@ -168,15 +219,15 @@
 				id="side-menu-dashboard-link">
 				<span class="nav-icon mt-1 fa-solid fa-table-columns"></span> <span
 					class="side-nav-text mx-2">Dashboard</span></a>
-			<a role="button" class="nav-link side-nav-links todo-list-link" id="side-menu-connection-link"				>
+			<a role="button" class="nav-link side-nav-links todo-list-link" id="side-menu-connection-link">
 				<span class="nav-icon mt-1 fa-solid fa-user-group"></span> <span
 					class="side-nav-text mx-2">Connections</span></a>
 			<a role="button" class="nav-link side-nav-links scrum-board-link" id="side-menu-board-link"
-				 th:href="@{/project/board}">
+				th:href="@{/project/board}">
 				<span class="nav-icon mt-1 fa-solid fa-chalkboard-user"></span>
 				<span class="side-nav-text mx-2">Agile Board</span></a>
 			<!--<a class="nav-link" th:href="@{/user/dashboard}"  th:text="${user.firstName}  + ' '+ ${user.lastName}">-->
-			<hr class="side-nav-hr-line"/>
+			<hr class="side-nav-hr-line" />
 			<a role="button" class="nav-link side-nav-links account-link" id="side-menu-setting-link">
 				<span class="nav-icon mt-1 fa-solid fa-sliders"></span>
 				<span class="side-nav-text mx-2">Setting</span></a>
@@ -191,9 +242,9 @@
 
 <footer th:fragment="footer" class="mt-5 pt-2 dashboard-footer m-0">
 
-	
-	
-		<!--<button class="modal-trigger" data-modal-open>Modal Test</button>-->
+
+
+	<!--<button class="modal-trigger" data-modal-open>Modal Test</button>-->
 
 	<dialog id="confirmation-modal" th:fragment="confirmation-modal">
 		<h2 class="confirmation-modal-header">Are you sure?</h2>
@@ -214,14 +265,15 @@
 		<div class="socials">
 		</div>
 	</div>
-
+	<div th:replace="/mainLayouts::cookie-notice"></div>
 	<div th:replace="/mainLayouts::copyright-info"></div>
-		<script>
+	<script>
 		var username = "[[${currentUserDetail.username}]]";
+		window.localStorage.setItem("loggedInUser", username)
 	</script>
 	<!-- jQuery -->
-<script src="/plugins/jQuery/jquery.min.js"></script>
-<script src="/plugins/aos/aos.js"></script>
+	<script src="/plugins/jQuery/jquery.min.js"></script>
+	<script src="/plugins/aos/aos.js"></script>
 	<script src="/javascript/anim-script.js"></script>
 </footer>
 

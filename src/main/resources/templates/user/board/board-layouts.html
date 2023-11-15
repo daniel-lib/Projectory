@@ -50,6 +50,7 @@
 					:id="`draggable-card-${task.taskId}`" @dragleave="cancelDropAreaHighlight($event)"
 					@dragenter="dropAreaHighlight($event)"
 					v-if="projectOnBoard !== null && task.status==='not started'">
+					
 					<span v-if="task.assigneeUsername != null" class="fs-9 ms-2">
 						task owner: <a :href="`/user/${task.assigneeUsername}`" class="no-text-decoration task-owner">
 							{{task.assigneeUsername}}</a></span>

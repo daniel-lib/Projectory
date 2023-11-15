@@ -13,6 +13,7 @@
 
 .delete-single-item-btn:hover {
 	box-shadow: 0px 0px 5px 3px #dc3545;
+	box-shadow: 0px 0px 1px 1px #dc3545;
 	color: rgb(238, 170, 163) !important;
 }
 
@@ -40,10 +41,9 @@
 	padding: .130rem .75rem;
 }
 
-.item-control-buttons {
-}
+.item-control-buttons {}
 
-.item-control-left-border {	
+.item-control-left-border {
 	padding-left: 0.5rem !important;
 	margin-left: 0.5rem !important;
 	/*margin-right: 1.5rem !important;*/

@@ -21,7 +21,8 @@
 
 			<div class="project-modal-boxes-default pt-3 float-none p-1 project-modal-boxes"
 				:id="`project-modal-box-${project.projectId}`">
-				<div class="">
+
+				<div class="d-flex justify-content-between">
 					<span class="project-owner-indicator info-tag-dark info-tag-dark-sm float-start"><span
 							class="fa-solid fa-user-tie"></span>
 						Project owner: <span v-if="project.projectOwnerUsername === currentUserDetail.username"
@@ -32,36 +33,47 @@
 							<a :href="`/user/${project.projectOwnerUsername}`" class="no-text-decoration">
 								{{project.projectOwnerUsername}}</a></span>
 					</span>
-					<span class="project-owner-indicator info-tag-dark info-tag-dark-sm float-end d-flex">
-						<span><span class="fa-solid fa-users"></span> Members: </span>
-							
-							<span class="btn-group btn-group-sm project-owner-indicator info-tag-dark 
+					<span class="project-owner-indicator info-tag-dark info-tag-dark-sm d-flex me-1 fs-15">
+						<span><span class="fa-solid fa-users"></span> Members: &nbsp;</span>
+
+						<span class="btn-group btn-group-sm project-owner-indicator info-tag-dark 
 					info-tag-dark-sm float-end fs-8 p-0">
-						<span role="button" class="btn btn-sm btn-secondary dropdown-toggle m-0" type="button" data-bs-toggle="dropdown"
-							data-bs-auto-close="true" aria-expanded="false">
-							0
-						</span>
-						<ul class="dropdown-menu" style="">
-							<li><a class="dropdown-item" href="#">Menu item</a></li>
-							<li><a class="dropdown-item" href="#">Menu item</a></li>
-							<li><a class="dropdown-item" href="#">Menu item</a></li>
-						</ul>
-					</span>
-							
+							<span role="button"
+								class="btn btn-success minimalist-btn minimalist-btn-lighter minimalist-btn-lighter2 btn-sm dropdown-toggle m-0 p-0 px-1 fs-8"
+								type="button" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+								<template v-if="projectMembers[project.projectId]">
+									{{projectMembers[project.projectId].length}}
+								</template>
 							</span>
+							<ul class="dropdown-menu" style="z-index: 1002;">
+								<li v-for="member in projectMembers[project.projectId]"
+									class="border-bottom border-bottom-secondary">
+									<span class="dropdown-item d-flex justify-content-between">
+										<span>
+											<span class="fs-10 d-block pb-0" style="">{{member.firstName}}
+												{{member.lastName}}</span>
+											<span class="fs-9 pt-0" style="">@ {{member.username}}</span>
+										</span>
 
-					
+										<span role="button" :value="member.username" title="remove member"
+											class=" align-self-center fa-solid fa-times btn btn-sm btn-danger"
+											@click="removeProjectMember(project.projectId, member.username, $event)">
+										</span>
 
-
-
-					<div></div>
-					<br />
+									</span>
+								</li>
+							</ul>
+						</span>
+					</span>
 				</div>
 
 				<div class="project-modal-inner-content-container d-flex flex-wrap justify-content-around p-2">
 					<div class="project-modal-boxes-inner p-1 my-2 mx-2 align-self-start flex-fill"
 						style="display: block;" :id="project.projectId">
-						<span id="itemNumber" class="badge text-bg-warning itemNumber">{{++projectListCount}}</span>
+						<!--<span id="itemNumber" class="badge text-bg-warning itemNumber">{{++projectListCount}}</span>-->  <!--causing loading prob.-->
+						
+						<span id="projectNumber" class="badge text-bg-warning itemNumber ti-clipboard pe-0">&nbsp;</span>
+						
 						<span id="">&nbsp; {{project.title}}</span>
 						<br />
 						<span class="fw-lighter">{{project.description}}</span>
@@ -89,57 +101,26 @@
 									<input type="text" class="add-project-members-btn-text d-inline "
 										placeholder="Add Members" id="add-project-members-btn-text" />
 								</button>
-
-
 							</div>
-
 						</div>
 
 						<div :id="`add-member-list-container-${project.projectId}`"
 							class="add-project-member-list-container custom-scrollbar-style-2 overflow-ver-scroll">
-							<div v-for="conn in connectsList" class="add-project-member-list-item-box-container">
+							<!--loop through connections list-->
+							<div v-for="conn in connectsList" :key="conn.connectionId"
+								class="add-project-member-list-item-box-container">
 
-								<!--list of already members-->
-								<!--	<span class="d-flex justify-content-between add-project-member-list-item-box"
-								 v-for="member in projectMembers">
-									<span>
-										<span class="d-block">>>{{member.firstName}}
-											{{member.lastName}}</span>
-										<span class="d-block fs-10 cadetblue">>>@{{member.username}}</span>
-									</span>
-									<button  :value="conn.connectedUserUsername" title="add"
-										class="btn btn-sm btn-danger p-0 px-1 align-self-center"
-										@click="removeProjectMember(project.projectId, projectMembers.projectMemberUserId, $event)">
-										<span class="fa-solid fa-times"></span></button>
-								</span>-->
 
-								<!--list of connections-->
-								<span class="d-flex justify-content-between add-project-member-list-item-box">
+								<!--list of connections not member of seleled project-->
+								<span class="d-flex justify-content-between add-project-member-list-item-box"
+									v-if="isNotInProjectMembers(conn.connectedUserUsername, project.projectId)">
 
 									<span>
 										<span class="d-block">{{conn.connectedUserFirstName}}
 											{{conn.connectedUserLastName}}</span>
 										<span class="d-block fs-10 cadetblue">@{{conn.connectedUserUsername}}</span>
 									</span>
-									<!--if connected user exists in list of members display remove btn-->
-									<!--<button  v-if="projectMembers.filter((mem) => mem.username == conn.connectedUserUsername) != ''"
-									:value="conn.connectedUserUsername" title="add"
-										class="btn btn-sm btn-danger p-0 px-1 align-self-center"
-										@click="removeProjectMember(project.projectId, projectMembers.projectMemberUserId, $event)">
-										<span class="fa-solid fa-times"></span></button>-->
-
-									<!--if connected user exists in list of members display remove btn-->
-									<!--	<span style="color:red">{{projectMembers.filter((mem) => mem.username == conn.connectedUserUsername)}}</span>-->
-									<input
-										v-if="projectMembers.filter((mem) => mem.username == conn.connectedUserUsername) != ''"
-										type="checkbox" :value="conn.connectedUserUsername" title="add"
-										class="form-check-input red-checkbox green-checkbox align-self-center"
-										@click="removeProjectMember(project.projectId, conn.connectedUserUsername, $event)"
-										checked>
-									<!--if connected user is not in list of members display checkbox-->
-									<input
-										v-if="projectMembers.filter((mem) => mem.username == conn.connectedUserUsername) == ''"
-										type="checkbox" :value="conn.connectedUserUsername" title="add"
+									<input type="checkbox" :value="conn.connectedUserUsername" title="add"
 										class="form-check-input red-checkbox green-checkbox align-self-center"
 										@click="addProjectMember(project.projectId, conn.connectedUserUsername, $event)">
 								</span>
@@ -159,9 +140,9 @@
 
 								<div class="d-flex">
 									<select class="form-select form-select-sm mb-1 me-1 task-status" id="task-status">
-										<option selected>Not started</option>
-										<option>Working on it</option>
-										<option>Done</option>
+										<option selected value="not started">Not started</option>
+										<option value="in progress">Working on it</option>
+										<option value="done">Done</option>
 									</select>
 									<input type="number" placeholder="Duration" title="Days to complete"
 										class="form-control form-control-sm mb-1 task-duration" id="task-duration"
@@ -190,21 +171,25 @@
 									<span>
 										<span class="d-flex justify-content-between">
 											<span>
-												<span>{{task.taskName}}</span>
+												<span class="ti-layout-accordion-merged">&nbsp;{{task.taskName}}</span>
 												<span class="fs-10 d-block">{{task.taskDescription}}</span>
 											</span>
-											<span>
+											<span class="border-start border-start-secondary ms-1">
 												<span class="ms-5 task-owner"
 													v-if="task.assigneeUsername!=null">@{{task.assigneeUsername}}</span>
-												<span class="ms-5 task-owner"
+												<span class="ms-5 task-owner pe-5"
 													v-if="task.assigneeUsername==null">...</span>
+													<span
+													class="fa-solid fa-trash-can btn btn-danger ms-1 fs-10 p-1 me-2"
+													@click="deleteTaskFromProject(task.taskId)"></span>
 												<span
 													:class="`ms-5 d-block ${task.status}-stage`">{{task.status}}</span>
+													
+													<span>
+												
 											</span>
-											<span>
-												<span
-													class="fa-solid fa-trash-can btn btn-danger ms-1 fs-10 p-1"></span>
 											</span>
+											
 										</span>
 									</span>
 								</span>
