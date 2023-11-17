@@ -49,12 +49,12 @@ public class HomeController {
 	@GetMapping("/about")
 	public String serverAboutPage(Model model, Users user) {
 		model.addAttribute("user", user);
-		return "/home/about";
+		return "home/about";
 	}
 	@GetMapping("/features")
 	public String serverFeaturesPage(Model model, Users user) {
 		model.addAttribute("user", user);
-		return "/home/features";
+		return "home/features";
 	}
 
 }
