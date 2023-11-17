@@ -1,0 +1,25 @@
+spring.datasource.url=jdbc:postgresql://127.0.0.1:5432/projectory-db
+spring.datasource.username=postgres
+spring.datasource.password=pg123
+
+spring.datasource.initialization-mode=never
+#spring.datasource.initialization-mode=always
+
+#spring.jpa.hibernate.ddl-auto=none
+#spring.jpa.hibernate.ddl-auto=create
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
+
+spring.jpa.show-sql=true
+spring.thymeleaf.cache=false
+version=1.0.0
+
+#prevent the data.sql script from executing before Hibernate initialization
+spring.jpa.defer-datasource-initialization=true
+
+#Disable default whitelabel error page
+server.error.whitelabel.enabled=false
+#server.port = 9091
+server.error.path=/error
+#spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.HSQLDialect
+server.servlet.session.timeout=60m

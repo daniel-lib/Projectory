@@ -10,8 +10,8 @@ spring.datasource.initialization-mode=never
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
 
-spring.jpa.show-sql=true
-spring.thymeleaf.cache=false
+#spring.jpa.show-sql=true  #commentedForDeployment
+#spring.thymeleaf.cache=false  #commentedForDeployment
 version=1.0.0
 
 #prevent the data.sql script from executing before Hibernate initialization
@@ -22,4 +22,4 @@ server.error.whitelabel.enabled=false
 #server.port = 9091
 server.error.path=/error
 #spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.HSQLDialect
-server.servlet.session.timeout=1440m
+server.servlet.session.timeout=2880m 
