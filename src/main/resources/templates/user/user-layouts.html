@@ -43,7 +43,7 @@
 
 <header th:fragment="nav" class="dashboard-nav fixed-top">
 
-	<figure th:replace="/mainLayouts :: notification-bar"></figure>
+	<figure th:replace="mainLayouts :: notification-bar"></figure>
 
 	<nav class="user-dashboard-nav d-flex">
 		<div class="top-projectory-logo">
@@ -263,8 +263,8 @@
 		<div class="socials">
 		</div>
 	</div>
-	<div th:replace="/mainLayouts::cookie-notice"></div>
-	<div th:replace="/mainLayouts::copyright-info"></div>
+	<div th:replace="mainLayouts::cookie-notice"></div>
+	<div th:replace="mainLayouts::copyright-info"></div>
 	<script>
 		var username = "[[${currentUserDetail.username}]]";
 		window.localStorage.setItem("loggedInUser", username)

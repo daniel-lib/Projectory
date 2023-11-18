@@ -10,7 +10,7 @@
 
 		<span class="">
 			<span v-if="showLoader" style="z-index: 5000; position: absolute;">
-				<div id="loader" class="loader-container" th:replace="/user/user-layouts :: loader-animation">
+				<div id="loader" class="loader-container" th:replace="user/user-layouts :: loader-animation">
 			</span>
 			<select
 				class="form-select form-select-sm mb-2 me-1  minimalist-btn minimalist-btn-blk-bg btn-sm board-change-proj-btn"
@@ -30,7 +30,7 @@
 	</div>
 
 	<div class="board-inside-container custom-scrollbar-style" id="board-inside-container">
-		<div th:replace="/user/board/board-layouts::task-stage-categories"></div>
+		<div th:replace="user/board/board-layouts::task-stage-categories"></div>
 	</div>
 
 	

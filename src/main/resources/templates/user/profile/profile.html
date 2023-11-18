@@ -1,14 +1,14 @@
 <main class="profile-content" th:fragment="profile-content">
 	<div>
-		<aside th:replace="/user/user-layouts :: side-menu"></aside>
+		<aside th:replace="user/user-layouts :: side-menu"></aside>
 
 		<section class="profile-content-inner d-flex gap-4 flex-wrap">
 
 			<section class="profile-main-body  flex-fill" id="user-details">
 
 				<div class="profile-header-section small-rounded-containers">
-					<section th:replace="/user/profile/profile-layouts::profile-banner"></section>
-					<div th:replace="/user/profile/profile-layouts::profile-top-user-info"></div>
+					<section th:replace="user/profile/profile-layouts::profile-banner"></section>
+					<div th:replace="user/profile/profile-layouts::profile-top-user-info"></div>
 
 				</div>
 
@@ -18,7 +18,7 @@
 						<h5>Public projects({{userProjectCount}})</h5>
 						<h5 v-if="userProjectCount == 0" class="p-5">user has no public projects</h5>
 						<div class="public-data-list custom-scrollbar-style-2" v-if="userProjectCount != 0">
-							<div th:replace="/user/profile/profile-layouts::user-project-list"></div>
+							<div th:replace="user/profile/profile-layouts::user-project-list"></div>
 						</div>
 					</div>
 					<div class="profile-connections flex-fill ">
@@ -51,10 +51,10 @@
 						<div class="public-data-list public-prof-list custom-scrollbar-style-2">
 							<!--v-if="userConnectsCount != 0">-->
 
-							<div th:replace="/user/profile/profile-layouts::pending-user-connections-list"></div>
+							<div th:replace="user/profile/profile-layouts::pending-user-connections-list"></div>
 							<hr />
 							
-							<!--<div th:replace="/user/profile/profile-layouts::approved-user-connections-list"></div>-->
+							<!--<div th:replace="user/profile/profile-layouts::approved-user-connections-list"></div>-->
 						</div>
 
 					</div>

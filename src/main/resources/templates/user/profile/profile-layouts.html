@@ -103,18 +103,18 @@
 
 	<div class="tab-content" id="myTabContent">
 		<div class="tab-pane fade active show" id="approved" role="tabpanel" aria-labelledby="approved-tab">
-			<div th:replace="/user/profile/profile-layouts::approvedConnections"></div>
+			<div th:replace="user/profile/profile-layouts::approvedConnections"></div>
 			<h5 v-if="userConnectsCount == 0" class="p-5">user has no connections yet</h5>
 		</div>
 
 		<!--sent requests-->
 		<div class="tab-pane fade" id="sentRequest" role="tabpanel" aria-labelledby="sent-tab">
-			<div th:replace="/user/profile/profile-layouts::sentConnectionRequest"></div>
+			<div th:replace="user/profile/profile-layouts::sentConnectionRequest"></div>
 		</div>
 
 
 		<div class="tab-pane fade" id="receivedRequest" role="tabpanel" aria-labelledby="received-tab">
-			<div th:replace="/user/profile/profile-layouts::receivedConnectionRequest"></div>
+			<div th:replace="user/profile/profile-layouts::receivedConnectionRequest"></div>
 
 		</div>
 

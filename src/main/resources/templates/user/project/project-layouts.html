@@ -287,11 +287,11 @@
 	</span>
 	<hr />
 
-	<div th:replace="/user/todo/todoLayouts :: notification-board"></div>
+	<div th:replace="user/todo/todoLayouts :: notification-board"></div>
 	<input type="button" class="btn btn-primary-white btn-sm mt-3 mx-3 create-project-btn"
 		onClick="showAddProjectForm()" value="Create Project">
 
-	<div th:replace="/user/project/project-layouts :: add-project-form"></div>
+	<div th:replace="user/project/project-layouts :: add-project-form"></div>
 
 	<!--<p class="card-text fw-lighter item-count-check" th:text="${projectCount}"></p>--><br />
 	<div class="d-fle flex-wrap">
@@ -309,7 +309,7 @@
 					{{projectCount[2]}}</span>
 			</div>
 		</div><br />
-		<div th:replace="/user/project/project-layouts :: project-list-table"></div>
+		<div th:replace="user/project/project-layouts :: project-list-table"></div>
 
 		<!--</form>-->
 	</div>

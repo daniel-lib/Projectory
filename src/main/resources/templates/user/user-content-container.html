@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="https://www.thymeleaf.org" class="dark-mode">
 
-<head th:replace="/user/user-layouts :: head"></head>
+<head th:replace="user/user-layouts :: head"></head>
 
 
 
@@ -10,7 +10,7 @@
 	<div id="item-action-notification"
 		class="badge item-action-notification px-4 d-flex justify-content-center fixed-top"
 		th:text="${param.indicator}"></div>
-	<header th:replace="/user/user-layouts :: nav"></header>
+	<header th:replace="user/user-layouts :: nav"></header>
 	<div class="containers ">
 
 
@@ -18,15 +18,15 @@
 		<!--<div th:text="${currentPagee}" class="mt-5"></div>-->
 		<!--<span class="mt-5">sdfffffffffffsd</span>-->
 		<div th:if="${currentPage == 'dashboard'}">
-			<main th:replace="/user/dashboard-content-layout :: dashboard-content"></main>
+			<main th:replace="user/dashboard-content-layout :: dashboard-content"></main>
 		</div>
 
 		<div th:if="${currentPage == 'profile'}">
-			<main th:replace="/user/profile/profile :: profile-content"></main>
+			<main th:replace="user/profile/profile :: profile-content"></main>
 		</div>
 		
 		<div th:if="${currentPage == 'board'}">
-			<main th:replace="/user/board/board :: board-content"></main>
+			<main th:replace="user/board/board :: board-content"></main>
 		</div>
 		
 	
@@ -37,19 +37,19 @@
 		
 		<!-- th:if on both of the works but th:unless doesn't. It breaks the conditional	
 		<div th:unless="${currentPage == 'profile'}">
-			<main th:replace="/user/profile :: profile-content"></main>
+			<main th:replace="user/profile :: profile-content"></main>
 		</div>-->
 
 		<!--
-		<main class="dashboard-content" th:replace="/user/user-connections-layout :: connections-page"></main>
-		<main class="dashboard-content" th:replace="/user/scrum-kanban-board-layout :: scrum-kanban-board-page"></main>
-		<main class="dashboard-content" th:replace="/user/user-messages-layout :: messages-page"></main>
-		<main class="dashboard-content" th:replace="/user/user-account-layout :: account-page"></main>
+		<main class="dashboard-content" th:replace="user/user-connections-layout :: connections-page"></main>
+		<main class="dashboard-content" th:replace="user/scrum-kanban-board-layout :: scrum-kanban-board-page"></main>
+		<main class="dashboard-content" th:replace="user/user-messages-layout :: messages-page"></main>
+		<main class="dashboard-content" th:replace="user/user-account-layout :: account-page"></main>
 		-->
 
 
 	</div>
-	<footer th:replace="/user/user-layouts :: footer"></footer>
+	<footer th:replace="user/user-layouts :: footer"></footer>
 
 </body>
 
