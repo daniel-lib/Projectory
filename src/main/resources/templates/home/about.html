@@ -3,9 +3,8 @@
 
 <head th:replace="mainLayouts :: head"></head>
 
-<header th:replace="mainLayouts :: nav"></header>
-
-<body onLoad="showMainNotification()" class="">
+<body onLoad="showMainNotification()" class="public-site-page public-content-page">
+	<header th:replace="mainLayouts :: public-nav"></header>
 	<div class="containers">
 
 		<div id="login-signup-form" class="">
@@ -131,7 +130,8 @@
 				</div>
 
 
-				<img th:src="@{/images/landing-banner-bg.jpg}" style="min-height: 250px;">
+				<img th:src="@{/images/landing-banner-bg.jpg}" width="1200" height="250"
+					fetchpriority="high" style="min-height: 250px;">
 			</div>
 
 		</div>
@@ -161,17 +161,17 @@
 			</ul>
 			<h6 class="mb-4">Here are some screenshots of what you could expect to see when you login</h6>
 			<h6>Dashboard - Dark/Light theme</h6>
-			<img src="/images/UI-Screenshot/readme-dashboard-theme2.png/" width="100%" class="mb-4">
+			<img src="/images/UI-Screenshot/readme-dashboard-theme2.png" width="100%"
+				loading="lazy" decoding="async" class="mb-4">
 			<hr/>
 			<h6>Agile board</h6>
-			<img src="/images/UI-Screenshot/board.png" width="100%" class="mb-4"/>
+			<img src="/images/UI-Screenshot/board.png" width="100%" loading="lazy" decoding="async" class="mb-4"/>
 			<hr/>
 			<h6>Project view modal</h6>
-			<img src="/images/UI-Screenshot/modal-project-view.png/" width="100%" class="mb-4"/>
+			<img src="/images/UI-Screenshot/modal-project-view.png" width="100%" loading="lazy" decoding="async" class="mb-4"/>
 		<hr/>
 		</main>
 
-<script src="/javascript/vue-scripts/blog-vue.js" defer></script>
 
 
 

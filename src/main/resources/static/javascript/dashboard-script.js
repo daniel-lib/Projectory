@@ -48,8 +48,18 @@ function displayViewingModal(contentType) {
 	modalContainer.style.visibility = "visible";
 	modalContainer.style.opacity = "1";
 
-	if (contentType >= 0 || contentType <= (contents.length) - 1) {
+	if (contentType >= 0 && contentType < contents.length) {
 		contents[contentType].style.display = "block";
+		if (contentType === 1 && window.htmx) {
+			htmx.ajax('GET', '/project/fragment/list', {
+				target: '#projects-holder-container',
+				swap: 'innerHTML'
+			});
+			htmx.ajax('GET', '/project/fragment/count', {
+				target: '#project-count-info',
+				swap: 'outerHTML'
+			});
+		}
 		//document.body.classList.add('overflow-hidden')
 
 		/*document.body.style.position = "fixed";
@@ -143,38 +153,58 @@ closeBtn.addEventListener("click", () => {
 
 */
 
-var isCollapsed = true;
 function sideMenuToggle() {
 
-	const sideMenu = document.querySelector("#side-menu");
 	const toggle = document.querySelector("#side-menu-toggle");
-	const sideNav = document.querySelector(".side-nav");
-	const sideNavText = document.getElementsByClassName("side-nav-text");
-	const toggleArrow = document.getElementById("side-nav-arrow");
-	const toggleArrowClass = ["fa-solid fa-caret-left", "fa-solid fa-caret-right"];
-
-
-	if (isCollapsed) {
-		sideNav.style = "width: 200px;";
-		toggle.style.letterSpacing = "0em";
-
-		for (let t of sideNavText) {
-			t.style.display = "inline";
-		}
-		toggleArrow.setAttribute("class", toggleArrowClass[0]);
-		isCollapsed = false;
-	}
-	else {
-		sideNav.style = "width: 45px;";
-		for (let t of sideNavText) {
-			t.style.display = "none";
-		}
-		toggle.style.letterSpacing = "-0.1em";
-		toggleArrow.setAttribute("class", toggleArrowClass[1]);
-		isCollapsed = true;
-	}
-
+	const body = document.body;
+	const isCollapsed = !body.classList.contains("side-menu-expanded");
+	setSideMenuExpanded(isCollapsed, true);
 }
+
+let pendingUnfriendUrl = null;
+function openUnfriendConfirmation(button) {
+	pendingUnfriendUrl = button.dataset.unfriendUrl;
+	const dialog = document.getElementById("unfriend-confirmation-modal");
+	if (pendingUnfriendUrl && dialog) {
+		dialog.showModal();
+	}
+}
+
+function confirmUnfriend() {
+	if (!pendingUnfriendUrl) {
+		return;
+	}
+
+	const url = pendingUnfriendUrl;
+	pendingUnfriendUrl = null;
+	document.getElementById("unfriend-confirmation-modal").close();
+	htmx.ajax("POST", url, { target: "#connections-panel", swap: "none" });
+}
+
+function setSideMenuExpanded(expanded, persist) {
+	const toggle = document.querySelector("#side-menu-toggle");
+	const toggleArrow = document.getElementById("side-nav-arrow");
+	const body = document.body;
+	if (!toggle || !toggleArrow) {
+		return;
+	}
+
+	body.classList.toggle("side-menu-expanded", expanded);
+	toggleArrow.classList.toggle("fa-caret-left", expanded);
+	toggleArrow.classList.toggle("fa-caret-right", !expanded);
+	toggle.setAttribute("aria-expanded", String(expanded));
+	toggle.setAttribute("aria-label", expanded ? "Collapse navigation" : "Expand navigation");
+
+	if (persist) {
+		try {
+			window.localStorage.setItem("projectory-side-menu-state", expanded ? "expanded" : "collapsed");
+		} catch (error) {
+			console.warn("Could not save the sidebar state to local storage.", error);
+		}
+	}
+}
+
+setSideMenuExpanded(document.body.classList.contains("side-menu-expanded"), false);
 
 /*	selectedSideMenuToggle();
 function selectedSideMenuToggle(selectedSideMenu) {
@@ -291,6 +321,8 @@ function showTopCollapsableMenu(index, clickOrigin) {
 
 
 	const clickedIcon = document.getElementById(clickOrigin);
+	const wasPanelOpen = topMenuContainer.classList.contains("top-collapsable-menu-container-expanded")
+		&& clickedIcon.ariaLabel === "selected";
 
 	const topNavIcons = document.getElementsByClassName("top-nav-links");
 
@@ -318,6 +350,9 @@ function showTopCollapsableMenu(index, clickOrigin) {
 
 
 	clickedIcon.ariaLabel = "selected";
+	if (index === 0 && !wasPanelOpen && window.htmx) {
+		htmx.trigger(document.body, "notificationPanelOpened");
+	}
 
 	// Get arbitrary element with id "my-element"
 	const menuIcons = document.getElementsByClassName('top-menu-icons');
@@ -469,4 +504,3 @@ const myFunction = (event) => {
 };
 
 button.addEventListener('click', myFunction.bind(null, 'myParameter'));*/
-

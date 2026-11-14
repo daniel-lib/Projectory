@@ -1,0 +1,42 @@
+<div th:fragment="connection-buttons" th:id="${connectionActionId}"
+	th:attr="hx-get=@{/user/fragment/connection-status(user=${viewedUserId})}"
+	hx-trigger="profileConnectionsChanged from:body" hx-swap="outerHTML"
+	class="d-flex gap-2">
+	<button th:if="${connectionStatus == null or connectionStatus == ''}"
+		class="align-self-start minimalist-btn minimalist-btn-theme-controlled"
+		th:attr="hx-post=@{/user/connection/request/send/{userId}(userId=${viewedUserId})}, hx-target=|#${connectionActionId}|"
+		hx-swap="none">
+		<span class="fa-solid fa-plus"></span><span> Connect</span>
+	</button>
+
+	<th:block th:if="${connectionStatus == 'pending' and connectionSenderReceiverId != null}">
+		<button th:if="${connectionSenderReceiverId.requestSender == currentUserId}"
+			class="align-self-start minimalist-btn minimalist-btn-theme-controlled"
+			th:attr="hx-post=@{/user/connection/request/remove/{userId}(userId=${viewedUserId})}, hx-target=|#${connectionActionId}|"
+			hx-swap="none">
+			<span class="fa-solid fa-times pe-1"></span><span>Cancel Request</span>
+		</button>
+		<th:block th:if="${connectionSenderReceiverId.requestReceiver == currentUserId}">
+			<button class="minimalist-btn minimalist-btn-theme-controlled-lighter"
+				th:attr="hx-post=@{/user/connection/request/reject/{connectionId}(connectionId=${connectionSenderReceiverId.connectionId})}, hx-target=|#${connectionActionId}|"
+				hx-swap="none">
+				<span class="fa-solid fa-times"></span> Reject request
+			</button>
+			<button class="minimalist-btn minimalist-btn-theme-controlled"
+				th:attr="hx-post=@{/user/connection/request/accept/{connectionId}(connectionId=${connectionSenderReceiverId.connectionId})}, hx-target=|#${connectionActionId}|"
+				hx-swap="none">
+				<span class="fa-solid fa-check"></span> Accept request
+			</button>
+		</th:block>
+	</th:block>
+
+	<button th:if="${connectionStatus == 'approved' and connectionSenderReceiverId != null}"
+		type="button" class="align-self-start minimalist-btn minimalist-btn-theme-controlled"
+		th:attr="data-unfriend-url=@{/user/connection/remove-by-conn-id/{connectionId}(connectionId=${connectionSenderReceiverId.connectionId})}"
+		onclick="openUnfriendConfirmation(this)">
+		<span class="fa-solid fa-times"></span><span> Unfriend</span>
+	</button>
+	<button class="align-self-start minimalist-btn minimalist-btn-theme-controlled">
+		<span class="fa-solid fa-message"></span><span> Message</span>
+	</button>
+</div>

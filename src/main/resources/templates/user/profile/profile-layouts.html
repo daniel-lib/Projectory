@@ -1,275 +1,179 @@
 <section class="profile-banner" th:fragment="profile-banner">
-
-	<div class="profile-picture">
-		<img src="/images/prof-pic-default.jpg" />
+	<div class="profile-picture" th:if="${profileUser != null}">
+		<img th:if="${profileUser.profilePicture != null and !#strings.isEmpty(profileUser.profilePicture) and #strings.length(profileUser.profilePicture) > 1}"
+			th:src="${profileUser.profilePicture}" alt="Profile picture" />
+		<span th:if="${profileUser.profilePicture == null or #strings.isEmpty(profileUser.profilePicture) or #strings.length(profileUser.profilePicture) <= 1}"
+			class="profile-pic-btn prof-text-only profile-picture-placeholder">
+			<span class="fa-regular fa-user" aria-label="Profile"></span>
+		</span>
 	</div>
-
 </section>
 
 <div class="profile-top-user-info mt-3" th:fragment="profile-top-user-info">
-	<div class="d-flex justify-content-between flex-wrap">
+	<div class="d-flex justify-content-between flex-wrap" th:if="${profileUser != null}">
 		<span>
-
-			<span class="d-flex ">
-				<h3>{{authFirstName}} {{this.authLastName}}</h3>
-				<span :class="`online-status-indicator ms-2 p-1 ${authOnlineStatus} align-self-center`"></span>
+			<span class="d-flex">
+				<h3><span th:text="${profileUser.firstName}"></span> <span th:text="${profileUser.lastName}"></span></h3>
+				<span class="online-status-indicator ms-2 p-1 align-self-center"
+					th:classappend="${profileUser.loginIndicator}"></span>
 			</span>
-
-			<span id="profile-header-username"><span>@{{authUsername}}</span></span>
+			<span id="profile-header-username">@<span th:text="${profileUser.username}"></span></span>
 		</span>
-		<!--<span>Value Check: {{isOwnAccount}}</span>-->
 
-		<span v-if="isOwnAccount == 'false'">
-			<template v-if="connectionStatus == ''">
-				<button class="align-self-start minimalist-btn minimalist-btn-theme-controlled"
-					@click="connectWithUser(authUserId)">
-					<span class="fa-solid fa-plus"></span><span> Connect</span>
-				</button>
-			</template>
-
-			<span v-if="connectionStatus == 'pending' ">
-				<!--<span class="ti-check"> <span>request sent.</span> </span>-->
-				<template v-if="isOwnAccount != 'true'
-				&& authUserId == connectionSenderReceiverId.requestReceiver">
-				<button class="align-self-start minimalist-btn minimalist-btn-theme-controlled"
-					@click="cancelConnectionRequest(authUserId, $event)">
-					<span class="fa-solid fa-times pe-1"></span>
-					<!--<span v-if="isOwnAccount == 'true'">Reject Request</span>						
-					<span v-if="isOwnAccount != 'true'">Cancel Request</span>-->
-
-					<span>Cancel Request</span>
-				</button>
-				</template>
-
-					<template v-if="authUserId != connectionSenderReceiverId.requestReceiver">
-					<button class=" minimalist-btn minimalist-btn-theme-controlled-lighter float-end"
-						@click="rejectConnectionRequest(connectionSenderReceiverId.connectionId, $event)"
-						style="right:0;margin-left:auto">
-						<span>
-							<span><span class="fa-solid fa-times"></span> Reject request</span>
-						</span>
-					</button>
-
-					<button class=" minimalist-btn minimalist-btn-theme-controlled float-end"
-						@click="acceptConnectionRequest(connectionSenderReceiverId.connectionId, $event); event.preventDefault()"
-						style="right:0;margin-left:auto">
-						<span >
-							<span><span class="fa-solid fa-check"></span> Accept request</span>
-						</span>
-					</button>
-				</template>
-
-			</span>
-
-			<span v-if="connectionStatus == 'approved'">
-				<!--<span class="ti-check"> <span>request sent.</span> </span>-->
-				<button class="align-self-start minimalist-btn minimalist-btn-theme-controlled"
-					@click="unfriendUserConnId(connectionSenderReceiverId.connectionId)">
-					<span class="fa-solid fa-times"></span><span> Unfriend</span>
-				</button>
-			</span>
-
-
-
-			<button class="align-self-start minimalist-btn minimalist-btn-theme-controlled">
-				<span class="fa-solid fa-message"></span><span> Message</span>
-			</button>
-		</span>
+		<div th:if="${!ownAccount}"
+			th:attr="id=|connection-action-buttons-${viewedUserId}|, hx-get=@{/user/fragment/connection-status(user=${viewedUserId})}"
+			hx-trigger="load, profileConnectionsChanged from:body" hx-swap="outerHTML">
+			<span class="htmx-indicator">Loading connection status...</span>
+		</div>
 	</div>
-
-	<!--<span th:text="${UserDetailByUsername}"></span>-->
-	<!--displays profile based on path variable(value from the url)-->
-
-
+	<div th:if="${profileUser == null}" class="alert alert-secondary">This user profile could not be found.</div>
 </div>
 
-<div v-for="project in userProjectList" :key="project.projectId" th:fragment="user-project-list"
-	class="project-list-loop">
-	<div class="user-project-list-items mb-1 p-2 m-3">
+<div th:fragment="user-project-list" class="project-list-loop">
+	<div th:each="project : ${userProjectList}" class="user-project-list-items mb-1 p-2 m-3">
 		<span class="d-flex justify-content-between">
-			<span style="font-weight: 300;">Created: {{project.creationDate}}</span>
-			<span class="">Created By:
-				<a :href="`/user/${project.projectOwnerUsername}`"
-					class="no-text-decoration cadetblue cadetblue-hover">@{{project.projectOwnerUsername}}</a></span></span>
-
-		<h5>{{project.title}}</h5>
-		<span style="font-weight: 300;">{{project.description}}</span>
-
-	</div>
-</div>
-<div th:fragment="pending-user-connections-list" class="connections-list-loop">
-
-
-
-	<div class="tab-content" id="myTabContent">
-		<div class="tab-pane fade active show" id="approved" role="tabpanel" aria-labelledby="approved-tab">
-			<div th:replace="user/profile/profile-layouts::approvedConnections"></div>
-			<h5 v-if="userConnectsCount == 0" class="p-5">user has no connections yet</h5>
-		</div>
-
-		<!--sent requests-->
-		<div class="tab-pane fade" id="sentRequest" role="tabpanel" aria-labelledby="sent-tab">
-			<div th:replace="user/profile/profile-layouts::sentConnectionRequest"></div>
-		</div>
-
-
-		<div class="tab-pane fade" id="receivedRequest" role="tabpanel" aria-labelledby="received-tab">
-			<div th:replace="user/profile/profile-layouts::receivedConnectionRequest"></div>
-
-		</div>
-
-
-	</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-<!--delete?-->
-<div v-for="connect in userConnectionsList" :key="`approved-${connect.connectionId}`"
-	th:fragment="approved-user-connections-list" class="connections-list-loop">
-	<a v-if="connect.connectionStatus == 'approved'" :href="`/user/${connect.connectedUserUsername}`"
-		class="no-text-decoration">
-		<div class="user-project-list-items mb-1 p-2 m-3">
-
-			<h6>
-				<!--<span class="profile-pic-btn fs-11" v-if="connect.profilePicture == null">@{{connect.connectedUserFirstName}}</span>-->
-				<!--<span class="profile-pic-btn fs-11" v-if="connect.profilePicture != null">{{connect.profilePicture}}</span> -->
-				<span :class="`profile-pic-btn prof-text-only prof-${connect.profilePicture}`"
-					v-if="connect.profilePicture.length == 1">{{connect.profilePicture}}</span>
-				<span class="profile-pic-btn" v-if="connect.profilePicture.length != 1"><img
-						:src="connect.profilePicture" class=" fs-11"></span>
-				{{connect.connectedUserFirstName}} {{connect.connectedUserLastName}}
-			</h6>
-			<span style="font-weight: 300;" class="fs-10 ms-4">@{{connect.connectedUserUsername}}</span>
-		</div>
-	</a>
-</div>
-
-
-
-<!--Previouse method/all-->
-<div th:fragment="approvedConnections" v-for="connect in userConnectionsList" :key="connect.connectionId"
-	class="connections-list-loop">
-
-	<a :href="`/user/${connect.connectedUserUsername}`" class="no-text-decoration">
-		<div class="user-project-list-items mb-1 p-2 m-3">
-
-			<h6>
-				<span :class="`profile-pic-btn prof-text-only prof-${connect.profilePicture}`"
-					v-if="connect.profilePicture.length == 1">{{connect.profilePicture}}</span>
-				<span class="profile-pic-btn" v-if="connect.profilePicture.length != 1"><img
-						:src="connect.profilePicture" class=" fs-11"></span>
-
-
-
-				{{connect.connectedUserFirstName}} {{connect.connectedUserLastName}}
-			</h6>
-
-			<span style="font-weight: 300;" class="fs-10 ms-4">@{{connect.connectedUserUsername}}</span>
-
-			<!--<template v-if="isOwnAccount == 'true'">
-					<button class=" minimalist-btn minimalist-btn-theme-controlled float-end"
-						@click="acceptConnectionRequest(connect.connectionId)" style="right:0;margin-left:auto">
-						<span class="fa-solid fa-check"></span> Accept </button>
-				</template>-->
-
-			<!--<template v-if="authUsername != connect.connectedUserUsername">
-					<button class=" minimalist-btn minimalist-btn-theme-controlled float-end"
-						@click="acceptConnectionRequest(connect.connectionId)" style="right:0;margin-left:auto">
-
-						<span v-if="isOwnAccount != 'true'"><span class="fa-solid fa-times"></span> Reject</span>
-						<span v-if="isOwnAccount == 'true'"><span class="fa-solid fa-check"></span> Cancel</span>
-					</button>
-				</template>-->
-
-			<span v-if="isOwnAccount == 'true'" style="right:0;margin-left:auto" class="float-end">
-				<!--<span class="ti-check"> <span>request sent.</span> </span>-->
-				<button class="align-self-start minimalist-btn minimalist-btn-theme-controlled"
-					@click="unfriendUserConnId(connect.connectionId, $event)">
-					<span class="fa-solid fa-times pe-1"></span><span>Unfriend</span>
-				</button>
+			<span style="font-weight: 300;">Created: <span th:text="${project.creationDate}"></span></span>
+			<span>Created By:
+				<a th:href="@{/user/{username}(username=${project.projectOwnerUsername})}"
+					class="no-text-decoration cadetblue cadetblue-hover">
+					@<span th:text="${project.projectOwnerUsername}"></span>
+				</a>
 			</span>
-
-
-			<div></div><br />
-		</div>
-	</a>
+		</span>
+		<h5 th:text="${project.title}"></h5>
+		<span style="font-weight: 300;" th:text="${project.description}"></span>
+	</div>
 </div>
 
-
-
-<!--received requests fragment-->
-<div th:fragment="receivedConnectionRequest" v-for="receivedReq in receivedConnections" :key="receivedReq.connectionId"
-	class="connections-list-loop">
-	<a v-if="receivedReq.connectionStatus == 'pending'" :href="`/user/${receivedReq.connectedUserUsername}`"
-		class="no-text-decoration">
-		<div class="user-project-list-items mb-1 p-2 m-3">
-			<h6>
-				<span :class="`profile-pic-btn prof-text-only prof-${receivedReq.profilePicture}`"
-					v-if="receivedReq.profilePicture.length == 1">{{receivedReq.profilePicture}}</span>
-				<span class="profile-pic-btn" v-if="receivedReq.profilePicture.length != 1"><img
-						:src="receivedReq.profilePicture" class=" fs-11"></span>
-				{{receivedReq.connectedUserFirstName}} {{receivedReq.connectedUserLastName}}
-			</h6>
-			<span style="font-weight: 300;" class="fs-10 ms-4">@{{receivedReq.connectedUserUsername}}</span>
-
-			<button class=" minimalist-btn minimalist-btn-theme-controlled-lighter float-end"
-				@click="rejectConnectionRequest(receivedReq.connectionId, $event)" style="right:0;margin-left:auto">
-				<span v-if="isOwnAccount == 'true'">
-					<span><span class="fa-solid fa-times"></span> Reject request</span>
-				</span>
-			</button>
-
-			<button class=" minimalist-btn minimalist-btn-theme-controlled float-end"
-				@click="acceptConnectionRequest(receivedReq.connectionId, $event); event.preventDefault()"
-				style="right:0;margin-left:auto">
-				<span v-if="isOwnAccount == 'true'">
-					<span><span class="fa-solid fa-check"></span> Accept request</span>
-				</span>
-			</button>
-
-			<div></div><br />
-		</div>
-	</a>
+<div th:fragment="connections-panel">
+	<div th:replace="user/profile/profile-layouts :: connections-preview"></div>
 </div>
 
-
-
-
-<!--sent requests fragment-->
-<div th:fragment="sentConnectionRequest" v-for="sentRequest in sentConnections" :key="sentRequest.connectionId"
-	class="connections-list-loop">
-	<a v-if="sentRequest.connectionStatus == 'pending'" :href="`/user/${sentRequest.connectedUserUsername}`"
-		class="no-text-decoration">
-		<div class="user-project-list-items mb-1 p-2 m-3">
-			<h6>
-				<span :class="`profile-pic-btn prof-text-only prof-${sentRequest.profilePicture}`"
-					v-if="sentRequest.profilePicture.length == 1">{{sentRequest.profilePicture}}</span>
-				<span class="profile-pic-btn" v-if="sentRequest.profilePicture.length != 1"><img
-						:src="sentRequest.profilePicture" class=" fs-11"></span>
-				{{sentRequest.connectedUserFirstName}} {{sentRequest.connectedUserLastName}}
-			</h6>
-			<span style="font-weight: 300;" class="fs-10 ms-4">@{{sentRequest.connectedUserUsername}}</span>
-			<template v-if="authUsername != sentRequest.connectedUserUsername">
-				<button class=" minimalist-btn minimalist-btn-theme-controlled float-end"
-					@click="cancelConnectionRequest(sentRequest.connectedUserUsername, $event)"
-					style="right:0;margin-left:auto">
-					<span v-if="isOwnAccount == 'true'"><span class="fa-solid fa-check"></span>
-						Cancel request</span>
-				</button>
-			</template>
-			<div></div><br />
+<section th:fragment="connections-preview" id="connections-panel" class="profile-panel profile-network"
+	th:attr="hx-get=${ownAccount} ? @{/user/fragment/connections(username=${profileUsername})} : null"
+	hx-trigger="profileConnectionsChanged from:body" hx-swap="outerHTML">
+	<div class="profile-panel-heading">
+		<div>
+			<p class="profile-eyebrow">YOUR NETWORK</p>
+			<h2>Connections <span class="profile-count" th:text="${userConnectsCount}"></span></h2>
 		</div>
-	</a>
+		<a th:if="${ownAccount}" class="profile-text-link" th:href="@{/user/connections}">View all</a>
+	</div>
+	<div th:if="${ownAccount}">
+		<h3 class="profile-subheading">Recent requests</h3>
+		<div th:replace="user/profile/profile-layouts :: receivedConnectionRequest(${recentReceivedConnections})"></div>
+		<p th:if="${#lists.isEmpty(recentReceivedConnections)}" class="profile-empty-state">
+			You're all caught up. New connection requests will appear here.
+		</p>
+		<a class="profile-more-link" th:href="@{/user/connections}">Manage your connections <span aria-hidden="true">→</span></a>
+	</div>
+	<p th:unless="${ownAccount}" class="profile-empty-state">Connections on Projectory</p>
+</section>
+
+<div th:fragment="approvedConnections" class="connections-list-loop custom-scrollbar-style-2">
+	<div th:each="connect : ${userConnectionsList}" class="user-project-list-items mb-1 p-2 m-3">
+		<h6>
+			<a th:href="@{/user/{username}(username=${connect.connectedUserUsername})}" class="no-text-decoration">
+				<span th:if="${connect.profilePicture == null or #strings.isEmpty(connect.profilePicture) or #strings.length(connect.profilePicture) == 1}"
+					class="profile-pic-btn prof-text-only connection-avatar-initial"
+					th:classappend="${' prof-' + (connect.profilePicture == null ? 'default' : connect.profilePicture)}"
+					>
+					<span th:if="${!#strings.isEmpty(connect.profilePicture)}"
+						th:text="${#strings.toUpperCase(connect.profilePicture)}"></span>
+					<span th:if="${#strings.isEmpty(connect.profilePicture) and !#strings.isEmpty(connect.connectedUserFirstName)}"
+						th:text="${#strings.toUpperCase(#strings.substring(connect.connectedUserFirstName, 0, 1))}"></span>
+					<span th:if="${#strings.isEmpty(connect.profilePicture) and #strings.isEmpty(connect.connectedUserFirstName)}"
+						class="fa-regular fa-user" aria-label="Profile"></span>
+				</span>
+				<span th:if="${connect.profilePicture != null and !#strings.isEmpty(connect.profilePicture) and #strings.length(connect.profilePicture) > 1}"
+					class="profile-pic-btn">
+					<img th:src="${connect.profilePicture}" class="fs-11" alt="Profile picture">
+				</span>
+				<span th:text="${connect.connectedUserFirstName + ' ' + connect.connectedUserLastName}"></span>
+			</a>
+		</h6>
+		<span class="fs-10 ms-4" style="font-weight: 300;">
+			@<span th:text="${connect.connectedUserUsername}"></span>
+		</span>
+		<button th:if="${ownAccount}" type="button" class="align-self-start minimalist-btn minimalist-btn-theme-controlled float-end"
+			th:attr="data-unfriend-url=@{/user/connection/remove-by-conn-id/{connectionId}(connectionId=${connect.connectionId})}"
+			onclick="openUnfriendConfirmation(this)">
+			<span class="fa-solid fa-times pe-1"></span><span>Unfriend</span>
+		</button>
+	</div>
+</div>
+
+<div th:fragment="receivedConnectionRequest(requests)" class="connections-list-loop custom-scrollbar-style-2">
+	<div th:each="receivedReq : ${requests}"
+		th:if="${receivedReq.connectionStatus == 'pending'}"
+		class="user-project-list-items mb-1 p-2 m-3">
+		<h6>
+			<a th:href="@{/user/{username}(username=${receivedReq.connectedUserUsername})}" class="no-text-decoration">
+				<span th:if="${receivedReq.profilePicture == null or #strings.isEmpty(receivedReq.profilePicture) or #strings.length(receivedReq.profilePicture) == 1}"
+					class="profile-pic-btn prof-text-only"
+					th:classappend="${' connection-avatar-initial prof-' + (receivedReq.profilePicture == null ? 'default' : receivedReq.profilePicture)}"
+					>
+					<span th:if="${!#strings.isEmpty(receivedReq.profilePicture)}"
+						th:text="${#strings.toUpperCase(receivedReq.profilePicture)}"></span>
+					<span th:if="${#strings.isEmpty(receivedReq.profilePicture) and !#strings.isEmpty(receivedReq.connectedUserFirstName)}"
+						th:text="${#strings.toUpperCase(#strings.substring(receivedReq.connectedUserFirstName, 0, 1))}"></span>
+					<span th:if="${#strings.isEmpty(receivedReq.profilePicture) and #strings.isEmpty(receivedReq.connectedUserFirstName)}"
+						class="fa-regular fa-user" aria-label="Profile"></span>
+				</span>
+				<span th:if="${receivedReq.profilePicture != null and !#strings.isEmpty(receivedReq.profilePicture) and #strings.length(receivedReq.profilePicture) > 1}"
+					class="profile-pic-btn">
+					<img th:src="${receivedReq.profilePicture}" class="fs-11" alt="Profile picture">
+				</span>
+				<span th:text="${receivedReq.connectedUserFirstName + ' ' + receivedReq.connectedUserLastName}"></span>
+			</a>
+		</h6>
+		<span class="fs-10 ms-4" style="font-weight: 300;">
+			@<span th:text="${receivedReq.connectedUserUsername}"></span>
+		</span>
+		<button class="minimalist-btn minimalist-btn-theme-controlled-lighter float-end"
+			th:attr="hx-post=@{/user/connection/request/reject/{connectionId}(connectionId=${receivedReq.connectionId})}"
+			hx-target="#connections-panel" hx-swap="none">
+			<span class="fa-solid fa-times"></span> Reject request
+		</button>
+		<button class="minimalist-btn minimalist-btn-theme-controlled float-end"
+			th:attr="hx-post=@{/user/connection/request/accept/{connectionId}(connectionId=${receivedReq.connectionId})}"
+			hx-target="#connections-panel" hx-swap="none">
+			<span class="fa-solid fa-check"></span> Accept request
+		</button>
+	</div>
+</div>
+
+<div th:fragment="sentConnectionRequest" class="connections-list-loop custom-scrollbar-style-2">
+	<div th:each="sentRequest : ${sentConnections}"
+		th:if="${sentRequest.connectionStatus == 'pending'}"
+		class="user-project-list-items mb-1 p-2 m-3">
+		<h6>
+			<a th:href="@{/user/{username}(username=${sentRequest.connectedUserUsername})}" class="no-text-decoration">
+				<span th:if="${sentRequest.profilePicture == null or #strings.isEmpty(sentRequest.profilePicture) or #strings.length(sentRequest.profilePicture) == 1}"
+					class="profile-pic-btn prof-text-only"
+					th:classappend="${' connection-avatar-initial prof-' + (sentRequest.profilePicture == null ? 'default' : sentRequest.profilePicture)}"
+					>
+					<span th:if="${!#strings.isEmpty(sentRequest.profilePicture)}"
+						th:text="${#strings.toUpperCase(sentRequest.profilePicture)}"></span>
+					<span th:if="${#strings.isEmpty(sentRequest.profilePicture) and !#strings.isEmpty(sentRequest.connectedUserFirstName)}"
+						th:text="${#strings.toUpperCase(#strings.substring(sentRequest.connectedUserFirstName, 0, 1))}"></span>
+					<span th:if="${#strings.isEmpty(sentRequest.profilePicture) and #strings.isEmpty(sentRequest.connectedUserFirstName)}"
+						class="fa-regular fa-user" aria-label="Profile"></span>
+				</span>
+				<span th:if="${sentRequest.profilePicture != null and !#strings.isEmpty(sentRequest.profilePicture) and #strings.length(sentRequest.profilePicture) > 1}"
+					class="profile-pic-btn">
+					<img th:src="${sentRequest.profilePicture}" class="fs-11" alt="Profile picture">
+				</span>
+				<span th:text="${sentRequest.connectedUserFirstName + ' ' + sentRequest.connectedUserLastName}"></span>
+			</a>
+		</h6>
+		<span class="fs-10 ms-4" style="font-weight: 300;">
+			@<span th:text="${sentRequest.connectedUserUsername}"></span>
+		</span>
+		<button class="minimalist-btn minimalist-btn-theme-controlled float-end"
+			th:attr="hx-post=@{/user/connection/request/remove-username/{username}(username=${sentRequest.connectedUserUsername})}"
+			hx-target="#connections-panel" hx-swap="none">
+			<span class="fa-solid fa-times"></span> Cancel request
+		</button>
+	</div>
 </div>

@@ -4,18 +4,58 @@
 <head th:replace="mainLayouts :: head"></head>
 
 
-<body>
-	<div th:replace="mainLayouts::main-bottom-asset-imports"></div>
-	<!--<header th:replace="mainLayouts :: nav"></header>-->
-	<br />
-	<div class="containers error-page-container">
-		<div class="mt-5 text-center">
-			<img th:src = "@{/images/projectory-logo-full.png}">
-			<h3>It's no man's land </h3>
-			<a th:href="@{/}" class="minimalist-btn no-text-decoration">Take me to safety</a>
-		</div>
+<body class="public-site-page error-404-page">
+	<div class="error-404-shell">
+		<a class="error-404-brand" th:href="@{/}" aria-label="Projectory home">
+			<img th:src="@{/images/projectory-logo.png}" alt="" width="28" height="36">
+			<span>projectory</span>
+		</a>
+
+		<main class="error-404-content" aria-labelledby="error-404-title">
+			<section class="error-404-copy">
+				<p class="error-404-eyebrow"><span aria-hidden="true"></span> Page not found</p>
+				<p class="error-404-code" aria-hidden="true">404</p>
+				<h1 id="error-404-title">Looks like this project went off the map.</h1>
+				<p class="error-404-description">
+					The page may have moved, been removed, or the link might be out of date.
+					Let’s get you back to familiar ground.
+				</p>
+				<div class="error-404-actions">
+					<a th:href="@{/}" class="error-404-home-link">
+						<span class="ti-arrow-left" aria-hidden="true"></span>
+						Back to home
+					</a>
+					<a th:href="@{/features}" class="error-404-secondary-link">Explore Projectory</a>
+				</div>
+			</section>
+
+			<div class="error-404-illustration" role="img" aria-label="A project path ending at a missing page">
+				<div class="error-404-orbit error-404-orbit-outer"></div>
+				<div class="error-404-orbit error-404-orbit-inner"></div>
+				<div class="error-404-map-line"></div>
+				<span class="error-404-map-node error-404-map-node-one"></span>
+				<span class="error-404-map-node error-404-map-node-two"></span>
+				<span class="error-404-map-node error-404-map-node-three"></span>
+				<div class="error-404-destination">
+					<span class="ti-location-pin" aria-hidden="true"></span>
+					<span>Not here</span>
+				</div>
+				<div class="error-404-floating-card error-404-floating-card-top">
+					<span class="ti-check-box" aria-hidden="true"></span>
+					<span></span><span></span>
+				</div>
+				<div class="error-404-floating-card error-404-floating-card-bottom">
+					<span class="ti-layout-grid2" aria-hidden="true"></span>
+					<span></span><span></span>
+				</div>
+			</div>
+		</main>
+
+		<footer class="error-404-footer">
+			<span>Good plans can still take a wrong turn.</span>
+			<span>© Projectory</span>
+		</footer>
 	</div>
-<div th:replace="mainLayouts::main-bottom-asset-imports2"></div>
 </body>
 
 </html>

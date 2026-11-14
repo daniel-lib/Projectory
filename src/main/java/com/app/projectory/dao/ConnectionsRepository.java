@@ -51,12 +51,13 @@ public interface ConnectionsRepository extends CrudRepository<Connections, Long>
 		
 	
 	//find received requests
-		@Query(value="SELECT DISTINCT con.connection_id connectionId, con.connection_status connectionStatus,\n"
+		@Query(value="SELECT con.connection_id connectionId, con.connection_status connectionStatus,\n"
 				+ "us.username connectedUserUsername, us.profile_picture profilePicture,\n"
 				+ "us.first_name connectedUserFirstName, us.last_name connectedUserLastName\n"
 				+ "FROM connections con \n"
 				+ "LEFT JOIN users us on us.user_id = con.request_sender_user\n"
-				+ "WHERE con.request_receiver_user = ?1 AND con.connection_status = 'pending'", nativeQuery = true)
+				+ "WHERE con.request_receiver_user = ?1 AND con.connection_status = 'pending'\n"
+				+ "ORDER BY con.connection_date DESC, con.connection_id DESC", nativeQuery = true)
 		public List<PublicUserConnectionsDetailDto> findReceivedConnectionRequests(long senderUserId);
 	
 	

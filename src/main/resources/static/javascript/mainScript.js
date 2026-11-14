@@ -61,6 +61,7 @@ function displaySigninForm(type) {
 	const formContainer = document.getElementById("login-signup-form");
 	const signInForm = document.getElementById("sign-in-form");
 	const signUpForm = document.getElementById("sign-up-form");
+	formContainer.style.display = "block";
 	formContainer.style.visibility = "visible";
 	formContainer.style.opacity = "1";
 	if (type == "login") {
@@ -88,10 +89,9 @@ function displaySigninForm(type) {
 }
 function closeSigninForm() {
 	const formContainer = document.getElementById("login-signup-form");
-	const signInForm = document.getElementById("sign-in-form");
-	const signUpForm = document.getElementById("sign-up-form");		
 	formContainer.style.opacity = "0";
 	formContainer.style.visibility = "collapse";
+	formContainer.style.display = "none";
 }
 
 
@@ -136,7 +136,17 @@ function hideNotificationBoard() {
 
 
 //Notication bar popup(NEW) script
+function moveNotificationToTopLayer() {
+	const notification = document.querySelector('.notification');
+	if (notification && notification.parentElement !== document.body) {
+		document.body.appendChild(notification);
+	}
+}
+
+moveNotificationToTopLayer();
+
 function toggleNotification(notificationType, msgToUser) {
+	moveNotificationToTopLayer();
 	const notification = document.querySelector('.notification');
 	const content = document.getElementById("notification-bar-content");
 	const icon = document.getElementById("notification-icon");
@@ -172,6 +182,23 @@ function hideNotificationBar() {
 	notification.classList.add('hide');
 }
 
+document.addEventListener('htmx:afterRequest', function(event) {
+	const triggerHeader = event.detail.xhr.getResponseHeader('HX-Trigger');
+	if (triggerHeader && triggerHeader.charAt(0) === '{') {
+		const triggers = JSON.parse(triggerHeader);
+		if (triggers.notify) {
+			toggleNotification(triggers.notify.type, triggers.notify.message);
+		}
+	}
+});
+
+document.addEventListener('htmx:configRequest', function(event) {
+	const csrfToken = document.querySelector('meta[name="_csrf"]');
+	const csrfHeader = document.querySelector('meta[name="_csrf_header"]');
+	if (csrfToken && csrfHeader) {
+		event.detail.headers[csrfHeader.content] = csrfToken.content;
+	}
+});
 
 //coockie privacy notice
 (function() {
@@ -197,6 +224,3 @@ function hideNotificationBar() {
 		notification.classList.add('hide');
 	}
 });*/
-
-
-

@@ -14,7 +14,22 @@ function addTaskToProject(projId) {
 	const status = addTaskForm.getElementsByClassName("task-status");
 
 	//alert(projId);
-	fetch('/project/add-project-task?title=' + title[0].value + '&description=' + description[0].value + '&projId=' + projId + '&status=' + status[0].value)
+	const csrfToken = document.querySelector('meta[name="_csrf"]');
+	const csrfHeader = document.querySelector('meta[name="_csrf_header"]');
+	const headers = { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' };
+	if (csrfToken && csrfHeader) {
+		headers[csrfHeader.content] = csrfToken.content;
+	}
+	fetch('/project/add-project-task', {
+		method: 'POST',
+		headers: headers,
+		body: new URLSearchParams({
+			title: title[0].value,
+			desc: description[0].value,
+			project: projId,
+			status: status[0].value
+		})
+	})
 		.then(response => response.text())
 		.then(data => {
 			let msg, notificationType;
@@ -63,6 +78,5 @@ function createItemButtonToDefault() {
 	projectForm.style.height = 0;
 	projectForm.style.padding = "0";
 }
-
 
 

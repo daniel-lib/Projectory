@@ -1,6 +1,5 @@
 package com.app.projectory.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,9 +18,11 @@ public class Todo {
 	private long todoItemId;
 	
 	private String title;
+
+	private boolean completed;
 	
 	@JsonIgnore
-	@ManyToOne(cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="collection_id")
 	private TodoListCollection collection;
 	
@@ -42,6 +43,12 @@ public class Todo {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public boolean isCompleted() {
+		return completed;
+	}
+	public void setCompleted(boolean completed) {
+		this.completed = completed;
 	}
 	public TodoListCollection getCollection() {
 		return collection;

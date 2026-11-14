@@ -3,7 +3,6 @@ package com.app.projectory.entity;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -31,7 +30,7 @@ public class TodoListCollection {
 	@OneToMany(mappedBy = "collection")
 	private List<Todo> todoListItems;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private Users creator;
 

@@ -1,154 +1,63 @@
 <main class="profile-content" th:fragment="profile-content">
-	<div>
-		<aside th:replace="user/user-layouts :: side-menu"></aside>
-
-		<section class="profile-content-inner d-flex gap-4 flex-wrap">
-
-			<section class="profile-main-body  flex-fill" id="user-details">
-
-				<div class="profile-header-section small-rounded-containers">
-					<section th:replace="user/profile/profile-layouts::profile-banner"></section>
-					<div th:replace="user/profile/profile-layouts::profile-top-user-info"></div>
-
-				</div>
-
-
-				<div class="small-rounded-containers p-2 mt-3 d-flex flex-wrap gap-3 justify-content-between">
-					<div class="profile-public-projects flex-fill">
-						<h5>Public projects({{userProjectCount}})</h5>
-						<h5 v-if="userProjectCount == 0" class="p-5">user has no public projects</h5>
-						<div class="public-data-list custom-scrollbar-style-2" v-if="userProjectCount != 0">
-							<div th:replace="user/profile/profile-layouts::user-project-list"></div>
-						</div>
-					</div>
-					<div class="profile-connections flex-fill ">
-
-						<h5>Connections({{userConnectsCount}})</h5>
-						
-
-						<h6 v-if="isOwnAccount == 'true'" class="text-center">Pending Connection Request</h6>
-
-						<ul class="nav nav-tabs mb-2" id="myTab" role="tablist">
-							<li class="nav-item" role="presentation">
-								<button class="nav-link active" id="approved-tab" data-bs-toggle="tab"
-									data-bs-target="#approved" type="button" role="tab" aria-controls="approved"
-									aria-selected="true">Connected</button>
-							</li>
-							<li class="nav-item" role="presentation">
-								<button class="nav-link" id="sent-tab" data-bs-toggle="tab"
-									data-bs-target="#sentRequest" type="button" role="tab" aria-controls="sent"
-									aria-selected="false">Sent Request</button>
-							</li>
-							<li class="nav-item" role="presentation">
-								<button class="nav-link" id="received-tab" data-bs-toggle="tab"
-									data-bs-target="#receivedRequest" type="button" role="tab" aria-controls="received"
-									aria-selected="false">Received Request</button>
-							</li>
-						</ul>
-						
-						
-						
-						<div class="public-data-list public-prof-list custom-scrollbar-style-2">
-							<!--v-if="userConnectsCount != 0">-->
-
-							<div th:replace="user/profile/profile-layouts::pending-user-connections-list"></div>
-							<hr />
-							
-							<!--<div th:replace="user/profile/profile-layouts::approved-user-connections-list"></div>-->
-						</div>
-
-					</div>
-				</div>
-
-
-			</section>
-
-			<aside class="profile-right-side-content flex-fill align-self-start">
-
-				<div class="small-rounded-containers p-5">
-					About me
-				</div>
-
-				<div class="small-rounded-containers p-5 mt-3">
-					Socials
-				</div>
-				<div class="small-rounded-containers p-5 mt-3">
-					Similar profiles
-					suggested by the projects they work on
-					and connection list
-				</div>
-			</aside>
-
-			<section class="metrics-and-report pt-2 mt-2">
-				<h5>...</h5>
-				<main class="charts">
-					<div class="projects-report d-flex justify-content-evenly flex-wrap">
-
-					</div>
-				</main>
-
-			</section>
-
+	<aside th:replace="user/user-layouts :: side-menu"></aside>
+	<section class="profile-content-inner">
+		<section class="profile-hero">
+			<div th:replace="user/profile/profile-layouts :: profile-banner"></div>
+			<div class="profile-hero-content" th:replace="user/profile/profile-layouts :: profile-top-user-info"></div>
+			<div class="profile-hero-mark" aria-hidden="true">P</div>
 		</section>
-	</div>
 
+		<div th:if="${profileUserExists}" class="profile-overview">
+			<section class="profile-stat-grid" aria-label="Profile overview">
+				<div class="profile-stat-card">
+					<span class="profile-stat-icon">⌂</span>
+					<span class="profile-stat-value" th:text="${userProjectCount}">0</span>
+					<span class="profile-stat-label">Projects involved</span>
+				</div>
+				<div class="profile-stat-card">
+					<span class="profile-stat-icon">✦</span>
+					<span class="profile-stat-value" th:text="${userCreatedProjectCount}">0</span>
+					<span class="profile-stat-label">Projects started</span>
+				</div>
+				<div class="profile-stat-card">
+					<span class="profile-stat-icon">◎</span>
+					<span class="profile-stat-value" th:text="${userConnectsCount}">0</span>
+					<span class="profile-stat-label">Connections</span>
+				</div>
+				<div th:if="${ownAccount}" class="profile-stat-card">
+					<span class="profile-stat-icon">✓</span>
+					<span class="profile-stat-value" th:text="${completedTaskCount + ' / ' + assignedTaskCount}">0 / 0</span>
+					<span class="profile-stat-label">Assigned tasks completed</span>
+				</div>
+			</section>
 
-	<script>
-		ownAccount = "[[${ownAccount}]]"; //get through thymeleaf
-		if (!ownAccount) {
-			UserDetailByUsername = "[[${UserDetailByUsername}]]";
-			if (UserDetailByUsername == "User does not exist") {
-				//alert(ownAccount);
-			}
-			else {
-				profileUsernameValue = "[[${UserDetailByUsername}]]";
-				ownAccount = "[[${ownAccount}]]";
-				//alert(ownAccount);
-			}
-		}
-		else {
-			profileUsernameValue = "[[${UserDetailByUsername}]]";
-			//alert(profileUsernameValue)
-			ownAccount = "[[${ownAccount}]]";
-			//alert(ownAccount);
-		}
-	</script>
+			<div class="profile-main-grid">
+				<section class="profile-panel profile-history">
+					<div class="profile-panel-heading">
+						<div>
+							<p class="profile-eyebrow">WORKSPACE HISTORY</p>
+							<h2>Recent projects</h2>
+						</div>
+						<a th:if="${ownAccount}" class="profile-text-link" th:href="@{/user/dashboard}">Open dashboard</a>
+					</div>
+					<div th:if="${#lists.isEmpty(recentUserProjects)}" class="profile-empty-state">
+						No project activity to show yet. Create or join a project to get started.
+					</div>
+					<div th:each="project : ${recentUserProjects}" class="profile-project-entry">
+						<span class="profile-project-marker" aria-hidden="true"></span>
+						<div class="profile-project-copy">
+							<div class="profile-project-meta">
+								<span th:text="${project.creationDate}">Date</span>
+								<span class="profile-project-status" th:text="${project.status}">Status</span>
+							</div>
+							<h3 th:text="${project.title}">Project title</h3>
+							<p th:text="${project.description}">Project summary</p>
+						</div>
+					</div>
+				</section>
 
-
-
-	<!--<div class="profile-header mt-1">
-		<div class="profile-picture-container">Profile Pic</div>
-
-
-		displays logged in users's profile
-		<span th:if="${!ownAccount}">
-			<span th:if="${UserDetailByUsername == 'User does not exist'}" class="d-flex justify-content-center">
-				<span>No user with that username exists</span>
-				<script>
-					profileUsernameValue = null; //set it to null
-					ownAccount = "[[${ownAccount}]]";
-					alert(ownAccount)
-				</script>
-			</span>
-
-			<span th:unless="${UserDetailByUsername == 'User does not exist'}">
-				<span th:text="${UserDetailByUsername.firstName}+' '+${UserDetailByUsername.lastName}"></span>
-				<script>
-					profileUsernameValue = "[[${UserDetailByUsername}]]";
-					ownAccount = "[[${ownAccount}]]";
-					alert(ownAccount)
-				</script>
-			</span>
-		</span>
-
-		<span th:if="${ownAccount}">
-			<script>
-				profileUsernameValue = "[[${UserDetailByUsername}]]";
-				ownAccount = "[[${ownAccount}]]";
-				alert(ownAccount)		
-			</script>
-			Your account
-
-		</span>
-	</div>-->
+				<div th:replace="user/profile/profile-layouts :: connections-preview"></div>
+			</div>
+		</div>
+	</section>
 </main>

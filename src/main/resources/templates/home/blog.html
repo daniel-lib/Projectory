@@ -3,9 +3,8 @@
 
 <head th:replace="mainLayouts :: head"></head>
 
-<header th:replace="mainLayouts :: nav"></header>
-
-<body onLoad="showMainNotification()" class="">
+<body onLoad="showMainNotification()" class="public-site-page public-content-page">
+	<header th:replace="mainLayouts :: public-nav"></header>
 	<div class="containers">
 
 		<div id="login-signup-form" class="">
@@ -131,7 +130,8 @@
 				</div>
 
 
-				<img th:src="@{/images/landing-banner-bg.jpg}" style="min-height: 250px;">
+				<img th:src="@{/images/landing-banner-bg.jpg}" width="1200" height="250"
+					fetchpriority="high" style="min-height: 250px;">
 			</div>
 
 		</div>
@@ -143,17 +143,27 @@
 		<div class="d-flex justify-content-around flex-wrap mt-4">
 			
 			<div class="blog-post-container card projectory-fact-cards p-2 mb-3" data-aos="zoom-in" style="width: 18rem;" 
-			th:each="blog : ${MostRatedBlogPeekViewList}" th:id="blog-post-container-+''+${blog.id}">
-				<img class="card-img-top float-start d-inline" th:src="@{${blog.imageLink}}" th:alt="${blog.title} +' '+ illustration" height="200px">
+			th:each="blog : ${MostRatedBlogPeekViewList}" th:id="'blog-post-container-' + ${blog.id}"
+			x-data="{ expanded: false }">
+				<img class="card-img-top float-start d-inline" th:src="@{${blog.imageLink}}"
+					th:alt="${blog.title} +' '+ illustration" width="280" height="200"
+					loading="lazy" decoding="async">
 				<div class="card-body d-inline"> 
 					<h5 class="card-title" th:text = "${blog.title}" style="color:cadetblue"></h5>
 					<p class="card-text" th:text = "${blog.shortDescription}"> 
 					</p>
 					<hr/>
-					<p class="blog-full-content" th:text = "${blog.textContent}"></p>
-					
-					<!--<a th:href="/blog?post=+' '+${blog.id}" class="btn btn-primary btn-sm">Learn More</a>-->
-					<button class="btn btn-primary btn-sm blog-post-container-expanded-toggle" @click="expandBlogPost($event)" th:id="${blog.id}">Continue Read</button>
+					<!-- Full content — shown only when expanded -->
+					<p class="blog-full-content" th:text="${blog.textContent}"
+					   x-show="expanded" x-transition
+					   :class="expanded ? 'expanded' : ''"
+					   style="display:none">
+					</p>
+					<!-- hx-get placeholder for when the full-content endpoint is implemented:
+					     hx-get="/blog/content/[[${blog.id}]]" hx-trigger="none" hx-target="next p" -->
+					<button class="btn btn-primary btn-sm blog-post-container-expanded-toggle"
+					        @click="expanded = !expanded; $el.textContent = expanded ? 'Exit' : 'Continue Reading'"
+					        th:id="${blog.id}">Continue Reading</button>
 				</div>
 			</div>
 			
@@ -161,40 +171,33 @@
 		<hr/>
 		<div class="d-flex justify-content-around flex-wrap mt-4">
 		<div class="blog-post-container card projectory-fact-cards p-2 mb-3 flex-fill mx-2" data-aos="zoom-in" style="width: 18rem;" 
-		th:each="blog : ${AllExceptMostViewedBlogsPeekView}" th:id="blog-post-container-+''+${blog.id}">
+		th:each="blog : ${AllExceptMostViewedBlogsPeekView}" th:id="'blog-post-container-' + ${blog.id}"
+		x-data="{ expanded: false }">
 				<!--<img class="card-img-top float-start d-inline" th:src="@{${blog.imageLink}}" th:alt="${blog.title} +' '+ illustration">-->
 				<div class="card-body d-inline"> 
 					<h5 class="card-title" th:text = "${blog.title}" style="color:cadetblue"></h5>
 					<p class="card-text" th:text = "${blog.shortDescription}"> 
 					</p>
 					<hr/>
-					<p class="blog-full-content" th:text="${blog.textContent}"></p>
-					<!--<a th:href="/blog?post=+' '+${blog.id}" class="btn btn-primary btn-sm">Learn More</a>-->
-					<!--<a th:href="@{/blog(post=${blog.id})}" class="btn btn-primary btn-sm">Continue Read</a>-->
-					<button class="btn btn-primary btn-sm blog-post-container-expanded-toggle" @click="expandBlogPost($event)" th:id="${blog.id}">Continue Read</button>
+					<!-- Full content — shown only when expanded -->
+					<p class="blog-full-content" th:text="${blog.textContent}"
+					   x-show="expanded" x-transition
+					   :class="expanded ? 'expanded' : ''"
+					   style="display:none">
+					</p>
+					<!-- hx-get placeholder for when the full-content endpoint is implemented:
+					     hx-get="/blog/content/[[${blog.id}]]" hx-trigger="none" hx-target="next p" -->
+					<button class="btn btn-primary btn-sm blog-post-container-expanded-toggle"
+					        @click="expanded = !expanded; $el.textContent = expanded ? 'Exit' : 'Continue Reading'"
+					        th:id="${blog.id}">Continue Reading</button>
 				</div>
 			</div>
 </div>
 
 
 		<div class="div-top-decor-container d-flex">
-			<!--<script>
-
-				let divDecorContainer = document.getElementsByClassName("div-top-decor-container");
-				let decor = document.createElement("div");
-
-				//decor.setAttribute("class", "div-top-decor");					
-				//document.body.appendChild(decor);
-				const parent = divDecorContainer.parentElement();
-
-				parent.appendChild(decor);
-				alert("here");
-
-			</script>-->
 		</div>
 		</main>
-
-<script src="/javascript/vue-scripts/blog-vue.js" defer></script>
 
 
 
