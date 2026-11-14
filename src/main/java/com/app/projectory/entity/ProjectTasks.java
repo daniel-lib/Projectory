@@ -22,7 +22,8 @@ public class ProjectTasks {
 	private String status;
 	private String deadline;
 	
-	private long assignee;
+	// Nullable — 0 or null means unassigned. Using Long (boxed) so the DB column allows NULL.
+	private Long assignee;
 	
 	@JsonIgnore
 	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, 
@@ -91,6 +92,14 @@ public class ProjectTasks {
 
 	public void setDeadline(String deadline) {
 		this.deadline = deadline;
+	}
+
+	public Long getAssignee() {
+		return assignee;
+	}
+
+	public void setAssignee(Long assignee) {
+		this.assignee = assignee;
 	}
 	
 	

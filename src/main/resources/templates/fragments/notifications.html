@@ -1,0 +1,22 @@
+<span th:fragment="notification-count-value" id="notification-count-badge" class="notification-count-badge"
+	th:classappend="${unreadNotificationCount == 0} ? ' d-none' : ''"
+	th:text="${unreadNotificationCount}">0</span>
+
+<div th:fragment="notification-list">
+	<div th:if="${#lists.isEmpty(notifications)}" class="notification-empty-state">
+		You're all caught up.
+	</div>
+	<ul th:unless="${#lists.isEmpty(notifications)}" class="notification-list">
+		<li th:each="notification : ${notifications}" class="notification-list-item"
+			th:classappend="${!notification.seen} ? ' notification-unread' : ''">
+			<a th:if="${notification.redirectLink != null and (#strings.startsWith(notification.redirectLink, '/') or #strings.startsWith(notification.redirectLink, 'http://') or #strings.startsWith(notification.redirectLink, 'https://') or #strings.startsWith(notification.redirectLink, 'www.'))}"
+				th:href="${#strings.startsWith(notification.redirectLink, 'www.') ? 'https://' + notification.redirectLink : notification.redirectLink}"
+				th:target="${#strings.startsWith(notification.redirectLink, 'http://') or #strings.startsWith(notification.redirectLink, 'https://') or #strings.startsWith(notification.redirectLink, 'www.')} ? '_blank' : null"
+				rel="noopener noreferrer" th:text="${notification.message}"></a>
+			<span th:unless="${notification.redirectLink != null and (#strings.startsWith(notification.redirectLink, '/') or #strings.startsWith(notification.redirectLink, 'http://') or #strings.startsWith(notification.redirectLink, 'https://') or #strings.startsWith(notification.redirectLink, 'www.'))}"
+				th:text="${notification.message}"></span>
+			<time th:if="${notification.createdAt != null}" th:datetime="${notification.createdAt}"
+				th:text="${#temporals.format(notification.createdAt, 'MMM d, yyyy h:mm a')}"></time>
+		</li>
+	</ul>
+</div>

@@ -3,9 +3,8 @@
 
 <head th:replace="mainLayouts :: head"></head>
 
-<header th:replace="mainLayouts :: nav"></header>
-
-<body onLoad="showMainNotification()" class="">
+<body onLoad="showMainNotification()" class="public-site-page home-landing-page">
+	<header th:replace="mainLayouts :: public-nav"></header>
 	<div class="containers">
 
 		<div id="login-signup-form" class="">
@@ -117,161 +116,123 @@
 
 		</div>
 
-		<div class="front-poster-container">
-			<div class="front-poster-container-inner">
-				<div class="front-poster-text d-flex justify-content-center px-3 pt-5">
-					<p class="mt-5" data-aos="fade-down">Visualizing the trajectory of your projects has never been easier!</p><br /><br />
-					<div class="get-started-btn-container d-flex justify-content-center">
-						<div class="get-started-btn-container-inner">
-							<button class="btn landing-page-btn get-started-btn d-inline"
-								onClick="displaySigninForm('signup'); startElementRotation();">Get Started</button>
-							<span class="px-2"></span>
-							
-						</div>
+		<section class="landing-hero" aria-labelledby="landing-hero-title">
+			<img class="landing-hero-image" th:src="@{/images/landing-banner-bg.jpg}" width="1200" height="700"
+				fetchpriority="high" alt="">
+			<div class="landing-hero-shade"></div>
+			<div class="landing-hero-content">
+				<div class="landing-hero-copy">
+					<span class="landing-eyebrow"><span class="ti-wand" aria-hidden="true"></span> A clearer way to move work forward</span>
+					<h1 id="landing-hero-title">Bring every project <span>into focus.</span></h1>
+					<p>Plan the work, keep your team in sync, and see what is moving — all in one calm, connected workspace.</p>
+					<div class="landing-hero-actions">
+						<button class="landing-primary-btn" type="button"
+							onclick="displaySigninForm('signup'); startElementRotation();">
+							Get started <span class="ti-arrow-right" aria-hidden="true"></span>
+						</button>
+						<a class="landing-secondary-btn" href="#landing-features">Explore features</a>
 					</div>
+					<div class="landing-hero-note"><span class="ti-check" aria-hidden="true"></span> One workspace for projects, tasks, and people</div>
 				</div>
-
-
-				<img th:src="@{/images/landing-banner-bg.jpg}">
-			</div>
-
-		</div>
-
-
-		<div class="d-flex justify-content-around flex-wrap mt-4">
-			<div data-aos="zoom-in" data-aos-delay="450" class="card projectory-fact-cards p-2 mb-3" style="width: 18rem;" th:each="blog : ${MostRatedBlogPeekViewList}">
-				<img class="card-img-top" th:src="@{${blog.imageLink}}" th:alt="${blog.title} +' '+ illustration">
-				<div class="card-body">
-					<h5 class="card-title" th:text = "${blog.title}"></h5>
-					<p class="card-text" th:text = "${blog.shortDescription}"> 
-					</p>
-					<!--<a th:href="/blog?post=+' '+${blog.id}" class="btn btn-primary btn-sm">Learn More</a>-->
-					<a th:href="@{/blog(post=${blog.id})}" class="btn btn-primary btn-sm">Continue Read</a>
+				<div class="landing-workspace-preview" aria-hidden="true">
+					<div class="preview-window-bar"><span></span><span></span><span></span><b>Project overview</b></div>
+					<div class="preview-project-heading"><span class="preview-project-icon ti-layers"></span><span><b>Website refresh</b><small>Team workspace</small></span><span class="preview-menu" aria-hidden="true">•••</span></div>
+					<div class="preview-progress-label"><span>Project progress</span><b>68%</b></div>
+					<div class="preview-progress-track"><span></span></div>
+					<div class="preview-task-row"><span class="preview-task-check preview-task-check-complete">✓</span><span>Outline project milestones</span><small>Done</small></div>
+					<div class="preview-task-row"><span class="preview-task-check preview-task-check-active"></span><span>Review first design draft</span><small>Today</small></div>
+					<div class="preview-task-row"><span class="preview-task-check"></span><span>Prepare launch checklist</span><small>Next</small></div>
+					<div class="preview-team-row"><span class="preview-avatar preview-avatar-one">A</span><span class="preview-avatar preview-avatar-two">M</span><span class="preview-avatar preview-avatar-three">J</span><small>Team in sync</small></div>
 				</div>
 			</div>
-			<!--
-			<div class="card projectory-fact-cards p-2 mb-3" style="width: 18rem;" th:each="blog : blogPeakViewList">
-				<img class="card-img-top" th:src="@{/images/productivity.png}" alt="productivity illustration">
-				<div class="card-body">
-					<h5 class="card-title">Plan Your Day</h5>
-					<p class="card-text">Studies show scheduling and planning your day increases productivity by 100%.
-						we spend more energy trying to remember what we need to do than actually accomplishing a task.
-					</p>
-					<a href="#" class="btn btn-primary btn-sm">Learn More</a>
+		</section>
+
+		<section class="landing-value-strip" aria-label="What you can do with Projectory">
+			<div><span class="ti-layout" aria-hidden="true"></span><b>See the whole project</b><span>from first plan to final task</span></div>
+			<div><span class="ti-user" aria-hidden="true"></span><b>Keep your team aligned</b><span>with shared progress and updates</span></div>
+			<div><span class="ti-check-box" aria-hidden="true"></span><b>Make the next step clear</b><span>with focused task lists and boards</span></div>
+		</section>
+
+		<section class="landing-features" id="landing-features" aria-labelledby="landing-features-title">
+			<div class="landing-section-heading">
+				<span class="landing-section-kicker">Everything in one place</span>
+				<h2 id="landing-features-title">Less juggling. More progress.</h2>
+				<p>Tools that make it easier to organize the work and keep momentum going.</p>
+			</div>
+			<div class="landing-feature-grid">
+				<article class="landing-feature-card">
+					<span class="landing-feature-icon"><i class="ti-layers" aria-hidden="true"></i></span>
+					<h3>Project planning</h3>
+					<p>Bring goals, milestones, and the details behind them into one clear plan.</p>
+				</article>
+				<article class="landing-feature-card">
+					<span class="landing-feature-icon"><i class="ti-check-box" aria-hidden="true"></i></span>
+					<h3>Task management</h3>
+					<p>Capture next steps, assign ownership, and track work as it gets done.</p>
+				</article>
+				<article class="landing-feature-card">
+					<span class="landing-feature-icon"><i class="ti-layout" aria-hidden="true"></i></span>
+					<h3>Kanban boards</h3>
+					<p>Understand what is moving, what is waiting, and where to focus next.</p>
+				</article>
+				<article class="landing-feature-card">
+					<span class="landing-feature-icon"><i class="ti-comments" aria-hidden="true"></i></span>
+					<h3>Team collaboration</h3>
+					<p>Stay connected to people and project updates without losing the thread.</p>
+				</article>
+				<article class="landing-feature-card">
+					<span class="landing-feature-icon"><i class="ti-pie-chart" aria-hidden="true"></i></span>
+					<h3>Progress insights</h3>
+					<p>Get a useful overview of project status and the work behind it.</p>
+				</article>
+				<article class="landing-feature-card">
+					<span class="landing-feature-icon"><i class="ti-notepad" aria-hidden="true"></i></span>
+					<h3>Personal notes</h3>
+					<p>Keep small todos and useful reminders close to your project workspace.</p>
+				</article>
+			</div>
+		</section>
+
+		<section class="landing-insights" aria-labelledby="landing-insights-title"
+			th:if="${!#lists.isEmpty(MostRatedBlogPeekViewList)}">
+			<div class="landing-section-heading landing-insights-heading">
+				<div>
+					<span class="landing-section-kicker">Ideas for better work</span>
+					<h2 id="landing-insights-title">A little inspiration for your next project.</h2>
 				</div>
+				<a href="/blog" class="landing-text-link">Visit the blog <span class="ti-arrow-right" aria-hidden="true"></span></a>
 			</div>
-
-			<div class="card projectory-fact-cards p-2 mb-3" style="width: 18rem;">
-				<img class="card-img-top" th:src="@{/images/manage-stress.png}" alt="manage stress illustration">
-				<div class="card-body">
-					<h5 class="card-title">Manage Stress</h5>
-					<p class="card-text">Stress has become prevalent in the current state of the world we live in. We
-						need to protect our mental health
-						with everything we got. Keeping your life organized can keep you sane. </p>
-					<a href="#" class="btn btn-primary btn-sm">Learn More</a>
-				</div>
+			<div class="landing-insights-grid">
+				<article class="landing-insight-card" th:each="blog : ${MostRatedBlogPeekViewList}">
+					<img class="landing-insight-image" th:src="@{${blog.imageLink}}"
+						th:alt="${blog.title} +' '+ illustration" width="420" height="240"
+						loading="lazy" decoding="async">
+					<div class="landing-insight-copy">
+						<h3 th:text="${blog.title}"></h3>
+						<p th:text="${blog.shortDescription}"></p>
+						<a th:href="@{/blog(post=${blog.id})}">Read article <span class="ti-arrow-right" aria-hidden="true"></span></a>
+					</div>
+				</article>
 			</div>
-			<div class="card projectory-fact-cards p-2 mb-3" style="width: 18rem;">
-				<img class="card-img-top" th:src="@{/images/save-time.png}" alt="save time illustration">
-				<div class="card-body">
-					<h5 class="card-title">Save time</h5>
-					<p class="card-text">It is well know that time is the ultimate currency. We need to salvage as much
-						of it as we can and put it
-						in good use. Just like as foreth fathers used tools to save time when hunting, we need to do the
-						same.
-					</p>
-					<a href="#" class="btn btn-primary btn-sm">Learn More</a>
-				</div>
+		</section>
+
+		<section class="landing-cta" aria-labelledby="landing-cta-title">
+			<div class="landing-cta-copy">
+				<span class="landing-section-kicker">Your next project starts here</span>
+				<h2 id="landing-cta-title">Lead the work. <span>Own the outcome.</span></h2>
+				<p>Turn your ideas into a shared plan, keep the details moving, and give your team a place to do its best work.</p>
+				<button class="landing-primary-btn" type="button"
+					onclick="displaySigninForm('signup'); startElementRotation();">
+					Start your workspace <span class="ti-arrow-right" aria-hidden="true"></span>
+				</button>
 			</div>
-			-->
-			
-		</div>
-
-<!-- Service start -->
-<section class="service-section service-home">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-6">
-				<h2 class="mb-2 ">Core Features.</h2>
-				<p class="mb-5">Projectory's core services are designed to help you and your team plan, 
-					manage, and deliver projects successfully. By using Projectory, you can improve your 
-					team's productivity, efficiency, and collaboration.</p>
+			<div class="landing-cta-art">
+				<img th:src="@{/images/pro-ject-manager.png}" width="360" height="360"
+					loading="lazy" decoding="async" alt="Illustration of a project manager planning work">
 			</div>
-		</div>
-		
-		<div class="row">
-			<div class="col-lg-4">
-				<div class="service-item mb-5" data-aos="fade-left" >
-					<i class="ti-layers"></i>
-					<h4 class="my-3">Task management</h4>
-					<p>Create, assign, and track tasks. See how tasks are progressing in real time.</p>
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="service-item mb-5" data-aos="fade-left"  data-aos-delay="450">
-					<i class="ti-announcement"></i>
-					<h4 class="my-3">Collaboration</h4>
-					<p>Get notified of updates to tasks and projects. Share tasks, files, and comments with team members.</p>
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="service-item mb-5 mb-lg-0" data-aos="fade-left"  data-aos-delay="750">
-					<i class="ti-layout"></i>
-					<h4 class="my-3">Kanban boards</h4>
-					<p>Great way for visualizing project progress.</p>
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="service-item" data-aos="fade-left"  data-aos-delay="750">
-					<i class="ti-pie-chart"></i>
-					<h4 class="my-3">Reporting and analytics</h4>
-					<p>Generate reports on project progress, task completion, and resource utilization.</p>
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="service-item mb-5" data-aos="fade-left"  data-aos-delay="950">
-					<i class="ti-id-badge"></i>
-					<h4 class="my-3">Social experience</h4>
-					<p>Meet new people. Create community &amp; participate public projects</p>
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="service-item mb-5 mb-lg-0" data-aos="fade-left"  data-aos-delay="1050">
-					<i class="ti-server"></i>
-					<h4 class="my-3">Data-driven decision making</h4>
-					<p>Make decisions based on progress data.</p>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-<!-- service end -->
-
-		<div class="div-top-decor-container d-flex">
-			<!--<script>
-
-				let divDecorContainer = document.getElementsByClassName("div-top-decor-container");
-				let decor = document.createElement("div");
-
-				//decor.setAttribute("class", "div-top-decor");					
-				//document.body.appendChild(decor);
-				const parent = divDecorContainer.parentElement();
-
-				parent.appendChild(decor);
-				alert("here");
-
-			</script>-->
-		</div>
-
-
-		<div class="d-flex justify-content-around mt-4 container-bg-blue p-3">
-
-			<p class="fs-1 blue-bg-text-headline pt-5">Projectory can help you take the lead and be the <span
-					class="colored-text-inline align-self-center">pro</span>
-				in your <span class="colored-text-inline">pro</span>jects.</p>
-			<p class="blue-bg-text-paragraph align-self-start"> <img src="images/pro-ject-manager.png" width="200px"
-					height="200px" class="d-inline"></p>
-		</div>
+			<span class="landing-cta-orbit landing-cta-orbit-one" aria-hidden="true"></span>
+			<span class="landing-cta-orbit landing-cta-orbit-two" aria-hidden="true"></span>
+		</section>
 
 
 
@@ -299,4 +260,3 @@
 </body>
 
 </html>
-

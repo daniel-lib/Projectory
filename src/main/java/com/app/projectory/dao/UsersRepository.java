@@ -32,4 +32,17 @@ public interface UsersRepository extends CrudRepository<Users, Long> {
 	 		+ "FROM users\n"
 	 		+ "WHERE user_id = ?1", nativeQuery=true)
 	 CurrentUserDetailDto getCurrentUserDetail(long userId);	
+
+	@Query(value = "SELECT u.user_id userId, u.first_name firstName, u.last_name lastName,\n"
+			+ "u.username username, u.profile_picture profilePicture, u.online_status onlineStatus\n"
+			+ "FROM users u\n"
+			+ "WHERE u.user_id <> ?1\n"
+			+ "AND NOT EXISTS (\n"
+			+ "  SELECT 1 FROM connections c\n"
+			+ "  WHERE (c.request_sender_user = ?1 AND c.request_receiver_user = u.user_id)\n"
+			+ "     OR (c.request_receiver_user = ?1 AND c.request_sender_user = u.user_id)\n"
+			+ ")\n"
+			+ "ORDER BY u.user_id DESC\n"
+			+ "LIMIT 8", nativeQuery = true)
+	List<PublicUserPersonalDetailDto> findSuggestedConnections(long userId);
 }

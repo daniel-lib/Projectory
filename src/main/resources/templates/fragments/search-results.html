@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="https://www.thymeleaf.org">
+
+<!--
+  Search results fragment — returned by GET /search/fragment/all?keyword=...
+  HTMX swaps this into #search-dropdown-results inside the nav search dropdown.
+-->
+<th:block th:fragment="search-results">
+
+	<li th:if="${#lists.isEmpty(searchResults)}">
+		<span class="dropdown-item text-muted">No results found</span>
+	</li>
+
+	<li th:each="result : ${searchResults}"
+		class="border-bottom border-bottom-secondary">
+
+		<th:block th:if="${result.searchResultType == 'user'}">
+			<a th:href="'/user/' + ${result.searchItemDescription}"
+			   class="dropdown-item d-flex justify-content-between p-0 px-1
+			          d-flex justify-content-between no-text-decoration inherit-color inherit-color-hover">
+				<span>
+					<span class="fs-12 d-block pb-0" th:text="${result.searchItemTitle}"></span>
+					<span class="fs-11 pt-0">@<span th:text="${result.searchItemDescription}"></span></span>
+				</span>
+				<span class="align-self-center fa-solid fa-arrow-right btn btn-sm btn-secondary align-right"></span>
+			</a>
+		</th:block>
+
+		<th:block th:if="${result.searchResultType == 'project'}">
+			<span class="dropdown-item d-flex justify-content-between p-0 px-1 inherit-color">
+				<span>
+					<span class="fs-12 d-block pb-0" th:text="${result.searchItemTitle}"></span>
+					<span class="fs-11 pt-0 text-muted">Project</span>
+				</span>
+				<span class="align-self-center fa-solid fa-diagram-project btn btn-sm btn-secondary align-right"></span>
+			</span>
+		</th:block>
+
+	</li>
+
+</th:block>
+
+</html>

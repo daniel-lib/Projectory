@@ -5,8 +5,17 @@
 
 
 
-<body
+<body class="has-side-menu"
 	onLoad="showMainNotification(); displayItemCount();showDashboardActionNotification(); contentEmptyMessage(); getLoginInfo()">
+	<script>
+		try {
+			if (localStorage.getItem("projectory-side-menu-state") === "expanded") {
+				document.body.classList.add("side-menu-expanded");
+			}
+		} catch (error) {
+			console.warn("Could not restore the sidebar state from local storage.", error);
+		}
+	</script>
 	<div id="item-action-notification"
 		class="badge item-action-notification px-4 d-flex justify-content-center fixed-top"
 		th:text="${param.indicator}"></div>
@@ -27,6 +36,14 @@
 		
 		<div th:if="${currentPage == 'board'}">
 			<main th:replace="user/board/board :: board-content"></main>
+		</div>
+
+		<div th:if="${currentPage == 'settings'}">
+			<main th:replace="user/settings :: settings-content"></main>
+		</div>
+
+		<div th:if="${currentPage == 'connections'}">
+			<main th:replace="user/connections :: connections-page"></main>
 		</div>
 		
 	

@@ -3,9 +3,8 @@
 
 <head th:replace="mainLayouts :: head"></head>
 
-<header th:replace="mainLayouts :: nav"></header>
-
-<body onLoad="showMainNotification()" class="">
+<body onLoad="showMainNotification()" class="public-site-page public-content-page">
+	<header th:replace="mainLayouts :: public-nav"></header>
 	<div class="containers">
 
 		<div id="login-signup-form" class="">
@@ -131,7 +130,8 @@
 				</div>
 
 
-				<img th:src="@{/images/landing-banner-bg.jpg}" style="min-height: 250px;">
+				<img th:src="@{/images/landing-banner-bg.jpg}" width="1200" height="250"
+					fetchpriority="high" style="min-height: 250px;">
 			</div>
 
 		</div>
@@ -209,7 +209,6 @@
 		</div>
 		</main>
 
-<script src="/javascript/vue-scripts/blog-vue.js" defer></script>
 
 
 

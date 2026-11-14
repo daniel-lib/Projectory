@@ -7,6 +7,7 @@
 	--text: #F2ECFF;
 	/*--text: #e9eae0;*/
 	--background: #1F1F1F;
+	--notification-layer: 2147483647;
 }
 
 html {
@@ -42,7 +43,7 @@ html {
 	box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
 		0px 6px 10px 0px rgba(0, 0, 0, 0.14),
 		0px 1px 18px 0px rgba(0, 0, 0, 0.12);
-	z-index: 2031;
+	z-index: var(--notification-layer) !important;
 	/*margin-left:30%;*/
 
 	/*float: right;

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,4 +35,14 @@ public class SearchController {
 		return searchRepo.searchEverything(keyword);
 	}
 
+	/** HTMX: returns rendered search result list items. */
+	@GetMapping("/fragment/all")
+	public String searchFragment(@org.springframework.web.bind.annotation.RequestParam String keyword, Model model) {
+		if (keyword == null || keyword.isBlank()) {
+			model.addAttribute("searchResults", List.of());
+		} else {
+			model.addAttribute("searchResults", searchRepo.searchEverything(keyword));
+		}
+		return "fragments/search-results :: search-results";
+	}
 }

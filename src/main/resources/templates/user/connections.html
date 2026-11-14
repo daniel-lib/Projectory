@@ -1,0 +1,93 @@
+<main class="connections-page" th:fragment="connections-page">
+	<aside th:replace="user/user-layouts :: side-menu"></aside>
+	<section class="connections-page-inner">
+		<header class="connections-page-header">
+			<p class="profile-eyebrow">YOUR PEOPLE</p>
+			<h1>Connections</h1>
+			<p>Keep up with the people you work and build with.</p>
+		</header>
+
+		<section id="connections-panel" th:fragment="connections-content"
+			th:attr="hx-get=@{/user/fragment/connections-page}"
+			hx-trigger="profileConnectionsChanged from:body" hx-swap="outerHTML">
+			<div class="connections-section-grid">
+				<section class="profile-panel connections-section">
+					<div class="profile-panel-heading">
+						<div>
+							<p class="profile-eyebrow">YOUR NETWORK</p>
+							<h2>Connected <span class="profile-count" th:text="${#lists.size(userConnectionsList)}">0</span></h2>
+						</div>
+					</div>
+					<div th:replace="user/profile/profile-layouts :: approvedConnections"></div>
+					<p th:if="${#lists.isEmpty(userConnectionsList)}" class="profile-empty-state">
+						Your network is just getting started. Visit a profile to connect.
+					</p>
+				</section>
+
+				<section class="profile-panel connections-section">
+					<div class="profile-panel-heading">
+						<div>
+							<p class="profile-eyebrow">INBOUND</p>
+							<h2>Received requests <span class="profile-count" th:text="${#lists.size(receivedConnections)}">0</span></h2>
+						</div>
+					</div>
+					<div th:replace="user/profile/profile-layouts :: receivedConnectionRequest(${receivedConnections})"></div>
+					<p th:if="${#lists.isEmpty(receivedConnections)}" class="profile-empty-state">
+						No pending requests right now.
+					</p>
+				</section>
+
+				<section class="profile-panel connections-section connections-sent-section">
+					<div class="profile-panel-heading">
+						<div>
+							<p class="profile-eyebrow">OUTBOUND</p>
+							<h2>Sent requests <span class="profile-count" th:text="${#lists.size(sentConnections)}">0</span></h2>
+						</div>
+					</div>
+					<div th:replace="user/profile/profile-layouts :: sentConnectionRequest"></div>
+					<p th:if="${#lists.isEmpty(sentConnections)}" class="profile-empty-state">
+						You have no pending sent requests.
+					</p>
+				</section>
+
+				<section class="profile-panel connections-section connections-suggestions-section">
+					<div class="profile-panel-heading">
+						<div>
+							<p class="profile-eyebrow">MEET THE COMMUNITY</p>
+							<h2>Suggested connections</h2>
+						</div>
+					</div>
+					<div th:if="${#lists.isEmpty(suggestedConnections)}" class="profile-empty-state">
+						No new people to suggest right now.
+					</div>
+					<div class="suggested-connections-grid">
+						<article th:each="suggestion : ${suggestedConnections}" class="suggested-connection-card">
+							<a class="suggested-connection-person"
+								th:href="@{/user/{username}(username=${suggestion.username})}">
+								<span th:if="${suggestion.profilePicture != null and !#strings.isEmpty(suggestion.profilePicture) and #strings.length(suggestion.profilePicture) > 1}"
+									class="suggested-connection-avatar">
+									<img th:src="${suggestion.profilePicture}" alt="">
+								</span>
+								<span th:if="${suggestion.profilePicture == null or #strings.isEmpty(suggestion.profilePicture) or #strings.length(suggestion.profilePicture) == 1}"
+									class="suggested-connection-avatar suggested-connection-initial">
+									<span th:if="${!#strings.isEmpty(suggestion.firstName)}"
+										th:text="${#strings.toUpperCase(#strings.substring(suggestion.firstName, 0, 1))}"></span>
+									<span th:if="${#strings.isEmpty(suggestion.firstName)}"
+										class="fa-regular fa-user" aria-label="Profile"></span>
+								</span>
+								<span class="suggested-connection-name">
+									<strong th:text="${suggestion.firstName + ' ' + suggestion.lastName}">Name</strong>
+									<small th:text="${'@' + suggestion.username}">@username</small>
+								</span>
+							</a>
+							<div th:attr="id=|connection-action-buttons-${suggestion.userId}|, hx-get=@{/user/fragment/connection-status(user=${suggestion.userId})}"
+								hx-trigger="load, profileConnectionsChanged from:body" hx-swap="outerHTML">
+								<span class="htmx-indicator">Loading...</span>
+							</div>
+						</article>
+					</div>
+				</section>
+			</div>
+		</section>
+	</section>
+</main>

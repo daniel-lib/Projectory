@@ -77,8 +77,15 @@
 	border: 2px dotted rgb(106, 106, 106);
 	border-radius: 0.3rem;
 	cursor: grab;
+	user-select: none;
+	-webkit-user-select: none;
 	max-width: 300px;
 	max-width: 20vw;
+}
+
+.task-draggable-card[data-can-move="false"],
+.task-draggable-card[data-can-move="false"] .task-card-body {
+	cursor: not-allowed;
 }
 
 .task-draggable-card:hover {
@@ -165,8 +172,7 @@
 }
 
 .board-header {
-	margin-left: 3rem;
-	margin-left: 1.8rem;
+	margin-left: 0;
 }
 
 .board-change-proj-btn {
@@ -189,7 +195,7 @@
 		
 	}
 	.board-header {
-		margin-left: .25rem;
+		margin-left: 0;
 		margin-right: .25em;
 	}
 }
@@ -201,7 +207,5 @@
 	}
 
 }
-
-
 
 

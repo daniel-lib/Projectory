@@ -21,11 +21,16 @@ public class UserDetailsServ implements UserDetailsService{
 		if(user == null) {
 			throw new UsernameNotFoundException(username);
 		}
+
+		String role = user.getRole();
+		if (role.startsWith("ROLE_")) {
+			role = role.substring("ROLE_".length());
+		}
 		
 		return User
 				.withUsername(user.getUsername())
 	            .password(user.getPassword())
-	            .roles(user.getRole()) 
+	            .roles(role)
 	            .accountExpired(false)
 	            .accountLocked(false)
 	            .credentialsExpired(false)

@@ -2,7 +2,8 @@
 
 
 #confirmation-modal, 
-#sign-out-confirmation-modal {
+#sign-out-confirmation-modal,
+#unfriend-confirmation-modal {
  /* position: absolute;
   top: 50%;
   left: 50%;
@@ -17,14 +18,16 @@
 }
 
 #confirmation-modal .confirmation-modal-btn, 
-#sign-out-confirmation-modal .confirmation-modal-btn{
+#sign-out-confirmation-modal .confirmation-modal-btn,
+#unfriend-confirmation-modal .confirmation-modal-btn {
   padding: 4px 17px;
   margin-top: 10px;
   font-size: 14pt;
   border-radius: 0.25rem;
 }
 #confirmation-modal .confirmation-modal-btn:first-child, 
-#sign-out-confirmation-modal .confirm-signout-btn {
+#sign-out-confirmation-modal .confirm-signout-btn,
+#unfriend-confirmation-modal .confirmation-modal-btn:first-child {
   /* Yes Button */
   border: 1px solid black;
   color: rgb(36, 31, 49);
@@ -32,13 +35,15 @@
   transition: 0.2s ease-in-out; 
 }
 #confirmation-modal .confirmation-modal-btn:first-child:hover,
-#sign-out-confirmation-modal .confirm-signout-btn:hover {
+#sign-out-confirmation-modal .confirm-signout-btn:hover,
+#unfriend-confirmation-modal .confirmation-modal-btn:first-child:hover {
   color: white;
   background-color: rgb(36, 31, 49);
 }
 
 #confirmation-modal .confirmation-modal-btn:last-child,
-#sign-out-confirmation-modal .cancel-signout-btn{
+#sign-out-confirmation-modal .cancel-signout-btn,
+#unfriend-confirmation-modal .confirmation-modal-btn:last-child {
   /* No Button */
   color: rgb(36, 31, 49);
   background-color: rgb(38, 162, 105);
@@ -46,7 +51,8 @@
   transition: 0.2s ease-in-out; 
 }
 #confirmation-modal .confirmation-modal-btn:last-child:hover,
-#sign-out-confirmation-modal .cancel-signout-btn:hover{
+#sign-out-confirmation-modal .cancel-signout-btn:hover,
+#unfriend-confirmation-modal .confirmation-modal-btn:last-child:hover {
   color: white;
   background-color: rgb(51, 209, 122);
   box-shadow: 0 0 2px 1px rgb(51, 209, 122);
@@ -55,23 +61,27 @@
 
 
 #confirmation-modal::backdrop,
-#sign-out-confirmation-modal::backdrop {
+#sign-out-confirmation-modal::backdrop,
+#unfriend-confirmation-modal::backdrop {
   background: rgb(0 0 0 / 0.5);
 }
 
 #confirmation-modal h2,
-#sign-out-confirmation-modal h2 {
+#sign-out-confirmation-modal h2,
+#unfriend-confirmation-modal h2 {
   margin-bottom: 20px;
   font-size: 1.4em;
 }
 #confirmation-modal p,
-#sign-out-confirmation-modal p {
+#sign-out-confirmation-modal p,
+#unfriend-confirmation-modal p {
   font-weight: 500;
   margin-bottom: 10px;
 }
 
 #confirmation-modal button,
-#sign-out-confirmation-modal button {
+#sign-out-confirmation-modal button,
+#unfriend-confirmation-modal button {
   border: none;
   cursor: pointer;
 }

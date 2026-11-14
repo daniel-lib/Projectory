@@ -1,129 +1,175 @@
-<div th:fragment="board-container" class="board-container p-2" id="board-container">
+<div th:fragment="board-container" class="board-container p-2" id="board-container"
+	x-data="{ fullScreen: false, toggleFullScreen() {
+		this.fullScreen = !this.fullScreen;
+		document.querySelector('#board-container-container').classList.toggle('ms-5', !this.fullScreen);
+		document.body.style.overflow = this.fullScreen ? 'hidden' : 'visible';
+	} }"
+	:class="fullScreen ? 'full-screen' : ''">
 
 	<div class="board-top-controls mb-2 d-flex justify-content-between flex-wrap">
-		<button @click="boardOnFullScreen()" id="board-full-screen-btn"
-			class="board-full-screen-btn minimalist-btn minimalist-btn-blk-bg btn-sm align-self-start">Full
-			Screen</button>
-		
-		<span><span class="board-info fa-regular fa-hand">
-		</span><span class="board-info info-tag-dark">You can drag the tasks to your desired stage</span></span>
+		<button type="button" @click="toggleFullScreen()" id="board-full-screen-btn"
+			class="board-full-screen-btn minimalist-btn minimalist-btn-blk-bg btn-sm align-self-start">
+			<span x-text="fullScreen ? 'Back' : 'Full Screen'">Full Screen</span>
+		</button>
 
-		<span class="">
-			<span v-if="showLoader" style="z-index: 5000; position: absolute;">
-				<div id="loader" class="loader-container" th:replace="user/user-layouts :: loader-animation">
-			</span>
-			<select
-				class="form-select form-select-sm mb-2 me-1  minimalist-btn minimalist-btn-blk-bg btn-sm board-change-proj-btn"
-				@click="getProjectData(!!true)" title="Select Project">
-				<option disabled selected>Select Project</option>
-				<template v-for="project in projectList">
-					<option @click="selectProject(project.projectId)" v-if="projectOnBoard.title == project.title" selected>
-						{{project.title}}
-					</option>
-					<option @click="selectProject(project.projectId)" v-if="projectOnBoard.title != project.title" >
-						{{project.title}}
-					</option>
-				</template>
+		<span>
+			<span class="board-info fa-regular fa-hand"></span>
+			<span class="board-info info-tag-dark">You can only move tasks assigned to you. Assign a task to yourself to move it.</span>
+		</span>
+
+		<span>
+			<div id="board-project-options-loader" style="display: none"
+				hx-get="/project/fragment/board-projects" hx-trigger="load"
+				hx-target="#board-project-selector" hx-swap="innerHTML"></div>
+			<select id="board-project-selector" name="project"
+				class="form-select form-select-sm mb-2 me-1 minimalist-btn minimalist-btn-blk-bg btn-sm board-change-proj-btn"
+				title="Select Project" hx-get="/project/fragment/board-tasks" hx-trigger="change"
+				hx-include="this" hx-target="#board-columns" hx-swap="outerHTML"
+				onchange="document.cookie='agile-board-project=' + encodeURIComponent(this.value) + ';path=/'">
+				<option value="" disabled th:selected="${selectedProjectId == null}">Select Project</option>
+				<option th:each="project : ${boardProjects}" th:value="${project.projectId}"
+					th:selected="${selectedProjectId != null and selectedProjectId == project.projectId}"
+					th:text="${project.title}"></option>
 			</select>
-
 		</span>
 	</div>
 
-	<div class="board-inside-container custom-scrollbar-style" id="board-inside-container">
-		<div th:replace="user/board/board-layouts::task-stage-categories"></div>
+	<div class="board-inside-container custom-scrollbar-style" id="board-inside-container"
+		:class="fullScreen ? 'full-screen' : ''">
+		<div th:if="${selectedProjectId != null}" id="board-columns"
+			th:attr="data-project-id=${selectedProjectId},
+				hx-get=@{/project/fragment/board-tasks(project=${selectedProjectId})}"
+			hx-trigger="load" hx-swap="outerHTML">
+			<div class="htmx-indicator">Loading board...</div>
+		</div>
+		<div th:if="${selectedProjectId == null}" id="board-columns" class="board-columns-empty">
+			<span class="d-block alert alert-secondary">Select a project to view its tasks.</span>
+		</div>
 	</div>
-
-	
 </div>
 
-<div th:fragment="task-stage-categories" class="d-flex justify-content-between flex-wrap">
+<th:block th:fragment="project-selector-options">
+	<option value="" disabled th:selected="${selectedProjectId == null}">Select Project</option>
+	<option th:each="project : ${boardProjects}" th:value="${project.projectId}"
+		th:selected="${selectedProjectId != null and selectedProjectId == project.projectId}"
+		th:text="${project.title}"></option>
+</th:block>
+
+<div th:fragment="board-columns" id="board-columns" class="d-flex justify-content-between flex-wrap"
+	th:attr="data-project-id=${selectedProjectId}"
+	x-data="{ dropTask(event, status) {
+		const taskId = event.dataTransfer.getData('taskId');
+		const projectId = event.currentTarget.closest('#board-columns').dataset.projectId;
+		const url = '/project/task/update/status?status=' + encodeURIComponent(status)
+			+ '&task=' + encodeURIComponent(taskId) + '&project=' + encodeURIComponent(projectId);
+		htmx.ajax('POST', url, { target: '#board-columns', swap: 'outerHTML' });
+	} }">
+
 	<div class="task-stage p-2 mb-3 flex-fill">
 		<h4 class="text-center task-stage-todo">Todo</h4>
-
-		<div class="drop-area-card-body custom-scrollbar-style-3 not-started-section" 
-		@drop="drop($event)" @dragover="allowDrop($event)"
-			@dragleave="cancelDropAreaHighlight($event)" @dragenter="dropAreaHighlight($event)"
-			id="drop-area-card-body-in-progress">
-
-			<template v-for="task in projectTasksOnBoard">
-				<div class="task-draggable-card not started mb-3" draggable="true" @dragstart="drag(`${task.taskId}`,$event)"
-					:id="`draggable-card-${task.taskId}`" @dragleave="cancelDropAreaHighlight($event)"
-					@dragenter="dropAreaHighlight($event)"
-					v-if="projectOnBoard !== null && task.status==='not started'">
-					
-					<span v-if="task.assigneeUsername != null" class="fs-9 ms-2">
-						task owner: <a :href="`/user/${task.assigneeUsername}`" class="no-text-decoration task-owner">
-							{{task.assigneeUsername}}</a></span>
-					<h6 class="task-card-title text-center">{{task.taskName}}</h6>
-					<div class="task-card-body m-2">
-						<span class="draggable-task-card-description text-center">{{task.taskDescription}}</span>
-						<span class="d-flex flex-wrap">
-							<select class="minimalist-btn minimalist-btn-grey mb-1" @click="getProjectMembers()">
-								<option disabled selected><span class="fa-solid fa-plus"></span>Assign</option>
-								<option v-for="member in projectMembers" 
-								@click="assignTask(member.projectMemberUserId, task.taskId)">
-									@{{member.username}}</option>
-							</select>
-							<!--<button class="minimalist-btn minimalist-btn-grey  submit-task-btn">Submit>></button>-->
-						</span>
-						
-					</div>
+		<div class="drop-area-card-body custom-scrollbar-style-3 not-started-section"
+			x-data="{ highlight: false }" @dragover.prevent="highlight = true"
+			@dragleave="highlight = false" @drop.prevent="highlight = false; dropTask($event, 'not started')"
+			:class="highlight ? 'highlighted' : ''">
+			<div th:each="task : ${boardTasks}" th:if="${task.status == 'not started'}"
+				class="task-draggable-card not started mb-3"
+				th:attr="draggable=true, data-task-id=${task.taskId}, data-can-move=${task.assigneeId == currentUserId}"
+				@dragstart="if ($el.dataset.canMove !== 'true') { $event.preventDefault(); toggleNotification('error', 'You can only move tasks assigned to you.'); } else { $event.dataTransfer.setData('taskId', $el.dataset.taskId); }">
+				<span th:if="${task.assigneeUsername != null}" class="fs-9 ms-2">
+					Task owner:
+					<a th:href="@{/user/{username}(username=${task.assigneeUsername})}"
+						class="no-text-decoration task-owner" th:text="${task.assigneeUsername}"></a>
+				</span>
+				<h6 class="task-card-title text-center" th:text="${task.taskName}"></h6>
+				<div class="task-card-body m-2">
+					<span class="draggable-task-card-description text-center" th:text="${task.taskDescription}"></span>
+					<form th:if="${!#lists.isEmpty(projectMembers)}" class="d-flex flex-wrap"
+						hx-post="/project/task/update/assignee" hx-trigger="change"
+						hx-target="#board-columns" hx-swap="outerHTML">
+						<input type="hidden" name="task" th:value="${task.taskId}">
+						<input type="hidden" name="project" th:value="${selectedProjectId}">
+						<select name="user" class="minimalist-btn minimalist-btn-grey mb-1"
+							aria-label="Assign task">
+							<option value="" disabled th:selected="${task.assigneeUsername == null}">Assign</option>
+							<option th:each="member : ${projectMembers}" th:value="${member.projectMemberUserId}"
+								th:selected="${task.assigneeUsername == member.username}"
+								th:text="${'@' + member.username}"></option>
+						</select>
+					</form>
 				</div>
-			</template>
-
-
+			</div>
 		</div>
 	</div>
+
 	<div class="task-stage p-2 mb-3 flex-fill">
 		<h4 class="text-center task-stage-in-progress">In progress</h4>
-		<div class="drop-area-card-body custom-scrollbar-style-3 in-progress-section" 
-		@drop="drop($event)" @dragover="allowDrop($event)"
-			@dragleave="cancelDropAreaHighlight($event)" @dragenter="dropAreaHighlight($event)"
-			id="drop-area-card-body-in-progress">
-
-			<template v-for="task in projectTasksOnBoard">
-				<div class="task-draggable-card in progress-stage mb-3" draggable="true" @dragstart="drag(`${task.taskId}`, $event)"
-					:id="`draggable-card-${task.taskId}`" @dragleave="cancelDropAreaHighlight($event)"
-					@dragenter="dropAreaHighlight($event)" 
-					v-if="projectOnBoard !== null && task.status==='in progress'">
-					<span v-if="task.assigneeUsername != null" class="fs-9 ms-2">
-						task owner: <a :href="`/user/${task.assigneeUsername}`" class="no-text-decoration task-owner">
-							{{task.assigneeUsername}}</a></span>
-					<h6 class="task-card-title text-center">{{task.taskName}}</h6>
-					<div class="task-card-body m-2">
-						<span class="draggable-task-card-description text-center">{{task.taskDescription}}</span>
-						<!--<br/>
-						<button class="minimalist-btn minimalist-btn-grey d-block submit-task-btn">Submit>></button>-->
-						<div> </div>
-					</div>
+		<div class="drop-area-card-body custom-scrollbar-style-3 in-progress-section"
+			x-data="{ highlight: false }" @dragover.prevent="highlight = true"
+			@dragleave="highlight = false" @drop.prevent="highlight = false; dropTask($event, 'in progress')"
+			:class="highlight ? 'highlighted' : ''">
+			<div th:each="task : ${boardTasks}" th:if="${task.status == 'in progress'}"
+				class="task-draggable-card in progress-stage mb-3"
+				th:attr="draggable=true, data-task-id=${task.taskId}, data-can-move=${task.assigneeId == currentUserId}"
+				@dragstart="if ($el.dataset.canMove !== 'true') { $event.preventDefault(); toggleNotification('error', 'You can only move tasks assigned to you.'); } else { $event.dataTransfer.setData('taskId', $el.dataset.taskId); }">
+				<span th:if="${task.assigneeUsername != null}" class="fs-9 ms-2">
+					Task owner:
+					<a th:href="@{/user/{username}(username=${task.assigneeUsername})}"
+						class="no-text-decoration task-owner" th:text="${task.assigneeUsername}"></a>
+				</span>
+				<h6 class="task-card-title text-center" th:text="${task.taskName}"></h6>
+				<div class="task-card-body m-2">
+					<span class="draggable-task-card-description text-center" th:text="${task.taskDescription}"></span>
+					<form th:if="${!#lists.isEmpty(projectMembers)}" class="d-flex flex-wrap"
+						hx-post="/project/task/update/assignee" hx-trigger="change"
+						hx-target="#board-columns" hx-swap="outerHTML">
+						<input type="hidden" name="task" th:value="${task.taskId}">
+						<input type="hidden" name="project" th:value="${selectedProjectId}">
+						<select name="user" class="minimalist-btn minimalist-btn-grey mb-1"
+							aria-label="Assign task">
+							<option value="" disabled th:selected="${task.assigneeUsername == null}">Assign</option>
+							<option th:each="member : ${projectMembers}" th:value="${member.projectMemberUserId}"
+								th:selected="${task.assigneeUsername == member.username}"
+								th:text="${'@' + member.username}"></option>
+						</select>
+					</form>
 				</div>
-			</template>
-
+			</div>
 		</div>
 	</div>
+
 	<div class="task-stage p-2 mb-3 flex-fill">
 		<h4 class="text-center task-stage-done">Done</h4>
-		<div class="drop-area-card-body custom-scrollbar-style-3 completed-section" 
-		@drop="drop($event)" @dragover="allowDrop($event)"
-			@dragleave="cancelDropAreaHighlight($event)" @dragenter="dropAreaHighlight($event)"
-			id="drop-area-card-body-in-progress">
-
-			<template v-for="task in projectTasksOnBoard">
-				<div class="task-draggable-card done mb-3" draggable="true" @dragstart="drag(`${task.taskId}`, $event)"
-					:id="`draggable-card-${task.taskId}`" @dragleave="cancelDropAreaHighlight($event)"
-					@dragenter="dropAreaHighlight($event)"
-					v-if="projectOnBoard !== null && task.status==='done'">
-					<span v-if="task.assigneeUsername != null" class="fs-9 ms-2">
-						task owner: <a :href="`/user/${task.assigneeUsername}`" class="no-text-decoration task-owner">
-							{{task.assigneeUsername}}</a></span>
-					<h6 class="task-card-title text-center">{{task.taskName}}</h6>
-					<div class="task-card-body m-2">
-						<span class="draggable-task-card-description text-center">{{task.taskDescription}}</span>
-						<!--<button class="minimalist-btn minimalist-btn-grey d-block float-end">Done</button>-->
-					</div>
+		<div class="drop-area-card-body custom-scrollbar-style-3 completed-section"
+			x-data="{ highlight: false }" @dragover.prevent="highlight = true"
+			@dragleave="highlight = false" @drop.prevent="highlight = false; dropTask($event, 'done')"
+			:class="highlight ? 'highlighted' : ''">
+			<div th:each="task : ${boardTasks}" th:if="${task.status == 'done'}"
+				class="task-draggable-card done mb-3"
+				th:attr="draggable=true, data-task-id=${task.taskId}, data-can-move=${task.assigneeId == currentUserId}"
+				@dragstart="if ($el.dataset.canMove !== 'true') { $event.preventDefault(); toggleNotification('error', 'You can only move tasks assigned to you.'); } else { $event.dataTransfer.setData('taskId', $el.dataset.taskId); }">
+				<span th:if="${task.assigneeUsername != null}" class="fs-9 ms-2">
+					Task owner:
+					<a th:href="@{/user/{username}(username=${task.assigneeUsername})}"
+						class="no-text-decoration task-owner" th:text="${task.assigneeUsername}"></a>
+				</span>
+				<h6 class="task-card-title text-center" th:text="${task.taskName}"></h6>
+				<div class="task-card-body m-2">
+					<span class="draggable-task-card-description text-center" th:text="${task.taskDescription}"></span>
+					<form th:if="${!#lists.isEmpty(projectMembers)}" class="d-flex flex-wrap"
+						hx-post="/project/task/update/assignee" hx-trigger="change"
+						hx-target="#board-columns" hx-swap="outerHTML">
+						<input type="hidden" name="task" th:value="${task.taskId}">
+						<input type="hidden" name="project" th:value="${selectedProjectId}">
+						<select name="user" class="minimalist-btn minimalist-btn-grey mb-1"
+							aria-label="Assign task">
+							<option value="" disabled th:selected="${task.assigneeUsername == null}">Assign</option>
+							<option th:each="member : ${projectMembers}" th:value="${member.projectMemberUserId}"
+								th:selected="${task.assigneeUsername == member.username}"
+								th:text="${'@' + member.username}"></option>
+						</select>
+					</form>
 				</div>
-			</template>
-
+			</div>
 		</div>
 	</div>
 </div>

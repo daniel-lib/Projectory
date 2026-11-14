@@ -7,6 +7,6 @@ public interface PublicUserProjectDetailDto {
 	public String getDescription();
 	public String getStatus();
 	public String getCreationDate();
-	public String getprojectOwnerUsername();
+	public String getProjectOwnerUsername();
 	
 }

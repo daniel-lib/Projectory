@@ -2,19 +2,33 @@ package com.app.projectory.controller;
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 
 import com.app.projectory.dao.ConnectionsRepository;
 import com.app.projectory.dao.ProjectRepository;
@@ -29,11 +43,13 @@ import com.app.projectory.dto.ProjectStatusCount;
 import com.app.projectory.dto.PublicUserConnectionsDetailDto;
 import com.app.projectory.dto.PublicUserPersonalDetailDto;
 import com.app.projectory.dto.PublicUserProjectDetailDto;
+import com.app.projectory.dto.ProjectMembersDto;
 import com.app.projectory.entity.ProjectTasks;
 import com.app.projectory.entity.Todo;
 import com.app.projectory.entity.TodoListCollection;
 import com.app.projectory.entity.Users;
 import com.app.projectory.service.ProjectService;
+import com.app.projectory.service.NotificationService;
 import com.app.projectory.service.TodoListCollectionService;
 import com.app.projectory.service.userAccountService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -67,6 +83,9 @@ public class UserDashboardController {
 	TodoListCollectionService collectionServ;
 	@Autowired
 	ConnectionsRepository connectionsDao;
+
+	@Autowired
+	NotificationService notificationService;
 	
 	
 	
@@ -123,6 +142,109 @@ public class UserDashboardController {
 		 return "/user/user-content-container"; 
 		
 	}
+
+	@GetMapping("/settings")
+	public String displayUserSettings(Model model, Principal principal, Authentication auth) {
+		model.addAttribute("user", principal.getName());
+		model.addAttribute("currentUserDetail", userServ.getCurrentUserDetail(auth));
+		model.addAttribute("currentPage", "settings");
+		return "/user/user-content-container";
+	}
+
+	@GetMapping("/connections")
+	public String displayUserConnections(Model model, Principal principal, Authentication auth) {
+		addConnectionsPageModel(model, auth);
+		model.addAttribute("user", principal.getName());
+		model.addAttribute("currentPage", "connections");
+		return "/user/user-content-container";
+	}
+
+	@GetMapping("/fragment/connections-page")
+	public String connectionsPageFragment(Model model, Authentication auth) {
+		addConnectionsPageModel(model, auth);
+		return "user/connections :: connections-content";
+	}
+
+	private void addConnectionsPageModel(Model model, Authentication auth) {
+		long userId = userServ.getUserId(auth);
+		String username = userServ.getCurrentUsername(auth);
+		model.addAttribute("currentUserDetail", userServ.getCurrentUserDetail(auth));
+		model.addAttribute("ownAccount", true);
+		model.addAttribute("userConnectionsList", connectionsDao.findApprovedConnections(username));
+		model.addAttribute("sentConnections", connectionsDao.findSentConnectionRequests(userId));
+		model.addAttribute("receivedConnections", connectionsDao.findReceivedConnectionRequests(userId));
+		model.addAttribute("suggestedConnections", userDao.findSuggestedConnections(userId));
+	}
+
+	@PostMapping("/settings")
+	public String updateUserSettings(@RequestParam String firstName, @RequestParam String lastName,
+			@RequestParam String username, @RequestParam String currentPassword,
+			@RequestParam(defaultValue = "") String newPassword,
+			@RequestParam(defaultValue = "") String confirmNewPassword,
+			Authentication auth, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		Users currentUser = userServ.getCurrentUserDetail(auth);
+		if (!encoder.matches(currentPassword, currentUser.getPassword())) {
+			redirectAttributes.addFlashAttribute("settingsError", "Current password is incorrect.");
+			return "redirect:/user/settings";
+		}
+
+		String updatedFirstName = firstName.trim();
+		String updatedLastName = lastName.trim();
+		String updatedUsername = username.trim();
+		if (updatedFirstName.isEmpty() || updatedFirstName.length() > 50
+				|| updatedLastName.isEmpty() || updatedLastName.length() > 50) {
+			redirectAttributes.addFlashAttribute("settingsError", "First and last names are required and must be 50 characters or fewer.");
+			return "redirect:/user/settings";
+		}
+		if (!updatedUsername.matches("[A-Za-z0-9._-]{3,30}")) {
+			redirectAttributes.addFlashAttribute("settingsError",
+					"Username must be 3-30 characters and use only letters, numbers, periods, underscores, or hyphens.");
+			return "redirect:/user/settings";
+		}
+		Users usernameOwner = userDao.findByUsername(updatedUsername);
+		if (usernameOwner != null && usernameOwner.getUserId() != currentUser.getUserId()) {
+			redirectAttributes.addFlashAttribute("settingsError", "That username is already in use.");
+			return "redirect:/user/settings";
+		}
+		if (!newPassword.isEmpty()
+				&& (newPassword.length() < 8 || !newPassword.equals(confirmNewPassword))) {
+			redirectAttributes.addFlashAttribute("settingsError",
+					"New passwords must match and be at least 8 characters long.");
+			return "redirect:/user/settings";
+		}
+		if (newPassword.isEmpty() && !confirmNewPassword.isEmpty()) {
+			redirectAttributes.addFlashAttribute("settingsError", "Enter a new password in both password fields.");
+			return "redirect:/user/settings";
+		}
+
+		boolean usernameChanged = !currentUser.getUsername().equals(updatedUsername);
+		boolean passwordChanged = !newPassword.isEmpty();
+		currentUser.setFirstName(updatedFirstName);
+		currentUser.setLastName(updatedLastName);
+		currentUser.setUsername(updatedUsername);
+		if (passwordChanged) {
+			currentUser.setPassword(encoder.encode(newPassword));
+		}
+		userDao.save(currentUser);
+
+		if (usernameChanged || passwordChanged) {
+			org.springframework.security.core.userdetails.UserDetails updatedPrincipal = User
+					.withUsername(updatedUsername)
+					.password(currentUser.getPassword())
+					.authorities(auth.getAuthorities())
+					.build();
+			UsernamePasswordAuthenticationToken updatedAuthentication =
+					new UsernamePasswordAuthenticationToken(updatedPrincipal, null, updatedPrincipal.getAuthorities());
+			updatedAuthentication.setDetails(auth.getDetails());
+			SecurityContextHolder.getContext().setAuthentication(updatedAuthentication);
+			request.getSession(true).setAttribute(
+					HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
+					SecurityContextHolder.getContext());
+		}
+
+		redirectAttributes.addFlashAttribute("settingsMessage", "Your account settings have been updated.");
+		return "redirect:/user/settings";
+	}
 	
 	//for test only
 	@GetMapping("/api/todo-list/{collectionId}")
@@ -136,36 +258,89 @@ public class UserDashboardController {
 	@GetMapping("/profile")
 	public String displayUserProfile(Model model, Authentication auth) {
 		Users currentUser = userServ.getCurrentUserDetail(auth);
-		model.addAttribute("currentUserDetail", currentUser);
-		model.addAttribute("currentPage", "profile");
-		//model.addAttribute("ownAccount", false);
-		model.addAttribute("ownAccount", true);
-		model.addAttribute("UserDetailByUsername", currentUser.getUsername());
+		addProfileModel(model, currentUser, true, auth);
 		return "/user/user-content-container";
 	}
 	
 	@GetMapping("{username}")
 	public String displayUserProfileWithUsername(Model model, Authentication auth, @PathVariable("username") String username) {
-		Users UserByUsernameResult = userServ.getUserDetailByUsername(username);
-		
-		  if(UserByUsernameResult==null) 
-			  model.addAttribute("UserDetailByUsername", "User does not exist");	
-		  else {			  
-			  String authUsername = userServ.getCurrentUsername(auth);
-			  if(authUsername.equals(username)) {
-				  return "redirect:profile";  //redirect to current user profile
-			  }
-			  else {				 
-					model.addAttribute("UserDetailByUsername", UserByUsernameResult.getUsername());
-			  }
-				  
-		  }		  		 		
-		  
-		
+		Users viewedUser = userServ.getUserDetailByUsername(username);
+		if (viewedUser != null && userServ.getCurrentUsername(auth).equals(username)) {
+			return "redirect:/user/profile";
+		}
+		addProfileModel(model, viewedUser, false, auth);
+		return "/user/user-content-container";
+	}
+
+	private void addProfileModel(Model model, Users viewedUser, boolean ownAccount, Authentication auth) {
+		String username = viewedUser == null ? null : viewedUser.getUsername();
+		List<PublicUserProjectDetailDto> projects = username == null
+				? Collections.emptyList() : projDao.findPublicUserProjects(username);
+		List<PublicUserConnectionsDetailDto> connections = username == null
+				? Collections.emptyList() : connectionsDao.findPublicConnections(username);
 		model.addAttribute("currentUserDetail", userServ.getCurrentUserDetail(auth));
 		model.addAttribute("currentPage", "profile");
-		model.addAttribute("ownAccount", false);
-		return "/user/user-content-container";
+		model.addAttribute("ownAccount", ownAccount);
+		model.addAttribute("profileUser", viewedUser);
+		model.addAttribute("profileUserExists", viewedUser != null);
+		model.addAttribute("profileUsername", username == null ? "" : username);
+		model.addAttribute("viewedUserId", viewedUser == null ? 0L : viewedUser.getUserId());
+		model.addAttribute("UserDetailByUsername", username == null ? "User does not exist" : username);
+		model.addAttribute("userProjectList", projects);
+		model.addAttribute("userConnectionsList", connections);
+		model.addAttribute("sentConnections", ownAccount
+				? connectionsDao.findSentConnectionRequests(userServ.getUserId(auth)) : Collections.emptyList());
+		model.addAttribute("receivedConnections", ownAccount
+				? connectionsDao.findReceivedConnectionRequests(userServ.getUserId(auth)) : Collections.emptyList());
+		model.addAttribute("userProjectCount", projects.size());
+		model.addAttribute("userConnectsCount", connections.size());
+		model.addAttribute("userCreatedProjectCount", projects.stream()
+				.filter(project -> username != null && username.equals(project.getProjectOwnerUsername())).count());
+		model.addAttribute("recentUserProjects", projects.stream()
+				.sorted(Comparator.comparing(PublicUserProjectDetailDto::getCreationDate,
+						Comparator.nullsLast(Comparator.reverseOrder())))
+				.limit(3).collect(Collectors.toList()));
+		model.addAttribute("recentReceivedConnections", ownAccount
+				? connectionsDao.findReceivedConnectionRequests(userServ.getUserId(auth)).stream().limit(5)
+						.collect(Collectors.toList())
+				: Collections.emptyList());
+		model.addAttribute("assignedTaskCount", ownAccount
+				? projTaskDao.countByAssignee(userServ.getUserId(auth)) : 0L);
+		model.addAttribute("completedTaskCount", ownAccount
+				? projTaskDao.countByAssigneeAndStatus(userServ.getUserId(auth), "done") : 0L);
+	}
+
+	@GetMapping("/fragment/connection-status")
+	public String connectionStatusFragment(@RequestParam("user") long viewedUserId,
+			Authentication auth, Model model) {
+		long currentUserId = userServ.getUserId(auth);
+		model.addAttribute("viewedUserId", viewedUserId);
+		model.addAttribute("currentUserId", currentUserId);
+		model.addAttribute("connectionActionId", "connection-action-buttons-" + viewedUserId);
+		model.addAttribute("connectionStatus",
+				connectionsDao.getConnectionStatus(viewedUserId, currentUserId));
+		model.addAttribute("connectionSenderReceiverId",
+				connectionsDao.getConnectionSenderReceiverId(viewedUserId, currentUserId));
+		return "fragments/connection-status :: connection-buttons";
+	}
+
+	@GetMapping("/fragment/connections")
+	public String profileConnectionsFragment(@RequestParam("username") String username,
+			Authentication auth, Model model) {
+		boolean ownAccount = userServ.getCurrentUsername(auth).equals(username);
+		model.addAttribute("ownAccount", ownAccount);
+		model.addAttribute("profileUsername", username);
+		model.addAttribute("userConnectionsList", connectionsDao.findPublicConnections(username));
+		model.addAttribute("sentConnections", ownAccount
+				? connectionsDao.findSentConnectionRequests(userServ.getUserId(auth)) : Collections.emptyList());
+		model.addAttribute("receivedConnections", ownAccount
+				? connectionsDao.findReceivedConnectionRequests(userServ.getUserId(auth)) : Collections.emptyList());
+		model.addAttribute("userConnectsCount", connectionsDao.findPublicConnections(username).size());
+		model.addAttribute("recentReceivedConnections", ownAccount
+				? connectionsDao.findReceivedConnectionRequests(userServ.getUserId(auth)).stream().limit(5)
+						.collect(Collectors.toList())
+				: Collections.emptyList());
+		return "user/profile/profile-layouts :: connections-preview";
 	}
 	
 	
@@ -177,6 +352,23 @@ public class UserDashboardController {
 		//List<PublicUserProjectDetailDto> publicUserProjects = projDao.findPublicUserProjects(username);
 		
 		return publicUserConnections;
+	}
+
+	@GetMapping("/fragment/connection-list")
+	public String projectConnectionList(@RequestParam("project") long projectId,
+			Authentication auth, Model model) {
+		long userId = userServ.getUserId(auth);
+		List<ProjectMembersDto> members = projDao.findProjectMembersByProjectId(projectId, userId);
+		Set<String> memberUsernames = members.stream()
+				.map(ProjectMembersDto::getUsername)
+				.collect(Collectors.toCollection(HashSet::new));
+		List<PublicUserConnectionsDetailDto> availableConnections =
+				connectionsDao.findApprovedConnections(userServ.getCurrentUsername(auth)).stream()
+				.filter(connection -> !memberUsernames.contains(connection.getConnectedUserUsername()))
+				.collect(Collectors.toList());
+		model.addAttribute("projectId", projectId);
+		model.addAttribute("connectionsList", availableConnections);
+		return "user/project/project-layouts :: add-member-checkbox-list";
 	}
 	
 	@GetMapping("/detail")
@@ -232,41 +424,57 @@ public class UserDashboardController {
 	
 	
 	//send connection request
-	@GetMapping("/connection/request/send/{receiver}")
-	public @ResponseBody int sendConnectionRequest(@PathVariable long receiver, Authentication auth) {
+	@PostMapping("/connection/request/send/{receiver}")
+	public @ResponseBody int sendConnectionRequest(@PathVariable long receiver, Authentication auth,
+			HttpServletResponse response) {
 		long senderUserId = userServ.getUserId(auth);
 		LocalDate dateToday = LocalDate.now();
-		return connectionsDao.sendConnectionRequest(receiver, senderUserId, dateToday);
+		int result = connectionsDao.sendConnectionRequest(receiver, senderUserId, dateToday);
+		if (result == 1) {
+			notificationService.createFriendRequestNotification(receiver, senderUserId);
+		}
+		setProfileRefreshHeader(response, result, "Connection request sent");
+		return result;
 	}
 	
 	
 	//cancel sent connection request
-		@GetMapping("/connection/request/remove/{receiver}")
-		public @ResponseBody int cancelConnectionRequest(@PathVariable long receiver, Authentication auth) {
+		@PostMapping("/connection/request/remove/{receiver}")
+		public @ResponseBody int cancelConnectionRequest(@PathVariable long receiver, Authentication auth,
+				HttpServletResponse response) {
 			long senderUserId = userServ.getUserId(auth);
-			return connectionsDao.cancelConnectionRequest(receiver, senderUserId);
+			int result = connectionsDao.cancelConnectionRequest(receiver, senderUserId);
+			setProfileRefreshHeader(response, result, "Connection request cancelled");
+			return result;
 		}
 		
 		// cancel sent connection request by username
-				@GetMapping("/connection/request/remove-username/{receiver}")
-				public @ResponseBody int cancelConnectionRequestWithUsername(@PathVariable String receiver, Authentication auth) {
+				@PostMapping("/connection/request/remove-username/{receiver}")
+				public @ResponseBody int cancelConnectionRequestWithUsername(@PathVariable String receiver,
+						Authentication auth, HttpServletResponse response) {
 					long senderUserId = userServ.getUserId(auth);
 					long receiverUsername = userServ.getUserDetailByUsername(receiver).getUserId();
-					return connectionsDao.cancelConnectionRequest(receiverUsername, senderUserId);
+					int result = connectionsDao.cancelConnectionRequest(receiverUsername, senderUserId);
+					setProfileRefreshHeader(response, result, "Connection request cancelled");
+					return result;
 				}
 				
 				//accept received connection request
-				@GetMapping("/connection/request/accept/{connectionId}")
-				public @ResponseBody int acceptConnectionRequest(@PathVariable long connectionId, Authentication auth) {
-					long senderUserId = userServ.getUserId(auth);
-					return connectionsDao.acceptConnectionRequest(connectionId);
+				@PostMapping("/connection/request/accept/{connectionId}")
+				public @ResponseBody int acceptConnectionRequest(@PathVariable long connectionId, Authentication auth,
+						HttpServletResponse response) {
+					int result = connectionsDao.acceptConnectionRequest(connectionId);
+					setProfileRefreshHeader(response, result, "Connection request accepted");
+					return result;
 				}
 				
 				//reject received connection request
-				@GetMapping("/connection/request/reject/{connectionId}")
-				public @ResponseBody int rejectConnectionRequest(@PathVariable long connectionId, Authentication auth) {
-					long senderUserId = userServ.getUserId(auth);
-					return connectionsDao.rejectConnectionRequest(connectionId);
+				@PostMapping("/connection/request/reject/{connectionId}")
+				public @ResponseBody int rejectConnectionRequest(@PathVariable long connectionId, Authentication auth,
+						HttpServletResponse response) {
+					int result = connectionsDao.rejectConnectionRequest(connectionId);
+					setProfileRefreshHeader(response, result, "Connection request rejected");
+					return result;
 				}
 				
 	
@@ -285,10 +493,19 @@ public class UserDashboardController {
 		}
 	
 	//unfriend user -- by connection id
-	@GetMapping("/connection/remove-by-conn-id/{connectionId}")
-	public @ResponseBody int terminateConnection(@PathVariable long connectionId, Authentication auth) {
-		return connectionsDao.terminateConnectionByConnectionId(connectionId);
+	@PostMapping("/connection/remove-by-conn-id/{connectionId}")
+	public @ResponseBody int terminateConnection(@PathVariable long connectionId, Authentication auth,
+			HttpServletResponse response) {
+		int result = connectionsDao.terminateConnectionByConnectionId(connectionId);
+		setProfileRefreshHeader(response, result, "Connection removed");
+		return result;
 	}
-				
+
+	private void setProfileRefreshHeader(HttpServletResponse response, int result, String successMessage) {
+		String type = result == 1 ? "success" : "error";
+		String message = result == 1 ? successMessage : "The connection action could not be completed.";
+		response.setHeader("HX-Trigger-After-Settle", "{\"profileConnectionsChanged\":null,\"notify\":{\"type\":\""
+				+ type + "\",\"message\":\"" + message + "\"}}");
+	}
 
 }
