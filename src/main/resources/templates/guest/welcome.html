@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="_csrf" th:content="${_csrf.token}">
+	<meta name="_csrf_header" th:content="${_csrf.headerName}">
+	<title>Your Projectory guest invitation</title>
+	<script src="/javascript/visitorTracking.js" defer></script>
+	<link href="/plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
+	<style>
+		body { background: #252525; color: #f5f2ea; font-family: Arial, sans-serif; }
+		.guest-card { max-width: 620px; margin: 12vh auto; padding: 2rem; background: #333; border-radius: 14px; }
+		.invite-code { padding: 1rem; background: #222; border: 1px solid #b89a56; border-radius: 8px; font-size: 1.4rem; overflow-wrap: anywhere; }
+		.guest-note { color: #ccc; }
+	</style>
+</head>
+<body>
+	<main class="guest-card">
+		<h1>Your guest workspace is ready</h1>
+		<p th:text="|You are ${currentGuest.displayName}. Invite one other guest to explore together.|"></p>
+		<div th:if="${inviteCode != null}">
+			<p class="guest-note">Share this one-time invitation code. It can only be used once and expires with this workspace.</p>
+			<p class="invite-code" id="invite-code" th:text="${inviteCode}"></p>
+			<button class="btn btn-warning" type="button" onclick="copyInviteCode()">Copy invitation code</button>
+			<span id="copy-status" role="status" class="ms-2"></span>
+		</div>
+		<div th:unless="${inviteCode != null}" class="alert alert-info">
+			The invitation code is shown only when the workspace is created.
+		</div>
+		<p class="guest-note mt-3">This workspace and its data expire in one hour.</p>
+		<a class="btn btn-outline-light" th:href="@{/guest/dashboard}">Continue to the demo</a>
+	</main>
+	<script>
+		function copyInviteCode() {
+			const code = document.getElementById("invite-code").textContent.trim();
+			navigator.clipboard.writeText(code).then(function () {
+				document.getElementById("copy-status").textContent = "Copied";
+			});
+		}
+	</script>
+</body>
+</html>

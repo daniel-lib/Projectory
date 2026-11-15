@@ -43,6 +43,20 @@
 						<span class="fw- auth-form-small-text"> New to the platform? <a class="form-alternative-btn"
 								onClick="displaySigninForm('signup')"> Create an account</a></span>
 					</form>
+					<hr class="mx-3">
+					<div class="m-3">
+						<h4 class="login-signup-form-header">Explore as a guest</h4>
+						<p class="auth-form-small-text">Try a limited one-hour workspace with another guest. Guest data is separate from registered accounts.</p>
+						<form th:action="@{/guest/start}" method="post" class="mb-3">
+							<button type="submit" class="btn btn-sm btn-outline-warning">Start a guest workspace</button>
+						</form>
+						<form th:action="@{/guest/join}" method="post">
+							<label class="form-input-label form-input-label-dark-bg" for="guest-invite-code">Have an invitation code?</label>
+							<input id="guest-invite-code" name="inviteCode" class="form-control form-control-sm mb-2"
+								maxlength="128" autocomplete="off" required placeholder="Enter one-time code">
+							<button type="submit" class="btn btn-sm btn-outline-light">Join guest workspace</button>
+						</form>
+					</div>
 				</div>
 
 				<div id="sign-up-form">

@@ -1,5 +1,3 @@
 package expArea.projectView;
 
-public class ViewedProjects {
-
-}
+public class ViewedProjects {}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="dark-mode">
+<head th:replace="guest/layout :: head"></head>
+<body class="has-side-menu guest-app">
+	<script>
+		try {
+			if (localStorage.getItem("projectory-side-menu-state") === "expanded") {
+				document.body.classList.add("side-menu-expanded");
+			}
+		} catch (error) {
+			console.warn("Could not restore the guest sidebar state.", error);
+		}
+	</script>
+	<header th:replace="guest/layout :: nav"></header>
+	<main class="main-content-container guest-main guest-board-page">
+		<section class="board-content">
+			<section class="board-header-area d-flex">
+				<aside th:replace="guest/layout :: side-menu"></aside>
+				<div class="board-header mt-3">
+					<p class="guest-page-kicker mb-1">TEAM WORKFLOW</p>
+					<h1 class="h2">Agile board</h1>
+					<span class="info-tag-dark">Move tasks between stages, assign work to a teammate, and explore the same Scrum board used by Projectory members.</span>
+				</div>
+			</section>
+			<main class="d-flex justify-content-center mt-3" id="board-container-container">
+				<div th:replace="user/board/board-layouts :: board-container"></div>
+			</main>
+		</section>
+	</main>
+	<footer th:replace="guest/layout :: footer"></footer>
+	<script th:inline="javascript">
+		(function () {
+			const expiresAt = /*[[${guestData.workspace.expiresAt.toEpochMilli()}]]*/ 0;
+			const countdown = document.getElementById("guest-countdown");
+			function updateGuestCountdown() {
+				const remaining = Math.max(0, Math.floor((expiresAt - Date.now()) / 1000));
+				countdown.textContent = Math.floor(remaining / 60) + ":" + String(remaining % 60).padStart(2, "0");
+				if (remaining === 0) window.location.replace("/?guest_expired");
+			}
+			updateGuestCountdown();
+			window.setInterval(updateGuestCountdown, 1000);
+		})();
+	</script>
+</body>
+</html>

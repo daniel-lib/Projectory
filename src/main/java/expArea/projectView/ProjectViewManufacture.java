@@ -5,10 +5,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ProjectViewManufacture {
-	@Bean
-	public ProjectView newProjectView() {
-		ViewedProjects viewedProjects = new ViewedProjects();
-		ProjectView v = new ProjectView(viewedProjects);
-		return v;
-	}
+  @Bean
+  public ProjectView newProjectView() {
+    ViewedProjects viewedProjects = new ViewedProjects();
+    ProjectView v = new ProjectView(viewedProjects);
+    return v;
+  }
 }

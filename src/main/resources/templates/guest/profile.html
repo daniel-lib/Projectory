@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="dark-mode">
+<head th:replace="guest/layout :: head"></head>
+<body class="has-side-menu guest-app">
+	<script>
+		try {
+			if (localStorage.getItem("projectory-side-menu-state") === "expanded") {
+				document.body.classList.add("side-menu-expanded");
+			}
+		} catch (error) {
+			console.warn("Could not restore the guest sidebar state.", error);
+		}
+	</script>
+	<header th:replace="guest/layout :: nav"></header>
+	<main class="main-content-container guest-main">
+		<section class="profile-content d-flex">
+			<aside th:replace="guest/layout :: side-menu"></aside>
+			<div class="profile-content-inner flex-grow-1">
+				<section class="profile-hero">
+					<div class="profile-banner">
+						<div class="profile-picture guest-profile-avatar-large">
+							<span class="profile-pic-btn prof-text-only profile-picture-placeholder"
+								th:text="${#strings.substring(guestProfile.displayName, 0, 1)}"></span>
+						</div>
+					</div>
+					<div class="profile-hero-content">
+						<div class="profile-top-user-info mt-3">
+							<div class="d-flex justify-content-between flex-wrap">
+								<span>
+									<h1 class="h3" th:text="${guestProfile.displayName}"></h1>
+									<span id="profile-header-username">@guest-<span
+										th:text="${#strings.substring(guestProfile.participantId, 0, 8)}"></span></span>
+									<span class="badge text-bg-secondary ms-2">Guest</span>
+								</span>
+								<a th:href="@{/guest/connections}" class="btn btn-sm btn-outline-secondary">
+									<span class="fa-solid fa-user-group me-1"></span>Connections
+								</a>
+							</div>
+							<p class="text-body-secondary mt-2">Exploring Projectory in a temporary shared workspace.</p>
+						</div>
+					</div>
+					<div class="profile-hero-mark" aria-hidden="true">P</div>
+				</section>
+
+				<div class="profile-overview">
+					<section class="profile-stat-grid" aria-label="Guest profile overview">
+						<div class="profile-stat-card">
+							<span class="profile-stat-icon">⌂</span>
+							<span class="profile-stat-value" th:text="${profileProjects.size()}">0</span>
+							<span class="profile-stat-label">Projects started</span>
+						</div>
+						<div class="profile-stat-card">
+							<span class="profile-stat-icon">✓</span>
+							<span class="profile-stat-value" th:text="${profileTaskCount}">0</span>
+							<span class="profile-stat-label">Tasks assigned</span>
+						</div>
+						<div class="profile-stat-card">
+							<span class="profile-stat-icon">◎</span>
+							<span class="profile-stat-value" th:text="${profileConnectionCount}">0</span>
+							<span class="profile-stat-label">Connections</span>
+						</div>
+						<div class="profile-stat-card">
+							<span class="profile-stat-icon">◷</span>
+							<span class="profile-stat-value">1h</span>
+							<span class="profile-stat-label">Guest session</span>
+						</div>
+					</section>
+
+					<div class="profile-main-grid">
+						<section class="profile-panel profile-history">
+							<div class="profile-panel-heading">
+								<div>
+									<p class="profile-eyebrow">WORKSPACE HISTORY</p>
+									<h2>Recent projects</h2>
+								</div>
+								<a class="profile-text-link" th:href="@{/guest/dashboard}">Open dashboard</a>
+							</div>
+							<div th:if="${#lists.isEmpty(profileProjects)}" class="profile-empty-state">
+								No projects started by this guest yet.
+							</div>
+							<div th:each="project : ${profileProjects}" class="profile-project-entry">
+								<span class="profile-project-marker" aria-hidden="true"></span>
+								<div class="profile-project-copy">
+									<div class="profile-project-meta">
+										<span th:text="${project.createdAt}"></span>
+										<span class="profile-project-status" th:text="${project.status}"></span>
+									</div>
+									<h3 th:text="${project.title}"></h3>
+									<p th:text="${project.description}"></p>
+								</div>
+							</div>
+						</section>
+						<section class="profile-panel profile-network">
+							<div class="profile-panel-heading">
+								<div>
+									<p class="profile-eyebrow">YOUR NETWORK</p>
+									<h2>Connections</h2>
+								</div>
+								<a class="profile-text-link" th:href="@{/guest/connections}">View all</a>
+							</div>
+							<div th:if="${profileConnectionCount == 0}" class="profile-empty-state">
+								Connection requests with your guest teammate appear here.
+							</div>
+							<a th:each="person : ${guestData.participants}"
+								th:if="${person.participantId != guestProfile.participantId}"
+								class="guest-profile-connection-link"
+								th:href="@{/guest/profile/{participantId}(participantId=${person.participantId})}">
+								<span class="guest-person-avatar"
+									th:text="${#strings.substring(person.displayName, 0, 1)}"></span>
+								<span th:text="${person.displayName}"></span>
+							</a>
+						</section>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+	<footer th:replace="guest/layout :: footer"></footer>
+	<script th:inline="javascript">
+		(function () {
+			const expiresAt = /*[[${guestData.workspace.expiresAt.toEpochMilli()}]]*/ 0;
+			const countdown = document.getElementById("guest-countdown");
+			function updateGuestCountdown() {
+				const remaining = Math.max(0, Math.floor((expiresAt - Date.now()) / 1000));
+				countdown.textContent = Math.floor(remaining / 60) + ":" + String(remaining % 60).padStart(2, "0");
+				if (remaining === 0) window.location.replace("/?guest_expired");
+			}
+			updateGuestCountdown();
+			window.setInterval(updateGuestCountdown, 1000);
+		})();
+	</script>
+</body>
+</html>

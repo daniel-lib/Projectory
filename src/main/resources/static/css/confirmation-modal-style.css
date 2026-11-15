@@ -1,87 +1,69 @@
 @import url("https://fonts.googleapis.com/css2?family=Pathway+Extreme:wght@400;500;600;700&display=swap");
 
 
-#confirmation-modal, 
-#sign-out-confirmation-modal,
-#unfriend-confirmation-modal {
- /* position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);*/
-  border-radius: 0.5rem;
+#app-confirmation-dialog {
+  width: min(92vw, 36rem);
   max-width: 600px;
+  max-height: 85vh;
+  margin: auto;
   padding: 1.5rem;
-  border: 0;
+  overflow: auto;
+  border: 1px solid rgba(222, 221, 218, 0.25);
+  border-radius: 0.75rem;
   background-color: var(--primary-card-bg);
   color: var(--primary-color);
-  border: var(--primary-color);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.45);
 }
 
-#confirmation-modal .confirmation-modal-btn, 
-#sign-out-confirmation-modal .confirmation-modal-btn,
-#unfriend-confirmation-modal .confirmation-modal-btn {
-  padding: 4px 17px;
-  margin-top: 10px;
-  font-size: 14pt;
-  border-radius: 0.25rem;
-}
-#confirmation-modal .confirmation-modal-btn:first-child, 
-#sign-out-confirmation-modal .confirm-signout-btn,
-#unfriend-confirmation-modal .confirmation-modal-btn:first-child {
-  /* Yes Button */
-  border: 1px solid black;
-  color: rgb(36, 31, 49);
-  background-color: rgb(222, 221, 218);
-  transition: 0.2s ease-in-out; 
-}
-#confirmation-modal .confirmation-modal-btn:first-child:hover,
-#sign-out-confirmation-modal .confirm-signout-btn:hover,
-#unfriend-confirmation-modal .confirmation-modal-btn:first-child:hover {
-  color: white;
-  background-color: rgb(36, 31, 49);
+#app-confirmation-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(2px);
 }
 
-#confirmation-modal .confirmation-modal-btn:last-child,
-#sign-out-confirmation-modal .cancel-signout-btn,
-#unfriend-confirmation-modal .confirmation-modal-btn:last-child {
-  /* No Button */
-  color: rgb(36, 31, 49);
-  background-color: rgb(38, 162, 105);
-  margin-left: 16px;
-  transition: 0.2s ease-in-out; 
-}
-#confirmation-modal .confirmation-modal-btn:last-child:hover,
-#sign-out-confirmation-modal .cancel-signout-btn:hover,
-#unfriend-confirmation-modal .confirmation-modal-btn:last-child:hover {
-  color: white;
-  background-color: rgb(51, 209, 122);
-  box-shadow: 0 0 2px 1px rgb(51, 209, 122);
+#app-confirmation-dialog .confirmation-modal-header {
+  margin-bottom: 0.75rem;
+  font-size: 1.4rem;
 }
 
-
-
-#confirmation-modal::backdrop,
-#sign-out-confirmation-modal::backdrop,
-#unfriend-confirmation-modal::backdrop {
-  background: rgb(0 0 0 / 0.5);
-}
-
-#confirmation-modal h2,
-#sign-out-confirmation-modal h2,
-#unfriend-confirmation-modal h2 {
-  margin-bottom: 20px;
-  font-size: 1.4em;
-}
-#confirmation-modal p,
-#sign-out-confirmation-modal p,
-#unfriend-confirmation-modal p {
+#app-confirmation-dialog .confirmation-modal-body {
+  margin-bottom: 1.25rem;
   font-weight: 500;
-  margin-bottom: 10px;
 }
 
-#confirmation-modal button,
-#sign-out-confirmation-modal button,
-#unfriend-confirmation-modal button {
-  border: none;
+#app-confirmation-dialog .confirmation-modal-btn-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+#app-confirmation-dialog .confirmation-modal-btn {
+  padding: 0.4rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
   cursor: pointer;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+#app-confirmation-accept {
+  color: white;
+  background-color: #b42318;
+}
+
+#app-confirmation-accept:hover {
+  background-color: #941b15;
+}
+
+#app-confirmation-dialog .confirmation-modal-btn:last-child {
+  color: var(--primary-color);
+  background-color: transparent;
+  border-color: rgba(222, 221, 218, 0.35);
+}
+
+#app-confirmation-dialog .confirmation-modal-btn:last-child:hover {
+  background-color: rgba(222, 221, 218, 0.12);
+}
+
+#app-confirmation-dialog .confirmation-modal-btn:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
 }

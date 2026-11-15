@@ -4,6 +4,8 @@
 <head th:fragment="head">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="_csrf" th:content="${_csrf.token}">
+	<meta name="_csrf_header" th:content="${_csrf.headerName}">
 	<title>Projectory - Project Management App</title>
 	<link rel="icon" th:href="@{/images/projectory-logo.png}" type="image/x-icon">
 	<style>
@@ -28,6 +30,7 @@
 		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
 		crossorigin="anonymous" defer></script>
 	<script src="/javascript/mainScript.js" defer></script>
+	<script src="/javascript/visitorTracking.js" defer></script>
 	<script src="/javascript/theme-switch-script.js" defer></script>
 	<script src="/javascript/landing-pages-menu-script.js" defer></script>
 
@@ -164,18 +167,15 @@
 			</svg></span></a>
 </div>
 
-<div class="cookie-notice2 p-2" id="cookie-notice" th:fragment="cookie-notice">
-	<span>
-		<span class="fa-solid fa-cookie-bite"></span>
-		<b>Notice.</b> Projectory uses cookies to provide necessary website functionality, improve your experience and
-		analyze
-		our traffic.
-		By using our website/service, you agree to the collection and use of information in accordance with the best
-		Privacy Policy out there.
-		Meaning, we don't sell, rent or misuse your personal information.
-		<span role="button" class="minimalist-btn-lighter btn-sm form-input-label-dark-bg cookie-accept-btn ms-2"
-			id="cookie-accept-btn">I understand!</span>
-	</span>
+<div class="cookie-notice2" id="cookie-notice" th:fragment="cookie-notice">
+	<span class="fa-solid fa-cookie-bite cookie-notice-icon" aria-hidden="true"></span>
+	<div class="cookie-notice-copy">
+		<strong>Notice.</strong> Projectory uses cookies to provide necessary website functionality, improve your
+		experience and analyze our traffic. By using our website/service, you agree to the collection and use of
+		information in accordance with the best Privacy Policy out there. Meaning, we don't sell, rent or misuse your
+		personal information.
+	</div>
+	<button type="button" class="cookie-accept-btn" id="cookie-accept-btn">I understand!</button>
 </div>
 
 </html>

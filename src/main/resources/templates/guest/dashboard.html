@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="dark-mode">
+<head th:replace="guest/layout :: head"></head>
+<body class="has-side-menu guest-app">
+	<script>
+		try {
+			if (localStorage.getItem("projectory-side-menu-state") === "expanded") {
+				document.body.classList.add("side-menu-expanded");
+			}
+		} catch (error) {
+			console.warn("Could not restore the guest sidebar state.", error);
+		}
+	</script>
+	<header th:replace="guest/layout :: nav"></header>
+	<div id="item-action-notification"
+		class="badge item-action-notification px-4 d-flex justify-content-center fixed-top"></div>
+	<main class="main-content-container guest-main">
+		<section class="dashboard-area d-flex">
+			<aside th:replace="guest/layout :: side-menu"></aside>
+			<div class="flex-grow-1">
+				<div id="guest-dashboard-content" th:fragment="dashboard-content">
+				<div class="guest-page-heading">
+					<div>
+						<span class="guest-page-kicker">YOUR SHARED WORKSPACE</span>
+						<h1 class="h2">Good to see you, <span th:text="${currentGuestName}"></span></h1>
+						<p class="text-body-secondary mb-0">Try projects, tasks, connections, todos, and the Agile Board with another guest.</p>
+					</div>
+					<a class="btn btn-primary-golden btn-sm" th:href="@{/guest/board}">
+						<span class="fa-solid fa-chalkboard-user me-1"></span>Open Agile Board
+					</a>
+				</div>
+				<section th:if="${guestInviteCode != null}" class="guest-section-card guest-invitation-card">
+					<div class="guest-section-title">
+						<div>
+							<p class="guest-page-kicker mb-1">INVITE A TEAMMATE</p>
+							<h2 class="h5 mb-0">Your one-time invitation code</h2>
+						</div>
+					</div>
+					<p class="small text-body-secondary">Share this code with one guest. It can only be used once and expires with this workspace.</p>
+					<div class="d-flex align-items-center flex-wrap gap-2">
+						<code id="guest-invitation-code" class="guest-invitation-code" th:text="${guestInviteCode}"></code>
+						<button class="btn btn-outline-secondary btn-sm" type="button" onclick="copyGuestInvitationCode()">
+							<span class="fa-regular fa-copy me-1"></span>Copy code
+						</button>
+						<span id="guest-invitation-copy-status" class="small" role="status"></span>
+					</div>
+				</section>
+
+				<div class="dashboard-cards-container d-flex justify-content-evenly flex-wrap mt-3">
+					<div class="card user-dashboard-cards guest-stat-card" data-aos="zoom-in">
+						<div class="card-header d-flex">
+							<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-diagram-project"></span>
+							<h2 class="h5 card-title dashboard-card-title">Projects</h2>
+						</div>
+						<div class="card-body"><span class="guest-stat-value" th:text="${guestData.projects.size()}">0</span>
+							<span class="text-body-secondary">in this demo</span></div>
+					</div>
+					<div class="card user-dashboard-cards guest-stat-card" data-aos="zoom-in">
+						<div class="card-header d-flex">
+							<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-list-check"></span>
+							<h2 class="h5 card-title dashboard-card-title">Tasks</h2>
+						</div>
+						<div class="card-body"><span class="guest-stat-value" th:text="${guestData.tasks.size()}">0</span>
+							<span class="text-body-secondary">across projects</span></div>
+					</div>
+					<div class="card user-dashboard-cards guest-stat-card" data-aos="zoom-in">
+						<div class="card-header d-flex">
+							<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-users"></span>
+							<h2 class="h5 card-title dashboard-card-title">People</h2>
+						</div>
+						<div class="card-body"><span class="guest-stat-value" th:text="${guestData.participants.size()}">1</span>
+							<span class="text-body-secondary">of 2 guest seats</span></div>
+					</div>
+					<div class="card user-dashboard-cards guest-stat-card" data-aos="zoom-in">
+						<div class="card-header d-flex">
+							<span class="dashboard-card-img-top mx-2 mt-1 fa-solid fa-list"></span>
+							<h2 class="h5 card-title dashboard-card-title">Todo lists</h2>
+						</div>
+						<div class="card-body"><span class="guest-stat-value" th:text="${guestData.collections.size()}">0</span>
+							<span class="text-body-secondary">collections</span></div>
+					</div>
+				</div>
+
+				<div class="row mt-4 g-3">
+					<section class="col-xl-8">
+						<div class="guest-section-card">
+							<div class="guest-section-title">
+								<div>
+									<p class="guest-page-kicker mb-1">PROJECT PLANNING</p>
+									<h2 class="h4 mb-0">Your projects</h2>
+								</div>
+								<span class="text-body-secondary small">Visible only in this guest workspace</span>
+							</div>
+							<form th:action="@{/guest/project}" method="post" class="row g-2 mb-3"
+								th:attr="hx-post=@{/guest/project}" hx-target="#guest-dashboard-content" hx-swap="outerHTML">
+								<div class="col-md-4">
+									<label class="visually-hidden" for="guest-project-title">Project name</label>
+									<input class="form-control form-control-sm" id="guest-project-title" name="title"
+										maxlength="120" required placeholder="Project name">
+								</div>
+								<div class="col-md-6">
+									<label class="visually-hidden" for="guest-project-description">Description</label>
+									<input class="form-control form-control-sm" id="guest-project-description" name="description"
+										maxlength="1000" placeholder="What are you working on?">
+								</div>
+								<div class="col-md-2 d-grid">
+									<button class="btn btn-primary-golden btn-sm" type="submit">Create project</button>
+								</div>
+							</form>
+							<div th:if="${#lists.isEmpty(guestData.projects)}" class="profile-empty-state">
+								Create a project to start experimenting with tasks and the board.
+							</div>
+							<div class="row g-3">
+								<div class="col-lg-6" th:each="project : ${guestData.projects}">
+									<article class="guest-project-card h-100">
+										<div class="d-flex justify-content-between align-items-start gap-2">
+											<div>
+												<span class="project-status-label active">Active</span>
+												<h3 class="h5 mt-2 mb-1" th:text="${project.title}"></h3>
+											</div>
+											<span class="fa-solid fa-ellipsis text-body-secondary" aria-hidden="true"></span>
+										</div>
+										<p class="text-body-secondary small" th:text="${project.description}"></p>
+										<form th:action="@{/guest/task}" method="post" class="border-top pt-2"
+											th:attr="hx-post=@{/guest/task}" hx-target="#guest-dashboard-content" hx-swap="outerHTML">
+											<input type="hidden" name="projectId" th:value="${project.projectId}">
+											<div class="row g-1">
+												<div class="col-12">
+													<input class="form-control form-control-sm" name="title" maxlength="120"
+														required placeholder="Add a task">
+												</div>
+												<div class="col-12">
+													<input class="form-control form-control-sm" name="description" maxlength="1000"
+														placeholder="Task details">
+												</div>
+												<div class="col-8">
+													<select class="form-select form-select-sm" name="assigneeId" aria-label="Assign task">
+														<option value="">Unassigned</option>
+														<option th:each="person : ${guestData.participants}"
+															th:value="${person.participantId}"
+															th:text="${'Assign to ' + person.displayName}"></option>
+													</select>
+												</div>
+												<div class="col-4 d-grid">
+													<button class="btn btn-outline-secondary btn-sm" type="submit">Add task</button>
+												</div>
+											</div>
+										</form>
+									</article>
+								</div>
+							</div>
+						</div>
+
+						<div class="guest-section-card">
+							<div class="guest-section-title">
+								<div>
+									<p class="guest-page-kicker mb-1">PERSONAL ORGANIZATION</p>
+									<h2 class="h4 mb-0">Todo lists</h2>
+								</div>
+							</div>
+							<form th:action="@{/guest/collection}" method="post" class="d-flex gap-2 mb-3"
+								th:attr="hx-post=@{/guest/collection}" hx-target="#guest-dashboard-content" hx-swap="outerHTML">
+								<input class="form-control form-control-sm" name="title" maxlength="40" required
+									placeholder="New collection name">
+								<button class="btn btn-outline-secondary btn-sm text-nowrap" type="submit">Create list</button>
+							</form>
+							<div th:if="${#lists.isEmpty(guestData.collections)}" class="profile-empty-state">
+								Create a todo collection and add your first item.
+							</div>
+							<div class="row g-2">
+								<div class="col-md-6" th:each="collection : ${guestData.collections}">
+									<div class="user-project-list-items p-3 h-100">
+										<h3 class="h6" th:text="${collection.title}"></h3>
+										<form th:action="@{/guest/todo}" method="post" class="d-flex gap-1"
+											th:attr="hx-post=@{/guest/todo}" hx-target="#guest-dashboard-content" hx-swap="outerHTML">
+											<input type="hidden" name="collectionId" th:value="${collection.collectionId}">
+											<input class="form-control form-control-sm" name="title" maxlength="200" required
+												placeholder="Add todo">
+											<button class="btn btn-sm btn-outline-light" type="submit" aria-label="Add todo">
+												<span class="fa-solid fa-plus"></span>
+											</button>
+										</form>
+										<ul class="list-unstyled mt-2 mb-0">
+											<li th:each="todo : ${guestData.todoItems}"
+												th:if="${todo.collectionId == collection.collectionId}">
+												<form th:action="@{/guest/todo/toggle}" method="post"
+													th:attr="hx-post=@{/guest/todo/toggle}" hx-target="#guest-dashboard-content" hx-swap="outerHTML">
+													<input type="hidden" name="itemId" th:value="${todo.itemId}">
+													<button type="submit" class="btn btn-link btn-sm p-0 text-start"
+														th:classappend="${todo.completed} ? 'text-decoration-line-through text-body-secondary' : ''">
+														<span class="fa-regular"
+															th:classappend="${todo.completed} ? 'fa-circle-check' : 'fa-circle'"></span>
+														<span th:text="${todo.title}"></span>
+													</button>
+												</form>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<aside class="col-xl-4">
+						<section class="guest-section-card">
+							<div class="guest-section-title">
+								<div>
+									<p class="guest-page-kicker mb-1">TEAM</p>
+									<h2 class="h4 mb-0">People in this workspace</h2>
+								</div>
+								<a th:href="@{/guest/connections}" class="small">View connections</a>
+							</div>
+							<p class="text-body-secondary small">Open a teammate’s profile to preview the regular profile experience.</p>
+							<div th:each="person : ${guestData.participants}" class="guest-person-row">
+								<a class="guest-person-link d-flex align-items-center gap-2 flex-grow-1"
+									th:href="@{/guest/profile/{participantId}(participantId=${person.participantId})}">
+									<span class="guest-person-avatar"
+										th:classappend="${person.participantId == currentGuestId} ? 'guest-person-avatar-you'"
+										th:text="${#strings.substring(person.displayName, 0, 1)}"></span>
+									<span>
+										<strong class="d-block" th:text="${person.displayName}"></strong>
+										<span class="small text-body-secondary"
+											th:text="${person.participantId == currentGuestId ? 'You · Guest participant' : 'Guest teammate'}"></span>
+									</span>
+								</a>
+								<span th:if="${person.participantId != currentGuestId}"
+									class="fa-solid fa-arrow-up-right-from-square small text-body-secondary"
+									aria-hidden="true"></span>
+							</div>
+							<form th:if="${guestData.participants.size() == 2 and guestData.connections.isEmpty()}"
+								th:action="@{/guest/connection/request}" method="post" class="mt-3">
+								<button class="btn btn-outline-secondary btn-sm" type="submit">
+									<span class="fa-solid fa-user-plus me-1"></span>Send connection request
+								</button>
+							</form>
+							<div th:each="connection : ${guestData.connections}" class="mt-3 p-2 border rounded">
+								<p class="mb-2 small">
+									<span th:each="person : ${guestData.participants}"
+										th:if="${person.participantId == connection.senderId}" th:text="${person.displayName}"></span>
+									→
+									<span th:each="person : ${guestData.participants}"
+										th:if="${person.participantId == connection.receiverId}" th:text="${person.displayName}"></span>
+									<span class="text-body-secondary" th:text="| · ${connection.status}|"></span>
+								</p>
+								<form th:if="${connection.receiverId == currentGuestId and connection.status == 'pending'}"
+									th:action="@{/guest/connection/respond}" method="post" class="d-inline">
+									<input type="hidden" name="connectionId" th:value="${connection.connectionId}">
+									<input type="hidden" name="accept" value="true">
+									<button class="btn btn-sm btn-success" type="submit">Accept</button>
+								</form>
+								<form th:if="${connection.receiverId == currentGuestId and connection.status == 'pending'}"
+									th:action="@{/guest/connection/respond}" method="post" class="d-inline">
+									<input type="hidden" name="connectionId" th:value="${connection.connectionId}">
+									<input type="hidden" name="accept" value="false">
+									<button class="btn btn-sm btn-outline-secondary" type="submit">Decline</button>
+								</form>
+							</div>
+						</section>
+
+						<section class="guest-section-card">
+							<div class="guest-section-title">
+								<div>
+									<p class="guest-page-kicker mb-1">SCRUM BOARD</p>
+									<h2 class="h4 mb-0">Scrum board</h2>
+								</div>
+								<a th:href="@{/guest/board}" aria-label="Open full board">
+									<span class="fa-solid fa-arrow-up-right-from-square"></span>
+								</a>
+							</div>
+							<div th:if="${#lists.isEmpty(guestData.tasks)}" class="profile-empty-state">
+								Add a task to a project, then move it on the Agile Board.
+							</div>
+							<div th:each="task : ${guestData.tasks}" class="guest-person-row">
+								<span class="fa-solid fa-grip-lines text-body-secondary"></span>
+								<span class="flex-grow-1" th:text="${task.title}"></span>
+								<span class="badge text-bg-secondary" th:text="${task.status}"></span>
+							</div>
+						</section>
+					</aside>
+				</div>
+				</div>
+			</div>
+		</section>
+	</main>
+	<footer th:replace="guest/layout :: footer"></footer>
+	<script>
+		function copyGuestInvitationCode() {
+			const code = document.getElementById("guest-invitation-code").textContent.trim();
+			navigator.clipboard.writeText(code).then(function () {
+				document.getElementById("guest-invitation-copy-status").textContent = "Copied";
+			}).catch(function (error) {
+				console.error("Could not copy the invitation code.", error);
+				document.getElementById("guest-invitation-copy-status").textContent = "Copy failed";
+			});
+		}
+	</script>
+	<script th:inline="javascript">
+		(function () {
+			const expiresAt = /*[[${guestData.workspace.expiresAt.toEpochMilli()}]]*/ 0;
+			const countdown = document.getElementById("guest-countdown");
+			function updateGuestCountdown() {
+				const remaining = Math.max(0, Math.floor((expiresAt - Date.now()) / 1000));
+				countdown.textContent = Math.floor(remaining / 60) + ":" + String(remaining % 60).padStart(2, "0");
+				if (remaining === 0) window.location.replace("/?guest_expired");
+			}
+			updateGuestCountdown();
+			window.setInterval(updateGuestCountdown, 1000);
+		})();
+	</script>
+</body>
+</html>

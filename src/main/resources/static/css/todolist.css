@@ -150,39 +150,10 @@
 	min-width: 0;
 }
 
-.collection-edit-actions,
-.todo-collection-confirmation-actions {
+.collection-edit-actions {
 	display: flex;
 	align-items: center;
 	gap: 0.5rem;
-}
-
-.todo-collection-confirmation {
-	width: min(92vw, 30rem);
-	padding: 1.5rem;
-	border: 1px solid rgba(222, 221, 218, 0.25);
-	border-radius: 0.75rem;
-	background: var(--primary-card-bg, #241f31);
-	color: var(--primary-color, #f6f5f4);
-	box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.45);
-}
-
-.todo-collection-confirmation::backdrop {
-	background: rgba(0, 0, 0, 0.62);
-	backdrop-filter: blur(2px);
-}
-
-.todo-collection-confirmation h2 {
-	margin-bottom: 0.75rem;
-	font-size: 1.25rem;
-}
-
-.todo-collection-confirmation p {
-	margin-bottom: 1.25rem;
-}
-
-.todo-collection-confirmation-actions {
-	justify-content: flex-end;
 }
 
 .item-control-left-border {

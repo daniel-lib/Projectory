@@ -12,8 +12,6 @@ function scrollToSpecificCollection(collectionId){
 	
 }
 
-let pendingDeleteCollectionId = null;
-
 document.addEventListener("click", (event) => {
 	const target = event.target instanceof Element ? event.target : null;
 	if (!target) {
@@ -100,28 +98,21 @@ function renderTodoCollectionName(titleContent, collectionId, title) {
 }
 
 function openDeleteTodoCollectionConfirmation(button) {
-	pendingDeleteCollectionId = button.dataset.collectionId;
-	const dialog = document.getElementById("delete-todo-collection-confirmation");
-	const title = document.getElementById("delete-todo-collection-title");
-	if (!pendingDeleteCollectionId || !dialog || !title) {
+	const collectionId = button.dataset.collectionId;
+	if (!collectionId || !window.htmx) {
 		return;
 	}
 
-	title.textContent = `Delete "${button.dataset.collectionTitle}"?`;
-	dialog.showModal();
-}
-
-function confirmDeleteTodoCollection() {
-	if (!pendingDeleteCollectionId || !window.htmx) {
-		return;
-	}
-
-	const collectionId = pendingDeleteCollectionId;
-	pendingDeleteCollectionId = null;
-	document.getElementById("delete-todo-collection-confirmation").close();
-	htmx.ajax("POST",
-		`/todo-list-collection/fragment/delete-collection?collectionId=${encodeURIComponent(collectionId)}`,
-		{ target: "#todo-collection-list-container", swap: "innerHTML" });
+	openAppConfirmation({
+		title: `Delete "${button.dataset.collectionTitle}"?`,
+		message: "This will permanently delete the collection and all of its todo items.",
+		confirmLabel: "Delete collection",
+		onConfirm: function() {
+			htmx.ajax("POST",
+				`/todo-list-collection/fragment/delete-collection?collectionId=${encodeURIComponent(collectionId)}`,
+				{ target: "#todo-collection-list-container", swap: "innerHTML" });
+		}
+	});
 }
 
 function editItem(button) {

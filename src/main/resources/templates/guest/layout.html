@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="dark-mode">
+<head th:fragment="head">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="_csrf" th:content="${_csrf.token}">
+	<meta name="_csrf_header" th:content="${_csrf.headerName}">
+	<title>Projectory guest workspace</title>
+	<link rel="icon" href="/images/projectory-logo.png" type="image/png">
+	<link href="/plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/theme-switch-style.css" rel="stylesheet">
+	<link href="/css/style.css" rel="stylesheet">
+	<link href="/css/todolist.css" rel="stylesheet">
+	<link href="/css/user-dashboard-style.css" rel="stylesheet">
+	<link href="/css/notification-popup-bar.css" rel="stylesheet">
+	<link href="/css/guest-workspace.css" rel="stylesheet">
+	<link href="/fontawesome6/css/fontawesome.css" rel="stylesheet">
+	<link href="/fontawesome6/css/brands.css" rel="stylesheet">
+	<link href="/fontawesome6/css/solid.css" rel="stylesheet">
+	<link href="/plugins/themify/css/themify-icons.css" rel="stylesheet">
+	<script src="/plugins/bootstrap/bootstrap.min.js" defer></script>
+	<script src="https://unpkg.com/htmx.org@1.9.12" crossorigin="anonymous"></script>
+	<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+	<script src="/javascript/dashboard-script.js" defer></script>
+	<script src="/javascript/mainScript.js" defer></script>
+	<script src="/javascript/visitorTracking.js" defer></script>
+</head>
+
+<header th:fragment="nav" class="dashboard-nav fixed-top">
+	<div th:replace="mainLayouts :: notification-bar"></div>
+	<nav class="user-dashboard-nav d-flex align-items-center">
+		<div class="top-projectory-logo">
+			<a class="navbar-brand navbar-brand-dashboard" th:href="@{/guest/dashboard}">
+				<img src="/images/projectory-logo.png" alt="" height="30" width="23">
+				<span>projectory</span>
+			</a>
+		</div>
+		<div class="navbar-links-container d-flex justify-content-end align-items-center mx-3 gap-3">
+			<label class="search-bar me-1 d-flex" for="guest-search">
+				<span class="btn-group btn-group-sm project-owner-indicator info-tag-dark info-tag-dark-sm float-end fs-8 p-0">
+					<input type="search" class="top-search-text-input d-inline" id="guest-search"
+						placeholder="Search keyword" aria-label="Search (unavailable in guest demo)" disabled>
+				</span>
+				<span class="top-search-btn d-inline fa-solid fa-magnifying-glass" aria-hidden="true"></span>
+			</label>
+			<div class="top-menu-icons">
+				<div class="top-menu-links d-flex align-items-center">
+					<span class="top-nav-links" title="Messages are unavailable in the guest demo" aria-label="Messages">
+						<span class="nav-icon fa-solid fa-message text-center"></span>
+					</span>
+					<span class="top-nav-links" title="Notifications are unavailable in the guest demo" aria-label="Notifications">
+						<span class="nav-icon fa-solid fa-bell text-center"></span>
+					</span>
+					<a class="top-nav-links no-text-decoration profile-pic-btn-link"
+						th:href="@{/guest/profile/{participantId}(participantId=${currentGuestId})}"
+						title="Open your guest profile" aria-label="Open your guest profile">
+						<span class="nav-icon profile-pic-btn own-profile-pic guest-avatar"
+							th:text="${#strings.substring(currentGuestName, 0, 1)}"></span>
+					</a>
+				</div>
+			</div>
+			<a class="guest-nav-leave" th:href="@{/}" aria-label="Return to public site">Exit demo</a>
+		</div>
+	</nav>
+	<div class="guest-demo-banner">
+		<span class="fa-solid fa-flask" aria-hidden="true"></span>
+		Limited guest demo · workspace expires in <strong id="guest-countdown">60:00</strong>
+	</div>
+</header>
+
+<aside th:fragment="side-menu" id="side-menu" class="p-0">
+	<div id="side-menu-nav" class="navbar-dark bg-dark pt-5 side-nav">
+		<div class="navbar-nav ms-0">
+			<button type="button" class="mb-3" id="side-menu-toggle"
+				onclick="sideMenuToggle()" aria-label="Expand navigation" aria-expanded="false"
+				aria-controls="side-menu-nav">
+				<span class="fa-solid fa-bars" aria-hidden="true"></span>
+				<span class="fa-solid fa-caret-right" id="side-nav-arrow"></span>
+			</button>
+			<a class="nav-link side-nav-links dashboard-link"
+				th:classappend="${guestCurrentPage == 'dashboard'} ? 'side-nav-link-selected'"
+				th:href="@{/guest/dashboard}">
+				<span class="nav-icon mt-1 fa-solid fa-table-columns"></span>
+				<span class="side-nav-text mx-2">Dashboard</span>
+			</a>
+			<a class="nav-link side-nav-links scrum-board-link"
+				th:classappend="${guestCurrentPage == 'board'} ? 'side-nav-link-selected'"
+				th:href="@{/guest/board}">
+				<span class="nav-icon mt-1 fa-solid fa-chalkboard-user"></span>
+				<span class="side-nav-text mx-2">Agile Board</span>
+			</a>
+			<a class="nav-link side-nav-links todo-list-link"
+				th:classappend="${guestCurrentPage == 'connections'} ? 'side-nav-link-selected'"
+				th:href="@{/guest/connections}">
+				<span class="nav-icon mt-1 fa-solid fa-user-group"></span>
+				<span class="side-nav-text mx-2">Connections</span>
+			</a>
+			<hr class="side-nav-hr-line">
+			<span class="nav-link side-nav-links account-link guest-disabled-link" aria-disabled="true">
+				<span class="nav-icon mt-1 fa-solid fa-sliders"></span>
+				<span class="side-nav-text mx-2">Settings</span>
+			</span>
+		</div>
+	</div>
+</aside>
+
+<footer th:fragment="footer" class="guest-footer">
+	<span>Guest data is isolated from registered accounts and is removed when this demo expires.</span>
+	<form th:action="@{/guest/logout}" method="post">
+		<button class="btn btn-sm btn-outline-secondary" type="submit">Leave demo</button>
+	</form>
+	<div th:replace="fragments/confirmation-dialog :: confirmation-dialog"></div>
+</footer>
+</html>
