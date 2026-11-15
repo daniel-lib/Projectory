@@ -21,7 +21,7 @@ This is a project management web application built using Spring framework. The a
 - Kanban board: a way to manage tasks and projects in an organized and visual manner
 
 ## Screenshot
-![Projectory landing page](/src/main/resources/static/images/UI-Screenshot/readme-landingpage.png?raw=true "Landing Page")
+![Projectory landing page](/src/main/resources/static/images/UI-Screenshot/readme-lading-page-revamped.png?raw=true "Landing Page")
 -----
 ![Projectory user dashboard](/src/main/resources/static/images/UI-Screenshot/readme-dashboard1.png?raw=true "User Dashboard")
 ![Projectory user dashboard themes](/src/main/resources/static/images/UI-Screenshot/readme-dashboard-theme2.png?raw=true "user dashboard themes")
