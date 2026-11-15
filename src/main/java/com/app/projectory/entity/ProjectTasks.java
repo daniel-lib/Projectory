@@ -1,5 +1,6 @@
 package com.app.projectory.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,98 +10,91 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 public class ProjectTasks {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long taskId;
-	private String taskName;
-	private String taskDescription;
-	private String status;
-	private String deadline;
-	
-	// Nullable — 0 or null means unassigned. Using Long (boxed) so the DB column allows NULL.
-	private Long assignee;
-	
-	@JsonIgnore
-	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, 
-			fetch = FetchType.LAZY)
-	@JoinColumn(name = "project_id")
-	private Project containerProject;
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long taskId;
 
-		
-	public ProjectTasks() {
-		super();
-	}
+  private String taskName;
+  private String taskDescription;
+  private String status;
+  private String deadline;
 
-	public ProjectTasks(String taskName, String taskDescription) {
-		super();
-		this.taskName = taskName;
-		this.taskDescription = taskDescription;
-	}
+  // Nullable — 0 or null means unassigned. Using Long (boxed) so the DB column allows NULL.
+  private Long assignee;
 
-	
-	
+  @JsonIgnore
+  @ManyToOne(
+      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
+      fetch = FetchType.LAZY)
+  @JoinColumn(name = "project_id")
+  private Project containerProject;
 
-	public Project getContainerProject() {
-		return containerProject;
-	}
+  public ProjectTasks() {
+    super();
+  }
 
-	public void setContainerProject(Project containerProject) {
-		this.containerProject = containerProject;
-	}
+  public ProjectTasks(String taskName, String taskDescription) {
+    super();
+    this.taskName = taskName;
+    this.taskDescription = taskDescription;
+  }
 
-	public Long getTaskId() {
-		return taskId;
-	}
+  public Project getContainerProject() {
+    return containerProject;
+  }
 
-	public void setTaskId(long taskId) {
-		this.taskId = taskId;
-	}
+  public void setContainerProject(Project containerProject) {
+    this.containerProject = containerProject;
+  }
 
-	public String getTaskName() {
-		return taskName;
-	}
+  public Long getTaskId() {
+    return taskId;
+  }
 
-	public void setTaskName(String taskName) {
-		this.taskName = taskName;
-	}
+  public void setTaskId(long taskId) {
+    this.taskId = taskId;
+  }
 
-	public String getTaskDescription() {
-		return taskDescription;
-	}
+  public String getTaskName() {
+    return taskName;
+  }
 
-	public void setTaskDescription(String taskDescription) {
-		this.taskDescription = taskDescription;
-	}
-	
-	public String getStatus() {
-		return status;
-	}
+  public void setTaskName(String taskName) {
+    this.taskName = taskName;
+  }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+  public String getTaskDescription() {
+    return taskDescription;
+  }
 
-	public String getDeadline() {
-		return deadline;
-	}
+  public void setTaskDescription(String taskDescription) {
+    this.taskDescription = taskDescription;
+  }
 
-	public void setDeadline(String deadline) {
-		this.deadline = deadline;
-	}
+  public String getStatus() {
+    return status;
+  }
 
-	public Long getAssignee() {
-		return assignee;
-	}
+  public void setStatus(String status) {
+    this.status = status;
+  }
 
-	public void setAssignee(Long assignee) {
-		this.assignee = assignee;
-	}
-	
-	
+  public String getDeadline() {
+    return deadline;
+  }
+
+  public void setDeadline(String deadline) {
+    this.deadline = deadline;
+  }
+
+  public Long getAssignee() {
+    return assignee;
+  }
+
+  public void setAssignee(Long assignee) {
+    this.assignee = assignee;
+  }
 }

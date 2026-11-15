@@ -362,7 +362,7 @@ html.dark-mode body.public-content-page {
 
 body.public-content-page .containers {
 	min-height: calc(100vh - 5rem);
-	padding-top: 70px;
+	padding-top: 0;
 	background: var(--public-surface);
 	color: var(--public-ink);
 }
@@ -632,7 +632,7 @@ html.dark-mode body.public-site-page .login-signup-form .form-alternative-btn {
 
 @media (max-width: 680px) {
 	body.public-content-page .containers {
-		padding-top: 56px;
+		padding-top: 0;
 	}
 
 	body.public-content-page #features-area,

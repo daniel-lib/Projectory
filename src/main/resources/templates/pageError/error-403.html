@@ -1,16 +1,60 @@
 <!DOCTYPE html>
-<html xmlns="https://www.thymeleaf.org" class="dark-mode">
+<html xmlns:th="https://www.thymeleaf.org" class="dark-mode">
 
 <head th:replace="mainLayouts :: head"></head>
 
+<body class="public-site-page error-404-page">
+	<div class="error-404-shell">
+		<a class="error-404-brand" th:href="@{/}" aria-label="Projectory home">
+			<img th:src="@{/images/projectory-logo.png}" alt="" width="28" height="36">
+			<span>projectory</span>
+		</a>
 
-	<body class="public-site-page">
-		<div th:replace="mainLayouts::main-bottom-asset-imports"></div>
-		<header th:replace="mainLayouts :: public-nav"></header>
-		<br/>
-		<div class="mt-5 d-flex content-justify-center" >
-			<h3>You are not allowed to visit this page. You need to signin.</h3>
-		</div>
-	</body>
-	<div th:replace="mainLayouts::main-bottom-asset-imports2"></div>
+		<main class="error-404-content" aria-labelledby="error-page-title">
+			<section class="error-404-copy">
+				<p class="error-404-eyebrow"><span aria-hidden="true"></span> Access restricted</p>
+				<p class="error-404-code" aria-hidden="true">403</p>
+				<h1 id="error-page-title">This space is for signed-in members.</h1>
+				<p class="error-404-description">
+					You don’t have permission to visit this page. Sign in with an account that has access,
+					or return to Projectory and explore from there.
+				</p>
+				<div class="error-404-actions">
+					<a th:href="@{/}" class="error-404-home-link">
+						<span class="ti-arrow-left" aria-hidden="true"></span>
+						Back to home
+					</a>
+					<a th:href="@{/features}" class="error-404-secondary-link">Explore Projectory</a>
+				</div>
+			</section>
+
+			<div class="error-404-illustration" role="img" aria-label="A project workspace with restricted access">
+				<div class="error-404-orbit error-404-orbit-outer"></div>
+				<div class="error-404-orbit error-404-orbit-inner"></div>
+				<div class="error-404-map-line"></div>
+				<span class="error-404-map-node error-404-map-node-one"></span>
+				<span class="error-404-map-node error-404-map-node-two"></span>
+				<span class="error-404-map-node error-404-map-node-three"></span>
+				<div class="error-404-destination">
+					<span class="ti-lock" aria-hidden="true"></span>
+					<span>Members</span>
+				</div>
+				<div class="error-404-floating-card error-404-floating-card-top">
+					<span class="ti-check-box" aria-hidden="true"></span>
+					<span></span><span></span>
+				</div>
+				<div class="error-404-floating-card error-404-floating-card-bottom">
+					<span class="ti-layout-grid2" aria-hidden="true"></span>
+					<span></span><span></span>
+				</div>
+			</div>
+		</main>
+
+		<footer class="error-404-footer">
+			<span>Your workspace stays protected.</span>
+			<span>© Projectory</span>
+		</footer>
+	</div>
+</body>
+
 </html>

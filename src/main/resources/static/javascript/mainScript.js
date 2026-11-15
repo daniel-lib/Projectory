@@ -183,6 +183,7 @@ function hideNotificationBar() {
 }
 
 document.addEventListener('htmx:afterRequest', function(event) {
+	finishRequestButton(event.detail.elt);
 	const triggerHeader = event.detail.xhr.getResponseHeader('HX-Trigger');
 	if (triggerHeader && triggerHeader.charAt(0) === '{') {
 		const triggers = JSON.parse(triggerHeader);
@@ -190,6 +191,187 @@ document.addEventListener('htmx:afterRequest', function(event) {
 			toggleNotification(triggers.notify.type, triggers.notify.message);
 		}
 	}
+});
+
+let pendingAppConfirmationAction = null;
+
+function getAppConfirmationDialog() {
+	const dialog = document.getElementById('app-confirmation-dialog');
+	if (!(dialog instanceof HTMLDialogElement)) {
+		throw new Error('The shared confirmation dialog is missing from this page.');
+	}
+	return dialog;
+}
+
+function openAppConfirmation(options) {
+	if (!options || typeof options.onConfirm !== 'function') {
+		throw new TypeError('A confirmation action is required.');
+	}
+
+	const dialog = getAppConfirmationDialog();
+	if (dialog.open) {
+		closeAppConfirmation();
+	}
+
+	document.getElementById('app-confirmation-title').textContent = options.title || 'Confirm action';
+	document.getElementById('app-confirmation-message').textContent = options.message || '';
+	document.getElementById('app-confirmation-accept').textContent = options.confirmLabel || 'Continue';
+	pendingAppConfirmationAction = options.onConfirm;
+	dialog.showModal();
+}
+
+function closeAppConfirmation() {
+	pendingAppConfirmationAction = null;
+	getAppConfirmationDialog().close();
+}
+
+function acceptAppConfirmation() {
+	const action = pendingAppConfirmationAction;
+	pendingAppConfirmationAction = null;
+	getAppConfirmationDialog().close();
+	if (action) {
+		action();
+	}
+}
+
+function openSignOutConfirmation() {
+	openAppConfirmation({
+		title: 'Sign out?',
+		message: 'Are you sure you want to sign out?',
+		confirmLabel: 'Sign out',
+		onConfirm: function() {
+			const form = document.getElementById('sign-out-form');
+			if (!(form instanceof HTMLFormElement)) {
+				throw new Error('The sign-out form is missing from this page.');
+			}
+			form.requestSubmit();
+		}
+	});
+}
+
+const appConfirmationDialog = document.getElementById('app-confirmation-dialog');
+if (appConfirmationDialog) {
+	appConfirmationDialog.addEventListener('cancel', function() {
+		pendingAppConfirmationAction = null;
+	});
+}
+
+// Replace HTMX's native confirm prompt with the shared in-app dialog.
+document.addEventListener('htmx:confirm', function(event) {
+	if (!event.detail.question) {
+		return;
+	}
+
+	event.preventDefault();
+	if (typeof event.detail.issueRequest !== 'function') {
+		throw new Error('HTMX confirmation is missing its request callback.');
+	}
+
+	const source = event.target instanceof HTMLElement ? event.target : null;
+	openAppConfirmation({
+		title: source && source.dataset.confirmTitle || 'Confirm action',
+		message: event.detail.question,
+		confirmLabel: source && source.dataset.confirmLabel || 'Continue',
+		onConfirm: function() {
+			event.detail.issueRequest(true);
+		}
+	});
+});
+
+const requestButtonStates = new WeakMap();
+const requestButtonsBySource = new WeakMap();
+
+function getRequestButton(event) {
+	const source = event.detail.elt;
+	if (source instanceof HTMLButtonElement) {
+		return source;
+	}
+
+	const submitter = event.detail.triggeringEvent && event.detail.triggeringEvent.submitter;
+	if (submitter instanceof HTMLButtonElement) {
+		return submitter;
+	}
+
+	if (source instanceof HTMLFormElement) {
+		const buttons = source.querySelectorAll('button[type="submit"], button:not([type])');
+		if (buttons.length === 1) {
+			return buttons[0];
+		}
+	}
+	return null;
+}
+
+function showRequestButtonLoading(button, source) {
+	if (!button) {
+		return;
+	}
+
+	if (source) {
+		requestButtonsBySource.set(source, button);
+	}
+	if (requestButtonStates.has(button)) {
+		return;
+	}
+
+	const spinner = document.createElement('span');
+	spinner.className = 'request-button-spinner';
+	spinner.setAttribute('aria-hidden', 'true');
+	requestButtonStates.set(button, {
+		spinner: spinner,
+		wasDisabled: button.disabled,
+		ariaBusy: button.getAttribute('aria-busy')
+	});
+	button.prepend(spinner);
+	button.disabled = true;
+	button.setAttribute('aria-busy', 'true');
+}
+
+function startRequestButton(event) {
+	showRequestButtonLoading(getRequestButton(event), event.detail.elt);
+}
+
+document.addEventListener('submit', function(event) {
+	if (event.defaultPrevented || !(event.target instanceof HTMLFormElement)) {
+		return;
+	}
+	const form = event.target;
+	const submitter = event.submitter;
+	const htmxRequest = form.matches('[hx-get], [hx-post], [hx-put], [hx-delete], [hx-patch]')
+		|| (submitter instanceof HTMLElement
+			&& submitter.matches('[hx-get], [hx-post], [hx-put], [hx-delete], [hx-patch]'));
+	if (!htmxRequest && submitter instanceof HTMLButtonElement) {
+		showRequestButtonLoading(submitter);
+	}
+});
+
+function finishRequestButton(source) {
+	const button = requestButtonsBySource.get(source)
+		|| (source instanceof HTMLButtonElement ? source : null);
+	if (!button) {
+		return;
+	}
+	const state = requestButtonStates.get(button);
+	if (!state) {
+		return;
+	}
+
+	state.spinner.remove();
+	button.disabled = state.wasDisabled;
+	if (state.ariaBusy === null) {
+		button.removeAttribute('aria-busy');
+	} else {
+		button.setAttribute('aria-busy', state.ariaBusy);
+	}
+	requestButtonStates.delete(button);
+	requestButtonsBySource.delete(source);
+}
+
+document.addEventListener('htmx:beforeRequest', startRequestButton);
+document.addEventListener('htmx:sendError', function(event) {
+	finishRequestButton(event.detail.elt);
+});
+document.addEventListener('htmx:timeout', function(event) {
+	finishRequestButton(event.detail.elt);
 });
 
 document.addEventListener('htmx:configRequest', function(event) {

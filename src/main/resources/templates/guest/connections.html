@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="dark-mode">
+<head th:replace="guest/layout :: head"></head>
+<body class="has-side-menu guest-app">
+	<script>
+		try {
+			if (localStorage.getItem("projectory-side-menu-state") === "expanded") {
+				document.body.classList.add("side-menu-expanded");
+			}
+		} catch (error) {
+			console.warn("Could not restore the guest sidebar state.", error);
+		}
+	</script>
+	<header th:replace="guest/layout :: nav"></header>
+	<main class="main-content-container guest-main">
+		<section class="dashboard-area d-flex">
+			<aside th:replace="guest/layout :: side-menu"></aside>
+			<div class="flex-grow-1">
+				<div class="guest-page-heading">
+					<div>
+						<span class="guest-page-kicker">YOUR NETWORK</span>
+						<h1 class="h2">Connections</h1>
+						<p class="text-body-secondary mb-0">In the guest demo, you can connect with the other participant in your workspace.</p>
+					</div>
+				</div>
+				<section class="guest-section-card">
+					<div class="guest-section-title">
+						<div>
+							<p class="guest-page-kicker mb-1">WORKSPACE PEOPLE</p>
+							<h2 class="h4 mb-0">Teammates</h2>
+						</div>
+					</div>
+					<div th:each="person : ${guestData.participants}" class="guest-person-row">
+						<a class="guest-person-link d-flex align-items-center gap-2 flex-grow-1"
+							th:href="@{/guest/profile/{participantId}(participantId=${person.participantId})}">
+							<span class="guest-person-avatar"
+								th:classappend="${person.participantId == currentGuestId} ? 'guest-person-avatar-you'"
+								th:text="${#strings.substring(person.displayName, 0, 1)}"></span>
+							<span>
+								<strong class="d-block" th:text="${person.displayName}"></strong>
+								<span class="small text-body-secondary"
+									th:text="${person.participantId == currentGuestId ? 'You · Guest participant' : 'Guest teammate'}"></span>
+							</span>
+						</a>
+						<span th:if="${person.participantId != currentGuestId}"
+							class="fa-solid fa-arrow-up-right-from-square small text-body-secondary" aria-hidden="true"></span>
+					</div>
+					<form th:if="${guestData.participants.size() == 2 and guestData.connections.isEmpty()}"
+						th:action="@{/guest/connection/request}" method="post" class="mt-3">
+						<button class="btn btn-primary-golden btn-sm" type="submit">
+							<span class="fa-solid fa-user-plus me-1"></span>Send connection request
+						</button>
+					</form>
+					<div th:each="connection : ${guestData.connections}" class="guest-person-row">
+						<div class="flex-grow-1">
+							<strong>
+								<span th:each="person : ${guestData.participants}"
+									th:if="${person.participantId == connection.senderId}" th:text="${person.displayName}"></span>
+								→
+								<span th:each="person : ${guestData.participants}"
+									th:if="${person.participantId == connection.receiverId}" th:text="${person.displayName}"></span>
+							</strong>
+							<span class="text-body-secondary small d-block" th:text="|Status: ${connection.status}|"></span>
+						</div>
+						<form th:if="${connection.receiverId == currentGuestId and connection.status == 'pending'}"
+							th:action="@{/guest/connection/respond}" method="post" class="d-flex gap-1">
+							<input type="hidden" name="connectionId" th:value="${connection.connectionId}">
+							<button class="btn btn-sm btn-success" name="accept" value="true" type="submit">Accept</button>
+							<button class="btn btn-sm btn-outline-secondary" name="accept" value="false" type="submit">Decline</button>
+						</form>
+					</div>
+				</section>
+			</div>
+		</section>
+	</main>
+	<footer th:replace="guest/layout :: footer"></footer>
+	<script th:inline="javascript">
+		(function () {
+			const expiresAt = /*[[${guestData.workspace.expiresAt.toEpochMilli()}]]*/ 0;
+			const countdown = document.getElementById("guest-countdown");
+			function updateGuestCountdown() {
+				const remaining = Math.max(0, Math.floor((expiresAt - Date.now()) / 1000));
+				countdown.textContent = Math.floor(remaining / 60) + ":" + String(remaining % 60).padStart(2, "0");
+				if (remaining === 0) window.location.replace("/?guest_expired");
+			}
+			updateGuestCountdown();
+			window.setInterval(updateGuestCountdown, 1000);
+		})();
+	</script>
+</body>
+</html>

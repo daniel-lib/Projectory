@@ -1,0 +1,12 @@
+<dialog th:fragment="confirmation-dialog" id="app-confirmation-dialog"
+	class="app-confirmation-dialog" aria-labelledby="app-confirmation-title"
+	aria-describedby="app-confirmation-message">
+	<h2 id="app-confirmation-title" class="confirmation-modal-header">Confirm action</h2>
+	<p id="app-confirmation-message" class="confirmation-modal-body"></p>
+	<div class="confirmation-modal-btn-container">
+		<button type="button" id="app-confirmation-accept" class="confirmation-modal-btn"
+			onclick="acceptAppConfirmation()">Continue</button>
+		<button type="button" class="confirmation-modal-btn" autofocus
+			onclick="closeAppConfirmation()">Cancel</button>
+	</div>
+</dialog>

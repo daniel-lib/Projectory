@@ -7,15 +7,18 @@
 	</span>
 
 	<div class="d-flex justify-content-around flex-wrap">
-		<div th:each="project : ${projects}" class="project-modal-boxes-container mb-5"
-			x-data="{ expanded: false, taskFormOpen: false, membersOpen: false, addMembersOpen: false }">
-			<button type="button" class="float-end top-dangling-x-btn fa-solid fa-expand"
-				title="Expand" aria-label="Expand project"
-				@click="expanded = !expanded"></button>
+		<div th:each="project, projectStat : ${projects}" class="project-modal-boxes-container mb-5"
+			x-data="{ expanded: false, taskFormOpen: false, membersOpen: false }"
+			@project-list-expand.window="expanded = $event.detail === $el">
+			<button type="button" class="float-end top-dangling-x-btn fa-solid"
+				:class="{ 'fa-expand': !expanded, 'fa-compress': expanded }"
+				:title="expanded ? 'Collapse project' : 'Expand project'"
+				:aria-label="expanded ? 'Collapse project' : 'Expand project'"
+				@click="toggleProjectCardExpanded($el.closest('.project-modal-boxes-container'))"></button>
 
 			<div class="project-modal-boxes-default pt-3 float-none p-1 project-modal-boxes"
 				:class="expanded ? 'project-modal-boxes-expanded' : 'project-modal-boxes-default'">
-				<div class="d-flex justify-content-between">
+				<div class="project-modal-header d-flex justify-content-between">
 					<span class="project-owner-indicator info-tag-dark info-tag-dark-sm float-start">
 						<span class="fa-solid fa-user-tie"></span> Project owner:
 						<a th:if="${project.projectOwnerUsername == currentUserDetail.username}"
@@ -25,30 +28,25 @@
 							class="no-text-decoration" th:text="${project.projectOwnerUsername}"></a>
 					</span>
 
-					<div class="project-owner-indicator info-tag-dark info-tag-dark-sm d-flex me-1 fs-15">
+					<div class="project-members-badge project-owner-indicator info-tag-dark info-tag-dark-sm d-flex me-1 fs-15">
 						<span><span class="fa-solid fa-users"></span> Members: &nbsp;</span>
-						<div class="btn-group btn-group-sm project-owner-indicator info-tag-dark info-tag-dark-sm float-end fs-8 p-0">
-							<button type="button"
-								class="btn btn-success minimalist-btn minimalist-btn-lighter minimalist-btn-lighter2 btn-sm dropdown-toggle m-0 p-0 px-1 fs-8"
-								@click="membersOpen = !membersOpen"
-								th:attr="hx-get=@{/project/fragment/members(project=${project.projectId})}, hx-target=|#member-list-${project.projectId}|"
-								hx-trigger="click once, projectMembersChanged from:body" hx-swap="innerHTML"
-								aria-expanded="false">
-								<span th:text="${#lists.size(projectMembers[project.projectId])}"></span>
-							</button>
-							<ul class="dropdown-menu" style="z-index: 1002;" x-show="membersOpen"
-								x-cloak
-								th:id="|member-list-${project.projectId}|"
-								th:attr="hx-get=@{/project/fragment/members(project=${project.projectId})}"
-								hx-trigger="projectMembersChanged from:body" hx-swap="innerHTML"></ul>
-						</div>
+						<button type="button"
+							class="btn btn-success minimalist-btn minimalist-btn-lighter minimalist-btn-lighter2 btn-sm m-0 p-0 px-1 fs-8"
+							th:attr="data-project-id=${project.projectId}"
+							onclick="openProjectMemberPicker(this.dataset.projectId)"
+							title="Manage project members">
+							<span class="project-member-count"
+								th:id="|project-member-count-${project.projectId}|"
+								th:text="${#lists.size(projectMembers[project.projectId])}"></span>
+						</button>
 					</div>
 				</div>
 
 				<div class="project-modal-inner-content-container d-flex flex-wrap justify-content-around p-2">
 					<div class="project-modal-boxes-inner p-1 my-2 mx-2 align-self-start flex-fill"
 						style="display: block;" th:id="${project.projectId}">
-						<span class="badge text-bg-warning itemNumber ti-clipboard pe-0">&nbsp;</span>
+						<span class="badge text-bg-warning itemNumber pe-2"
+							th:text="${projectStat.count} +' '"> </span> 
 						<span>&nbsp; <span th:text="${project.title}"></span></span>
 						<br>
 						<span class="fw-lighter" th:text="${project.description}"></span>
@@ -65,24 +63,17 @@
 							</button>
 							<button type="button"
 								class="minimalist-btn minimalist-btn-blk-bg minimalist-btn-rounded add-project-members-button btn-sm"
-								@click="addMembersOpen = !addMembersOpen"
-								th:attr="hx-get=@{/user/fragment/connection-list(project=${project.projectId})}, hx-target=|#add-member-list-container-${project.projectId}|"
-								hx-trigger="click once, projectMembersChanged from:body" hx-swap="innerHTML">
+								th:attr="data-project-id=${project.projectId}"
+								onclick="openProjectMemberPicker(this.dataset.projectId)">
 								<span class="fa-solid fa-user-plus"></span>
 								<span class="add-project-members-btn-text">Add Members</span>
 							</button>
 						</div>
 
-						<div class="add-project-member-list-container custom-scrollbar-style-2 overflow-ver-scroll"
-							x-show="addMembersOpen" x-cloak
-							th:id="|add-member-list-container-${project.projectId}|"
-							th:attr="hx-get=@{/user/fragment/connection-list(project=${project.projectId})}"
-							hx-trigger="projectMembersChanged from:body" hx-swap="innerHTML"></div>
-
 						<form class="add-project-task-form mt-2"
 							x-show="taskFormOpen" x-cloak
 							th:attr="hx-post=@{/project/add-project-task}"
-							hx-swap="none" hx-on::after-request="this.reset()">
+							hx-swap="none" hx-on::after-request="if (event.detail.successful) this.reset()">
 							<input type="hidden" name="project" th:value="${project.projectId}">
 							<input type="text" name="title" placeholder="Task title"
 								class="form-control form-control-sm mb-1 task-title" required>
@@ -124,6 +115,9 @@
 											<span class="ms-5 task-owner pe-5" th:if="${task.assigneeUsername == null}">...</span>
 											<button type="button" class="fa-solid fa-trash-can btn btn-danger ms-1 fs-10 p-1 me-2"
 												th:attr="hx-post=@{/project/task/delete/{taskId}(taskId=${task.taskId})}"
+												data-confirm-title="Delete task?"
+												data-confirm-label="Delete task"
+												hx-confirm="Delete this task? This action cannot be undone."
 												hx-swap="none" aria-label="Delete task"></button>
 											<span class="ms-5 d-block"
 												th:classappend="${task.status + '-stage'}"
@@ -142,6 +136,9 @@
 							class="badge text-bg-danger delete-single-item-btn delete-single-item-btn-1"
 							title="Delete Project"
 							th:attr="hx-post=@{/project/delete(project=${project.projectId})}"
+							data-confirm-title="Delete project?"
+							data-confirm-label="Delete project"
+							hx-confirm="Delete this project and all of its tasks? This action cannot be undone."
 							hx-swap="none">
 							<span class="fa-solid fa-trash-can"></span> Delete Project
 						</button>
@@ -208,6 +205,9 @@
 				<span class="ms-5 task-owner pe-5" th:if="${task.assigneeUsername == null}">...</span>
 				<button type="button" class="fa-solid fa-trash-can btn btn-danger ms-1 fs-10 p-1 me-2"
 					th:attr="hx-post=@{/project/task/delete/{taskId}(taskId=${task.taskId})}"
+					data-confirm-title="Delete task?"
+					data-confirm-label="Delete task"
+					hx-confirm="Delete this task? This action cannot be undone."
 					hx-swap="none" aria-label="Delete task"></button>
 				<span class="ms-5 d-block" th:classappend="${task.status + '-stage'}"
 					th:text="${task.status}"></span>
@@ -232,6 +232,30 @@
 </th:block>
 
 <th:block th:fragment="add-member-checkbox-list">
+	<section class="project-member-picker-section">
+		<h3 class="h6">Current members</h3>
+		<div th:each="member : ${projectMembers}"
+			class="d-flex justify-content-between align-items-center add-project-member-list-item-box project-current-member">
+			<span>
+				<span class="d-block"
+					th:text="${member.firstName + ' ' + member.lastName}"></span>
+				<span class="d-block fs-10 cadetblue">
+					@<span th:text="${member.username}"></span>
+				</span>
+			</span>
+			<button th:if="${member.projectOwnerUserId != member.projectMemberUserId}" type="button"
+				class="btn btn-sm btn-outline-danger"
+				th:attr="hx-post=@{/project/removeProjectMember(project=${projectId},user=${member.username})}"
+				hx-swap="none" aria-label="Remove member from project">
+				Remove
+			</button>
+			<span th:if="${member.projectOwnerUserId == member.projectMemberUserId}"
+				class="badge text-bg-secondary">Owner</span>
+		</div>
+	</section>
+
+	<section class="project-member-picker-section mt-3">
+		<h3 class="h6">Add from your connections</h3>
 	<label th:each="connection : ${connectionsList}"
 		class="d-flex justify-content-between add-project-member-list-item-box">
 		<span>
@@ -249,6 +273,7 @@
 	<span th:if="${#lists.isEmpty(connectionsList)}" class="d-block p-2 text-muted">
 		No connections available to add.
 	</span>
+	</section>
 </th:block>
 
 <div th:fragment="project-list-modal-content" id="project-list-modal-content" class="modal-inner-content">
@@ -282,9 +307,9 @@
 	<div class="card-body p-1">
 		<p class="card-text fw-lighter item-count-check" th:text="${projectCount}"></p>
 		<div class="dashboard-card-content-container-inner m-0 custom-scrollbar-style-3">
-			<div th:each="proj : ${project}">
+			<div th:each="proj, projectStat : ${project}">
 				<div th:id="${proj.projectId}" class="dashboard-card-content-items m-1 p-1">
-					<span class="badge text-bg-warning itemNumber">0</span>
+					<span class="badge text-bg-warning itemNumber" th:text="${projectStat.count}"></span>
 					<span th:text="${proj.title}"></span><br>
 					<span th:text="${proj.description}"
 						class="fw-lighter dashboard-card-content-description p-1 ps-2 d-block"></span>

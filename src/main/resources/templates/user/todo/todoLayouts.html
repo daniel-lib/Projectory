@@ -17,17 +17,6 @@
 		<div th:replace="user/todo/todoLayouts :: todo-collection-list"></div>
 	</div>
 
-	<dialog id="delete-todo-collection-confirmation" class="todo-collection-confirmation"
-		aria-labelledby="delete-todo-collection-title">
-		<h2 id="delete-todo-collection-title">Delete collection?</h2>
-		<p>This will permanently delete the collection and all of its todo items.</p>
-		<div class="todo-collection-confirmation-actions">
-			<button type="button" class="collection-action-btn collection-action-delete"
-				onclick="confirmDeleteTodoCollection()">Delete collection</button>
-			<button type="button" class="collection-action-btn collection-action-cancel"
-				onclick="document.getElementById('delete-todo-collection-confirmation').close()">Cancel</button>
-		</div>
-	</dialog>
 </div>
 <!--todo display modal end-->
 

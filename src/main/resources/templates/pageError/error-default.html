@@ -1,21 +1,63 @@
 <!DOCTYPE html>
-<html xmlns="https://www.thymeleaf.org" class="dark-mode">
+<html xmlns:th="https://www.thymeleaf.org" class="dark-mode">
 
 <head th:replace="mainLayouts :: head"></head>
 
-<body>
-<div th:replace="mainLayouts::main-bottom-asset-imports"></div>
-	<!--<header th:replace="mainLayouts :: nav"></header>-->
-	<br />
-	<div class="containers error-page-container">
-		<div class="mt-5 text-center">
-			<img th:src = "@{/images/projectory-logo-full.png}">
-			<h4 th:text="${errorCode}"></h4>
-			<h3>Something went wrong</h3>
-			<a th:href="@{/}" class="minimalist-btn fs-16 no-text-decoration">Take me to safety</a>
-		</div>
+<body class="public-site-page error-404-page">
+	<div class="error-404-shell">
+		<a class="error-404-brand" th:href="@{/}" aria-label="Projectory home">
+			<img th:src="@{/images/projectory-logo.png}" alt="" width="28" height="36">
+			<span>projectory</span>
+		</a>
+
+		<main class="error-404-content" aria-labelledby="error-page-title">
+			<section class="error-404-copy">
+				<p class="error-404-eyebrow"><span aria-hidden="true"></span> Something went wrong</p>
+				<p class="error-404-code" aria-hidden="true" th:text="${errorCode != null ? errorCode : 'Error'}">Error</p>
+				<h1 id="error-page-title"
+					th:text="${errorCode == 405 ? 'This action is not available here.' : 'An unexpected detour interrupted your work.'}">
+					An unexpected detour interrupted your work.
+				</h1>
+				<p class="error-404-description"
+					th:text="${errorCode == 405 ? 'The requested action is not supported on this page. Return to your workspace and try another route.' : 'The page could not be loaded right now. You can head back home and continue from there.'}">
+					The page could not be loaded right now. You can head back home and continue from there.
+				</p>
+				<div class="error-404-actions">
+					<a th:href="@{/}" class="error-404-home-link">
+						<span class="ti-arrow-left" aria-hidden="true"></span>
+						Back to home
+					</a>
+					<a th:href="@{/features}" class="error-404-secondary-link">Explore Projectory</a>
+				</div>
+			</section>
+
+			<div class="error-404-illustration" role="img" aria-label="A project workflow taking an unexpected detour">
+				<div class="error-404-orbit error-404-orbit-outer"></div>
+				<div class="error-404-orbit error-404-orbit-inner"></div>
+				<div class="error-404-map-line"></div>
+				<span class="error-404-map-node error-404-map-node-one"></span>
+				<span class="error-404-map-node error-404-map-node-two"></span>
+				<span class="error-404-map-node error-404-map-node-three"></span>
+				<div class="error-404-destination">
+					<span class="ti-alert" aria-hidden="true"></span>
+					<span>Try again</span>
+				</div>
+				<div class="error-404-floating-card error-404-floating-card-top">
+					<span class="ti-check-box" aria-hidden="true"></span>
+					<span></span><span></span>
+				</div>
+				<div class="error-404-floating-card error-404-floating-card-bottom">
+					<span class="ti-layout-grid2" aria-hidden="true"></span>
+					<span></span><span></span>
+				</div>
+			</div>
+		</main>
+
+		<footer class="error-404-footer">
+			<span>We’ll help you get back on track.</span>
+			<span>© Projectory</span>
+		</footer>
 	</div>
-	<div th:replace="mainLayouts::main-bottom-asset-imports2"></div>
 </body>
 
 </html>

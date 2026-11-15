@@ -37,6 +37,7 @@
 	<script src="/javascript/todoListScript.js" defer></script>
 	<script src="/javascript/dashboard-script.js" defer></script>
 	<script src="/javascript/mainScript.js" defer></script>
+	<script src="/javascript/visitorTracking.js" defer></script>
 	<script src="/javascript/project-script.js" defer></script>
 	<script src="/javascript/login-info-fetch.js" defer></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -192,23 +193,9 @@
 							<hr />
 
 							<span role="button" class="sign-out-btn top-menu-link text-center d-block"
-								onClick="document.querySelector('#sign-out-confirmation-modal').showModal()">
+								onClick="openSignOutConfirmation()">
 								<span class="fa-solid fa-right-from-bracket pe-2"></span>Sign out</span>
-
-							<dialog id="sign-out-confirmation-modal" th:fragment="confirmation-modal">
-								<h2 class="confirmation-modal-header">Are you sure you want to signout?</h2>
-								<!--<p class="confirmation-modal-body">Click No to cancel, Yes to sign out</p>-->
-								<div class="confirmation-modal-btn-container">
-									<form th:action="@{/logout}" method="post" class="d-inline">
-										<button type="submit" class="confirmation-modal-btn confirm-signout-btn">
-											<span class="fa-solid fa-right-from-bracket pe-2"></span>Sign
-											out</span></button>
-									</form>
-									<button class="confirmation-modal-btn cancel-signout-btn"
-										onClick="document.getElementById('sign-out-confirmation-modal').close()">Cancel</button>
-								</div>
-							</dialog>
-
+							<form id="sign-out-form" th:action="@{/logout}" method="post" class="d-none"></form>
 
 						</div>
 					</div>
@@ -272,24 +259,7 @@
 
 	<!--<button class="modal-trigger" data-modal-open>Modal Test</button>-->
 
-	<dialog id="confirmation-modal" th:fragment="confirmation-modal">
-		<h2 class="confirmation-modal-header">Are you sure?</h2>
-		<p class="confirmation-modal-body">Click No to cancel, Yes to continue with the action</p>
-		<div class="confirmation-modal-btn-container">
-			<button class="confirmation-modal-btn">Yes</button>
-			<button class="confirmation-modal-btn" data-close>No</button>
-		</div>
-	</dialog>
-
-	<dialog id="unfriend-confirmation-modal" aria-labelledby="unfriend-confirmation-title">
-		<h2 id="unfriend-confirmation-title" class="confirmation-modal-header">Remove this connection?</h2>
-		<p class="confirmation-modal-body">They will be removed from your connections. You can send a new request later.</p>
-		<div class="confirmation-modal-btn-container">
-			<button type="button" class="confirmation-modal-btn" onclick="confirmUnfriend()">Yes, unfriend</button>
-			<button type="button" class="confirmation-modal-btn cancel-signout-btn"
-				onclick="document.getElementById('unfriend-confirmation-modal').close()">Cancel</button>
-		</div>
-	</dialog>
+	<div th:replace="fragments/confirmation-dialog :: confirmation-dialog"></div>
 
 	<a href="#" class="go-to-top-btn"><span role="button" class="fa-solid fa-caret-up"></span></a>
 

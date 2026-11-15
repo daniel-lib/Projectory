@@ -45,6 +45,7 @@ function displayViewingModal(contentType) {
 	const modalContainer = document.getElementById("viewing-modal-container");
 	const contents = [document.getElementById("todo-list-modal-content"), document.getElementById("project-list-modal-content")];
 
+	collapseExpandedProjectCard();
 	modalContainer.style.visibility = "visible";
 	modalContainer.style.opacity = "1";
 
@@ -97,10 +98,106 @@ function displayViewingModal(contentType) {
 	};
 
 }
+
+const expandedProjectCardOrigins = new WeakMap();
+
+function toggleProjectCardExpanded(projectCard) {
+	const isExpanded = expandedProjectCardOrigins.has(projectCard);
+	document.dispatchEvent(new CustomEvent("project-list-expand", {
+		detail: isExpanded ? null : projectCard,
+		bubbles: true
+	}));
+}
+
+function setProjectCardExpanded(projectCard, expanded) {
+	const overlay = document.getElementById("project-expanded-overlay");
+	if (!overlay) return;
+
+	if (expanded && !expandedProjectCardOrigins.has(projectCard)) {
+		const placeholder = document.createComment("project card position");
+		projectCard.parentNode.insertBefore(placeholder, projectCard);
+		expandedProjectCardOrigins.set(projectCard, { placeholder });
+		overlay.appendChild(projectCard);
+		overlay.classList.add("is-open");
+		overlay.setAttribute("aria-hidden", "false");
+	} else if (!expanded && expandedProjectCardOrigins.has(projectCard)) {
+		const { placeholder } = expandedProjectCardOrigins.get(projectCard);
+		if (placeholder.isConnected) {
+			placeholder.parentNode.insertBefore(projectCard, placeholder);
+			placeholder.remove();
+		} else {
+			const projectList = document.querySelector(
+				"#projects-holder-container #project-list-table-content .d-flex.justify-content-around.flex-wrap");
+			if (projectList) projectList.appendChild(projectCard);
+		}
+		projectCard.classList.remove("project-modal-boxes-container-expanded");
+		expandedProjectCardOrigins.delete(projectCard);
+		overlay.classList.remove("is-open");
+		overlay.setAttribute("aria-hidden", "true");
+	}
+
+	if (expanded) projectCard.classList.add("project-modal-boxes-container-expanded");
+}
+
+document.addEventListener("project-list-expand", function(event) {
+	const projectCards = Array.from(document.querySelectorAll(".project-modal-boxes-container"));
+	projectCards.forEach(function(projectCard) {
+		if (projectCard !== event.detail) setProjectCardExpanded(projectCard, false);
+	});
+	if (event.detail && projectCards.includes(event.detail)) {
+		setProjectCardExpanded(event.detail, true);
+	}
+});
+
+function collapseExpandedProjectCard() {
+	document.dispatchEvent(new CustomEvent("project-list-expand", { detail: null, bubbles: true }));
+}
+
+function openProjectMemberPicker(projectId) {
+	const picker = document.getElementById("project-members-picker");
+	picker.dataset.projectId = projectId;
+	picker.classList.add("is-open");
+	picker.setAttribute("aria-hidden", "false");
+	loadProjectMemberPicker(projectId);
+}
+
+function loadProjectMemberPicker(projectId) {
+	const list = document.getElementById("project-members-picker-list");
+	list.innerHTML = '<span class="text-muted">Loading connections...</span>';
+	htmx.ajax("GET", "/user/fragment/connection-list?project=" + encodeURIComponent(projectId), {
+		target: "#project-members-picker-list",
+		swap: "innerHTML"
+	});
+}
+
+function closeProjectMemberPicker() {
+	const picker = document.getElementById("project-members-picker");
+	picker.classList.remove("is-open");
+	picker.setAttribute("aria-hidden", "true");
+}
+
+document.body.addEventListener("projectChanged", collapseExpandedProjectCard);
+document.body.addEventListener("projectMembersChanged", function() {
+	const picker = document.getElementById("project-members-picker");
+	if (picker.classList.contains("is-open")) {
+		loadProjectMemberPicker(picker.dataset.projectId);
+	}
+});
+
+document.body.addEventListener("htmx:afterSwap", function(event) {
+	if (!event.detail.target || event.detail.target.id !== "project-members-picker-list") return;
+	const picker = document.getElementById("project-members-picker");
+	const count = event.detail.target.querySelectorAll(".project-current-member").length;
+	const badgeCount = document.getElementById("project-member-count-" + picker.dataset.projectId);
+	if (badgeCount) badgeCount.textContent = String(count);
+});
+
 function closeViewingModal() {
 
 	//change the state of "Create Project" button to default state
 	//createItemButtonToDefault();
+	collapseExpandedProjectCard();
+	closeProjectMemberPicker();
 	const projectForm = document.getElementById("add-project-form");
 	const createProjectBtn = document.getElementsByClassName("create-project-btn");
 	projectForm.style.height = 0;
@@ -135,24 +232,6 @@ function closeViewingModal() {
 	document.body.classList.remove('modal-open-body');
 }
 
-/*
-//confirmation modal
-const openBtn = document.querySelector("[data-modal-open]");
-const closeBtn = document.querySelector("[data-close]");
-const modal = document.querySelector("#confirmation-modal");
-const signoutModal = document.querySelector("#sign-out-confirmation-modal");
-
-// Open the modal when the button is clicked
-openBtn.addEventListener("click", () => {
-		modal.showModal();
-});
-// Close the modal when the close button is clicked
-closeBtn.addEventListener("click", () => {
-	modal.close();
-});
-
-*/
-
 function sideMenuToggle() {
 
 	const toggle = document.querySelector("#side-menu-toggle");
@@ -161,24 +240,20 @@ function sideMenuToggle() {
 	setSideMenuExpanded(isCollapsed, true);
 }
 
-let pendingUnfriendUrl = null;
 function openUnfriendConfirmation(button) {
-	pendingUnfriendUrl = button.dataset.unfriendUrl;
-	const dialog = document.getElementById("unfriend-confirmation-modal");
-	if (pendingUnfriendUrl && dialog) {
-		dialog.showModal();
-	}
-}
-
-function confirmUnfriend() {
-	if (!pendingUnfriendUrl) {
+	const url = button.dataset.unfriendUrl;
+	if (!url) {
 		return;
 	}
 
-	const url = pendingUnfriendUrl;
-	pendingUnfriendUrl = null;
-	document.getElementById("unfriend-confirmation-modal").close();
-	htmx.ajax("POST", url, { target: "#connections-panel", swap: "none" });
+	openAppConfirmation({
+		title: "Remove this connection?",
+		message: "They will be removed from your connections. You can send a new request later.",
+		confirmLabel: "Yes, unfriend",
+		onConfirm: function() {
+			htmx.ajax("POST", url, { target: "#connections-panel", swap: "none" });
+		}
+	});
 }
 
 function setSideMenuExpanded(expanded, persist) {

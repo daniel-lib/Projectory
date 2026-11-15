@@ -11,6 +11,24 @@
 					<div th:replace="user/todo/todoLayouts :: todo-list-modal-content"></div>
 					<div th:replace="user/project/project-layouts :: project-list-modal-content"></div>
 				</div>
+				<div id="project-expanded-overlay" class="project-expanded-overlay" aria-hidden="true"
+					onclick="if (event.target === this) collapseExpandedProjectCard()"></div>
+				<div id="project-members-picker" class="project-members-picker" aria-hidden="true"
+					onclick="if (event.target === this) closeProjectMemberPicker()">
+					<section class="project-members-picker-dialog" role="dialog" aria-modal="true"
+						aria-labelledby="project-members-picker-title">
+						<header class="d-flex justify-content-between align-items-center mb-3">
+							<h2 id="project-members-picker-title" class="h5 mb-0">Add members from your connections</h2>
+							<button type="button" class="btn btn-sm btn-outline-secondary"
+								onclick="closeProjectMemberPicker()" aria-label="Close member picker">
+								<span class="fa-solid fa-xmark" aria-hidden="true"></span>
+							</button>
+						</header>
+						<div id="project-members-picker-list" class="project-members-picker-list">
+							<span class="text-muted">Loading connections...</span>
+						</div>
+					</section>
+				</div>
 			</div>
 		</div>
 
